@@ -1,18 +1,18 @@
 # Hexo Configuration
-## Docs: http://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
+## Docs: http://zespia.tw/hexo/docs/configure.html
+## Source: https://github.com/tommy351/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-author: John Doe
-language:
-timezone:
+title: Justbilt
+subtitle: A game developer
+description: A game developer
+author: bilt
+email: wht407574060@163.com
+language: zh-CN
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://post.justbilt.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -28,7 +28,7 @@ i18n_dir: :lang
 skip_render:
 
 # Writing
-new_post_name: :title.md # File name of new posts
+new_post_name: :year-:month-:day-:title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
@@ -66,5 +66,7 @@ theme: RagingCat
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
-deploy:
-  type:
+deploy:  
+  type: github
+  repository: https://github.com/justbilt/justbilt.github.io.git
+  branch: master
