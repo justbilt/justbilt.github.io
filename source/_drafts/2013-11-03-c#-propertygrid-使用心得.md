@@ -1,9 +1,6 @@
 title: "c# PropertyGrid 使用心得"
-id: 802
 date: 2013-11-03 08:38:09
 tags: 
-categories: 
-- COCOS2D-X
 ---
 
 这两天打算做个我们游戏的数据编辑器,c#无疑是最佳的选择
@@ -18,7 +15,7 @@ categories:
 
 举个例子,比如我们游戏中的塔有3个等级,每一级都会有一个攻击力,这样我做一个父项为攻击力,展开后分别为3个等级的设置!
 
-[![QQ截图20130930125628]({{BASE_PATH}}/images/94c8e5a0affd3306da8182c62ae1e28012952a6c.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/09/QQ截图20130930125628.jpg)
+[![QQ截图20130930125628](/images/94c8e5a0affd3306da8182c62ae1e28012952a6c.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/09/QQ截图20130930125628.jpg)
 
 &nbsp;
 
@@ -67,7 +64,7 @@ public class TowerProperty
 
 1)使用枚举
 
-[![QQ截图20130930132220]({{BASE_PATH}}/images/c8e93052bf6af8b8b3783a0e99c856f0d2f728e8.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/09/QQ截图20130930132220.jpg)
+[![QQ截图20130930132220](/images/c8e93052bf6af8b8b3783a0e99c856f0d2f728e8.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/09/QQ截图20130930132220.jpg)
 
 使用枚举可以十分方便的实现下拉列表支持:
 <pre class="lang:c++ decode:true">//创建枚举

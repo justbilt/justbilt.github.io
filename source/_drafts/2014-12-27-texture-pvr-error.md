@@ -1,7 +1,6 @@
 title: quickx PVR 纹理加载失败
 date: 2014-12-27 17:07:13
 tags:
-categories: quick-cocos2d-x
 ---
 
 "Fuck, 播动画的时候又崩溃了?!! ", 测试绝望的呐喊到.

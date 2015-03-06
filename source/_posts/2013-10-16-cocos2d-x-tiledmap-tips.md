@@ -56,17 +56,17 @@ if(nGid >= 0)
 
 用1的方法来解决问题是最快的,但是会带来一些副作用,查找下CC_FIX_ARTIFACTS_BY_STRECHING_TEXEL这个宏,会发现有4个地方都用到了:
 
-[![QQ截图20131016112818]({{BASE_PATH}}/images/b39a481b6b66a40162dad2a2c52008f99129cb83.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/10/QQ截图20131016112818.jpg)
+[![QQ截图20131016112818](/images/b39a481b6b66a40162dad2a2c52008f99129cb83.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/10/QQ截图20131016112818.jpg)
 
 分别是CCSprite,CCLabelAtlas,CCParticleSystemQuad,CCTileMapAtlas,其中只有CCTileMapAtlas的改变使我们想要的,而CCSprite是我们最常用的接口,这将会导致所有的图片都会使用99%来贴图,影响虽然不是很大,但是在某些情况下还是能够看的出来(点击查看大图):
 
 正常:
 
-[![2]({{BASE_PATH}}/images/4220b6514671a4567ca56c6e199f49070b019f31.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/10/2.jpg)
+[![2](/images/4220b6514671a4567ca56c6e199f49070b019f31.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/10/2.jpg)
 
 开启后:
 
-[![1]({{BASE_PATH}}/images/8de1d1d02a2860a7cc0eb5f17f4f99daf7a8a97a.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/10/1.jpg)
+[![1](/images/8de1d1d02a2860a7cc0eb5f17f4f99daf7a8a97a.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/10/1.jpg)
 
 上面的图是放大两倍后的效果,如果你不是太在意这些细节的话,就可以忽略这个问题了.
 

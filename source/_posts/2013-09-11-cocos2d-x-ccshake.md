@@ -17,7 +17,7 @@ categories: [cocos2d-x]
 
 效果图(GIF,画质压缩的有点狠,凑活着看吧!):
 
-![667]({{BASE_PATH}}/images/6527eb984895fca57fd5c7fad00e31b07b7966eb.gif)
+![667](/images/6527eb984895fca57fd5c7fad00e31b07b7966eb.gif)
 
 
 

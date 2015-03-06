@@ -91,6 +91,6 @@ toggleItem->setSelectedIndex(1);
 
 #完
 
-[1]:{{BASE_PATH}}/images/90463242a2984681963753c2165c80ae28ed4d28.png
-[2]:{{BASE_PATH}}/images/26c9d29cefc1e43b42e1c4de5a5d82a033367966.png
+[1]:/images/90463242a2984681963753c2165c80ae28ed4d28.png
+[2]:/images/26c9d29cefc1e43b42e1c4de5a5d82a033367966.png
 

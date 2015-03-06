@@ -1,7 +1,6 @@
 title: QuickxDev插件(一) 简介
 date: 2014-07-03 21:49:29
 tags:
-categories: [quick-cocos2d-x]
 ---
 
 # 一. QuickxDev

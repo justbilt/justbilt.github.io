@@ -64,9 +64,22 @@ pagination_dir: page
 ## Themes: http://hexo.io/themes/
 theme: RagingCat
 
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+sitemap:
+  path: sitemap.xml
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
-deploy:  
-  type: github
-  repository: https://github.com/justbilt/justbilt.github.io.git
-  branch: master
+deploy:
+  type: git
+  message: update my blog!
+  repo: 
+    github: https://github.com/justbilt/justbilt.github.io.git,master
+  type: git  
+  message: update my blog!
+  repo: 
+    gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages 
