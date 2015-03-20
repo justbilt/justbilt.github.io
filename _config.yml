@@ -79,7 +79,7 @@ deploy:
   message: update my blog!
   repo: 
     github: https://github.com/justbilt/justbilt.github.io.git,master
-  type: git  
-  message: update my blog!
-  repo: 
-    gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages 
+  # type: git  
+  # message: update my blog!
+  # repo: 
+  #   gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages 
