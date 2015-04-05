@@ -72,7 +72,7 @@ if(nGid >= 0)
 
 但是如果你有强迫症的话,可以移步这篇文章:
 
-[http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html](http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html "http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html")
+[http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html](http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html)
 
 同时我也修改好了一份,大家可以在文章末尾处下载!
 
@@ -98,7 +98,7 @@ CCARRAY_FOREACH(pChildrenArray, pObject)
 
 ### 五.tilemap HD转SD
 
-感谢[@子龙山人](http://weibo.com/1703959697/AdGzcoLTo?type=repost) 大大的分享,将tilemap从HD转SD可不是简单的将图片缩小一倍就OK的,地图文件中的网格尺寸啊什么的都要随着改变的!感兴趣的请移步这里:[http://wasabibit.org/WasabiBit/Dev_Notes.html](http://wasabibit.org/WasabiBit/Dev_Notes.html "http://wasabibit.org/WasabiBit/Dev_Notes.html")
+感谢[@子龙山人](http://weibo.com/1703959697/AdGzcoLTo?type=repost) 大大的分享,将tilemap从HD转SD可不是简单的将图片缩小一倍就OK的,地图文件中的网格尺寸啊什么的都要随着改变的!感兴趣的请移步这里:[http://wasabibit.org/WasabiBit/Dev_Notes.html](http://wasabibit.org/WasabiBit/Dev_Notes.html)
 
 
 
@@ -121,7 +121,7 @@ bool CCTexture2D::hasPremultipliedAlpha()
 
 **附件一:**
 
-[http://pan.baidu.com/s/1qYnEQ](http://pan.baidu.com/s/1qYnEQ "http://pan.baidu.com/s/1qYnEQ")
+[http://pan.baidu.com/s/1qYnEQ](http://pan.baidu.com/s/1qYnEQ)
 
 下载后解压,覆盖cocos2dx目录下的同名目录:
 

@@ -9,7 +9,7 @@ categories: [cocos2d-x]
 
 <!--more-->
 
-[http://blog.csdn.net/qq634416025/article/details/8630189](http://blog.csdn.net/qq634416025/article/details/8630189 "http://blog.csdn.net/qq634416025/article/details/8630189")
+[http://blog.csdn.net/qq634416025/article/details/8630189](http://blog.csdn.net/qq634416025/article/details/8630189)
 
 感兴趣的同学可以去看一下,作者特意将抖动做成了CCAction,用起来十分方便,大谢!
 
@@ -23,7 +23,7 @@ categories: [cocos2d-x]
 
 我把我修改过的版本放在了百度云盘上,下载地址:
 
-[http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110](http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110 "http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110")
+[http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110](http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110)
 
 使用时:
 

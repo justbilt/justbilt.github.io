@@ -20,7 +20,7 @@ categories: [cocos2d-x]
 
 ### 2.本文用到了CCMenuItemToggle类，不懂的可以看我之前的教程：
 
-[http://blog.justbilt.com/?p=62](http://blog.justbilt.com/?p=62 "http://blog.justbilt.com/?p=62")
+[http://blog.justbilt.com/?p=62](http://blog.justbilt.com/?p=62)
 
 
 
