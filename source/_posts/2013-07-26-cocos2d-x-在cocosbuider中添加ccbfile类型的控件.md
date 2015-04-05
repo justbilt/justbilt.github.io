@@ -16,7 +16,7 @@ categories:
 
 **1.如下,我的游戏中暂停,胜利,失败界面都会有一个分享的东西.**
 
-[![hhh](/images/12320f88fec0ab1934bff002ce95b0d071552874.png)](http://blog.justbilt.com/wp-content/uploads/2013/07/hhh.png)
+![](/images/12320f88fec0ab1934bff002ce95b0d071552874.png)
 
 
 
@@ -26,7 +26,7 @@ categories:
 
 **2.如下图所示,我们创建一个单独的页面,命名为SharedLayer.ccb(点击查看大图):**
 
-[![003](/images/7ccf3dffbd0811a76a73824f9ee0c09e62e322a9.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/07/003.jpg)
+![](/images/7ccf3dffbd0811a76a73824f9ee0c09e62e322a9.jpg)
 
 
 
@@ -40,7 +40,7 @@ categories:
 
 **3.完成后我们就可以在其它界面引用SharedLayer.ccb界面了(点击查看大图):**
 
-[![004](/images/3c210540a793b2fd7656eede96b544d07d6e89fe.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/07/004.jpg)
+![](/images/3c210540a793b2fd7656eede96b544d07d6e89fe.jpg)
 
 
 
@@ -58,7 +58,7 @@ categories:
 
 **1.在这里先要说下小弟的文件布局:**
 
-[![001](/images/285d067a8786f295e4868d61cef2f6f73a8e0c7e.png)](http://blog.justbilt.com/wp-content/uploads/2013/07/0011.png) [![002](/images/186c81f61c821b10e114879ffc0061ae64098e28.png)](http://blog.justbilt.com/wp-content/uploads/2013/07/0021.png)
+![](/images/285d067a8786f295e4868d61cef2f6f73a8e0c7e.png) ![](/images/186c81f61c821b10e114879ffc0061ae64098e28.png)
 
 不知大家能否看的懂?主要就是
 
@@ -141,7 +141,7 @@ CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
 
 文件布局截图:
 
-[![QQ截图20130726114948](/images/932e98efedae8f6c3fff8cda6c9aead6a4db92f6.png)](http://blog.justbilt.com/wp-content/uploads/2013/07/QQ截图20130726114948.png)
+![](/images/932e98efedae8f6c3fff8cda6c9aead6a4db92f6.png)
 
 
 

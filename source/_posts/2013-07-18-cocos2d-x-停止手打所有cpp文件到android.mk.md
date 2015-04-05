@@ -12,7 +12,7 @@ Android.mk中LOCAL_SRC_FILES需要罗列出所有参与编译的文件,这样在
 
 我们下看看TestCpp工程中的Android.mk文件:
 
-[![QQ截图20130717200015](/images/6e98f48d235d657fc34a9c5ad87e0c71a419da1e.png)](http://blog.justbilt.com/wp-content/uploads/2013/07/QQ截图20130717200015.png)
+![](/images/6e98f48d235d657fc34a9c5ad87e0c71a419da1e.png)
 
 
 
@@ -95,7 +95,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 附我的Android.mk文件,遇到问题可以参考下:
 
-[Android](http://blog.justbilt.com/wp-content/uploads/2013/07/Android.txt)
+[Android]2
 
 
 

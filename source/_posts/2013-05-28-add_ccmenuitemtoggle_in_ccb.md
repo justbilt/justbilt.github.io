@@ -28,7 +28,7 @@ categories: [cocos2d-x]
 
 
 
-[![music_off](/images/2ee36e37566e1d35173ba79e46700f36b6db4660.png)](http://blog.justbilt.com/wp-content/uploads/2013/05/music_off.png) [![music_on](/images/907d08f499ade41d2d6cc22de817d9e737defedd.png)](http://blog.justbilt.com/wp-content/uploads/2013/05/music_on.png)
+![](/images/2ee36e37566e1d35173ba79e46700f36b6db4660.png) ![](/images/907d08f499ade41d2d6cc22de817d9e737defedd.png)
 
 
 
@@ -36,7 +36,7 @@ categories: [cocos2d-x]
 
 
 
-[![1FB2F754-E4C1-4E48-B088-14DC3EC748B0](/images/e273dc58713a49b220aaff7658e7350f297dffa8.jpg)](http://blog.justbilt.com/wp-content/uploads/2013/05/1FB2F754-E4C1-4E48-B088-14DC3EC748B0.jpg)
+![](/images/e273dc58713a49b220aaff7658e7350f297dffa8.jpg)
 
 为了在程序中能够找到这个按钮，我们可以采用两种办法：1.绑定变量  2.设置Tag，为了方便我采用的是设置tag的方式！
 
