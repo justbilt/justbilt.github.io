@@ -97,11 +97,9 @@ disqus_shortname: justbilt
 
 # 社交链接，将在侧栏中显示
 social:
-  GitHub: your-github-url
-  Twitter: your-twitter-url
-  Weibo: your-weibo-url
-  DouBan: your-douban-url
-  ZhiHu: your-zhihu-url
+  GitHub: https://github.com/justbilt
+  Twitter: https://twitter.com/justbilt
+  Weibo: http://weibo.com/justbilt
   # 等等
 
 

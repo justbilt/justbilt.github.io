@@ -9,6 +9,7 @@ menu:
   categories: Categories
   tags: Tags
   about: About
+  rss: Rss
 
 sidebar:
   overview: Overview
