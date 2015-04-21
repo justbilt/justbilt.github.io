@@ -75,21 +75,21 @@ sitemap:
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  message: update my blog!
-  repo: 
-    github: https://github.com/justbilt/justbilt.github.io.git,master
-  # type: git  
+  # type: git
   # message: update my blog!
   # repo: 
-  #   gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages 
+  #   github: https://github.com/justbilt/justbilt.github.io.git,master
+  type: git  
+  message: update my blog!
+  repo: 
+    gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages 
 
 # =============================================================================
 # NexT Theme configuration
 # =============================================================================
 
 # 多说帐号
-duoshuo_shortname: justbilt
+# duoshuo_shortname: justbilt
 
 # DISQUS 帐号 （如果已经设置 多说 帐号，此选项将被跳过）
 disqus_shortname: justbilt
