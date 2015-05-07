@@ -51,7 +51,7 @@ toc_list_number: true
 ## UNLESS YOU KNOW WHAT YOU ARE DOING
 
 # Use velocity to animate everything.
-use_motion: false
+use_motion: true
 
 # Fancybox
 fancybox: true
