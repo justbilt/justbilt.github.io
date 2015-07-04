@@ -1,6 +1,6 @@
 title: "cocos2d-x AssetsManager 问题汇总"
 date: 2015-06-06 00:42:33
-tags:
+categories: cocos2d-x
 ---
 
 大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!
@@ -120,11 +120,44 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
 为了应对解压过程中出现了一些意外, 比如关闭了游戏进程, 这样重启游戏的时候就不用再下载更新包了. 这本是一个不错的设定, 但是它使用了事件队列来做这个事情, 上面说过, 下载完成后, 其实积压了一大坨的事件, 所以这个事件根本不会立刻被执行到. 但是解压的操作却不会受次影响, 会立刻执行到. 这会导致什么问题呢? **导致先删除`downloaded-version-code`字段, 后设置, 与预期的执行顺序完全想反**. 虽然最后可能不会影响到什么, 但是却是一段非常危险的代码.
 
 
+---
+## Update: 2015年06月25日
+
+还是接着上面的那个问题, AssetsManager 将 `downloaded-version-code` 记录到了 `UserDefault` 中, 但是只有**解压成功**了才会删除, 那么解压失败了呢? 解压失败失败的原因有好多, 如果是下载的更新包有问题的话, 重启后仍然不会重新下载, 直接开始解压, 就会陷入到一个循环中, 一直出错. 解决的办法是什么呢? 
+
+> 舍弃掉这个优化.
+
+将 AssetsManager 中的这几行注释掉, 就不会记录 `downloaded-version-code`, 出错后重启就会重新下载:
+
+```
+CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_DOWNLOADED_VERSION,
+                                                    ((AssetsManager*)msg->obj)->_version.c_str());
+CCUserDefault::sharedUserDefault()->flush();
+```
+
+我们的游戏就遇到了这样的情况, 玩家热更解压失败后就一直处于解压失败的状态, 只能删除游戏重新安装了!
+
+哈哈,正如你所想的,3.x 也做了这样的处理:
+
+```
+if (! uncompress())
+{
+    Director::getInstance()->getScheduler()->performFunctionInCocosThread([&, this]{
+        UserDefault::getInstance()->setStringForKey(this->keyOfDownloadedVersion().c_str(),"");
+        UserDefault::getInstance()->flush();
+        if (this->_delegate)
+            this->_delegate->onError(ErrorCode::UNCOMPRESS);
+    });
+    break;
+}
+```
+
+解压失败后就直接清除了 `downloaded-version-code` 的记录.
 
 ---
 
 从上述可以看到, 这些问题都已在 3.x 中解决, 所以能升级引擎的还是赶紧升级. 同时也会明白cocos的坑还是蛮多的, 大家一定要做好测试呀!
 
-
+--EOF--
 
 [1]: http://bbs.firedragonpzy.com.cn/forum.php?mod=viewthread&tid=119
