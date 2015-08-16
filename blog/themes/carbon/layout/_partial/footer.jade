@@ -14,6 +14,4 @@ mixin external-link(name, url)
 ul#footer-links
   +footer-link('about')
   +footer-link('archives')
-  +link(__('feed'), url_for(theme.feed))
-  +external-link('Theme.Carbon', theme.repo)
-  +external-link('Hexo', 'https://github.com/hexojs/hexo')
+  +footer-link('feed')

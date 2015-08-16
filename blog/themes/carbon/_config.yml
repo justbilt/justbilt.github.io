@@ -1,6 +1,7 @@
 menu:
   about: /about
   archives: /archives
+  feed: /atom.xml
 
 excerpt: false
 feed: /atom.xml
