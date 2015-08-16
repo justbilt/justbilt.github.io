@@ -1,0 +1,24 @@
+menu:
+  about: /about
+  archives: /archives
+  feed: /atom.xml
+
+excerpt: false
+feed: /atom.xml
+repo: https://icylogic.net
+
+duoshuo: false
+math: katex # options: katex, mathjax, false
+fancybox: true
+swiftype: false # type your swiftype key here to enable search
+
+cdn:
+  normalize: '//cdn.jsdelivr.net'    
+  carbon: ''
+  duoshuo: '//static.duoshuo.com'
+  jQuery: '//cdn.jsdelivr.net'
+  pjax: '//cdn.jsdelivr.net'
+  mathjax: '//cdn.mathjax.org'
+  fancybox: '//cdn.jsdelivr.net'
+  katex: '//cdn.jsdelivr.net'
+  
