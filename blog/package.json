@@ -13,11 +13,13 @@
     "hexo-generator-feed": "^1.0.1",
     "hexo-generator-index": "^0.1.0",
     "hexo-generator-tag": "^0.1.0",
+    "hexo-github": "^1.0.1",
     "hexo-renderer-coffeescript": "^0.1.0",
     "hexo-renderer-ejs": "^0.1.0",
     "hexo-renderer-jade": "^0.1.0",
     "hexo-renderer-marked": "^0.2.4",
     "hexo-renderer-stylus": "^0.2.0",
-    "hexo-server": "^0.1.2"
+    "hexo-server": "^0.1.2",
+    "hexo-tag-oj": "^0.1.1"
   }
 }
