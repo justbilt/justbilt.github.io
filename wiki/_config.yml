@@ -70,4 +70,4 @@ deploy:
   type: git
   message: update my wiki!
   repo: 
-    github: https://github.com/justbilt/wiki.git,gh-pages
+    github: git@github.com:justbilt/wiki.git,gh-pages
