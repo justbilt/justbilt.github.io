@@ -13,8 +13,6 @@ tags:
 
 在spine的解析代码中搜索了一下, 果然是没有找到解析`flip`字段的代码的, 看来是需要更新下解析的代码了! spine 的解析库是放在 github 上的, 地址在这里 [https://github.com/EsotericSoftware/spine-runtimes][1].
 
-{% github EsotericSoftware spine-runtimes 7259586 true 25% %}
-
 # 2. How ?
 
 1. 首先我们 clone `spine-runtimes` 到本地的一个目录.
