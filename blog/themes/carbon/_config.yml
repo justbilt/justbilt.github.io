@@ -11,6 +11,8 @@ duoshuo: false
 math: katex # options: katex, mathjax, false
 fancybox: true
 swiftype: false # type your swiftype key here to enable search
+google_analytics: UA-69555091-1
+
 
 cdn:
   normalize: '//cdn.jsdelivr.net'    
@@ -21,4 +23,3 @@ cdn:
   mathjax: '//cdn.mathjax.org'
   fancybox: '//cdn.jsdelivr.net'
   katex: '//cdn.jsdelivr.net'
-  
