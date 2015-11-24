@@ -176,6 +176,31 @@ python configure.py --sip-incdir=/path/of/your/Downloads/sip-4.16.9/siplib
 ```
 
 
+---
+
+Update 2015年11月25日:
+
+## 如何为 python3 安装 pyqt5
+
+### 1. 安装 sip 时附加额外参数 `--with-python3`
+
+```
+brew install sip --with-python3
+```
+
+### 2. 安装 pyqt 时附加额外参数 `--target-py-version=VERSION` (e.g. 3.4)
+
+```
+python3 configure.py --sip-incdir=/path/of/your/sip/include --target-py-version=VERSION
+```
+
+
+
+
+
+
+
+
   [1]: http://www.qt.io/download-open-source/#section-2
   [2]: http://download.qt.io/archive/qt/
   [3]: http://sourceforge.net/projects/pyqt/files/PyQt5/
