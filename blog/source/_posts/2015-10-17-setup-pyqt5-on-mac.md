@@ -1,6 +1,6 @@
 title: "Pyqt5 MacOS 环境搭建"
 date: 2015-10-17 14:46:49
-tags:
+tags: [pyqt]
 ---
 
 尝试过用各种 python 的 gui 库来写一些小工具, TkInter, wxPython, Pyfltk , PyQt等, 最终发现还是只有 `wxPython` 和 `PyQt` 能相对靠谱一些, 控件全, 文档丰富, 使用的人多. 因为曾经使用搞过 qt , 所以最终选择了 PyQt, 这次我们来说一下如何在 Mac 上安装.
