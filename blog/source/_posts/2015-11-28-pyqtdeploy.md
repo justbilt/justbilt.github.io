@@ -6,6 +6,8 @@ tags: [pyqt, pyqtdeploy]
 
 在不久前我的另一篇博文[Pyqt5 MacOS 环境搭建][1]中介绍了如何在 Mac 上搭建 pyqt 的环境, 如果你恰巧看过那篇文章, 并且照做了, 那么非常不幸, 如果你打算使用 pyqtdeploy 发布的你的程序的话, 你可能得重新来一遍了!
 
+<!-- more -->
+
 我们需要准备几个几个东西:
 
 1. 在[这里][2]下载 python 3.x 的源码包.
@@ -173,3 +175,4 @@ Application Package Directory: 程序的其他 py 文件
 [7]: http://ww4.sinaimg.cn/large/7f870d23gw1ez5zupeyb3j20rw0hs42h.jpg
 [8]: http://ww4.sinaimg.cn/large/7f870d23gw1ez67jp69umj20rw0f7jut.jpg
 [9]: http://ww4.sinaimg.cn/large/7f870d23gw1ez69ew90vbj20r40ef7b2.jpg
+

@@ -1,6 +1,6 @@
 title: "cocos2d-x AssetsManager 问题汇总"
 date: 2015-06-06 00:42:33
-categories: cocos2d-x
+tags: [quick-cocos2d-x, 热更新]
 ---
 
 大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!
@@ -161,3 +161,4 @@ if (! uncompress())
 --EOF--
 
 [1]: http://bbs.firedragonpzy.com.cn/forum.php?mod=viewthread&tid=119
+

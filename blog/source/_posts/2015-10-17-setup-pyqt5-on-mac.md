@@ -5,6 +5,7 @@ tags: [pyqt]
 
 尝试过用各种 python 的 gui 库来写一些小工具, TkInter, wxPython, Pyfltk , PyQt等, 最终发现还是只有 `wxPython` 和 `PyQt` 能相对靠谱一些, 控件全, 文档丰富, 使用的人多. 因为曾经使用搞过 qt , 所以最终选择了 PyQt, 这次我们来说一下如何在 Mac 上安装.
 
+<!-- more -->
 
 # 1. 安装 qt
 
@@ -211,3 +212,4 @@ python3 configure.py --sip-incdir=/path/of/your/sip/include --target-py-version=
   [8]: http://zetcode.com/gui/pyqt5/
   [9]: http://static.zybuluo.com/justbilt/qg63w41bobru04w0oki6iu8g/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-14%20%E4%B8%8A%E5%8D%888.02.58.png
   [10]: http://python.6.x6.nabble.com/PyQt-5-1-1-Compilation-Error-td5037071.html
+

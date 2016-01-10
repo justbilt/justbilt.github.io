@@ -6,6 +6,8 @@ categories: [MyGUI]
 
 不知大家是否还记得我的这篇文章 [MyGUI学习笔记(一) 在Windows上运行MyGUI][1], 这篇文章讲述了在 Windows 上编译运行 MyGUI 的过程. 文中提到了在 Mac 遇到了很多坑, 确实如此, 当时的 MyGUI 虽然号称 Cross Platform , 但是在 Mac 却有好多东西没有实现, 编译起来困难重重, 以至于我不得不切换到 Windows 系统上, 因此便有了那篇文章.
 
+<!-- more -->
+
 那么今天为什么又要写这个了呢? 因为这几个月内, MyGUI 团队针对 Mac 做了好多修改, 使得脱离 Ogre 之后 Demo 也能够跨平台运行了!
 
 那么我们就来看一下如何在 Mac 上运行 MyGUI 吧!
@@ -89,3 +91,4 @@ MyGUI 从07年发展到现在已有8年的历史了, 仍然有这么多人在开
   [9]: http://static.zybuluo.com/justbilt/6smjifuob0cc0g24yis212t1/QQ20151101-5.png
   [10]: http://static.zybuluo.com/justbilt/qeeokj32fvk2qgkufmwk0ki9/QQ20151101-3.png
   [11]: https://github.com/MyGUI/mygui/pull/82
+
