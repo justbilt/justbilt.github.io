@@ -6,7 +6,7 @@
 title: Justbilt
 subtitle: A game developer
 description: A game developer
-author: bilt
+author: justbilt
 email: wangbilt@gmail.com
 language: zh-CN
 
@@ -62,7 +62,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: carbon
+theme: yelee
 
 feed:
   type: atom
