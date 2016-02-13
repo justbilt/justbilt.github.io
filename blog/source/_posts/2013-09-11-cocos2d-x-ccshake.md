@@ -9,7 +9,7 @@ categories: [cocos2d-x]
 
 <!--more-->
 
-[http://blog.csdn.net/qq634416025/article/details/8630189](http://blog.csdn.net/qq634416025/article/details/8630189)
+[http://blog.csdn.net/qq634416025/article/details/8630189][1]
 
 感兴趣的同学可以去看一下,作者特意将抖动做成了CCAction,用起来十分方便,大谢!
 
@@ -17,13 +17,13 @@ categories: [cocos2d-x]
 
 效果图(GIF,画质压缩的有点狠,凑活着看吧!):
 
-![667](/images/6527eb984895fca57fd5c7fad00e31b07b7966eb.gif)
+![667][2]
 
 
 
 我把我修改过的版本放在了百度云盘上,下载地址:
 
-[http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110](http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110)
+[http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110][3]
 
 使用时:
 
@@ -48,15 +48,18 @@ pSprite->runAction(CCShake::create(0.1f,10));
 
 第一个参数是:抖动的幅度
 
-
-
 **3.注意,这点曾经困扰了我好久!**
 
 一个CCNode同时执行多个CCShake动作,或者一个CCShake没有完又执行一个CCShake的话就会出现问题,会出现偏移的现象!
 
 解决方案:
 
-1).不要同时执行多个CCShake动作.
+1. 不要同时执行多个CCShake动作.
+2. 自己外部记录这个CCNode的位置,执行完成后手动setPosition();
 
-2.自己外部记录这个CCNode的位置,执行完成后手动setPosition();
 
+
+
+[1]: http://blog.csdn.net/qq634416025/article/details/8630189
+[2]: /images/6527eb984895fca57fd5c7fad00e31b07b7966eb.gif
+[3]: http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110

@@ -12,7 +12,7 @@ tags: [quick-cocos2d-x, 热更新]
 对于我们的游戏来说,其实是有两个版本配置的,一个是 `versionName`, 一个是 `versionCode`. versionName 只是一个显示, 类似于 `1.2.3`, 而 versionCode, 它是一个纯数字的字符串 (e.g. 4083), 它可以简单的**转化为 int 去对比版本大小**. 那么如何去获取app对应的版本呢 ?
 
 iOS:
-```
+```cpp
 std::string Device::getAppVersionCode()
 {
     return [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -22,7 +22,7 @@ std::string Device::getAppVersionCode()
 MacOS 上获取版本号的方式与 iOS 一致.
 
 Android:
-```
+```java
     public static String getAppVersionCode() {
         String versionCode = "";
         PackageInfo pInfo;
@@ -59,13 +59,13 @@ killall -SIGTERM cfprefsd
 
 Lua:
 
-```
+```lua
 cc.Director:getInstance():getEventDispatcher():dispatchEvent(cc.EventCustom:new("NEED_RESTART_APP"))
 ```
 
 AppDelegate.cpp:
 
-```
+```cpp
 // 监听重启事件
 auto callBack = [this](EventCustom* event)
 {
@@ -102,7 +102,7 @@ Director::getInstance()->getEventDispatcher()->addCustomEventListener("NEED_REST
 
 至于导出版本, 一开始并没有考虑到这个, 本来打算直接使用 `git diff`来进行版本对比, 不幸的是我们项目中有一堆的 `submodule`, git diff 并不能对比子模块的变化. 同理 `git archive` 也不可以, 最终我们使用了:
 
-```
+```bash
 git checkout $tag
 git submodule update --init --recursive
 ```

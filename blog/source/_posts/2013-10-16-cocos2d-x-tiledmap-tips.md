@@ -56,23 +56,23 @@ if(nGid >= 0)
 
 用1的方法来解决问题是最快的,但是会带来一些副作用,查找下CC_FIX_ARTIFACTS_BY_STRECHING_TEXEL这个宏,会发现有4个地方都用到了:
 
-![](/images/b39a481b6b66a40162dad2a2c52008f99129cb83.jpg)
+![][1]
 
 分别是CCSprite,CCLabelAtlas,CCParticleSystemQuad,CCTileMapAtlas,其中只有CCTileMapAtlas的改变使我们想要的,而CCSprite是我们最常用的接口,这将会导致所有的图片都会使用99%来贴图,影响虽然不是很大,但是在某些情况下还是能够看的出来(点击查看大图):
 
 正常:
 
-![](/images/4220b6514671a4567ca56c6e199f49070b019f31.jpg)
+![][2]
 
 开启后:
 
-![](/images/8de1d1d02a2860a7cc0eb5f17f4f99daf7a8a97a.jpg)
+![][3]
 
 上面的图是放大两倍后的效果,如果你不是太在意这些细节的话,就可以忽略这个问题了.
 
 但是如果你有强迫症的话,可以移步这篇文章:
 
-[http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html](http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html)
+[http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html][4]
 
 同时我也修改好了一份,大家可以在文章末尾处下载!
 
@@ -98,7 +98,7 @@ CCARRAY_FOREACH(pChildrenArray, pObject)
 
 ### 五.tilemap HD转SD
 
-感谢[@子龙山人](http://weibo.com/1703959697/AdGzcoLTo?type=repost) 大大的分享,将tilemap从HD转SD可不是简单的将图片缩小一倍就OK的,地图文件中的网格尺寸啊什么的都要随着改变的!感兴趣的请移步这里:[http://wasabibit.org/WasabiBit/Dev_Notes.html](http://wasabibit.org/WasabiBit/Dev_Notes.html)
+感谢[@子龙山人][5] 大大的分享,将tilemap从HD转SD可不是简单的将图片缩小一倍就OK的,地图文件中的网格尺寸啊什么的都要随着改变的!感兴趣的请移步这里:[http://wasabibit.org/WasabiBit/Dev_Notes.html][6]
 
 
 
@@ -121,7 +121,7 @@ bool CCTexture2D::hasPremultipliedAlpha()
 
 **附件一:**
 
-[http://pan.baidu.com/s/1qYnEQ](http://pan.baidu.com/s/1qYnEQ)
+[http://pan.baidu.com/s/1qYnEQ][7]
 
 下载后解压,覆盖cocos2dx目录下的同名目录:
 
@@ -138,3 +138,12 @@ tilemap_parallax_nodes/CCSpriteTileMap.cpp \
 
 
 还有什么问题,发留言告诉我!
+
+
+[1]: /images/b39a481b6b66a40162dad2a2c52008f99129cb83.jpg
+[2]: /images/4220b6514671a4567ca56c6e199f49070b019f31.jpg
+[3]: /images/8de1d1d02a2860a7cc0eb5f17f4f99daf7a8a97a.jpg
+[4]: http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html
+[5]: http://weibo.com/1703959697/AdGzcoLTo?type=repost
+[6]: http://wasabibit.org/WasabiBit/Dev_Notes.html
+[7]: http://pan.baidu.com/s/1qYnEQ
