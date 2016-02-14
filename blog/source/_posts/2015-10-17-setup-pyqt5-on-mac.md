@@ -1,6 +1,6 @@
 title: Pyqt5 MacOS 环境搭建
 date: 2015-10-17 14:46:49
-tags: [pyqt]
+tags: [PyQt, MacOS]
 ---
 
 尝试过用各种 python 的 gui 库来写一些小工具, TkInter, wxPython, Pyfltk , PyQt等, 最终发现还是只有 `wxPython` 和 `PyQt` 能相对靠谱一些, 控件全, 文档丰富, 使用的人多. 因为曾经使用搞过 qt , 所以最终选择了 PyQt, 这次我们来说一下如何在 Mac 上安装.
@@ -9,7 +9,7 @@ tags: [pyqt]
 
 # 1. 安装 qt
 
-pyqt 其实就是 qt 的 python 绑定, 所以我们首先需要安装 qt, 版本可以自行选择, [最新版][1] 的下载地址, [历史版本][2]的地址. 如果追求最新版的话, 最好是去 pyqt 的[下载网站][3]看那一下最新版是什么, 因为 pyqt 的更新速度会落后于 qt.
+PyQt 其实就是 qt 的 python 绑定, 所以我们首先需要安装 qt, 版本可以自行选择, [最新版][1] 的下载地址, [历史版本][2]的地址. 如果追求最新版的话, 最好是去 PyQt 的[下载网站][3]看那一下最新版是什么, 因为 PyQt 的更新速度会落后于 qt.
 
 ![屏幕快照 2015-09-12 上午7.37.42.png-117.1kB][4]
 
@@ -23,7 +23,7 @@ sip 是一个 python 调用 c 的工具, 官方网址在[这里][5], 我们可�
 brew install sip
 ```
 
-# 3. 安装 pyqt
+# 3. 安装 PyQt
 
 
 ----------
@@ -136,7 +136,7 @@ python test.py
 
 如果你没有通过 brew 安装 sip , 你可能遇到的问题:
 
-## 1. 安装 pyqt , 执行 `python configure.py` 时找不到 sip
+## 1. 安装 PyQt , 执行 `python configure.py` 时找不到 sip
 
 ```
 sh: sip: command not found
@@ -189,7 +189,7 @@ Update 2015年11月25日:
 brew install sip --with-python3
 ```
 
-### 2. 安装 pyqt 时附加额外参数 `--target-py-version=VERSION` (e.g. 3.4)
+### 2. 安装 PyQt 时附加额外参数 `--target-py-version=VERSION` (e.g. 3.4)
 
 ```
 python3 configure.py --sip-incdir=/path/of/your/sip/include --target-py-version=VERSION
@@ -204,10 +204,10 @@ python3 configure.py --sip-incdir=/path/of/your/sip/include --target-py-version=
 
   [1]: http://www.qt.io/download-open-source/#section-2
   [2]: http://download.qt.io/archive/qt/
-  [3]: http://sourceforge.net/projects/pyqt/files/PyQt5/
+  [3]: http://sourceforge.net/projects/PyQt/files/PyQt5/
   [4]: http://static.zybuluo.com/justbilt/krc3gqufsqx99msip1jw9fqy/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-12%20%E4%B8%8A%E5%8D%887.37.42.png
-  [5]: http://pyqt.sourceforge.net/Docs/sip4/installation.html
-  [6]: http://sourceforge.net/projects/pyqt/files/PyQt5/
+  [5]: http://PyQt.sourceforge.net/Docs/sip4/installation.html
+  [6]: http://sourceforge.net/projects/PyQt/files/PyQt5/
   [7]: http://static.zybuluo.com/justbilt/6tbyfo13vr6hf4cuztepeja9/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-13%20%E4%B8%8B%E5%8D%884.41.29.png
   [8]: http://zetcode.com/gui/pyqt5/
   [9]: http://static.zybuluo.com/justbilt/qg63w41bobru04w0oki6iu8g/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-14%20%E4%B8%8A%E5%8D%888.02.58.png

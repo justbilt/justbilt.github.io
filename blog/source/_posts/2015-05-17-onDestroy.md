@@ -1,6 +1,6 @@
-title: 为 quick-x 添加析构事件
+title: 为 quick-cocos2d-x 添加析构事件
 date: 2015-05-17 14:04:37
-tags: [quick-x]
+tags: [quick-cocos2d-x]
 ---
 
 # 一. 为什么会需要析构事件 ?

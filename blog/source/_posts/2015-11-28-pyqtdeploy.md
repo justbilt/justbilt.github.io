@@ -1,10 +1,10 @@
 title: 使用 Pyqtdeploy 发布你的 Pyqt 程序
 date: 2015-11-28 08:38:12
-tags: [pyqt, pyqtdeploy]
+tags: [PyQt, pyqtdeploy]
 ---
 
 
-在不久前我的另一篇博文[Pyqt5 MacOS 环境搭建][1]中介绍了如何在 Mac 上搭建 pyqt 的环境, 如果你恰巧看过那篇文章, 并且照做了, 那么非常不幸, 如果你打算使用 pyqtdeploy 发布的你的程序的话, 你可能得重新来一遍了!
+在不久前我的另一篇博文[Pyqt5 MacOS 环境搭建][1]中介绍了如何在 Mac 上搭建 PyQt 的环境, 如果你恰巧看过那篇文章, 并且照做了, 那么非常不幸, 如果你打算使用 pyqtdeploy 发布的你的程序的话, 你可能得重新来一遍了!
 
 <!-- more -->
 
@@ -12,7 +12,7 @@ tags: [pyqt, pyqtdeploy]
 
 1. 在[这里][2]下载 python 3.x 的源码包.
 2. 在[这里][3]下载 sip 的源码包.
-3. 在[这里][4]下载与你 qt 版本对应的 pyqt 的源码包.
+3. 在[这里][4]下载与你 qt 版本对应的 PyQt 的源码包.
 
 注: 不要下载 3.5 , 因为后面某一步骤时会出错. -- 2015年11月29日
 
@@ -58,9 +58,9 @@ brew link --overwrite sip
 /usr/local/Cellar/sip/4.16.9
 ```
 
-在这个路径下有一个 `include` 文件夹, 这个文件夹的路径就是就是我们下面安装 `pyqt` 所需的路径.
+在这个路径下有一个 `include` 文件夹, 这个文件夹的路径就是就是我们下面安装 `PyQt` 所需的路径.
 
-##3. 安装 pyqt
+##3. 安装 PyQt
 
 这一步需要知道 `qmake` 的路径, 因此我们需将它所在目录加入到环境变量中:
 
@@ -169,9 +169,9 @@ Application Package Directory: 程序的其他 py 文件
 [1]: /2015/10/17/setup-pyqt5-on-mac
 [2]: https://www.python.org/downloads/source/
 [3]: https://riverbankcomputing.com/software/sip/download
-[4]: http://sourceforge.net/projects/pyqt/files/PyQt5/
+[4]: http://sourceforge.net/projects/PyQt/files/PyQt5/
 [5]: http://static.zybuluo.com/justbilt/0ud9c1sdxopu72gu02htefgb/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-05%20%E4%B8%8B%E5%8D%882.28.29.png
-[6]: http://pyqt.sourceforge.net/Docs/pyqtdeploy/
+[6]: http://PyQt.sourceforge.net/Docs/pyqtdeploy/
 [7]: http://ww4.sinaimg.cn/large/7f870d23gw1ez5zupeyb3j20rw0hs42h.jpg
 [8]: http://ww4.sinaimg.cn/large/7f870d23gw1ez67jp69umj20rw0f7jut.jpg
 [9]: http://ww4.sinaimg.cn/large/7f870d23gw1ez69ew90vbj20r40ef7b2.jpg

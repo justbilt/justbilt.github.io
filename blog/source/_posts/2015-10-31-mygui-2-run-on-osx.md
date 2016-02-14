@@ -1,6 +1,6 @@
 title: MyGUI学习笔记(二) 在 MacOS 上运行MyGUI
 date: 2015-10-31 22:52:44
-tags: [MyGUI]
+tags: [MyGUI, MacOS]
 ---
 
 
