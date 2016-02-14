@@ -1,6 +1,6 @@
-title: "为 quick-x 添加析构事件"
+title: 为 quick-x 添加析构事件
 date: 2015-05-17 14:04:37
-categories: [quick-x]
+tags: [quick-x]
 ---
 
 # 一. 为什么会需要析构事件 ?

@@ -1,4 +1,4 @@
-title: "quickx-3.3 热更新若干心得"
+title: quickx-3.3 热更新若干心得
 date: 2016-01-01 08:43:50
 tags: [quick-cocos2d-x, 热更新]
 ---

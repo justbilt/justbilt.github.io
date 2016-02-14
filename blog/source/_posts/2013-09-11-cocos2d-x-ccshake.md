@@ -1,8 +1,6 @@
-title: "cocos2d-x 抖动效果 CCShake"
-id: 772
+title: cocos2d-x 抖动效果 CCShake
 date: 2013-09-11 15:37:58
-tags:
-categories: [cocos2d-x]
+tags: [cocos2d-x]
 ---
 
 之前在网上找过一次,但是用起来有些问题,抖动完位置有偏移,就自己修改了下,原文应该是在这里:

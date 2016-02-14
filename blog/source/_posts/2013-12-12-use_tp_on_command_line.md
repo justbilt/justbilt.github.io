@@ -1,7 +1,6 @@
 title: 在Command Line中使用TexturePacker
 date: 2013-12-12 10:33:02
-tags: [TexturePacker]
-categories: [Tool]
+tags: [TexturePacker, Tool]
 ---
 
 TexturePacker是一个非常好用的小图合并工具,介绍它的文章非常多,多数都是使用GUI工具的,但是:

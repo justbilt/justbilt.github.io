@@ -1,6 +1,6 @@
-title: "MyGUI学习笔记(一) 在Windows上运行MyGUI"
+title: MyGUI学习笔记(一) 在Windows上运行MyGUI
 date: 2015-05-29 23:30:11
-categories: [MyGUI]
+tags: [MyGUI]
 ---
 
 最近突然对 MyGUI 燃起了一些兴趣, 打算学习一番. 第一步肯定是跑起来 Demo 吧, 我主力系统是 MacOS , 首先肯定是考虑在 Mac 上搞起. 虽然 MyGUI 号称是 Corss Platform 的, 然而脱离了 Ogre 之后的 MyGUI 就只能跑在 windows 上了. 额, 在 Mac 上的趟坑之旅我们暂且不提, 让我们来曲线救国吧 -- 在Windows上运行MyGUI.

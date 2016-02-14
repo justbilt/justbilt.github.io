@@ -1,7 +1,6 @@
 title: 将一堆小图转化为BMFont工具
 date: 2014-02-01 08:34:33
-tags: [CCLabelBMFont,fnt]
-categories: [Tool]
+tags: [CCLabelBMFont, fnt, Tool]
 ---
 
 学习了Python也有一段时间了,一直在看书啊什么的,没有写些东西,感觉这样不太好,刚好项目中需要一个CCLabrlTTF但美术妹纸只给了一堆散图,自己写一个小工具吧!

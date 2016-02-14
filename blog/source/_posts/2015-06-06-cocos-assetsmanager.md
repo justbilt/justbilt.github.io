@@ -1,4 +1,4 @@
-title: "cocos2d-x AssetsManager 问题汇总"
+title: cocos2d-x AssetsManager 问题汇总
 date: 2015-06-06 00:42:33
 tags: [quick-cocos2d-x, 热更新]
 ---

@@ -1,7 +1,6 @@
 title: 在mac上搭建python环境
 date: 2014-07-02 06:12:54
 tags: [python]
-categories: [python]
 ---
 
 这两天重新搞了下python的环境，发现好多地方还是容易忘记，因此有了这篇文章，以后方便查看。
