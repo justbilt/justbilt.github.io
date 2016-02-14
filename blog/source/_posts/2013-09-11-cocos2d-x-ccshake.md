@@ -61,5 +61,5 @@ pSprite->runAction(CCShake::create(0.1f,10));
 
 
 [1]: http://blog.csdn.net/qq634416025/article/details/8630189
-[2]: /images/6527eb984895fca57fd5c7fad00e31b07b7966eb.gif
+[2]: /img/6527eb984895fca57fd5c7fad00e31b07b7966eb.gif
 [3]: http://pan.baidu.com/share/link?shareid=2640816246&uk=2685725110

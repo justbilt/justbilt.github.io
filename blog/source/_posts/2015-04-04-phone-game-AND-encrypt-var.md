@@ -152,4 +152,4 @@ m_DynamicMoney.offset(-100);
 
 
 [1]: http://baike.baidu.com/view/3258873.htm
-[2]: /images/31036b15a219185ac6a0c54157ebf36937540518.jpg
+[2]: /img/31036b15a219185ac6a0c54157ebf36937540518.jpg

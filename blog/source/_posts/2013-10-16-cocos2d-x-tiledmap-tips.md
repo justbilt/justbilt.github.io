@@ -140,9 +140,9 @@ tilemap_parallax_nodes/CCSpriteTileMap.cpp \
 还有什么问题,发留言告诉我!
 
 
-[1]: /images/b39a481b6b66a40162dad2a2c52008f99129cb83.jpg
-[2]: /images/4220b6514671a4567ca56c6e199f49070b019f31.jpg
-[3]: /images/8de1d1d02a2860a7cc0eb5f17f4f99daf7a8a97a.jpg
+[1]: /img/b39a481b6b66a40162dad2a2c52008f99129cb83.jpg
+[2]: /img/4220b6514671a4567ca56c6e199f49070b019f31.jpg
+[3]: /img/8de1d1d02a2860a7cc0eb5f17f4f99daf7a8a97a.jpg
 [4]: http://blog.sina.com.cn/s/blog_4508e4860101dzkj.html
 [5]: http://weibo.com/1703959697/AdGzcoLTo?type=repost
 [6]: http://wasabibit.org/WasabiBit/Dev_Notes.html
