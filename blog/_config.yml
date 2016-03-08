@@ -77,11 +77,11 @@ disqus_shortname: justbilt
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  # type: git
-  # message: update my blog!
-  # repo: 
-  #   github: https://github.com/justbilt/justbilt.github.io.git,master
-  type: git  
+  type: git
   message: update my blog!
   repo: 
-    gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages
+    github: git@github.com:justbilt/justbilt.github.io.git,master
+  # type: git  
+  # message: update my blog!
+  # repo: 
+  #   gitcafe: git@gitcafe.com:justbilt/justbilt.git,gitcafe-pages
