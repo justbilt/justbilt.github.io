@@ -128,9 +128,11 @@ hr{
 ul, ol {
 	margin-left: 3em; 
 }
+
+/*行内代码高亮*/
 code {
 	/*for code highlighting */
-	font-size:1.4em;
+	font-size:1.0em;
 	background: #eee;
 }
 pre {
