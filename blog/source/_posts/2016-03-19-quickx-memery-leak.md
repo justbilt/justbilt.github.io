@@ -1,6 +1,6 @@
 title: 记一次 quick-x 内存泄露排查
 date: 2016-03-19 17:48:38
-tags:
+tags: [quick-cocos2d-x, MemoryLeak]
 ---
 
 这周 @bin 告诉我项目有比较严重的内存泄露, 任意一个界面不停的打开关闭, 内存占用会一直往上涨, 直到被系统 kill 掉.
@@ -9,7 +9,7 @@ tags:
 
 收到问题后, 我简单写了一段测试代码, 加载/移除界面 100 次, 对比内存变化:
 
-```c++
+```lua
 local index = 0
 local handler = nil
 handler = scheduler.scheduleGlobal(function( ... )
@@ -56,7 +56,7 @@ collectgarbage("collect")
 
 ## 2. 精灵变灰和高亮的 shader 创建后一直没有释放
 
-```c++
+```lua
 function GameUtils.SetSpriteGrey(sprite,is_grey)
     if sprite and sprite.setGLProgramState then
         if is_grey then
@@ -75,7 +75,7 @@ end
 
 因为当时项目比较紧急, 我将这段代码使用 `GLProgramCache` 的形式修改了一下, 惊奇的发现内存泄露问题竟然解决了. 修改后的代码如下:
 
-```c++
+```lua
 function GameUtils.SetSpriteGrey(sprite,is_grey)
     if sprite and sprite.setGLProgramState then
         if is_grey then
