@@ -1,0 +1,34 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+
+# Default post title
+default_post_title: Untitled
+
+# Default post cover index page
+default_cover_index: "http://placehold.it/450x450"
+
+# Default post cover index page
+default_cover_detail: "http://placehold.it/1300x500"
+
+# Comments. Choose one by filling up the information
+comments:
+  # Disqus comments
+  disqus_shortname: justbilt
+  # Facebook comments
+  facebook:
+    appid:
+    comment_count: 5
+    comment_colorscheme: light
+
+# Google Analytics Tracking ID
+google_analytics: UA-69555091
+
+# Social Accounts
+twitter_url: https://twitter.com/justbilt
+facebook_url: https://weibo.com/justbilt
+behance_url:
+googleplus_url:
+dribble_url:
+rss_url: /atom.xml
