@@ -7,7 +7,9 @@ menu:
 default_post_title: Untitled
 
 # Default post cover index page
-default_cover_index: "http://placehold.it/450x450"
+# convert work4.jpg -border 5 -bordercolor 'rgb(204,204,204)' work5.jpg
+# http://www.wallpapershd.online/borderlands-game/
+default_cover_index: "/assets/work5.jpg"
 
 # Default post cover index page
 default_cover_detail: "http://placehold.it/1300x500"
