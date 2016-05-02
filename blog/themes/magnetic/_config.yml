@@ -9,10 +9,10 @@ default_post_title: Untitled
 # Default post cover index page
 # convert work4.jpg -border 5 -bordercolor 'rgb(204,204,204)' work5.jpg
 # http://www.wallpapershd.online/borderlands-game/
-default_cover_index: "/assets/work5.jpg"
+default_cover_index: "/assets/work1.jpg"
 
 # Default post cover index page
-default_cover_detail: "http://placehold.it/1300x500"
+default_cover_detail: "/assets/bg.jpg"
 
 # Comments. Choose one by filling up the information
 comments:
