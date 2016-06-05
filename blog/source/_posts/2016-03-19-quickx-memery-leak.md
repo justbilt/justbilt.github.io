@@ -1,6 +1,7 @@
 title: 记一次 quick-x 内存泄露排查
 date: 2016-03-19 17:48:38
 tags: [quick-cocos2d-x, MemoryLeak]
+description: "谁动了我的内存 ? "
 ---
 
 这周 @bin 告诉我项目有比较严重的内存泄露, 任意一个界面不停的打开关闭, 内存占用会一直往上涨, 直到被系统 kill 掉.

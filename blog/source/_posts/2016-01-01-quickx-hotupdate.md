@@ -1,6 +1,7 @@
 title: quickx-3.3 热更新若干心得
 date: 2016-01-01 08:43:50
 tags: [quick-cocos2d-x, hotupdate]
+description: "热更新, 打包程序员的爱情与良药"
 ---
 
 关于热更新, 虽然这已经是第三次实现了, 但每一次都会有新的收获, 都会比上次更加完善一下.

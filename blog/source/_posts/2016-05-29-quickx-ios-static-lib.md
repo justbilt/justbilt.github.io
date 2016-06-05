@@ -1,13 +1,14 @@
-title: quick-x 使用静态库加速 ios 打包
+title: quick-x 使用静态库加速 iOS 打包
 date: 2016-05-29 21:20:58
 tags: [quick-cocos2d-x, iOS]
+description: "亲爱的, 打完这个包就回家"
 ---
 
-quick-x 项目的 ios 工程使用 `Tgarget Dependencise` 依赖 `cocos2d_lib` 和 `cocos_lua_bindings` 工程.
+quick-x 项目的 iOS 工程使用 `Tgarget Dependencise` 依赖 `cocos2d_lib` 和 `cocos_lua_bindings` 工程.
 
 ![QQ20160529-0.png-27kB][1]
 
-这样子在 ios Archive 时会重新编译这两个项目, 十分痛苦, 尤其是一次出七八个渠道的包, 好几个小时就耗在里面了.
+这样子在 iOS Archive 时会重新编译这两个项目, 十分痛苦, 尤其是一次出七八个渠道的包, 好几个小时就耗在里面了.
 
 为什么不用静态库, 编译出 .a , 使用时直接链接就可以了嘛.
 
@@ -106,7 +107,7 @@ quick-x 项目的 ios 工程使用 `Tgarget Dependencise` 依赖 `cocos2d_lib` �
 
 在编译出 debug 版的静态库之前, 我还有想法将这几个静态库压缩上传到 git 上, 编译出 debug 版之后, 我就一个想法, ignore them !
 
-所以我最终的策略 将这几个 .a 在 git 上忽略掉, 同时在那个目录保留了一个编译脚本, 谁要用到 ios 项目的时候, 发现没有 .a , 自己运行脚本编译一份就可以啦 !
+所以我最终的策略 将这几个 .a 在 git 上忽略掉, 同时在那个目录保留了一个编译脚本, 谁要用到 iOS 项目的时候, 发现没有 .a , 自己运行脚本编译一份就可以啦 !
 
 ## 5. 编译脚本优化 ?
 

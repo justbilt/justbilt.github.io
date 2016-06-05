@@ -1,6 +1,7 @@
 title: quick-x EditBox 几个小技巧
 date: 2016-05-01 08:56:03
 tags: [quick-cocos2d-x, EditBox]
+description: "为了应付 PM, EditBox 你需要知道的几个小技巧"
 ---
 
 我们项目中的输入框使用的都是 EditBox , 但是 EditBox 还存在一些问题, 这里给大家分享一下我们的解决方案.
