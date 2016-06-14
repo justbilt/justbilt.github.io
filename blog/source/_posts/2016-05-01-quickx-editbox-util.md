@@ -119,11 +119,11 @@ if device.platform == "android" then
 
 我们采用的是第二种方案, 这个无法通过纯 lua 代码实现, 需要分平台去做.
 
-# 1. iOS
+## 1. iOS
 
 修改 `UIEditBoxImpl-ios.mm` 文件的 `shouldChangeCharactersInRange` 函数:
 
-```objective-c
+```objc
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     __block BOOL returnValue = NO;
@@ -171,11 +171,11 @@ if device.platform == "android" then
 
 这段代码是我从 [https://github.com/woxtu/NSString-RemoveEmoji][1] 中提取出来的.
 
-# 2. Android
+## 2. Android
 
 Android 上的实现也很简单, 主要是需要创建一个新的 `InputFilter` 用来过滤 Emoji 表情. 需要修改 `Cocos2dxEditBoxDialog.java` 文件成员变量添加:
 
-```
+```java
     public static InputFilter EMOJI_FILTER = new InputFilter() {
 
         @Override
@@ -193,7 +193,7 @@ Android 上的实现也很简单, 主要是需要创建一个新的 `InputFilter
 
 修改 `onCreate` 函数 `setFilters` 处逻辑:
 
-```
+```java
     if (this.mMaxLength > 0) {
         this.mInputEditText.setFilters(new InputFilter[] { new InputFilter.LengthFilter(this.mMaxLength), EMOJI_FILTER });
     }else{
