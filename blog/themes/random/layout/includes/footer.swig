@@ -66,6 +66,7 @@ var turnoffBackgroundImage = false;
 
 var backgroundColor = {{ JSON.stringify(config.backgroundColor || theme.backgroundColor )}};
 
+{% if theme.fancybox || config.fancybox %}
 $(".fancybox-thumb").fancybox({
   prevEffect: 'none',
   nextEffect: 'none',
@@ -79,6 +80,7 @@ $(".fancybox-thumb").fancybox({
     }
   }
 });
+{% endif %}
 
 // show video with plyr
 $(".video-container iframe").each(function(i){
