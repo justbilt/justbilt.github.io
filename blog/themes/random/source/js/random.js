@@ -90,19 +90,20 @@ function showHideToggle() {
 
 // open user card
 function openUserCard() {
+  window.location.href="/index.html"
   /*$("#user-card").modal({
     showClose: false
   });*/
-  showHideToggle();
-  $.fancybox({
-    type: 'html',
-    autoSize: true,
-    maxWidth: 400,
-    autoCenter: true,
-    content: $("#user-card"),
-    closeBtn: false,
-    afterClose: showHideToggle
-  });
+  // showHideToggle();
+  // $.fancybox({
+  //   type: 'html',
+  //   autoSize: true,
+  //   maxWidth: 400,
+  //   autoCenter: true,
+  //   content: $("#user-card"),
+  //   closeBtn: false,
+  //   afterClose: showHideToggle
+  // });
 }
 
 var isTOCShow = true;
