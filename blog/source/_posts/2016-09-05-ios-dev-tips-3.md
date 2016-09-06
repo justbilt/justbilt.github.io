@@ -52,9 +52,34 @@ libc++abi.dylib: terminate_handler unexpectedly threw an exception
 
 虽然问题解决了, 但是我并不明白各种缘由. Google 了下, 大概明白了, 原来如此. 从错误中我们可以看到这句 `[AppController window]` , 从语法来看, 这是要调用 AppController 的 window 函数, 但是在我们之前的写法中没有实现这个函数, 便出错了. 而使用 `@property` 这个东西, 会自动帮你实现一个 `window/setWindow` 函数, 这样就不会找不到这个函数了.
 
+# 三. 游戏在低于 ios9 的系统启动崩溃
+
+这个也是在接入第三方 sdk 时遇到的问题, 游戏一启动就会崩溃, 收到错误如下:
+
+> dyld: Symbol not found: _OBJC_CLASS_$_SFSafariViewController
+  Referenced from: /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision
+  Expected in: /System/Library/Frameworks/SafariServices.framework/SafariServices
+ in /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision
+
+Google 了一下, 没有任何人遇到过这样的问题, 这就十分棘手了, 完全不知从何入手. 经过一番探索, 找到了几个有用的线索:
+
+1. SFSafariViewController 这个类是 ios 9 才引入的, 这和我们已知的信息相符.
+2. 所幸的是我们的游戏有多个 Scheme , 每个 Scheme 接入不同的 sdk . 其他的 Scheme 的都可以正常运行.
+
+这就可以肯定是某个 sdk 中使用了 `SFSafariViewController` 这个类, 但是还是没有办法定位是那个 sdk . 我不知道是否有一个命令查找符号引用, 因此只能采用最笨的排除法了, 我将引入的 sdk 依次删除, 看是否能够运行.
+
+最终定位到了某个广告统计 sdk , 在询问其 ios 技术人员后得到了解决方案. 原来他们 sdk 需要**以 `optional` 的形式引入 `SafariServices.framework`**.
+
+![][4]
+
+都怪我没有仔细阅读文档, 白白耽误了一段时间, 下次一定要注意!
+
+
+
 
 
 [1]: http://blog.sina.com.cn/s/blog_a6a46b330101dgju.html
 [2]: http://ww2.sinaimg.cn/large/7f870d23gw1f7j62j0mfuj20dw02n3yy.jpg
 [3]: http://ww2.sinaimg.cn/large/7f870d23gw1f7j665yyacj207901zq32.jpg
+[4]: http://ww1.sinaimg.cn/large/7f870d23gw1f7kanujs5rj20ol018jrf.jpg
 
