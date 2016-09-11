@@ -74,12 +74,87 @@ Google 了一下, 没有任何人遇到过这样的问题, 这就十分棘手了
 
 都怪我没有仔细阅读文档, 白白耽误了一段时间, 下次一定要注意!
 
+# 四. Facebook 登录崩溃
 
+集成 Facebook sdk 时, 调用登录接口游戏就会崩溃, 这个问题 Google 一下就能解决, 解决方案也很简单, 在 Info.plist 中加入下面几行代码即可:
 
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+</array>
+```
+
+Stackoverflow 上的答案可以[移步这里][5], Facebook 官网上也[给了解答][6].
+
+# 五. ios9 状态栏无法隐藏
+
+隐藏状态栏在 ios9 上换了一种方式, 还是需要在 Info.plist 中进行配置:
+
+```xml
+<key>UIStatusBarHidden</key>
+<true/>
+<key>UIViewControllerBasedStatusBarAppearance</key>
+<false/>
+```
+
+Stackoverflow 上的答案可以[移步这里][7].
+
+# 六. showAlert 诡异崩溃
+
+游戏内的一些弹框为了保证在游戏的最上层显示, 偷懒使用了 quick-x 提供的 `device.showAlert` 接口. showAlert 内部使用 `UIAlertView` 实现, 运行一直良好, 有一天突然就不行了, 一调用就崩溃. 
+
+各种办法都试过了, 网上都说是线程安全问题, 我试了一下各种处理都不行, 打断点跟踪到最底层也无济于事. 几近绝望之时, @bin 的一句话提醒了我:
+
+> 会不是屏幕方向的问题 ? 
+
+最终一番尝试, 删除了 `RootViewController.mm` 中几个屏幕方向相关的函数:
+
+```objc
+*/
+// Override to allow orientations other than the default portrait orientation.
+// This method is deprecated on ios6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
+    if (ConfigParser::getInstance()->isLanscape()) {
+        return UIInterfaceOrientationIsLandscape( interfaceOrientation );
+    }else{
+        return UIInterfaceOrientationIsPortrait( interfaceOrientation );
+    }
+    
+}
+
+// For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
+- (NSUInteger) supportedInterfaceOrientations{
+#ifdef __IPHONE_6_0
+    if (ConfigParser::getInstance()->isLanscape()) {
+        return UIInterfaceOrientationMaskLandscape;
+    }else{
+        return UIInterfaceOrientationMaskPortraitUpsideDown;
+    }
+#endif
+}
+
+- (BOOL) shouldAutorotate {
+    if (ConfigParser::getInstance()->isLanscape()) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+```
+
+这个 bug 出现之诡异, 解决方案之诡异, 在我遇到的 bug 中也算是很少见了.
 
 
 [1]: http://blog.sina.com.cn/s/blog_a6a46b330101dgju.html
 [2]: http://ww2.sinaimg.cn/large/7f870d23gw1f7j62j0mfuj20dw02n3yy.jpg
 [3]: http://ww2.sinaimg.cn/large/7f870d23gw1f7j665yyacj207901zq32.jpg
 [4]: http://ww1.sinaimg.cn/large/7f870d23gw1f7kanujs5rj20ol018jrf.jpg
+[5]: http://stackoverflow.com/a/33489214
+[6]: https://developers.facebook.com/docs/ios/ios9
+[7]: http://stackoverflow.com/a/32965748
 
