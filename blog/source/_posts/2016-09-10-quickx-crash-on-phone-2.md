@@ -18,7 +18,7 @@ description: "卧槽, 又崩溃了!"
 
 我们游戏是集成了两个错误统计sdk的, 一个是 Bugtags, 一个是 umeng 错误收集, 但是这两个都是没有办法收集到 native 层面的 crash 的. 
 
-[umeng 错误截图]
+![][2]
 
 正当我一筹莫展的时候, 运营人员发来了 umeng 的这个错误列表, 我恍然大悟:
 
@@ -91,3 +91,4 @@ end
 做出判断前一定要慎重思考.
 
 [1]: /face/yilianmengbi.jpg
+[2]: http://ww4.sinaimg.cn/large/7f870d23jw1f7xim4h1aaj21b50ej0ul.jpg
