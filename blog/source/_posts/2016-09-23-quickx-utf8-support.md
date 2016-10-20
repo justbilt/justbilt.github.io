@@ -1,6 +1,7 @@
 title: quick-x utf8 支持
 date: 2016-09-23 06:58:40
 tags: [quick-cocos2d-x, utf8, emoji]
+description: "唉, 什么都得自己搞."
 ---
 
 # 一. 需求

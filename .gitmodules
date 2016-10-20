@@ -1,0 +1,3 @@
+[submodule "blog/themes/noise"]
+	path = blog/themes/noise
+	url = git@github.com:justbilt/hexo-theme-noise.git
