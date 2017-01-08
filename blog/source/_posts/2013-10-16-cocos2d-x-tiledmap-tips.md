@@ -1,6 +1,8 @@
 title: TiledMap Tips
 date: 2013-10-16 14:01:26
-tags: [TiledMap, cocos2d-x]
+categories:
+- cocos2d-x
+- TiledMap
 ---
 ### 一.断言 TMX: Only 1 tileset per layer is supported 崩溃:
 

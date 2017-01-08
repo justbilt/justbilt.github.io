@@ -1,6 +1,8 @@
 title: 使用 Pyqtdeploy 发布你的 Pyqt 程序
 date: 2015-11-28 08:38:12
-tags: [PyQt, pyqtdeploy]
+categories:
+- PyQt
+- pyqtdeploy
 ---
 
 

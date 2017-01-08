@@ -1,10 +1,14 @@
-title: quick-cocos2d-x 视频播放
+title: quick-x 视频播放
 date: 2016-12-10 22:00:28
-tags: [quick-cocos2d-x, videoplayer]
-description: "呵呵"
+categories:
+- quick-cocos2d-x
+- videoplayer
+description: "半成品, 别用!"
 ---
 
-已经快两个月没有写博客了, 今天我们来聊聊 QuickX 中播放视频的那些事. 这篇文章来自于日常的笔记, 年代可能会有些久远, 加上当时最开始视频播放不是我来做的, 所以有些地方我的理解也不是很深刻. 若是有什么不对的地方, 还望大家不吝赐教.
+今天我们来聊聊 QuickX 中播放视频的那些事. 
+
+这篇文章来自于日常的笔记, 年代可能会有些久远, 加上当时最开始视频播放不是我来做的, 所以有些地方我的理解也不是很深刻. 若是有什么不对的地方, 还望大家不吝赐教.
 
 # 一. 基本用法
 
@@ -37,6 +41,7 @@ description: "呵呵"
     video:play()
 ```
 
+> 然而你做完这一切还是可能会播放不出来视频, 没有关系, 多播放几次就出来啦.
 
 # 二. 遇到的问题
 
@@ -152,3 +157,25 @@ VideoPlayer::~VideoPlayer()
         }
     }
 ```
+
+
+## 问题 6: 还有什么问题, 都说了吧
+
+如果播放时候是黑屏，把游戏切到后台，再进入游戏就能从头播放！
+如果播放时候正常，切到后台再切回来就变成黑屏
+
+http://www.cocoachina.com/bbs/read.php?tid-306892.html
+
+Cocos2d-x V3.10版本中的videoplayer问题
+http://www.voidcn.com/blog/sh15285118586/article/p-5989468.html
+
+关于cocos2dx 3.x VideoPlayer的问题
+http://blog.sina.com.cn/s/blog_93add5520102w6n9.html
+
+cocos2d-x视频控件VideoPlayer的用户操作栏进度条去除
+http://blog.csdn.net/pklll000pp44/article/details/51337577
+
+
+---
+
+还真的是问题一大堆呢! 大家最好还是回去和策划大大商量下, 别播放视频了.

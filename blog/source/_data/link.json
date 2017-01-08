@@ -1,0 +1,12 @@
+{
+    "social": {
+        "weibo": "http://weibo.com/justbilt",
+        "github": "https://github.com/justbilt",
+		"rss": "/atom.xml"
+    },
+    "extern": {
+	    "Imbahom": "http://blog.imbahom.com/",
+		"松阳": "http://www.songyang.net/",
+		"子龙山人": "http://zilongshanren.com/"
+    }
+}

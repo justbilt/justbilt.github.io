@@ -1,6 +1,7 @@
 title: 入手 iMac Retina 5K
 date: 2015-05-08 20:45:37
-tags: [生活]
+categories:
+- 生活
 ---
 
 ## 引子

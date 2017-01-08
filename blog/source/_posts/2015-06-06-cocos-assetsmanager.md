@@ -1,6 +1,8 @@
 title: cocos2d-x AssetsManager 问题汇总
 date: 2015-06-06 00:42:33
-tags: [quick-cocos2d-x, hotupdate]
+categories:
+- quick-cocos2d-x
+- hotupdate
 ---
 
 大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!

@@ -1,3 +1,6 @@
 [submodule "blog/themes/noise"]
 	path = blog/themes/noise
 	url = git@github.com:justbilt/hexo-theme-noise.git
+[submodule "blog/themes/raytaylorism"]
+	path = blog/themes/raytaylorism
+	url = https://github.com/justbilt/hexo-theme-raytaylorism.git

@@ -1,6 +1,8 @@
 title: 更新 spine 的 cocos2d-x runtimes
 date: 2015-08-16 19:17:03
-tags: [cocos2d-x, spine]
+categories:
+- cocos2d-x
+- spine
 ---
 
 又是2个多月没有更新博客了, 真是不应该, 惭愧啊！其实手上已经攒了一些素材了, 只是一直没有一个很强的动力去写出来, 今天总算是有一些想法了, 先用一篇没有什么养分的文章来 “探探路”,  唤醒下自己写作的欲望吧！

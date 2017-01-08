@@ -56,13 +56,24 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 100
-pagination_dir: page
+archive_generator:
+  per_page: 0
+tag_generator:
+  per_page: 0
+category_generator:
+  per_page: 0
+
+# per_page: 100
+# pagination_dir: page
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: noise
+theme: raytaylorism
+
+search:
+  path: search.xml
+  field: all
 
 feed:
   type: atom

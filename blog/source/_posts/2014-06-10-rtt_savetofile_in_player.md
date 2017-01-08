@@ -1,6 +1,8 @@
 title: 在Player中保存CCRenderTexture到文件
 date: 2014-06-10 17:42:36
-tags: [CCRenderTexture, quick-cocos2d-x]
+categories:
+- quick-cocos2d-x
+- CCRenderTexture
 ---
 
 在 player 中调用 CCRenderTexture 的 saveToFile 函数会导致player崩溃,crash log 如下:
