@@ -15,3 +15,14 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 ```
 defaults write com.apple.finder AppleShowAllFiles -bool false
 ```
+
+
+### 显示桌面:
+```
+defaults write com.apple.finder CreateDesktop -bool true && killall Finder
+```
+
+### 隐藏桌面:
+```
+defaults write com.apple.finder CreateDesktop -bool false && killall Finder
+```
