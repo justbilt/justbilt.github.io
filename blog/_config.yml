@@ -91,6 +91,7 @@ deploy:
   type: git
   message: update my blog!
   repo: 
+    coding: git@git.coding.net:justbilt/blog.git,master
     github: git@github.com:justbilt/justbilt.github.io.git,master
   # type: git  
   # message: update my blog!
