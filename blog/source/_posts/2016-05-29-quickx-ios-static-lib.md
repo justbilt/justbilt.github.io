@@ -1,7 +1,7 @@
 title: quick-x 使用静态库加速 iOS 打包
 date: 2016-05-29 21:20:58
 tags:
-- quick-cocos2d-x
+- Quick-Cocos2d-x
 - iOS
 description: "亲爱的, 打完这个包就回家"
 ---

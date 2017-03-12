@@ -1,7 +1,7 @@
 title: 最近搞 iOS 版遇到的一些问题和技巧 (三)
 date: 2016-09-05 23:50:12
 tags:
-- quick-cocos2d-x
+- Quick-Cocos2d-x
 - iOS
 description: "万一遇上了呢?"
 ---

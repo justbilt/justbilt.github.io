@@ -1,7 +1,7 @@
 title: 盘点 quick-cocos2d-x Player 粗线的问题
 date: 2014-05-17 12:04:10
 tags:
-- quick-cocos2d-x
+- Quick-Cocos2d-x
 ---
 
 ## 一. Mac版日志显示不完整
