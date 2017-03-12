@@ -1,8 +1,8 @@
 title: 最近搞 iOS 版遇到的一些问题和技巧 (三)
 date: 2016-09-05 23:50:12
 tags:
-- Quick-Cocos2d-x
 - iOS
+- iOS-Dev-Tips
 description: "万一遇上了呢?"
 ---
 
@@ -33,7 +33,9 @@ ZZB_Amoy 博客的[这篇文章][1]总结了下可能的原因, 如下:
 
 1. 如果游戏发布区域中没有手机中 App Store 当前区的话, 需要先登陆下对应区域创建的测试账号, 将商店切换到对应区域.
 2. 完善苹果开发者账号所能完善的信息, 如付款信息呀什么的, 然后莫名其妙就解决了.
+3. 商品 id 大小写错误, 在 chrome 搜索时是忽略大小的.
 
+> 注：在测试阶段，可以不用上传APP软件包，但必须创建测试用Apple Id，并在手机设置中（store选项）登录。
 
 # 二. iOS 运行崩溃 unrecognized selector sent to instance
 
