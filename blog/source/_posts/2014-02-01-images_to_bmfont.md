@@ -1,6 +1,6 @@
 title: 将一堆小图转化为BMFont工具
 date: 2014-02-01 08:34:33
-categories:
+tags:
 - Tool
 - images2fnt
 ---

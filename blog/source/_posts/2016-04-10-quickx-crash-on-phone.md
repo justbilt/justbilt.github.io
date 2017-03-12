@@ -1,6 +1,6 @@
 title: 最近遇到的几个 quick-x  真机崩溃
 date: 2016-04-10 20:14:18
-categories:
+tags:
 - quick-cocos2d-x
 - crash
 description: "卧槽, 又崩溃了!"

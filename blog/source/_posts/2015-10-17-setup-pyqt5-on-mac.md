@@ -1,6 +1,6 @@
 title: Pyqt5 MacOS 环境搭建
 date: 2015-10-17 14:46:49
-categories:
+tags:
 - PyQt
 ---
 

@@ -1,6 +1,6 @@
 title: 友盟渠道包工具
 date: 2014-03-19 10:18:22
-categories:
+tags:
 - Tool
 - 批量打包
 ---

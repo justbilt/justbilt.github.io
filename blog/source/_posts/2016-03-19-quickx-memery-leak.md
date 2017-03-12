@@ -1,6 +1,6 @@
 title: 记一次 quick-x 内存泄露排查
 date: 2016-03-19 17:48:38
-categories:
+tags:
 - quick-cocos2d-x
 - MemoryLeak
 description: "谁动了我的内存 ? "

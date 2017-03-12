@@ -1,6 +1,6 @@
 title: 将 untp 发布到 Pypi 上
 date: 2016-02-29 23:33:24
-categories:
+tags:
 - Tool
 - untp
 description: "年轻人的第一个 pip 包"

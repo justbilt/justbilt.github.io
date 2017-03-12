@@ -1,7 +1,7 @@
 
 title: 在 quick-x 中使用 TableView
 date: 2016-03-13 08:02:53
-categories:
+tags:
 - quick-cocos2d-x
 - TableView
 description: "如何使用 TableView 这个效率提升利器? "

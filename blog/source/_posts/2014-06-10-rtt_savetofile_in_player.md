@@ -1,6 +1,6 @@
 title: 在Player中保存CCRenderTexture到文件
 date: 2014-06-10 17:42:36
-categories:
+tags:
 - quick-cocos2d-x
 - CCRenderTexture
 ---

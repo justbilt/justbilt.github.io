@@ -1,6 +1,6 @@
 title: 在Command Line中使用TexturePacker
 date: 2013-12-12 10:33:02
-categories:
+tags:
 - Tool
 - TexturePacker
 ---

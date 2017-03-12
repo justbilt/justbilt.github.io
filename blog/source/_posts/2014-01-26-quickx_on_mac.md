@@ -1,6 +1,6 @@
 title: 在MacOS上搭建mafiagame版的quick-cocos2d-x
 date: 2014-01-26 18:15:44
-categories:
+tags:
 - quick-cocos2d-x
 ---
 

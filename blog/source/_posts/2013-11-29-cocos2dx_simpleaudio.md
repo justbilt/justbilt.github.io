@@ -1,6 +1,6 @@
 title: 修改SimpleAudioEngine在win32下的实现
 date: 2013-11-29 16:07:51
-categories:
+tags:
 - cocos2d-x
 - 音效
 ---

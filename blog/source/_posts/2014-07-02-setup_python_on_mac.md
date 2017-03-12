@@ -1,6 +1,6 @@
 title: 在mac上搭建python环境
 date: 2014-07-02 06:12:54
-categories:
+tags:
 - python
 ---
 

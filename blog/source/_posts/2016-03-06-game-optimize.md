@@ -1,6 +1,6 @@
 title: 游戏性能优化 - 界面篇
 date: 2016-03-06 23:46:48
-categories:
+tags:
 - 游戏心得
 - 优化
 description: "一般人我不告诉他"

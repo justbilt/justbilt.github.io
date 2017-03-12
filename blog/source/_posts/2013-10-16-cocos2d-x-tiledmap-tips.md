@@ -1,6 +1,6 @@
 title: TiledMap Tips
 date: 2013-10-16 14:01:26
-categories:
+tags:
 - cocos2d-x
 - TiledMap
 ---

@@ -1,6 +1,6 @@
 title: quickx CCGraySprite 消失坑 (已更新解决方案)
 date: 2014-10-29 13:01:33
-categories:
+tags:
 - quick-cocos2d-x
 ---
 

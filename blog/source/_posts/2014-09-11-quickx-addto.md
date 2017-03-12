@@ -1,6 +1,6 @@
 title: quickx addTo导致tag无效坑
 date: 2014-09-11 19:59:57
-categories:
+tags:
 - quick-cocos2d-x
 ---
 

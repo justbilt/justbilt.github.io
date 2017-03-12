@@ -1,6 +1,6 @@
 title: quick-x EditBox 几个小技巧
 date: 2016-05-01 08:56:03
-categories:
+tags:
 - quick-cocos2d-x
 - EditBox
 description: "为了应付 PM, EditBox 你需要知道的几个小技巧"

@@ -1,6 +1,6 @@
 title: MyGUI学习笔记(一) 在Windows上运行MyGUI
 date: 2015-05-29 23:30:11
-categories:
+tags:
 - MyGUI
 ---
 

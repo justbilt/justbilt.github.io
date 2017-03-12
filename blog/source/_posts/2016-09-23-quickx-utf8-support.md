@@ -1,6 +1,6 @@
 title: quick-x utf8 支持
 date: 2016-09-23 06:58:40
-categories:
+tags:
 - quick-cocos2d-x
 - utf8
 description: "唉, 什么都得自己搞."

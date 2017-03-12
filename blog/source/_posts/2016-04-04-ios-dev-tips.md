@@ -1,6 +1,6 @@
 title: 最近搞 iOS 版遇到的一些问题和技巧
 date: 2016-04-04 09:13:34
-categories: 
+tags: 
 - quick-cocos2d-x
 - iOS
 description: "运行 iOS 版你需要知道的一些事情, 进来看看不吃亏!"

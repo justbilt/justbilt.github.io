@@ -1,6 +1,6 @@
 title: quick-x 视频播放
 date: 2016-12-10 22:00:28
-categories:
+tags:
 - quick-cocos2d-x
 - videoplayer
 description: "半成品, 别用!"

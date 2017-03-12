@@ -1,6 +1,6 @@
 title: 从保卫萝卜看cocos2d-x循环播放音效的问题
 date: 2013-11-28 08:28:03
-categories:
+tags:
 - cocos2d-x
 - 音效
 ---

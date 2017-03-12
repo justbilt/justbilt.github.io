@@ -1,6 +1,6 @@
 title: 最近博客的一些变化
 date: 2017-02-24 00:39:14
-categories:
+tags:
 - blog
 description: "哎呀, 你咋又换主题了 !"
 ---

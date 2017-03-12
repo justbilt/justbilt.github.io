@@ -1,6 +1,6 @@
 title: 为 quick-cocos2d-x 添加析构事件
 date: 2015-05-17 14:04:37
-categories:
+tags:
 - quick-cocos2d-x
 ---
 

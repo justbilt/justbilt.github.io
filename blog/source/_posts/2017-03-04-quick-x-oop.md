@@ -1,6 +1,6 @@
 title: Quick-Cocos2d-x 中的面向对象
 date: 2017-03-04 10:04:44
-categories:
+tags:
 - quick-cocos2d-x
 description: "没有对象? 自己 new 一个就好了嘛!"
 ---

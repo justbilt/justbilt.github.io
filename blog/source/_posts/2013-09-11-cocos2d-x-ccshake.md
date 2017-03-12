@@ -1,6 +1,6 @@
 title: cocos2d-x 抖动效果 CCShake
 date: 2013-09-11 15:37:58
-categories:
+tags:
 - cocos2d-x
 ---
 

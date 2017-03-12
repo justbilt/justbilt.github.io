@@ -1,6 +1,6 @@
 title: 更新 spine 的 cocos2d-x runtimes
 date: 2015-08-16 19:17:03
-categories:
+tags:
 - cocos2d-x
 - spine
 ---
