@@ -1,0 +1,587 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>QuickxDev插件(二) debug.log文件的处理 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="QuickxDev插件(二) debug.log文件的处理"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>QuickxDev插件(二) debug.log文件的处理</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2015-03-16T06:45:10.000Z"><a href="/2015/03/16/quickxdev-2/">2015-03-16</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Quick-Cocos2d-x/" class="chip light-blue">Quick-Cocos2d-x</a>
+        
+            <a href="/tags/QuickxDev/" class="chip light-blue">QuickxDev</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-__u5BF9_debug-log__u6587_u4EF6_u8FDB_u884C_u914D_u8272"><span class="section table-of-contents-text">一. 对 debug.log 文件进行配色</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u542F_u52A8_Player__u65F6_u6253_u5F00_debug-log__u6587_u4EF6"><span class="section table-of-contents-text">二. 启动 Player 时打开 debug.log 文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E09-__u9519_u8BEF_u5806_u6808/dump__u7684_u8DF3_u8F6C"><span class="section table-of-contents-text">三. 错误堆栈/dump 的跳转</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u6DFB_u52A0_u9F20_u6807_u53CC_u51FB_u7684_u54CD_u5E94"><span class="section table-of-contents-text">1. 添加鼠标双击的响应</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u83B7_u53D6_u9F20_u6807_u53CC_u51FB_u7684_u6240_u5728_u884C"><span class="section table-of-contents-text">2. 获取鼠标双击的所在行</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u8BA1_u7B97_u8DF3_u8F6C_u7684_u6587_u4EF6_u548C_u884C_u53F7"><span class="section table-of-contents-text">3. 计算跳转的文件和行号</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u8DF3_u8F6C"><span class="section table-of-contents-text">3. 跳转</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>上篇文章中我们说过要对debug.log文件做一些特殊处理, 这里我们来看看具体的实现.</p>
+<a id="more"></a>
+<h1 id="u4E00-__u5BF9_debug-log__u6587_u4EF6_u8FDB_u884C_u914D_u8272"><a href="#u4E00-__u5BF9_debug-log__u6587_u4EF6_u8FDB_u884C_u914D_u8272" class="headerlink" title="一. 对 debug.log 文件进行配色"></a>一. 对 debug.log 文件进行配色</h1><p>debug.log文件默认是没有配色的, 灰不拉几不好看. 实现这个其实非常简单, 每一个打开的文件都是一个<code>sublime.View</code>, <code>sublime.View</code>中有现成的函数<code>set_syntax_file</code>来设置文件句法规则, 让我们来看下定义:</p>
+<blockquote>
+<p>set_syntax_file(syntax_file)<br>Changes the syntax used by the view. syntax_file should be a name along the lines of Packages/Python/Python.tmLanguage. To retrieve the current syntax, use view.settings().get(‘syntax’).</p>
+</blockquote>
+<p>这个函数其实对应的是 Sublime 菜单栏中的这个:</p>
+<p><img src="/img/QQ20150316-2.jpg" alt=""></p>
+<p>大家可以多试几次, 挑一个好看点的, 我选中的是 <code>Java</code> 的语法(路径为:<code>Packages/Java/Java.tmLanguage</code>).</p>
+<p>下面我们要监听文件 debug.log 的打开, 监听事件需要继承<code>sublime_plugin.EventListener</code>, QuickxDev 已经有了 <code>QuickxListener</code>, 查询 api 可以得知可以监听 <code>on_load</code> 事件来实现.</p>
+<blockquote>
+<p>on_load(view)<br>Called when the file is finished loading.</p>
+</blockquote>
+<p>实现的代码也非常的简单:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QuickxListener</span><span class="params">(sublime_plugin.EventListener)</span>:</span></span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">on_load</span><span class="params">(self, view)</span>:</span></span><br><span class="line">		print(view.file_name())</span><br><span class="line">		<span class="keyword">if</span> view.file_name().find(<span class="string">"debug.log"</span>) != -<span class="number">1</span>:</span><br><span class="line">			view.set_syntax_file(<span class="string">"Packages/Java/Java.tmLanguage"</span>)</span><br></pre></td></tr></table></figure>
+<p>让我们来张对比图:</p>
+<p><img src="/img/QQ20150316-3.jpg" alt=""></p>
+<h1 id="u4E8C-__u542F_u52A8_Player__u65F6_u6253_u5F00_debug-log__u6587_u4EF6"><a href="#u4E8C-__u542F_u52A8_Player__u65F6_u6253_u5F00_debug-log__u6587_u4EF6" class="headerlink" title="二. 启动 Player 时打开 debug.log 文件"></a>二. 启动 Player 时打开 debug.log 文件</h1><p>因为种种原因, 我的 debug.log 文件没有在 Sublime 工程中, 所以每次想看日志都得在磁盘上找到这个文件, 拖进来, 略显繁琐. 因此萌生了运行 player 时顺带打开 debug.log 文件的需求.</p>
+<p>实现起来也十分简单, 查询 api 得知:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open_file(file_name, &#60;flags&#62;)&#9;&#10;&#9;Opens the named file, and returns the corresponding view. If the file is already opened, it will be brought to the front. Note that as file loading is asynchronous, operations on the returned view won&#39;t be possible until its is_loading() method returns False.&#10;&#9;The optional flags parameter is a bitwise combination of:&#10;&#10;&#9;sublime.ENCODED_POSITION. Indicates the file_name should be searched for a :row or :row:col suffix&#10;&#9;sublime.TRANSIENT. Open the file as a preview only: it won&#39;t have a tab assigned it until modified</span><br></pre></td></tr></table></figure>
+<p><code>file_name</code>文件名不说, 后面的 flags 比较有意思: </p>
+<ol>
+<li><code>sublime.ENCODED_POSITION</code> 选项可以再在打开文件的同时定位到某一行/某一列,非常有用.</li>
+<li><code>sublime.TRANSIENT</code> 选项意思是只是预览它, 直到手动改变内容前不创建标签 .</li>
+</ol>
+<p>下面我们找到启动 Player 的地方, 因为<code>file_name</code>是全路径, 所以我们需要找到工程的路径. 启动 player 时需要传入 <code>-workdir</code> 参数, 我们用这个就行. 实现同样十分简单:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">workdir = os.path.split(path)[<span class="number">0</span>]</span><br><span class="line">args.append(<span class="string">"-workdir"</span>)</span><br><span class="line">args.append(workdir)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">view.window().open_file(workdir+<span class="string">"/debug.log"</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="u4E09-__u9519_u8BEF_u5806_u6808/dump__u7684_u8DF3_u8F6C"><a href="#u4E09-__u9519_u8BEF_u5806_u6808/dump__u7684_u8DF3_u8F6C" class="headerlink" title="三. 错误堆栈/dump 的跳转"></a>三. 错误堆栈/dump 的跳转</h1><p>当我查看debug.log 文件时, 经常会看到类似的语句:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.lua &#35821;&#27861;&#38169;&#35823;&#10;/Users/XXXX/scripts/app/MyApp.lua:117: &#39;=&#39; expected near &#39;a&#39;&#10;&#10;2. lua &#36816;&#34892;&#26102;&#38169;&#35823;&#10;Cocos2d: [LUA ERROR] [string &#34;/Users/XXX/app/MyApp.lua&#34;]:118: attempt to index local &#39;a&#39; (a nil value)&#10;&#10;3. dump &#20449;&#24687;&#10;Cocos2d: [0.0724] dump from: [string &#34;/Users/XXX/scripts/app/MyApp.lua&#34;]:117: in function &#39;ctor&#39;</span><br></pre></td></tr></table></figure>
+<p>他们之中都包含了文件名+行号信息, 联想到上面提到打开文件时可以跳转到某一行, 是不是隐隐感觉可以做些什么?</p>
+<p>没错, 基于这个, 我们能够很容易的实现双击错误信息后跳转到错误位置.</p>
+<h2 id="1-__u6DFB_u52A0_u9F20_u6807_u53CC_u51FB_u7684_u54CD_u5E94"><a href="#1-__u6DFB_u52A0_u9F20_u6807_u53CC_u51FB_u7684_u54CD_u5E94" class="headerlink" title="1. 添加鼠标双击的响应"></a>1. 添加鼠标双击的响应</h2><p>这个比较简单, 我们需要在 QuickxDev 文件夹中创建 <code>Default.sublime-mousemap</code> 文件, 内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#10;&#9;&#123;&#10;&#9;  &#34;button&#34;: &#34;button1&#34;, &#34;count&#34;: 2,&#10;&#9;  &#34;press_command&#34;: &#34;drag_select&#34;,&#10;&#9;  &#34;press_args&#34;: &#123;&#34;by&#34;: &#34;words&#34;&#125;,&#10;&#9;  &#34;command&#34;: &#34;my_special_doubleclick&#34;&#10;&#9;&#125;&#10;]</span><br></pre></td></tr></table></figure>
+<p>这样在双击左键的时候会发送 <code>my_special_doubleclick</code> 事件, 我们在 quickx.py 中定义它:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySpecialDoubleclickCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> self.view.file_name():</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		file_path, file_name = os.path.split(self.view.file_name())</span><br><span class="line">		<span class="keyword">if</span> file_name == <span class="string">"debug.log"</span>:</span><br><span class="line">			print(file_path, file_name)</span><br></pre></td></tr></table></figure>
+<p>我们双击 debug.log 文件的某一行就会收到<code>MySpecialDoubleclickCommand</code>命令, 进而打印出文件名, 路径!</p>
+<h2 id="2-__u83B7_u53D6_u9F20_u6807_u53CC_u51FB_u7684_u6240_u5728_u884C"><a href="#2-__u83B7_u53D6_u9F20_u6807_u53CC_u51FB_u7684_u6240_u5728_u884C" class="headerlink" title="2. 获取鼠标双击的所在行"></a>2. 获取鼠标双击的所在行</h2><p>因为双击会选中某个单词, 所以我们可以使用<code>sublime.View.sel()</code>来获取当前选中的行:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> region <span class="keyword">in</span> self.view.sel():</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> region.empty():</span><br><span class="line">		line = self.view.substr(self.view.line(region.a))</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"line:"</span>,line)</span><br></pre></td></tr></table></figure>
+<h2 id="3-__u8BA1_u7B97_u8DF3_u8F6C_u7684_u6587_u4EF6_u548C_u884C_u53F7"><a href="#3-__u8BA1_u7B97_u8DF3_u8F6C_u7684_u6587_u4EF6_u548C_u884C_u53F7" class="headerlink" title="3. 计算跳转的文件和行号"></a>3. 计算跳转的文件和行号</h2><p>因为不会正则, 只能用一些土办法来计算文件和行号, 代码如下, 比较简单:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def parseLuaError(line):&#10;&#9;key = &#34;.lua:&#34;&#10;&#9;posKeyStart = line.find(key)&#10;&#9;if posKeyStart == -1:&#10;&#9;&#9;return False,&#34;&#34;&#10;&#9;posKeyEnd = posKeyStart + len(key)&#10;&#9;filename = line[:posKeyStart].strip(&#34; \t&#34;)+&#34;.lua&#34;&#10;&#9;fileline = line[posKeyEnd:line.find(&#34;:&#34;,posKeyEnd)]&#10;&#10;&#9;return True, filename+&#34;:&#34;+fileline&#10;&#10;def parseCocosErrorAndDump(line):&#10;&#9;filename = &#34;&#34;&#10;&#9;fileline = 1&#10;&#9;keyHead = &#34;[string \&#34;&#34;&#10;&#9;posHeadStart = line.find(keyHead)&#10;&#9;if posHeadStart == -1:&#10;&#9;&#9;return False,&#34;&#34;&#10;&#10;&#9;posHeadEnd = posHeadStart + len(keyHead)&#10;&#10;&#9;key = &#34;.lua\&#34;]:&#34;&#10;&#9;posKeyStart = line.find(key,posHeadStart)&#10;&#9;&#10;&#9;if posHeadStart == -1:&#10;&#9;&#9;return False,&#34;&#34;&#10;&#10;&#9;posKeyEnd = posKeyStart + len(key)&#10;&#10;&#9;filename = line[posHeadEnd:posKeyStart]+&#34;.lua&#34;&#10;&#9;fileline = line[posKeyEnd:line.find(&#34;:&#34;,posKeyEnd)]&#10;&#10;&#9;return True, filename+&#34;:&#34;+fileline</span><br></pre></td></tr></table></figure>
+<p>想想还是正则会比较简单, 以后有机会在改吧!</p>
+<h2 id="3-__u8DF3_u8F6C"><a href="#3-__u8DF3_u8F6C" class="headerlink" title="3. 跳转"></a>3. 跳转</h2><p>在上面的步骤中我们拿到了文件名和行号, 现在我们只需要跳转就OK了!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parseLine</span><span class="params">(self, line)</span>:</span></span><br><span class="line">	re,string = self.parseCocosErrorAndDump(line)</span><br><span class="line">	<span class="keyword">if</span> re:</span><br><span class="line">		<span class="keyword">return</span> re,string</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> self.parseLuaError(line)</span><br><span class="line"></span><br><span class="line">re,filename = self.parseLine(line)</span><br><span class="line"><span class="keyword">if</span> re:</span><br><span class="line">	self.view.window().open_file(filename,sublime.ENCODED_POSITION)</span><br></pre></td></tr></table></figure>
+<p>是啦,就是这么简单! 意外的发现这个功能对错误堆栈的跳转十分给力! 录了几个小 GIF, 感受一下吧!</p>
+<p><a href="/img/2015-03-19-001.gif">演示一</a>,<a href="/img/2015-03-19-002.gif">演示二</a>,<a href="/img/2015-03-19-003.gif">演示三</a>,<a href="http://ww1.sinaimg.cn/large/7f870d23jw1eqb60t0ritg20yc0bie82.gif" target="_blank" rel="external">演示四</a></p>
+<p>其实这些功能实现起来都不难, 但是却能令自己感觉很爽很有成就感, 这恐怕就是做游戏所不能体会到的吧! 哈哈!</p>
+<p>(本文完)</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2015/04/04/phone-game-AND-encrypt-var/" rel="next" title="手机游戏攻防(一) 变量加密法">
+    上一篇：手机游戏攻防(一) 变量加密法
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2015/03/16/quickxdev-1/" rel="next" title="QuickxDev插件(一) 简介">
+    下一篇：QuickxDev插件(一) 简介
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2015/03/16/quickxdev-2/';
+                        this.page.identifier = '2015/03/16/quickxdev-2/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

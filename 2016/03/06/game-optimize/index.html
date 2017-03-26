@@ -1,0 +1,573 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>游戏性能优化 - 界面篇 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="一般人我不告诉他">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="游戏性能优化 - 界面篇"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>游戏性能优化 - 界面篇</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-03-06T15:46:48.000Z"><a href="/2016/03/06/game-optimize/">2016-03-06</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/优化/" class="chip light-blue">优化</a>
+        
+            <a href="/tags/游戏心得/" class="chip light-blue">游戏心得</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u6253_u5F00_u754C_u9762"><span class="section table-of-contents-text">打开界面</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u4F18_u5316_u5B50_u8282_u70B9_node__u6570_u91CF"><span class="section table-of-contents-text">1. 优化子节点 node 数量</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u9488_u5BF9_u6027_u9009_u62E9_u4F7F_u7528_TableView"><span class="section table-of-contents-text">2. 针对性选择使用 TableView</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u64CD_u4F5C_u754C_u9762"><span class="section table-of-contents-text">操作界面</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u5173_u95ED_u754C_u9762"><span class="section table-of-contents-text">关闭界面</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>最近几天都在做性能优化方面的事情, 关于优化, 之前的经验也都是泛泛而谈, 知道有几条路线可以走, 但一直没有去实践过. 所以刚开始搞的时候, 也是两眼一抹黑, 走了不少弯路, 最后也是受益匪浅, 这里记录一下我们的思路, 也是为下次优化提供一个可行的方案.</p>
+<p>在测试的时候, 不少界面界面卡顿十分严重, 主要分为三个方面, 分别是 <strong>打开界面卡顿</strong>, <strong>操作界面卡顿</strong>, <strong>关闭界面卡顿</strong> . 不开玩笑, 确实如此 ! </p>
+<p>经过分析, 这些界面多有许多共同的特征:</p>
+<ol>
+<li>界面包含多个页签</li>
+<li>界面含有 ScrollView</li>
+</ol>
+<p>在看具体业务逻辑的时候, 发现了很多的问题. 下面就和大家细说一下优化方案.</p>
+<h1 id="u6253_u5F00_u754C_u9762"><a href="#u6253_u5F00_u754C_u9762" class="headerlink" title="打开界面"></a>打开界面</h1><p>总结一下, 打开界面卡顿的主要原因是:</p>
+<blockquote>
+<p>界面创建时做了太多的事情.</p>
+</blockquote>
+<p>对于多页签界面, 为了不在点击切换标签时有卡顿的感觉, 打开界面时创建了所有标签页的内容. 如下图:</p>
+<p><img src="http://static.zybuluo.com/justbilt/4ngqmwbvcjwltqrq94ra65o4/QQ20160219-0@2x.png" alt=""></p>
+<p>这个其实没有必要, 不这样做的话可以将加载时间分摊到每次点击标签的时候, 再优化下每个标签页的创建速度, 切换标签时就几乎感觉不到卡顿的. 然后我们缓存注这些界面, 下次切换就会更流畅了.</p>
+<p>对于 ScrollView , 如果子节点数量很多的话, 就会奇卡无比, 因为会在初始化时创建所有的子节点! 对于这个我们做了两点优化:</p>
+<h2 id="1-__u4F18_u5316_u5B50_u8282_u70B9_node__u6570_u91CF"><a href="#1-__u4F18_u5316_u5B50_u8282_u70B9_node__u6570_u91CF" class="headerlink" title="1. 优化子节点 node 数量"></a>1. 优化子节点 node 数量</h2><p>我们一个子节点可能有多个互斥的状态, 美术拼界面时会把所有的状态都拼在界面里, 程序再根据具体状态 setVisible , 这样就非常的浪费. 为此我们实现了在 ccb 中标记节点状态的功能, 所有不属于基本 ui 状态的节点树都不会被创建, 用到时候手动 init , 这个实现对性能的提升非常显著.</p>
+<h2 id="2-__u9488_u5BF9_u6027_u9009_u62E9_u4F7F_u7528_TableView"><a href="#2-__u9488_u5BF9_u6027_u9009_u62E9_u4F7F_u7528_TableView" class="headerlink" title="2. 针对性选择使用 TableView"></a>2. 针对性选择使用 TableView</h2><p>我一般情况下不建议使用 TableView, 因为它的创建方式十分复杂, 使用起来也诸多不便, 更重要的是会破坏串行的ui创建逻辑. 但不得不承认, 某些情况下它对性能的提升非常有帮助, 尤其是在子节点的数量达到 20 个以上的时候, 简直是质的飞跃.</p>
+<p>但是基于 TableView 十分难用, 加上 lua 这边逻辑出错后并不会抛出, debug 十分痛苦. 为此我们修改了一些 TableView 的源码, 同时在 lua 这边有封装了一层, 做到了数据和界面的分离.</p>
+<p>当然 quick-3.3 的 TableView 坑不止这些, 感觉不做些修改基本没法使用. 具体细节, 我会在下一篇文章中和大家细说.</p>
+<hr>
+<p>对于其他情况, 若是界面需要加载的东西特别多, 点击后会有几近卡死的状态, 同时因为顶点数量居多, 若是同时渲染背景场景和该界面, 会进一步加剧卡顿效果. </p>
+<blockquote>
+<p>顶点数量巨多的界面加 loading 动画</p>
+</blockquote>
+<p>这个 loading 不同于切换场景的 loading, 可以做的非常轻, 非常简单, 用来避免同时渲染两个界面导致帧率剧降的情况. 可以是一个门, 门关上时, 前一个界面就不渲染了, 这时在门的后面加载显示新的界面, 隐藏(自动剔除)旧的界面, 门打开, 这时只有新的界面会被渲染出来了.</p>
+<p>可能同时渲染两个界面感觉不到这么明显的变化, 但是我们的前一个界面是大基地, 有将近 4000 个顶点, 150 多渲染批次, 这样就会十分明显了.</p>
+<h1 id="u64CD_u4F5C_u754C_u9762"><a href="#u64CD_u4F5C_u754C_u9762" class="headerlink" title="操作界面"></a>操作界面</h1><p>操作界面卡顿主要发生在含有 ScrollView 的界面, 我看了下逻辑, 在数据发生变化时, 会将 ScrollView 的所有节点都移除掉, 重新创建. 这样完全就是一个偷懒的做法, 应当是哪里有数据变化就刷新哪里, 那些数据删除了, 就删除掉对应的子节点, 那些数据是新增的, 就创建一些新的节点加入进去.</p>
+<p>这个问题高端机可能觉察不到, 一到 Android 渣机就卡成狗, 完全没法玩. 这里得出的经验就是, 平时测试的时候一定要找一个渣机.</p>
+<h1 id="u5173_u95ED_u754C_u9762"><a href="#u5173_u95ED_u754C_u9762" class="headerlink" title="关闭界面"></a>关闭界面</h1><p>关闭界面时的主要问题是动画不流畅, 代码并没有太大的问题. 我们的关闭界面有一个动画, 整个层淡出并向下移动. 这样就会在动画的过程中露出下面的基地界面, 导致同时渲染顶点数剧增, 帧率骤降, 表现出来的现象就是 “三帧-咔咔咔”.</p>
+<p>解决方案也很简单, 去掉这个动画就, 改成直接移除. 如果大家观察一下其他游戏, 在关闭界面时也多是没有动画的.</p>
+<hr>
+<p>以上就是我们针对界面做的优化, 没有上代码, 多是理论思路和操作方法. 同时我针对内部小伙伴也写了一篇文章, 内容多是类似, 但是会有一些具体代码上讲解. 大家若是有兴趣的话, 也可以<a href="https://www.zybuluo.com/justbilt/note/289485" target="_blank" rel="external">点击这里</a>阅读, 若是有什么疑问及见解, 欢迎指出.</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/03/13/quickx-tableview/" rel="next" title="在 quick-x 中使用 TableView">
+    上一篇：在 quick-x 中使用 TableView
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/02/29/publish-untp-to-pypi/" rel="next" title="将 untp 发布到 Pypi 上">
+    下一篇：将 untp 发布到 Pypi 上
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/03/06/game-optimize/';
+                        this.page.identifier = '2016/03/06/game-optimize/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

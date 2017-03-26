@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>QuickxDev插件(一) 简介 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="QuickxDev插件(一) 简介"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>QuickxDev插件(一) 简介</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2015-03-16T01:49:20.000Z"><a href="/2015/03/16/quickxdev-1/">2015-03-16</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Quick-Cocos2d-x/" class="chip light-blue">Quick-Cocos2d-x</a>
+        
+            <a href="/tags/QuickxDev/" class="chip light-blue">QuickxDev</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-_QuickxDev"><span class="section table-of-contents-text">一. QuickxDev</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-Run_With_Player"><span class="section table-of-contents-text">1.Run With Player</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-Goto_Definition"><span class="section table-of-contents-text">2.Goto Definition</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-Code_Snippets"><span class="section table-of-contents-text">3.Code Snippets</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#4-Compile_Scripts"><span class="section table-of-contents-text">4.Compile Scripts</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u5B89_u88C5QuickxDev"><span class="section table-of-contents-text">二. 安装QuickxDev</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-Package_Control"><span class="section table-of-contents-text">1.Package Control</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-_u6E90_u7801_u5B89_u88C5"><span class="section table-of-contents-text">2.源码安装</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-_u63D2_u4EF6_u8BBE_u7F6E"><span class="section table-of-contents-text">3.插件设置</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E09-__u5B9A_u5236_u529F_u80FD"><span class="section table-of-contents-text">三. 定制功能</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-_u5FEB_u6377_u952E_u542F_u52A8Player"><span class="section table-of-contents-text">1.快捷键启动Player</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-_u5BF9debug-log_u6587_u4EF6_u7684_u5904_u7406"><span class="section table-of-contents-text">2.对debug.log文件的处理</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-_u751F_u6210_u4E00_u4E2AJava_u6587_u4EF6_u7684_u51FD_u6570_u7B7E_u540D"><span class="section table-of-contents-text">3.生成一个Java文件的函数签名</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u56DB-_u540E_u8BB0"><span class="section table-of-contents-text">四.后记</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <h1 id="u4E00-_QuickxDev"><a href="#u4E00-_QuickxDev" class="headerlink" title="一. QuickxDev"></a>一. QuickxDev</h1><p><code>QuickxDev</code>是一个极其好用的Sublime插件, 主要用来开发quick-cocos2d-x, 提供了特别实用的功能:</p>
+<a id="more"></a>
+<h2 id="1-Run_With_Player"><a href="#1-Run_With_Player" class="headerlink" title="1.Run With Player"></a>1.Run With Player</h2><p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1ehzyjexmtxj209v075wf0.jpg" alt=""></p>
+<p>非常实用的功能,这样就不用手动启动Player, 然后选中目录配置参数了. Player自带的<code>Create Launcher</code>一定程度上能够加速启动, 但是因为需要暂时离开开发环境, 所以还是不如这个方便.</p>
+<p>这个功能必须在<code>scripts</code>目录上右键才有这个菜单选项.</p>
+<!--more-->
+<h2 id="2-Goto_Definition"><a href="#2-Goto_Definition" class="headerlink" title="2.Goto Definition"></a>2.Goto Definition</h2><p><img src="http://ww3.sinaimg.cn/large/7f870d23gw1ei1odq1ycgj20gq07zq3z.jpg" alt=""></p>
+<p>选中一个字段, <code>ctrl+shift+g</code> 或者右键选择 ‘Goto Definition’ ,就可以跳转到这个字段的定义, 是不是顿时有种IDE的感觉了呢? 如果这个字段多处都有定义, 就会弹出一个列表供你选择, 非常棒的功能.</p>
+<p>这个功能必须选中这个字段才会生效.</p>
+<h2 id="3-Code_Snippets"><a href="#3-Code_Snippets" class="headerlink" title="3.Code Snippets"></a>3.Code Snippets</h2><p><img src="http://ww3.sinaimg.cn/large/7f870d23gw1ei1oot7o0xj20bu07dwf3.jpg" alt=""></p>
+<p>代码提示可能是我们对一个代码编辑器最基本的需求. 如果大家看过QuickDev的源码, 可以在<code>QuickDev/quickxlib</code>下发现代码分为三类</p>
+<ol>
+<li>quick-cocos2d-x_api 这里是quick-cocos2d-x的提示文件,包含cocos2d-x的提示和framework的提示</li>
+<li>snippets 这里是lua一些控制语句的提示,如:<code>if else</code>, <code>while</code></li>
+<li>system_api 这里是lua的关键字和常用库的提示,如:<code>io</code>,<code>math</code></li>
+</ol>
+<p>简直业界良心的有木有!!!</p>
+<h2 id="4-Compile_Scripts"><a href="#4-Compile_Scripts" class="headerlink" title="4.Compile Scripts"></a>4.Compile Scripts</h2><p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1ei1tcrqq06j208p087wey.jpg" alt=""></p>
+<p>这个功能可以将lua脚本用luajit编译成字节码,运行效率数倍提升.同时可以进行脚本加密, 需要在插件的设置中填写秘钥.</p>
+<h1 id="u4E8C-__u5B89_u88C5QuickxDev"><a href="#u4E8C-__u5B89_u88C5QuickxDev" class="headerlink" title="二. 安装QuickxDev"></a>二. 安装QuickxDev</h1><p><code>sublime</code> 安装插件十分容易</p>
+<h2 id="1-Package_Control"><a href="#1-Package_Control" class="headerlink" title="1.Package Control"></a>1.Package Control</h2><p>如果安装了<code>Package Control</code>, <code>Cmd+Shift+P</code>打开命令输入框, 输入 <code>Install Package</code>, 回车, 稍等片刻, 在弹出的框中输入<code>QuickxDev</code>回车后等待安装成功.</p>
+<h2 id="2-_u6E90_u7801_u5B89_u88C5"><a href="#2-_u6E90_u7801_u5B89_u88C5" class="headerlink" title="2.源码安装"></a>2.源码安装</h2><p>我们也可以直接从 <code>github</code> 上下载 <code>QuickxDev</code> 的源码到Sublime的插件目录, Subilme会自动识别, 十分方便.</p>
+<p>其实我的建议多数插件从<code>Package Control</code>安装, 方便, 不需要自己维护, 需要修改的插件从源码安装, 这样可以避免Sublime自动升级插件带来的问题, 而且Sublime3从 Package Control 安装的插件是二进制的,根本无法修改查看.</p>
+<h2 id="3-_u63D2_u4EF6_u8BBE_u7F6E"><a href="#3-_u63D2_u4EF6_u8BBE_u7F6E" class="headerlink" title="3.插件设置"></a>3.插件设置</h2><p><img src="/img/QQ20150316-1.jpg" alt=""></p>
+<p>按照上图打开<code>QuickXDev.sublime-settings</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;    // quick_cocos2dx_root&#10;    &#34;quick_cocos2dx_root&#34;: &#34;/Users/.../quick-cocos2d-x-2.2.5&#34;,&#10;    // you name and email&#10;    &#34;author&#34;: &#34;wangbilt&#60;wangbilt@gmail.com&#62;&#34;,&#10;    // lua template attributes&#10;    &#34;date_format&#34;: &#34;%Y-%m-%d %H:%M:%S&#34;,&#10;    // i.e. peter or peter (peter@gmail.com)&#10;    &#34;author&#34;: &#34;justbilt&#34;,&#10;    // compile_scripts encrypt key,no encrypt when empty&#10;    &#34;compile_scripts_key&#34;: &#34;&#34;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里必须要配置就是<code>quick_cocos2dx_root</code>,是你quickx的绝对路径.</p>
+<h1 id="u4E09-__u5B9A_u5236_u529F_u80FD"><a href="#u4E09-__u5B9A_u5236_u529F_u80FD" class="headerlink" title="三. 定制功能"></a>三. 定制功能</h1><p><strong>QuickxDev</strong> 已经十分牛逼了, 但还是无法满足每一个人需求, 这时候就需要我们自己去定制一些功能了, 我计划添加以下功能.</p>
+<h2 id="1-_u5FEB_u6377_u952E_u542F_u52A8Player"><a href="#1-_u5FEB_u6377_u952E_u542F_u52A8Player" class="headerlink" title="1.快捷键启动Player"></a>1.快捷键启动Player</h2><p>虽然通过右键菜单在Sublime中启动Player已经很方便的了, 但还是感觉欠一些, 必须需要 <code>手离开工作区到指定位置-&gt;右键-&gt;找到菜单项-&gt;选中</code>, 这个操作的时间消耗至少是快捷键启动的5倍以上!</p>
+<blockquote>
+<p>这个功能最新的QuickxDev已经支持了,十分赞!</p>
+</blockquote>
+<h2 id="2-_u5BF9debug-log_u6587_u4EF6_u7684_u5904_u7406"><a href="#2-_u5BF9debug-log_u6587_u4EF6_u7684_u5904_u7406" class="headerlink" title="2.对debug.log文件的处理"></a>2.对debug.log文件的处理</h2><p>1).debug.log现在是没有配色的,看着不是很方便.<br>2).启动player的时候自动打开debug.log文件.<br>3).堆栈的跳转,dump的跳转.</p>
+<blockquote>
+<p>这几点现在已经完全实现, 等整理好后会向官方提交PR.</p>
+</blockquote>
+<h2 id="3-_u751F_u6210_u4E00_u4E2AJava_u6587_u4EF6_u7684_u51FD_u6570_u7B7E_u540D"><a href="#3-_u751F_u6210_u4E00_u4E2AJava_u6587_u4EF6_u7684_u51FD_u6570_u7B7E_u540D" class="headerlink" title="3.生成一个Java文件的函数签名"></a>3.生成一个Java文件的函数签名</h2><p>平时我们要生成一个Java文件的函数签名比较麻烦,要在命令行中使用<code>javac</code>,<code>javap</code>什么的,比较麻烦,不如通过插件来实现,同时还有生成<code>java native</code>函数的C++实现.</p>
+<h1 id="u56DB-_u540E_u8BB0"><a href="#u56DB-_u540E_u8BB0" class="headerlink" title="四.后记"></a>四.后记</h1><p>上面说的这几个功能我都会单独写文章来讲具体的实现. 但在这之前可能是需要大家了解 Sublime 插件开发的一些知识, 因此我会同时会开始写 <strong>Sublime 插件开发的系列文章</strong> .</p>
+<p>(本文完)</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2015/03/16/quickxdev-2/" rel="next" title="QuickxDev插件(二) debug.log文件的处理">
+    上一篇：QuickxDev插件(二) debug.log文件的处理
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2015/01/29/jingo/" rel="next" title="搭建自己的 wiki 之 jingo 篇">
+    下一篇：搭建自己的 wiki 之 jingo 篇
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2015/03/16/quickxdev-1/';
+                        this.page.identifier = '2015/03/16/quickxdev-1/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

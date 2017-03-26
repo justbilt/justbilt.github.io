@@ -1,0 +1,555 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>最近搞 iOS 版遇到的一些问题和技巧 (二) | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="万一遇上了呢?">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="最近搞 iOS 版遇到的一些问题和技巧 (二)"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>最近搞 iOS 版遇到的一些问题和技巧 (二)</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-06-26T03:38:44.000Z"><a href="/2016/06/26/ios-dev-tips-2/">2016-06-26</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/iOS/" class="chip light-blue">iOS</a>
+        
+            <a href="/tags/iOS-Dev-Tips/" class="chip light-blue">iOS-Dev-Tips</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E00-_XCode_3A_Could_not_find_Developer_Disk_Image"><span class="section table-of-contents-text">一. XCode: Could not find Developer Disk Image</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E8C-_XCode_3A__u65E0_u6CD5_u5BFC_u51FA_Archive__u7684_u9879_u76EE"><span class="section table-of-contents-text">二. XCode: 无法导出 Archive 的项目</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E09-_XCode_3A_App_Installation_failed"><span class="section table-of-contents-text">三. XCode: App Installation failed</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u56DB-_XCode_3A_Failed_to_code_sign__u201Cxxxx_u201D"><span class="section table-of-contents-text">四. XCode: Failed to code sign “xxxx”</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E94-__u5185_u8D2D_3A__u65E0_u6CD5_u8FDE_u63A5_u5230_iTunes_Store"><span class="section table-of-contents-text">五. 内购: 无法连接到 iTunes Store</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u516D-__u5D29_u6E83_3A_showAlert__u5D29_u6E83"><span class="section table-of-contents-text">六. 崩溃: showAlert 崩溃</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E03-__u5D29_u6E83_3A_iOS_9-2+__u64AD_u653E_u89C6_u9891_u5D29_u6E83"><span class="section table-of-contents-text">七. 崩溃: iOS 9.2+ 播放视频崩溃</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <h2 id="u4E00-_XCode_3A_Could_not_find_Developer_Disk_Image"><a href="#u4E00-_XCode_3A_Could_not_find_Developer_Disk_Image" class="headerlink" title="一. XCode: Could not find Developer Disk Image"></a>一. XCode: Could not find Developer Disk Image</h2><p><img src="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg" alt="101138-1ab6ab96d37904bd.jpeg-4.5kB"><br><strong>解决方案:</strong><br><a href="http://www.jianshu.com/p/3930df903a44" target="_blank" rel="external">http://www.jianshu.com/p/3930df903a44</a><br>这个问题可能是因为你 XCode 没有下载对应 iOS 的 SDK 导致, 一般情况需要同步更新 XCode.</p>
+<h2 id="u4E8C-_XCode_3A__u65E0_u6CD5_u5BFC_u51FA_Archive__u7684_u9879_u76EE"><a href="#u4E8C-_XCode_3A__u65E0_u6CD5_u5BFC_u51FA_Archive__u7684_u9879_u76EE" class="headerlink" title="二. XCode: 无法导出 Archive 的项目"></a>二. XCode: 无法导出 Archive 的项目</h2><p>这个问题有可能是你项目 Team 选择的是一个没有开发者资格的账号导致的, 虽然可以正常开发, 真机调试, 但是是不能发布的, 所以也无法 Export .<br><strong>解决方案:</strong></p>
+<ol>
+<li>更换一个有开发者资格的账号重新 Archive 导出, 但是 Bundle ID 就得换一个了.</li>
+<li>通过命令行工具导出.<br>在 Organizer 中找到你想导出的 Archive, 右键选择在文件夹中显示, 复制路径, 打开终端:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -exportArchive -exportFormat ipa -archivePath your-archive-file-name.xcarchive -exportPath ~/Desktop/test.ipa</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="u4E09-_XCode_3A_App_Installation_failed"><a href="#u4E09-_XCode_3A_App_Installation_failed" class="headerlink" title="三. XCode: App Installation failed"></a>三. XCode: App Installation failed</h2><p><img src="http://static.zybuluo.com/justbilt/kl9sahl74sqfnxgjem57f390/Unknown.png" alt="Unknown.png-45.1kB"><br>很可能是之前手机已经装过一个同 Bundle ID 的应用, 但是现在换了签名.<br><strong>解决方案:</strong><br>删掉手机已经安装的那个应用就可以啦.</p>
+<h2 id="u56DB-_XCode_3A_Failed_to_code_sign__u201Cxxxx_u201D"><a href="#u56DB-_XCode_3A_Failed_to_code_sign__u201Cxxxx_u201D" class="headerlink" title="四. XCode: Failed to code sign “xxxx”"></a>四. XCode: Failed to code sign “xxxx”</h2><p><img src="http://static.zybuluo.com/justbilt/eb80q3re93fflmiuhygk4f1m/QQ20160626-0.png" alt="QQ20160626-0.png-437.7kB"><br>签名失败了, 这种情况一般发生在使用别人给的证书打包时. 这时候我们项目 <code>Build Setting &gt; Code Signing Identity</code> 就不能选择 <code>iOS Developer</code>, 而是要选择导入的签名文件.</p>
+<h2 id="u4E94-__u5185_u8D2D_3A__u65E0_u6CD5_u8FDE_u63A5_u5230_iTunes_Store"><a href="#u4E94-__u5185_u8D2D_3A__u65E0_u6CD5_u8FDE_u63A5_u5230_iTunes_Store" class="headerlink" title="五. 内购: 无法连接到 iTunes Store"></a>五. 内购: 无法连接到 iTunes Store</h2><p>如果没有发布应用的话, 需要用沙盒测试账号来测试. 我们需要先在 <code>设置&gt;iTunes Store 和 App Store</code>中 <strong>注销账号</strong>, 然后打开游戏, 开始购买, 这时候输入你的测试账号. 成功后如果有跳转 App Store 的话或者绑定付款方式的话, 不同理会, 再返回应用购买就可以了.</p>
+<h2 id="u516D-__u5D29_u6E83_3A_showAlert__u5D29_u6E83"><a href="#u516D-__u5D29_u6E83_3A_showAlert__u5D29_u6E83" class="headerlink" title="六. 崩溃: showAlert 崩溃"></a>六. 崩溃: showAlert 崩溃</h2><p>某一次突然, 一旦调用 quick-x 提供的 <code>device.showAlert</code> 就会崩溃, 断点调试无果, 崩溃时提示的内容也不尽相同.<br><strong>解决方案:</strong><br>删除 <code>RootViewController.mm</code> 中所有和屏幕方向代码, 就解决啦.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation</span><br><span class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations</span><br><span class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate</span><br><span class="line">- (<span class="keyword">void</span>)didRotateFromInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)fromInterfaceOrientation</span><br></pre></td></tr></table></figure>
+<h2 id="u4E03-__u5D29_u6E83_3A_iOS_9-2+__u64AD_u653E_u89C6_u9891_u5D29_u6E83"><a href="#u4E03-__u5D29_u6E83_3A_iOS_9-2+__u64AD_u653E_u89C6_u9891_u5D29_u6E83" class="headerlink" title="七. 崩溃: iOS 9.2+ 播放视频崩溃"></a>七. 崩溃: iOS 9.2+ 播放视频崩溃</h2><p>感谢 @子龙山人 大神提供的解决方案, <a href="https://github.com/cocos2d/cocos2d-x/issues/14855" target="_blank" rel="external">点击这里查看</a>.</p>
+<p>将 <code>UIVideoPlayer-ios.mm</code> 文件 <code>~VideoPlayer()</code> 函数中的 <code>dealloc</code> 修改为 <code>release</code> 即可.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) dealloc];</span><br><span class="line">+        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) release];</span><br></pre></td></tr></table></figure>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/06/26/terse-lua-code/" rel="next" title="更简洁的 lua 逻辑代码">
+    上一篇：更简洁的 lua 逻辑代码
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/06/19/quickx-ipv6/" rel="next" title="quick-x 适配 IPV6">
+    下一篇：quick-x 适配 IPV6
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/';
+                        this.page.identifier = '2016/06/26/ios-dev-tips-2/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>quick-x utf8 支持 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="唉, 什么都得自己搞.">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="quick-x utf8 支持"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>quick-x utf8 支持</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-09-22T22:58:40.000Z"><a href="/2016/09/23/quickx-utf8-support/">2016-09-23</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Quick-Cocos2d-x/" class="chip light-blue">Quick-Cocos2d-x</a>
+        
+            <a href="/tags/utf8/" class="chip light-blue">utf8</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-__u9700_u6C42"><span class="section table-of-contents-text">一. 需求</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u8BA1_u7B97_u73A9_u5BB6_u540D_u5B57_u5B57_u7B26_u6570"><span class="section table-of-contents-text">1. 计算玩家名字字符数</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u5C4F_u853D_emoji__u8868_u60C5"><span class="section table-of-contents-text">2. 屏蔽 emoji 表情</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u5B9E_u73B0"><span class="section table-of-contents-text">二. 实现</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u4F7F_u7528_clib__u5B9E_u73B0"><span class="section table-of-contents-text">1. 使用 clib 实现</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u7EAF_lua__u5B9E_u73B0"><span class="section table-of-contents-text">2. 纯 lua 实现</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u517C_u5BB9"><span class="section table-of-contents-text">3. 兼容</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u9644_u5F55_3A"><span class="section table-of-contents-text">附录:</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u73A9_u5BB6_u59D3_u540D_u957F_u5EA6_u5224_u65AD"><span class="section table-of-contents-text">玩家姓名长度判断</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#emoji__u8868_u60C5_u5224_u65AD"><span class="section table-of-contents-text">emoji 表情判断</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <h1 id="u4E00-__u9700_u6C42"><a href="#u4E00-__u9700_u6C42" class="headerlink" title="一. 需求"></a>一. 需求</h1><h2 id="1-__u8BA1_u7B97_u73A9_u5BB6_u540D_u5B57_u5B57_u7B26_u6570"><a href="#1-__u8BA1_u7B97_u73A9_u5BB6_u540D_u5B57_u5B57_u7B26_u6570" class="headerlink" title="1. 计算玩家名字字符数"></a>1. 计算玩家名字字符数</h2><p>对于这个需求一般情况下 <code>string.len</code> 或 quick 自带的 <code>string.utf8len</code> 就能满足, 但是如果需求是:</p>
+<blockquote>
+<p>对于像 中文/日文/韩文 这样的方块字一个占 2 个长度, 其他字符占 1 个长度.</p>
+</blockquote>
+<p>该如何满足呢 ? </p>
+<h2 id="2-__u5C4F_u853D_emoji__u8868_u60C5"><a href="#2-__u5C4F_u853D_emoji__u8868_u60C5" class="headerlink" title="2. 屏蔽 emoji 表情"></a>2. 屏蔽 emoji 表情</h2><p>我们游戏的聊天/起名都是不允许输入 emoji 表情的, 那么该如何判断玩家输入的文字中包含 emoji 表情呢 ? </p>
+<p>在我之前的文章(<a href="/2016/05/01/quickx-editbox-util/#u4E8C-__u5C4F_u853D_Emoji__u8F93_u5165">quick-x EditBox 几个小技巧</a>)中有提到过这个需求, 当时分析了下有两个解决方案:</p>
+<ol>
+<li>无法输入, 弹出键盘点击表情没有反应</li>
+<li>输入完成后, 游戏内点击提交时提示非法</li>
+</ol>
+<p>本来打算是使用<strong>方法2</strong>的, 苦于无法在 lua 这边识别出 emoji , 所以只能曲线救国的使用的<strong>方法1</strong>, 每个平台得单独实现不说, 还容易出 bug, 出了 bug 亦无法热更新修复.</p>
+<p>最近还真是遇到了 bug , 会导致在 ios 上无法使用<strong>九宫格</strong>输入法.</p>
+<hr>
+<p>以上两个问题, 如果支持 utf8 的话, 我们可以遍历整个字符串, 判断每个字符的 <code>codepoint</code> 是否在某个码区中. 所以我们需要实现这么几个接口:</p>
+<ol>
+<li>utf8 长度计算</li>
+<li>遍历 utf8</li>
+<li>utf8 char/byte 实现</li>
+</ol>
+<h1 id="u4E8C-__u5B9E_u73B0"><a href="#u4E8C-__u5B9E_u73B0" class="headerlink" title="二. 实现"></a>二. 实现</h1><h2 id="1-__u4F7F_u7528_clib__u5B9E_u73B0"><a href="#1-__u4F7F_u7528_clib__u5B9E_u73B0" class="headerlink" title="1. 使用 clib 实现"></a>1. 使用 clib 实现</h2><p>Google 搜索 <code>lua utf8</code> 很快发现了 <a href="/2016/05/01/quickx-editbox-util/#u4E8C-__u5C4F_u853D_Emoji__u8F93_u5165">luautf8</a> 这个项目, 100 多个 star , 对于一个 lua 项目, 已经算很多了. 实现也很简单, 就 <code>unidata.h</code> 和 <code>lutf8lib.c</code> 两个文件.</p>
+<p>下面我们在 quick 中集成这个项目, 我们在 <code>quick-cocos2d-x/external/lua</code> 目录先新建一个 <code>utf8</code> 目录, 将上面提到的那两个文件下载下来放进去, 修改 <code>lutf8lib.c:1303</code> 行:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  lua_createtable(L, 0, sizeof(libs)/sizeof(libs[0]));</span></span><br><span class="line"><span class="comment">//  luaL_register(L, NULL, libs);</span></span><br><span class="line">  luaL_openlib(L, <span class="string">"utf8"</span>, libs, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>为了在别的文件中能够访问到 <code>luaopen_utf8</code> 函数, 我们还需要新建一个 <code>utf8lib.h</code> 头文件:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> LUAUTF8_H</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> LUAUTF8_H</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"lua.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> LUALIB_API</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> LUALIB_API extern</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*-------------------------------------------------------------------------*\</span><br><span class="line">* Initializes the library.</span><br><span class="line">\*-------------------------------------------------------------------------*/</span></span><br><span class="line"><span class="function">LUALIB_API <span class="keyword">int</span> <span class="title">luaopen_utf8</span><span class="params">(lua_State *L)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> <span class="comment">/* LUAUTF8_H */</span></span></span><br></pre></td></tr></table></figure>
+<p>下面我们就可以注册这个库了, 修改 <code>cocos/scripting/lua-bindings/manual/network/lua_extensions.c</code> :</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"utf8/lutf8lib.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">luaopen_lua_extensions</span><span class="params">(lua_State *L)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    luaopen_utf8(L);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时我们还需要修改编译脚本, 使得在不同平台上能够编译通过, Android 需要修改</p>
+<p> <code>cocos/scripting/lua-bindings/proj.android/Android.mk</code> 文件:</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">LOCAL_SRC_FILES</span> += ../manual/network/lua_cocos2dx_network_manual.cpp \</span><br><span class="line">                   ../../../../external/lua/luasocket/usocket.c \</span><br><span class="line">                   ../../../../external/lua/utf8/lutf8lib.c</span><br></pre></td></tr></table></figure>
+<p>在 <code>LOCAL_SRC_FILES</code> 末尾加上 <code>lutf8lib.c</code> .</p>
+<p>iOS/Mac 的话, 在 XCode 中将整个 <code>utf8</code> 目录加入进来就可以呀, 如下图所示:</p>
+<p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f838r4uoz1j207e03u74f.jpg" alt=""></p>
+<h2 id="2-__u7EAF_lua__u5B9E_u73B0"><a href="#2-__u7EAF_lua__u5B9E_u73B0" class="headerlink" title="2. 纯 lua 实现"></a>2. 纯 lua 实现</h2><p>如果一切按计划走的话, 是不会有这么一步的, 然而天意难测, 说好的冷更新变成了变成了热更新. 若是还想保留这个功能的话, 只能寻找纯 lua 的解决方案了. 虽然走了不少弯路, 浪费了大量的时间, 最终还是让我找到了: </p>
+<p><a href="https://github.com/Stepets/utf8.lua" target="_blank" rel="external">https://github.com/Stepets/utf8.lua</a></p>
+<p>将项目中的 <code>utf8.lua</code> 下载下来放到你工程中就可以啦, 就是这么简单.</p>
+<h2 id="3-__u517C_u5BB9"><a href="#3-__u517C_u5BB9" class="headerlink" title="3. 兼容"></a>3. 兼容</h2><p>按说有了纯 lua 的实现后, 我们就可以放弃 c 代码的实现了, 但是想起做 python 的时候, 有好多库的实现为了提高效率, 都会有一份 c/c++ 的实现优先使用. 我们是不是也可以这样子搞, 优先使用 clib 的实现, 若是没有再考虑 lua 的实现 ? 首先, 我们要对比一下这两个库的效率对比.</p>
+<p>设计了一个简单的测试案例, 遍历一个 utf8 的字符串, 计算耗时, 得出了这样一份数据:</p>
+<table>
+<thead>
+<tr>
+<th>字符数</th>
+<th>耗时clib</th>
+<th>耗时lua</th>
+<th>倍数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>2.0999999999938e-05</td>
+<td>6.8000000000068e-05</td>
+<td>3.2380952381081</td>
+</tr>
+<tr>
+<td>138</td>
+<td>0.00018899999999999</td>
+<td>0.00095199999999995</td>
+<td>5.0370370370369</td>
+</tr>
+<tr>
+<td>2919</td>
+<td>0.001868</td>
+<td>0.01553</td>
+<td>8.3137044967881</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到至少也有 3 倍的速度提升, 而且随着字符数越来越多, 速度差距会更大. </p>
+<p>这个方案是可行的, 我们可用如下代码做兼容:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">type</span>(utf8) ~= <span class="string">"table"</span> <span class="keyword">then</span></span><br><span class="line">    utf8 = <span class="built_in">require</span>(<span class="string">"your/path/of.utf8"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>但是两种实现遍历字符串的 api 略有不同, 需要包装兼容一下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">utf8.foreach = <span class="function"><span class="keyword">function</span><span class="params">(_str, _func)</span></span></span><br><span class="line">    <span class="keyword">local</span> index = <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> utf8.<span class="built_in">next</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">for</span> pos, code <span class="keyword">in</span> utf8.<span class="built_in">next</span>, _str <span class="keyword">do</span></span><br><span class="line">            <span class="keyword">if</span> _func(index, utf8.char(code), code, pos) <span class="keyword">then</span></span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            index = index + <span class="number">1</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">elseif</span> utf8.gensub <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">for</span> char,pos <span class="keyword">in</span> utf8.gensub(_str) <span class="keyword">do</span></span><br><span class="line">            <span class="keyword">if</span> _func(index, char, utf8.byte(char), pos) <span class="keyword">then</span></span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            index = index + <span class="number">1</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">assert</span>(<span class="keyword">false</span>, <span class="string">"no utf8 supports!"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="u9644_u5F55_3A"><a href="#u9644_u5F55_3A" class="headerlink" title="附录:"></a>附录:</h1><p>附上我们判断玩家姓名和 emoji 的代码, 比较简单, 若有不对之处, 欢迎指正.</p>
+<h2 id="u73A9_u5BB6_u59D3_u540D_u957F_u5EA6_u5224_u65AD"><a href="#u73A9_u5BB6_u59D3_u540D_u957F_u5EA6_u5224_u65AD" class="headerlink" title="玩家姓名长度判断"></a>玩家姓名长度判断</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> length = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">utf8.foreach(text, <span class="function"><span class="keyword">function</span><span class="params">(index, char, code, pos)</span></span></span><br><span class="line">    <span class="comment">-- 中日韩文字一个字符算两个长度</span></span><br><span class="line">    <span class="keyword">if</span> code &gt;= <span class="number">0x3040</span> <span class="keyword">and</span> code &lt;= <span class="number">0x9fff</span> <span class="keyword">then</span></span><br><span class="line">        length = length + <span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        length = length + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="emoji__u8868_u60C5_u5224_u65AD"><a href="#emoji__u8868_u60C5_u5224_u65AD" class="headerlink" title="emoji 表情判断"></a>emoji 表情判断</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">checkContainsEomji</span><span class="params">(text)</span></span></span><br><span class="line">    <span class="keyword">local</span> contain = <span class="keyword">false</span></span><br><span class="line">    utf8.foreach(text, <span class="function"><span class="keyword">function</span><span class="params">(index, char, code, pos)</span></span></span><br><span class="line">        <span class="comment">-- [^\u0000-\u25ff\u27c0-\uD7FF\uE000-\uFFFF]</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ((code &gt;= <span class="number">0x0000</span> <span class="keyword">and</span> code &lt;= <span class="number">0x25ff</span>) <span class="keyword">or</span> (code &gt;= <span class="number">0x27c0</span> <span class="keyword">and</span> code &lt;= <span class="number">0xD7FF</span>) <span class="keyword">or</span> (code &gt;= <span class="number">0xE000</span> <span class="keyword">and</span> code &lt;= <span class="number">0xFFFF</span>)) <span class="keyword">then</span></span><br><span class="line">            contain = <span class="keyword">true</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line">    <span class="keyword">return</span> contain</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/10/29/untp-2/" rel="next" title="一个命令行的 TexturePacker 拆解工具  (二)">
+    上一篇：一个命令行的 TexturePacker 拆解工具  (二)
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/09/10/quickx-crash-on-phone-2/" rel="next" title="最近遇到的几个 quick-x 真机崩溃(二)">
+    下一篇：最近遇到的几个 quick-x 真机崩溃(二)
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/09/23/quickx-utf8-support/';
+                        this.page.identifier = '2016/09/23/quickx-utf8-support/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

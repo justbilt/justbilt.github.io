@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>更简洁的 lua 逻辑代码 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="奇技淫巧耳!">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="更简洁的 lua 逻辑代码"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>更简洁的 lua 逻辑代码</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-06-26T06:28:11.000Z"><a href="/2016/06/26/terse-lua-code/">2016-06-26</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Lua/" class="chip light-blue">Lua</a>
+        
+            <a href="/tags/游戏心得/" class="chip light-blue">游戏心得</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-_bool__u503C_u4E0E_if__u8BED_u53E5_u7684_u62E9_u51B3"><span class="section table-of-contents-text">1. bool 值与 if 语句的择决</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u51CF_u5C11_u975E_u5FC5_u987B_u7684_u4E2D_u95F4_u53D8_u91CF"><span class="section table-of-contents-text">2. 减少非必须的中间变量</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u4F7F_u7528_elseif__u4F18_u5316_if__u8BED_u53E5"><span class="section table-of-contents-text">3. 使用 elseif 优化 if 语句</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#4-__u4F7F_u7528_config__u4F18_u5316_if-elseif__u8BED_u53E5"><span class="section table-of-contents-text">4. 使用 config 优化 if-elseif 语句</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u9ED1_u79D1_u6280"><span class="section table-of-contents-text">二. 黑科技</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u6570_u636E_u9ED8_u8BA4_u503C_u7684_u8BBE_u5B9A"><span class="section table-of-contents-text">1. 数据默认值的设定</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-_table__u4E2D_u5143_u7D20_u7684_u521D_u59CB_u5316"><span class="section table-of-contents-text">2. table 中元素的初始化</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>爱因斯坦的质能方程 <code>E=MC^2</code>, 用在编程界同样适用 <code>Error = More Code ^ 2</code>. 代码越多, 出错的可能性就更大, 这个结论很正确呀. 那么我们如何使用更少的代码实现同样的需求呢 ?</p>
+<p>一. 普通技</p>
+<h2 id="1-_bool__u503C_u4E0E_if__u8BED_u53E5_u7684_u62E9_u51B3"><a href="#1-_bool__u503C_u4E0E_if__u8BED_u53E5_u7684_u62E9_u51B3" class="headerlink" title="1. bool 值与 if 语句的择决"></a>1. bool 值与 if 语句的择决</h2><p>让我们来看一段代码:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</span><br><span class="line"><span class="keyword">if</span> monthly_is_taken == <span class="keyword">true</span> <span class="keyword">then</span></span><br><span class="line">    self._monthly_take:setButtonEnabled(<span class="keyword">false</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    self._monthly_take:setButtonEnabled(<span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>显然这个 if 语句是没有必要的, 我们可以直接使用 bool 进行函数参数传递:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</span><br><span class="line">self._monthly_take:setButtonEnabled(monthly_is_taken)</span><br></pre></td></tr></table></figure>
+<p>我们可以看到减少了 %60 的代码, 逻辑反而变得更清晰了.</p>
+<h2 id="2-__u51CF_u5C11_u975E_u5FC5_u987B_u7684_u4E2D_u95F4_u53D8_u91CF"><a href="#2-__u51CF_u5C11_u975E_u5FC5_u987B_u7684_u4E2D_u95F4_u53D8_u91CF" class="headerlink" title="2. 减少非必须的中间变量"></a>2. 减少非必须的中间变量</h2><p>我们都明白了中间变量的意义, 主要是为提高代码的可读性. 但是有时候中间变量的太多, 在增加码量的同时, 也会打断我们的我们的思路.</p>
+<p>比如我们要算一个等差数列的和, 我们都知道使用公式 <code>(首项+末项)*项数/2</code>, 我们看一下这个实现:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">local</span> array_len = #array</span><br><span class="line"><span class="keyword">local</span> first_element = array[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">local</span> last_element = array[array_len]</span><br><span class="line"><span class="keyword">local</span> sum = (first_element+last_element)*array_len/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>就不如下面这个实现:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">local</span> sum = (array[<span class="number">1</span>]+array[#array])*#array/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>这样的话, 我们上一个示例的代码可以进一步精简:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self._monthly_take:setButtonEnabled(app.player:getAttribute(<span class="string">"monthly_is_taken"</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="3-__u4F7F_u7528_elseif__u4F18_u5316_if__u8BED_u53E5"><a href="#3-__u4F7F_u7528_elseif__u4F18_u5316_if__u8BED_u53E5" class="headerlink" title="3. 使用 elseif 优化 if 语句"></a>3. 使用 elseif 优化 if 语句</h2><p>如果是逻辑相悖的判断条件, 我们可以使用 elseif 语句连接, 而不用多个 if 语句. </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>我们可以修改为:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这样修改后, 对逻辑的执行时间也优化哟, 因为一但有一个 if 语句命中, 后面的 elseif 都不会再去判断了.</p>
+<h2 id="4-__u4F7F_u7528_config__u4F18_u5316_if-elseif__u8BED_u53E5"><a href="#4-__u4F7F_u7528_config__u4F18_u5316_if-elseif__u8BED_u53E5" class="headerlink" title="4. 使用 config 优化 if-elseif 语句"></a>4. 使用 config 优化 if-elseif 语句</h2><p>如果一个逻辑中有大量的 if-elseif 语句, 我么就可以使用 config 的形式替换掉它, 使得逻辑更加简洁.</p>
+<p>让我们看一个示例:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_SYSTEM <span class="keyword">then</span></span><br><span class="line">    self._title:setString(_data.content.content.subtype)</span><br><span class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</span><br><span class="line">    self.title = TextEnum.CNReset.SYSTEM_INFORMATION</span><br><span class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK <span class="keyword">then</span></span><br><span class="line">    self._title:setString(TextEnum.CNReset.KICK)</span><br><span class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</span><br><span class="line">    self.title = TextEnum.CNReset.KICK</span><br><span class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN <span class="keyword">then</span></span><br><span class="line">    self._title:setString(TextEnum.CNReset.JOIN_IN)</span><br><span class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</span><br><span class="line">    self.title = TextEnum.CNReset.JOIN_IN</span><br><span class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT <span class="keyword">then</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>这是一段关于邮件标题的逻辑, 这里只节选出了 1/4 的代码, 真的是又臭又长. 我们可以这样子去优化它:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> CONFIG = &#123;</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_SYSTEM] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> config = CONFIG[_data.<span class="built_in">type</span>]</span><br><span class="line"><span class="keyword">if</span> config <span class="keyword">then</span></span><br><span class="line">    self._title:setString(config.title)</span><br><span class="line">    self._name:setString(config.name)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>因为只是代码节选, 所以上面修改是一段伪代码, 但是看起来超级清爽的有木有! 对于一开始无法确定的数据如何配置呢? 我们可以配置一个 <code>function</code>, 用的时候取出来调用就可以啦.</p>
+<h1 id="u4E8C-__u9ED1_u79D1_u6280"><a href="#u4E8C-__u9ED1_u79D1_u6280" class="headerlink" title="二. 黑科技"></a>二. 黑科技</h1><h2 id="1-__u6570_u636E_u9ED8_u8BA4_u503C_u7684_u8BBE_u5B9A"><a href="#1-__u6570_u636E_u9ED8_u8BA4_u503C_u7684_u8BBE_u5B9A" class="headerlink" title="1. 数据默认值的设定"></a>1. 数据默认值的设定</h2><p>当我们拿到一段数据后, 总是要先预处理数据, 后面才是使用数据. 预处理阶段很重要的一步就是某些数据的默认值.</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num1 <span class="keyword">then</span></span><br><span class="line">        _num1 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num2 <span class="keyword">then</span></span><br><span class="line">        _num2 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num3 <span class="keyword">then</span></span><br><span class="line">        _num3 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>很繁琐是不是, 这时候我们可以使用 and 和 or 来优化默认值的设置:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></span><br><span class="line">    _num1 = _num1 <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    _num2 = _num2 <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    _num3 = _num3 <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>当 <code>or</code> 的前面部分是 <code>nil</code> 或者 <code>false</code> 的情况下, 返回这个表达式的值后面部分. 下面我列举一下常用类型的默认值用法:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- number</span></span><br><span class="line">a = a <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line"><span class="comment">-- string</span></span><br><span class="line">a = a <span class="keyword">or</span> <span class="string">""</span> </span><br><span class="line"><span class="comment">-- function</span></span><br><span class="line">a = a <span class="keyword">or</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- table</span></span><br><span class="line">a = a <span class="keyword">or</span> &#123;&#125;</span><br><span class="line"><span class="comment">-- boolean</span></span><br><span class="line">a = a == <span class="keyword">nil</span> <span class="keyword">and</span> <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<p>这里值得一提的是 <code>boolean</code> 类型, 如果希望默认值是 false 话, 就不需要默认值, 因为 nil 和 false 对于判断来说以意义一致. 而如果希望默认值是 true 的话, 并不是 <code>a = a or true</code>, 而是 <code>a == nil and true</code>, 大家可以细想一下其中的含义.</p>
+<h2 id="2-_table__u4E2D_u5143_u7D20_u7684_u521D_u59CB_u5316"><a href="#2-_table__u4E2D_u5143_u7D20_u7684_u521D_u59CB_u5316" class="headerlink" title="2. table 中元素的初始化"></a>2. table 中元素的初始化</h2><p>比如我们要统计一个列表中, 每个元素出现的次数:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">local</span> counter = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> counter[v] <span class="keyword">then</span></span><br><span class="line">        counter[v] = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    counter[v] = counter[v] + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>因为 <code>counter</code> 不可能提前初始化好, 所以总是要判断存不存在这个元素, 我们也可以利用上面提到的技巧做这个事情:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">local</span> counter = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></span><br><span class="line">    counter[v] = (counter[v] <span class="keyword">or</span> <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>是不是变得很简洁 ?</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/09/05/ios-dev-tips-3/" rel="next" title="最近搞 iOS 版遇到的一些问题和技巧 (三)">
+    上一篇：最近搞 iOS 版遇到的一些问题和技巧 (三)
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/06/26/ios-dev-tips-2/" rel="next" title="最近搞 iOS 版遇到的一些问题和技巧 (二)">
+    下一篇：最近搞 iOS 版遇到的一些问题和技巧 (二)
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/06/26/terse-lua-code/';
+                        this.page.identifier = '2016/06/26/terse-lua-code/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

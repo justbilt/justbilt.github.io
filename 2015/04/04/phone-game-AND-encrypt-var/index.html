@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>手机游戏攻防(一) 变量加密法 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="手机游戏攻防(一) 变量加密法"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>手机游戏攻防(一) 变量加密法</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2015-04-03T16:26:44.000Z"><a href="/2015/04/04/phone-game-AND-encrypt-var/">2015-04-04</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/手机游戏攻防/" class="chip light-blue">手机游戏攻防</a>
+        
+            <a href="/tags/游戏心得/" class="chip light-blue">游戏心得</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668"><span class="section table-of-contents-text">一.什么是八门神器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#u4E8C-_u539F_u7406"><span class="section table-of-contents-text">二.原理</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#u4E09-_u5E94_u5BF9_u65B9_u6848"><span class="section table-of-contents-text">三.应对方案</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!</p>
+<p>游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!</p>
+<a id="more"></a>
+<h3 id="u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668"><a href="#u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668" class="headerlink" title="一.什么是八门神器"></a>一.什么是八门神器</h3><p>不明白八门神器为何物的请自行Google!这里我引用百度百科(点击这里:<a href="http://baike.baidu.com/view/3258873.htm" target="_blank" rel="external">http://baike.baidu.com/view/3258873.htm</a>)中的一段话:</p>
+<blockquote>
+<p>八门神器是安卓、iOS、塞班平台上通用的游戏修改工具，可以修改内存中的数值和参数，达到修改游戏HP、MP、金钱、等级等的作用。八门神器类似于PC平台的金山游侠等游戏修改器，是手机游戏中的金手指。但八门神器在安卓平台下需要Root权限才能正常工作，在iOS平台下需要iPhone越狱才能正常工作，并且支持中、英双语言，并且自带帮助说明。</p>
+</blockquote>
+<p>建议大家还是亲自去使用下这个工具,效果请看下图:</p>
+<p><img src="/img/31036b15a219185ac6a0c54157ebf36937540518.jpg" alt=""></p>
+<h3 id="u4E8C-_u539F_u7406"><a href="#u4E8C-_u539F_u7406" class="headerlink" title="二.原理"></a>二.原理</h3><p>知己知彼百战百胜,我们要先了解八门神器的原理:</p>
+<blockquote>
+<p>在游戏运行时，内存和处理器都会对于游戏进行非常复杂的数据交换和变更，这是因为游戏有很多的数据，例如金钱、HP值、等级、攻击力、防御力等数据，而这些数据，就在内存和处理器的各个地址当中，玩家只需要在八门神器中搜索相关的数据值，八门神器就会将搜索出记录此数据的各个地址显示，玩家进行多次的数据变更后再次搜索，到最后就会确定此地址到底是哪一个，然后将此地址的数值进行修改，回到游戏中，相关的数据也会变化!<br>总结下,就是八门神器会搜索出对应数值的内存地址,然后改变内存地址对应的值!</p>
+</blockquote>
+<h3 id="u4E09-_u5E94_u5BF9_u65B9_u6848"><a href="#u4E09-_u5E94_u5BF9_u65B9_u6848" class="headerlink" title="三.应对方案"></a>三.应对方案</h3><p>这样我们貌似可以从两个方面去入手解决这个问题:</p>
+<ol>
+<li>让它搜不着!</li>
+<li>让它改变不了!</li>
+</ol>
+<p>我们今天先来看看第一种方法. 用过这个工具的人都明白,一般情况下,一次搜索就能准确定位内存地址的情况非常少见(除非这个数字非常大,非常奇葩),都是先搜索,获得大量(几十万)的数据,然后回到游戏中,改变这个值,再回到八门神器,会自动筛选出之前搜索到的结果有哪些改变了…直到只剩下几个结果,这个时候我们挨个去改变值会变得十分的Easy!</p>
+<p><strong>1.改变内存地址</strong></p>
+<p>想想这个过程,好像只有第一次搜索是全局搜索,后面的每次搜索都是在之前搜索的结果上进行筛选!这样如果我们游戏中每次改变这个变量的时都去改变这个变量的内存地址,这样它就搜索不到了!代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> DynamicInt</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	DynamicInt()&#123;m_pValue=<span class="literal">NULL</span>;&#125;</span><br><span class="line"></span><br><span class="line">	~DynamicInt()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (m_pValue)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> m_pValue;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *m_pValue;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(<span class="keyword">int</span> nValue)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (m_pValue)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> m_pValue;</span><br><span class="line">		&#125;</span><br><span class="line">		m_pValue=<span class="keyword">new</span> <span class="keyword">int</span>();</span><br><span class="line">		*m_pValue=nValue;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> * m_pValue;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p> 经过尝试,这个方法并不管用,还能被破解,不知我的做法错误呢还是八门神器的原理不是这样!请懂行人指出!</p>
+<blockquote>
+<p>注: 经过分析, 可能是因为你 delete 后立刻 new 会获取到同一块内存地址的原因~ 这样的话, 我们也好说, 我们先换下顺序可能就可以了, 不过我没有进行过测试!</p>
+</blockquote>
+<p><strong>2.加密数据</strong></p>
+<p>换个思路,我们为何不在数据上做手脚,对数据进行加密(如:表面上显示的是50,内部存的却是50^0xff),这样他搜索表面上的数字当然搜索不到!代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> _H_DYNAMICVALUE_H_</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> _H_DYNAMICVALUE_H_</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> CEncryptValue</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	CEncryptValue()</span><br><span class="line">		: m_Value(<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	~CEncryptValue()</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function">T <span class="title">getValue</span><span class="params">()</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> m_Value ^ m_EncryptKey;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(T value)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		m_Value = value;</span><br><span class="line">		m_EncryptKey = rand();</span><br><span class="line">		m_Value ^= m_EncryptKey;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">offset</span><span class="params">(T value)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		setValue(getValue() + value);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	T m_Value;</span><br><span class="line">	<span class="keyword">int</span> m_EncryptKey;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">int</span>&gt; CDynamicValueInt;</span><br><span class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">float</span>&gt; CDynamicValueFloat;</span><br><span class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">bool</span>&gt; CDynamicValueBool;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<p>使用时:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CDynamicValueInt m_DynamicMoney;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置金钱数</span></span><br><span class="line">m_DynamicMoney.setValue(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到金钱</span></span><br><span class="line">m_DynamicMoney.getValue()</span><br><span class="line"></span><br><span class="line"><span class="comment">//改变金钱</span></span><br><span class="line">m_DynamicMoney.offset(-<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>这个方法经过测试,十分管用!也是我目前采取的方案!大家可以直接拿来使用!</p>
+<p>写在后面的话:</p>
+<p>有些人可能会骂八门神器的作者无耻之类,我非常不认同,大家都是靠手艺吃饭的,么有什么无耻不无耻的,如果你的游戏被破解了,只能说明你比较傻!还有对使用八门神器破解游戏的玩家表示同情,因为你一旦破解了,整个游戏就没有意义了!</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2015/04/05/phone-game-AND-watchdog/" rel="next" title="手机游戏攻防(二) 守护变量法">
+    上一篇：手机游戏攻防(二) 守护变量法
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2015/03/16/quickxdev-2/" rel="next" title="QuickxDev插件(二) debug.log文件的处理">
+    下一篇：QuickxDev插件(二) debug.log文件的处理
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/';
+                        this.page.identifier = '2015/04/04/phone-game-AND-encrypt-var/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

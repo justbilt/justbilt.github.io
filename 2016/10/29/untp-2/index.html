@@ -1,0 +1,580 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>一个命令行的 TexturePacker 拆解工具  (二) | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="中文使用说明">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="一个命令行的 TexturePacker 拆解工具  (二)"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>一个命令行的 TexturePacker 拆解工具  (二)</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-10-29T15:39:18.000Z"><a href="/2016/10/29/untp-2/">2016-10-29</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Tool/" class="chip light-blue">Tool</a>
+        
+            <a href="/tags/untp/" class="chip light-blue">untp</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-__u66F4_u65B0"><span class="section table-of-contents-text">一. 更新</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-0-5"><span class="section table-of-contents-text">1.0.5</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-0-4"><span class="section table-of-contents-text">1.0.4</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-0-3"><span class="section table-of-contents-text">1.0.3</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-0-2"><span class="section table-of-contents-text">1.0.2</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u540E_u7EED_u8BA1_u5212"><span class="section table-of-contents-text">二. 后续计划</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E09-__u4E2D_u6587_u4F7F_u7528_u8BF4_u660E_28_u6301_u7EED_u66F4_u65B0_29"><span class="section table-of-contents-text">三. 中文使用说明(持续更新)</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u5B89_u88C5"><span class="section table-of-contents-text">1. 安装</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u4F7F_u7528"><span class="section table-of-contents-text">2. 使用</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>距离第一版的 <code>untp</code> 发布已经有一年半的时间了, 在这个项目上我收获了很多的第一次:</p>
+<blockquote>
+<p>第一次有一个项目的 star 数超过 50<br>第一次往 pypi 上上传项目<br>第一次如此认真的维护一个项目<br>…</p>
+</blockquote>
+<p>这篇文章已经是关于 untp 的第三篇文章了, 所有的文章列表可以<a href="/tags/untp">查看这里</a>. 下面我来讲讲 untp 最近的几次更新以及后续的一个维护计划.</p>
+<h1 id="u4E00-__u66F4_u65B0"><a href="#u4E00-__u66F4_u65B0" class="headerlink" title="一. 更新"></a>一. 更新</h1><h2 id="1-0-5"><a href="#1-0-5" class="headerlink" title="1.0.5"></a>1.0.5</h2><ol>
+<li>拆解单个文件时支持 <code>-o</code> 参数指定输出目录</li>
+<li>可以在 <code>python</code> 中 <code>import</code></li>
+<li>支持 cocos2d/cocos2d-x v3 格式</li>
+</ol>
+<h2 id="1-0-4"><a href="#1-0-4" class="headerlink" title="1.0.4"></a>1.0.4</h2><ol>
+<li>使用 argparse 解析调用参数, 支持更多选项</li>
+<li>捕获图片打开异常, 程序更加健壮</li>
+<li>支持文件夹递归查找所有 plist 拆解</li>
+</ol>
+<h2 id="1-0-3"><a href="#1-0-3" class="headerlink" title="1.0.3"></a>1.0.3</h2><ol>
+<li>修复依赖 Pillow 模块版本大于 3.0 时图片输出错误</li>
+</ol>
+<h2 id="1-0-2"><a href="#1-0-2" class="headerlink" title="1.0.2"></a>1.0.2</h2><ol>
+<li>兼容 python3</li>
+<li>放弃之前的打包发布, 改为 pypi 发布</li>
+<li>修复一处路径错误</li>
+<li>根据 python code style 优化代码</li>
+<li>pvr,pvr.czz 格式支持 (需要安装 <code>TexturePacker</code> 命令行工具)</li>
+</ol>
+<h1 id="u4E8C-__u540E_u7EED_u8BA1_u5212"><a href="#u4E8C-__u540E_u7EED_u8BA1_u5212" class="headerlink" title="二. 后续计划"></a>二. 后续计划</h1><p>untp 这个项目最初来源于项目中的一个需求, 所以开始只是为了自用, 开源之后发现有能帮助一些人, 顺便实现一下他们的一些小需求, 自我更新动力并不是很足, 因此更新的频率不是很高.</p>
+<p>之前的发展策略我一直都是按着更便捷安装, 更方便使用方向上走的, 从一开始的 PyInstaller 打包到后面的上传到 pypi , 从开始只支持单一文件到支持目录, 都是按照这个思路搞的.至于后面如何发展我也没有很好的想法, 或许让它停留在这一版也很好. 今天看到张小龙的一篇内部分享, 一个好的工具就应该只是一个工具, 想到就用, 用完就走, 不要想着把用户黏住.</p>
+<p>所以, untp 就只是一个拆解大图的工具, 绝对不做其他的功能. 在这个原则的基础上, 有这么几个方向去搞:</p>
+<ol>
+<li>GUI 界面的支持</li>
+<li>支持更多的格式</li>
+</ol>
+<p>我想使用这个工具的人可能不一定是程序员, 他们不一定懂 pip , 不一定会打开终端. 所以一个 GUI 的界面就很重要了. 第二个是可以让更多引擎的开发者来使用, 现在只支持 cocos 是有些狭隘了, 对自己也是一个很好地的锻炼.</p>
+<p>如果你还有更好的建议, 欢迎在评论里或者 <a href="https://github.com/justbilt/untp/issues" target="_blank" rel="external">issue</a> 中提出.</p>
+<h1 id="u4E09-__u4E2D_u6587_u4F7F_u7528_u8BF4_u660E_28_u6301_u7EED_u66F4_u65B0_29"><a href="#u4E09-__u4E2D_u6587_u4F7F_u7528_u8BF4_u660E_28_u6301_u7EED_u66F4_u65B0_29" class="headerlink" title="三. 中文使用说明(持续更新)"></a>三. 中文使用说明(持续更新)</h1><h2 id="1-__u5B89_u88C5"><a href="#1-__u5B89_u88C5" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>现在可以采用两种方式安装, 在终端中键入 <code>pip install untp</code> 或者 clone 代码到本地, 在根目录 <code>python setup install</code> .</p>
+<h2 id="2-__u4F7F_u7528"><a href="#2-__u4F7F_u7528" class="headerlink" title="2. 使用"></a>2. 使用</h2><p>当我们在终端中键入 <code>untp -h</code> 后, 会得到下面这段输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usage:&#10;untp ../btn.plist&#10;untp ../btn.plist -i ../btn.png&#10;untp ../data&#10;untp ../data -r&#10;&#10;positional arguments:&#10;  path                  plist file name or directory&#10;&#10;optional arguments:&#10;  -h, --help            show this help message and exit&#10;&#10;For file:&#10;  -i image_file, --image_file image_file&#10;                        specified image file for plist&#10;  -o output, --output output&#10;                        specified output directory&#10;&#10;For directory:&#10;  -r, --recursive</span><br></pre></td></tr></table></figure>
+<p>对于单个 plist 文件, 可以 <code>untp xxx.plist</code> 来拆解它, 会读取 plist 中配置的图片输出到同名的目录中, 可以使用 <code>-i</code> 指定图片, <code>-o</code> 指定输出目录.</p>
+<p>对于目录, 使用 <code>untp path</code> path 是包含 <code>plist</code> 文件的目录, 可以使用 <code>-r</code> 参数指定遍历子目录.</p>
+<p>(以上)</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/12/10/quickx-playvideo/" rel="next" title="quick-x 视频播放">
+    上一篇：quick-x 视频播放
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/09/23/quickx-utf8-support/" rel="next" title="quick-x utf8 支持">
+    下一篇：quick-x utf8 支持
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/10/29/untp-2/';
+                        this.page.identifier = '2016/10/29/untp-2/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

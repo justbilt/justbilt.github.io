@@ -1,0 +1,601 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>搭建自己的 wiki 之 jingo 篇 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="搭建自己的 wiki 之 jingo 篇"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>搭建自己的 wiki 之 jingo 篇</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2015-01-29T14:13:47.000Z"><a href="/2015/01/29/jingo/">2015-01-29</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E00-_Why_jingo__3F"><span class="section table-of-contents-text">一. Why jingo ?</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E8C-__u5B89_u88C5_jingo"><span class="section table-of-contents-text">二. 安装 jingo</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E09-__u767B_u5F55"><span class="section table-of-contents-text">三. 登录</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u56DB-__u540C_u6B65_u5230_github/oschina"><span class="section table-of-contents-text">四. 同步到 github/oschina</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u56DB-__u89E3_u51B3_u4E2D_u56FD_u7279_u8272_u95EE_u9898"><span class="section table-of-contents-text">四. 解决中国特色问题</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u4E94-__u603B_u7ED3"><span class="section table-of-contents-text">五. 总结</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <h2 id="u4E00-_Why_jingo__3F"><a href="#u4E00-_Why_jingo__3F" class="headerlink" title="一. Why jingo ?"></a>一. Why jingo ?</h2><p>一直想搭wiki好久了,这期间试了好多个wiki项目,如:<a href="https://www.dokuwiki.org/dokuwiki" target="_blank" rel="external">dokuwiki</a>, <a href="http://simiki.org/" target="_blank" rel="external">simiki</a>, <a href="https://torchpad.com/" target="_blank" rel="external">torchpad</a>, 也慢慢地弄明白了自己真正的需求是什么.</p>
+<a id="more"></a>
+<blockquote>
+<p>git + markdown + (Python or nodejs)</p>
+</blockquote>
+<p>来说明下为什么:</p>
+<ol>
+<li><code>git</code>,<code>wiki</code>特别重要的一点就是历史版本,方便回滚,这个用<code>git</code>来简直天作之合.</li>
+<li><code>markdown</code>,也不必多说, 当时从离开<code>Wordpress</code>就是因为厌倦了文章排版.</li>
+<li><code>Python or nodejs</code>, 根据我的经验,安装方便,配置简单,坑少.</li>
+</ol>
+<p><a href="https://github.com/claudioc/jingo" target="_blank" rel="external">jingo</a>就符合这些要求, 同时还支持在线编辑的功能,使得你可以随手记,随时记录wiki. 但是jingo没有提供静态界面的生成,也就意味着无法托管到github上.</p>
+<p><img src="/img/QQ20150129-1.jpg" alt=""></p>
+<h2 id="u4E8C-__u5B89_u88C5_jingo"><a href="#u4E8C-__u5B89_u88C5_jingo" class="headerlink" title="二. 安装 jingo"></a>二. 安装 jingo</h2><p>文档说的是<code>npm install jingo</code>, 不过我推荐加上<code>-g</code>参数,安装到全局,不然会找不到<code>jingo</code>命令, 同时要考虑是否加<code>sudo</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install jingo -g</span><br></pre></td></tr></table></figure>
+<p>安装好之后随便找一个目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jingo -s &#62; config.yaml</span><br></pre></td></tr></table></figure>
+<p>生成默认配置, 同时由于<code>jingo</code>需要一个git仓库,所以我们需要在当前目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>打开生成的<code>config.yaml</code>,找到<code>repository</code>改为<code>.</code>,使用当前目录作为仓库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repository: &#34;.&#34;</span><br></pre></td></tr></table></figure>
+<p>保存,然后就可以启动了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jingo -c ./config.yaml</span><br></pre></td></tr></table></figure>
+<h2 id="u4E09-__u767B_u5F55"><a href="#u4E09-__u767B_u5F55" class="headerlink" title="三. 登录"></a>三. 登录</h2><p>启动之后是不可以修改的, 必须先登录,点击右上角<code>You&#39;re not logged in</code>, 会切换到登录页面:</p>
+<p><img src="/img/QQ20150130-1.jpg" alt=""></p>
+<p>上面显示不全是什么情况吗? 而且不能注册?</p>
+<p>让我们回到终端,<code>Ctrl-c</code>停掉刚才启动的的jingo,继续打开<code>config.yaml</code>看<code>authentication</code>组的配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authentication:&#10;  google:&#10;    enabled: true&#10;    clientId: replace me with the real value&#10;    clientSecret: replace me with the real value&#10;  github:&#10;    enabled: false&#10;    clientId: replace me with the real value&#10;    clientSecret: replace me with the real value&#10;  alone:&#10;    enabled: false&#10;    username: &#34;&#34;&#10;    passwordHash: &#34;&#34;&#10;    email: &#34;&#34;</span><br></pre></td></tr></table></figure>
+<p>可以看到默认只开启了google的授权登录, 让我们改为用户名密码登录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alone:&#10;  enabled: true&#10;  username: &#34;XXXX&#34;&#10;  passwordHash: &#34;XXXXX&#34;&#10;  email: &#34;xxxx@gmail.com&#34;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意下这个<code>passwordHash</code>,这里不是填密码,而是密码的hash值,<code>jingo</code>提供了生成密码hash的功能,非常方便,终端中键入<code>jingo -# &quot;你的密码&quot;</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jingo -# &#34;xxxx&#34;&#10;4ad583af22c2e7d40c1c916b2920299155a46464</span><br></pre></td></tr></table></figure>
+<p>类似于<code>4ad583af22c2e7d40c1c916b2920299155a46464</code>这个就是你的<code>passwordHash</code>.同时可以关掉google的授权登录,<code>google: enabled: false</code>.</p>
+<p>完成后然我们再次启动<code>jingo -c ./config.yaml</code>, 点击登录就可看到这个界面了:</p>
+<p><img src="/img/QQ20150130-2.jpg" alt=""></p>
+<p>登录之后的操作比较简单,就不做特殊说明了.右上部位有一个蓝底白字<code>Tools</code>, 鼠标放上去之后可以显示工具栏, 啥意思也猜的出来.</p>
+<p><img src="/img/QQ20150130-3.jpg" alt=""></p>
+<h2 id="u56DB-__u540C_u6B65_u5230_github/oschina"><a href="#u56DB-__u540C_u6B65_u5230_github/oschina" class="headerlink" title="四. 同步到 github/oschina"></a>四. 同步到 github/oschina</h2><p>jingo的一个特色是修改wiki后会自动帮你push到远端仓库, 十分方便.</p>
+<p>首先我们要添加remote,在github上或者其他托管网站建立一个repository,复制<code>url</code>,然后在wiki的git目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@xxxx.git</span><br></pre></td></tr></table></figure>
+<p>这里要注意一点,<strong>一定</strong>要使用ssh协议来<code>add remote/clone</code>, 可以避免每次<code>pull/push</code>都需要输入用户名密码, 那样会导致在线编辑的时候网页会卡死.</p>
+<p>开启自动push只需要修改<code>application-&gt;remote</code>字段.这里有一个非常坑的地方,我一直以为这里要填远端的<code>url</code>,结果会一直报错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Remote does not exist (git@xxxx.git)</span><br></pre></td></tr></table></figure>
+<p>跟踪js代码才发现,这里要填的是remote的name,如<code>origin</code>之类的,配置如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">application:&#10;  remote: &#34;origin&#34;&#10;  pushInterval: 30</span><br></pre></td></tr></table></figure>
+<p><code>pushInterval</code>是<code>push</code>的间隔时间,单位为秒,这个有需求的话可以自己改. 上一张oshina <code>commit</code>记录的截图,这些都是自动提交的哦.</p>
+<p><img src="/img/QQ20150130-4.jpg" alt=""></p>
+<h2 id="u56DB-__u89E3_u51B3_u4E2D_u56FD_u7279_u8272_u95EE_u9898"><a href="#u56DB-__u89E3_u51B3_u4E2D_u56FD_u7279_u8272_u95EE_u9898" class="headerlink" title="四. 解决中国特色问题"></a>四. 解决中国特色问题</h2><p>测试了一下,发现在不翻墙的情况下, 本地访问都会加载好久, 用chrom的分析工具:</p>
+<p><img src="/img/Screenshot-2015-01-31-1.jpg" alt=""></p>
+<p>可以看到,因为国情的原因,有两个条目加载失败了,让我来解决掉它,打开<code>jingo/views/layout.jade</code>:</p>
+<ol>
+<li>第<code>9</code>行:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">link(rel=&#34;stylesheet&#34;, href=&#34;//fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed&#34;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>删除掉.</p>
+<ol>
+<li>第<code>61</code>行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script(src=&#34;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&#34;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>改为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script(src=&#34;http://lib.sinaapp.com/js/jquery/1.8/jquery.min.js&#34;)</span><br></pre></td></tr></table></figure>
+<h2 id="u4E94-__u603B_u7ED3"><a href="#u4E94-__u603B_u7ED3" class="headerlink" title="五. 总结"></a>五. 总结</h2><p>jingo 总体来说还是很不错的, 在线编辑功能十分给力, 配置起来比较简单, 也蛮漂亮的. 但是有一些设定也是比较二的, 有下面几点:</p>
+<ol>
+<li>不能直接修改目录中的文件, 只能在线编辑</li>
+<li>经常出现<code>此网页包含重定向循环</code></li>
+<li>界面跳转有逻辑问题,经常出现url拼接错误.</li>
+<li>不能自动生成侧边栏, 得自己手动改md文件.</li>
+</ol>
+<p>综上, <code>jingo</code> 有能力的同学自己改改还何以用, 挂在自己服务器也是可以的, 要不只能用来玩玩了.</p>
+<p>(本文完)</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2015/03/16/quickxdev-1/" rel="next" title="QuickxDev插件(一) 简介">
+    上一篇：QuickxDev插件(一) 简介
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2014/12/15/svn/" rel="next" title="svn commit 守则">
+    下一篇：svn commit 守则
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2015/01/29/jingo/';
+                        this.page.identifier = '2015/01/29/jingo/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

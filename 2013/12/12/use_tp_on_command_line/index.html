@@ -1,0 +1,695 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>在Command Line中使用TexturePacker | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="在Command Line中使用TexturePacker"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>在Command Line中使用TexturePacker</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2013-12-12T02:33:02.000Z"><a href="/2013/12/12/use_tp_on_command_line/">2013-12-12</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/TexturePacker/" class="chip light-blue">TexturePacker</a>
+        
+            <a href="/tags/Tool/" class="chip light-blue">Tool</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#23_23_23_23_u8F93_u51FA"><span class="section table-of-contents-text">####输出</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#23_23_23_23_u5C3A_u5BF8"><span class="section table-of-contents-text">####尺寸</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#23_23_23_23_u95F4_u8DDD_u548C_u65CB_u8F6C"><span class="section table-of-contents-text">####间距和旋转</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#23_23_23_23_u5176_u4ED6_u5E38_u7528_u9009_u9879"><span class="section table-of-contents-text">####其他常用选项</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>TexturePacker是一个非常好用的小图合并工具,介绍它的文章非常多,多数都是使用GUI工具的,但是:</p>
+<ol>
+<li>如果原始图片发生了改变,我们就需要重新手动拼接一下,麻烦.</li>
+<li>使用GUI界面<strong>非常不高端</strong>,我高大猿族绝对首选使用Command Line啊.</li>
+</ol>
+<p>安装TexturePacker会附带一个command line工具,让我们一起学习一下如何使用吧.<br><a id="more"></a></p>
+<p>##环境搭建<br>我一般首选在Windows下开发(不要打我),这里就只讲Windows环境的配置</p>
+<p>1.先去<a href="http://www.codeandweb.com/texturepacker" target="_blank" rel="external">这里</a>下载安装文件,完成后一路无脑下一步,OK.</p>
+<p>2.大家在<code>C:\Program Files\TexturePacker\bin</code>目录下可以看到两个exe文件,<code>TexturePacker.exe</code>和<code>TexturePackerGUI.exe</code>,前者是命令行工具,后者是GUI工具.</p>
+<p>3.默认<code>TexturePacker</code>是没有加到环境变量中的,我们需要手动来,右键点击<strong>计算机</strong>-&gt;<strong>属性</strong>-&gt;<strong>高级系统设置</strong>-&gt;<strong>环境变量</strong>,找到<code>PATH</code>后将<code>C:\Program Files\TexturePacker\bin</code>添加到末尾,注意要在前面加<code>;</code>.</p>
+<p>4.运行cmd,输入<code>TexturePacker</code>大家应该能够看到下面的内容:<br><img src="http://ww1.sinaimg.cn/large/7f870d23jw1ebgr9fza56j20mo08rabj.jpg" alt=""><br>如果不能的话请检查拼写和第<code>2</code>步.大家可以仔细阅读一下内容,写的十分详细,用过TexturePacker的话基本上都能对应起来.</p>
+<p>##小试牛刀<br>你过你看完打印出的信息的话可以发下末尾部分有三个示例,如下:<br><img src="http://ww4.sinaimg.cn/large/7f870d23jw1ebgrdsac69j20qj06rgmj.jpg" alt=""><br>看起啦十分简单,让我们试一下吧,感谢微博小伙伴<a href="http://weibo.com/1061005610/A8lXXwagW" target="_blank" rel="external">@sosoayaen</a>发现的小秘密,使得我们可以快速的在任意位置打开命令行.找一个有这一堆图片的文件夹的上层目录,按住<code>Shift</code>点击<code>右键</code>,会发现一个菜单项<code>在当前目录打开命令行</code>,打开后按照示例输入<code>TexturePacker 001/*.png</code>,然后如示例说的:</p>
+<blockquote>
+<p>creates out.plist and out.png from all png files in assets<br> trimming all files and creating a texture with max. 2048x2048px</p>
+</blockquote>
+<p>实际情况却不完全是这样的,你可能会得到这样的错误:</p>
+<p><img src="http://ww1.sinaimg.cn/large/7f870d23jw1ebgt6ya8d9j20iq0820te.jpg" alt=""><br>卧槽,这是什么情况啊,明明就是按照官方的示例来的嘛,google完全没有任何答案啊,经过一番痛苦的实验后,终于发现了原因所在,这里不能输入:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TexturePacker 001/*.png</span><br></pre></td></tr></table></figure></p>
+<p>而应该是这个样子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TexturePacker 001</span><br></pre></td></tr></table></figure></p>
+<p><strong>这个问题可能是由于我使用的版本太旧或使用Windows导致的,如果你没有遇到,那么最好!</strong></p>
+<p>##参数详解<br>本想着把所有参数都讲一遍,写到一半发现卧槽太多了,而且好些都用不到,这里挑一些常用的分析下,<strong>以下内容都有进行测试</strong>,还是比较准确的,如果有问题,欢迎指出.<br>注:</p>
+<ol>
+<li>选项含有<code>&lt;...&gt;</code>的选项表示含有参数需要填写.</li>
+<li>粗体表示比较重要的选项.</li>
+</ol>
+<h2 id="23_23_23_23_u8F93_u51FA"><a href="#23_23_23_23_u8F93_u51FA" class="headerlink" title="####输出"></a>####输出</h2><p><strong>–sheet</strong> <code>&lt;filename&gt;</code><br>+生成的图片名,支持<strong>png,jpg,pvr,pvr.czz,pvr.gz</strong>格式<br>+示例:<code>--sheet out.png</code></p>
+<p><strong>–data</strong> <code>&lt;filename&gt;</code></p>
+<ul>
+<li>生成的plist文件名 </li>
+<li>示例:<code>--data out.plist</code></li>
+</ul>
+<p><strong>–format</strong> <code>&lt;format&gt;</code></p>
+<ul>
+<li>生成的plist格式,我们使用cocos2d格式 </li>
+<li>示例:<code>--format cocos2d</code></li>
+<li>注:其他支持格式见下图:<br><img src="http://ww1.sinaimg.cn/large/7f870d23jw1ebgwbnyra9j20fx083aay.jpg" alt=""></li>
+</ul>
+<p><strong>–auto-sd</strong></p>
+<ul>
+<li>自动生成sd资源</li>
+<li>示例:<code>--auto-sd</code></li>
+<li>注:这个要注意一点,如果要使用这个参数,你输入的<code>sheet</code>和<code>data</code>名必须含有<code>-hd</code>或<code>@2x</code>,TP会自动生成不带后缀的sd数据.</li>
+</ul>
+<p>–texturepath <code>&lt;path&gt;</code></p>
+<ul>
+<li>在生成的<code>sheet</code>文件的路径前加你<path></path></li>
+<li>示例:<code>--texturepath image/tower</code> 这样在plist文件中<code>realTextureFileName</code>的值为<code>image/tower/out.png</code></li>
+<li>注:这个参数主要用在当你的<strong>图片与plist文件不再同一个目录</strong>时使用,不会改变<code>out.png</code>的目录</li>
+</ul>
+<p>–trim-sprite-name</p>
+<ul>
+<li>剪裁掉拼接图片的后缀名</li>
+<li>示例:<code>--trim-sprite-name</code> 这样在plist文件中<code>&lt;key&gt;001.png&lt;/key&gt;</code>会变成<code>&lt;key&gt;001&lt;/key&gt;</code></li>
+<li>注:是剪裁用来拼接的文件而不是生成文件,如果你的资源管理类似于android那样,使用图片时不加后缀名,那么打包时可以使用这个选项</li>
+</ul>
+<p><strong>–replace</strong> <code>&lt;regexp&gt;=&lt;string&gt;</code></p>
+<ul>
+<li>按照原文的翻译是使用<code>&lt;string&gt;</code>替换掉拼接图片的文件名中正则表达式匹配的字符串</li>
+<li><strong>卧槽,正则表达式啊一听就尼玛高大强啊,可惜老夫不会啊,怎么办呢?回家去翻翻金瓶梅改天告诉大家.</strong></li>
+<li>这个TM太有用了,后面我遇到的那个问题,用这个来解决最好不过了</li>
+</ul>
+<p>–ignore-files <code>&lt;regexp&gt;</code></p>
+<ul>
+<li>按照原文的翻译是忽略所有满足给定条件的图片(可以使用时间作为条件),你可以使用<code>*</code>或<code>?</code>,但在使用bash时应避免使用通配符.</li>
+</ul>
+<h2 id="23_23_23_23_u5C3A_u5BF8"><a href="#23_23_23_23_u5C3A_u5BF8" class="headerlink" title="####尺寸"></a>####尺寸</h2><p>先上一张cocos2d-x支持的最大图片尺寸:<br><img src="http://ww4.sinaimg.cn/large/7f870d23jw1ebh3kmq7ebj205i05awej.jpg" alt=""><br>还有官方的这句话:</p>
+<blockquote>
+<p> For the developers, if you want to cross platforms and run your games smoothly, you should keep your texture size <strong>less than 1024*1024</strong>, that is the lowest restriction for most machines.</p>
+</blockquote>
+<p><strong>–width/–height</strong> <code>&lt;int&gt;</code></p>
+<ul>
+<li>两个参数,放在一块说了,设置输出图片的宽度/高度</li>
+<li>示例:<code>--width 100</code> <code>--height 100</code></li>
+<li>注:这个值设置的大了无所谓,会产生空白区域,但是如果太小,就会报错:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: Could not fit all sprites into the sprite sheet.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>–max-width/–max-height/–max-size</strong> <code>&lt;int&gt;</code></p>
+<ul>
+<li>设置输出图片的最大宽度/高度/尺寸</li>
+<li>示例:<code>--max-width 1024</code> <code>--max-height 1024</code> 前面两个等价于后面 <code>--max-size 1024</code></li>
+<li>注:<br>  1.和上面两个参数的区别在于告诉TP实际值别超过这个值就OK,而上边那两个参数告诉TP实际值一定是这个.<br>  2.默认值为<code>2048</code><br>  3.如果实际值大于设置的最大值会产生错误:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: Sprite sheet size is too small.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>–allow-free-size</strong></p>
+<ul>
+<li>允许输出图片不是2的幂,以最小尺寸输出</li>
+<li>示例:<code>--allow-free-size</code></li>
+<li>注:这个一般开启,cocos2d-x2.0开始就已经支持图片不是2的幂了</li>
+</ul>
+<h2 id="23_23_23_23_u95F4_u8DDD_u548C_u65CB_u8F6C"><a href="#23_23_23_23_u95F4_u8DDD_u548C_u65CB_u8F6C" class="headerlink" title="####间距和旋转"></a>####间距和旋转</h2><p>–shape-padding <code>&lt;int&gt;</code></p>
+<ul>
+<li>图块之间缝隙的宽度,默认值是<code>2</code></li>
+<li>示例:<code>--shape-padding 100</code></li>
+</ul>
+<p>–border-padding <code>&lt;int&gt;</code></p>
+<ul>
+<li>可以理解为边框的宽度,默认值为<code>2</code></li>
+<li>示例:<code>--border-padding 100</code></li>
+</ul>
+<p>–padding <int></int></p>
+<ul>
+<li>间距,这个参数等价于上面两个参数同时同时作用</li>
+<li>示例:<code>--padding 100</code></li>
+<li>注:如果没有开启<code>--allow-free-size</code>可能和你想象的不太一样</li>
+</ul>
+<p>–inner-padding <int></int></p>
+<ul>
+<li>试了一下,这个参数的作用应该是给每个sprite的周围加一个边框,默认值为0</li>
+<li>示例:<code>--inner-padding 100</code></li>
+<li>注:上面的这几个参数作用都不是很大</li>
+</ul>
+<p>–enable-rotation/diable-rotation</p>
+<ul>
+<li>开启/关闭旋转,默认值和输出的格式有关系,cococ2d格式默认enable</li>
+<li>示例<code>--enable-rotation</code> <code>--diable-rotation</code></li>
+<li>注:这个很好理解,为了排版更密集些,有的图片会被旋转</li>
+</ul>
+<p><strong>–trim/no-trim</strong></p>
+<ul>
+<li>剪裁图片,即移除图片周围的透明像素,保留原始尺寸,默认开启</li>
+<li>示例:<code>--trim</code> <code>no-trim</code></li>
+<li>注:这个要格外注意一下,这个参数略<strong>微有些问题</strong>,如果没有了解带来的后果的话还是使用<code>--no-trim</code>更安全些,我会在后面的仔细讲一下.</li>
+</ul>
+<p><strong>–crop</strong></p>
+<ul>
+<li>与上面的一条类似,移除图片四周的透明像素,不保留原始尺寸,保存为一张更小的图片</li>
+<li>示例:<code>--crop</code></li>
+<li>注:同上,要小心使用,尽量不在这里使用,而是改为前期用其它工具处理</li>
+</ul>
+<p>–trim-threshold <int></int></p>
+<ul>
+<li>与Trim类似,只是这个选项有一个参数,表示剪裁掉alpha值小于这个参数的像素,取值<code>0~255</code>,默认为<code>0</code>.</li>
+<li>示例:<code>--trim-threshold</code></li>
+</ul>
+<p><strong>–disable-auto-alias</strong></p>
+<ul>
+<li>关闭自动命名,什么意思呢?<strong>TP在打包时会自动识别相同的图片,最终在大图里只会保留一张</strong>,这样会更加的节省资源,这个参数将会关闭这个功能</li>
+<li>示例:<code>--disable-auto-alias</code></li>
+<li>注:这样参数还是<strong>不要设置</strong>的好</li>
+</ul>
+<h2 id="23_23_23_23_u5176_u4ED6_u5E38_u7528_u9009_u9879"><a href="#23_23_23_23_u5176_u4ED6_u5E38_u7528_u9009_u9879" class="headerlink" title="####其他常用选项"></a>####其他常用选项</h2><p><strong>–opt</strong> <pixelformat></pixelformat></p>
+<ul>
+<li>设置输出图片的像素格式 一般默认RGBA8888</li>
+<li>示例:<code>--opt RGB444</code></li>
+<li>注:这个选项一般不做更改,如果想压缩资源体积的话,可以改为RGBA4444这样图片可以减小一半的体积.具体大家可以看下面这张图:<br><img src="http://ww3.sinaimg.cn/large/7f870d23jw1ebi5nnszqmj20po0g0go5.jpg" alt=""></li>
+</ul>
+<p>##常见问题</p>
+<p><strong>错误:</strong> error: Error in sprite: <em>.png: Failed to load image!<br><strong>解决方案:</strong> 去掉目标路径末尾的</em>.png试试.</p>
+<p><strong>错误:</strong> error: Could not fit all sprites into the sprite sheet.<br><strong>解决方案:</strong><br>1.查看有无设置<code>--width or --height</code>,这个错误通常是由于输出图片的尺寸太小导致的.<br>2.查看有无<code>--max-width/--max-height/--max-size</code>,没有的话加上,有的话将参数值改大一些.</p>
+<p><strong>错误:</strong> error: Sprite sheet size is too small.<br><strong>解决方案:</strong>参见上个错误中的解决方案2,<code>--max-width/--max-height/--max-size</code>默认值为<code>2048</code>,试着改成<code>4096</code>试试,如果解决了,不要高兴,因为大多数移动设备都不支持这个尺寸,可以考虑分开打包.</p>
+<p><strong>错误:</strong> error: Unknown argument –XXX - please check parameters or visit <a href="http://www.texturepacker.com" target="_blank" rel="external">http://www.texturepacker.com</a> for newer version<br><strong>解决方案:</strong> 检查XXX的拼写是否正确</p>
+<p><strong>问题:</strong> 程序中获得图片的尺寸与打包前不一致<br><strong>解决方案:</strong> 检查参数是否含有<code>--crop</code>,有的话删除,有没有<code>--no-trim</code>,没有的话加上.</p>
+<p>##后记<br>讲了那么多参数,其实常用的没有几个,下面这个是我最终使用的命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TexturePacker --sheet out.png --data out.plist --allow-free-size --no-trim --max-size 1024 --format cocos2d animation</span><br></pre></td></tr></table></figure></p>
+<p>文章到这里就要结束了,但其实还没有完,<code>--trim</code>到底为什么不建议使用?使用了会发生什么问题?它和<code>--crop</code>的具体区别在哪里?plist文件中frame的路径和其他plist的重复了怎么办?程序中怎么做才能做到打包和不打包的差异最小化?金瓶梅你什么时候看完?</p>
+<p>我后面会再写一篇文章来讲这些东西(逃).</p>
+<p><strong>全文完</strong></p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2014/01/26/quickx_on_mac/" rel="next" title="在MacOS上搭建mafiagame版的quick-cocos2d-x">
+    上一篇：在MacOS上搭建mafiagame版的quick-cocos2d-x
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2013/11/29/cocos2dx_simpleaudio/" rel="next" title="修改SimpleAudioEngine在win32下的实现">
+    下一篇：修改SimpleAudioEngine在win32下的实现
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2013/12/12/use_tp_on_command_line/';
+                        this.page.identifier = '2013/12/12/use_tp_on_command_line/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

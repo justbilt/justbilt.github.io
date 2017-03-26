@@ -1,0 +1,585 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>在 quick-x 中使用 TableView | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="如何使用 TableView 这个效率提升利器? ">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="在 quick-x 中使用 TableView"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>在 quick-x 中使用 TableView</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-03-13T00:02:53.000Z"><a href="/2016/03/13/quickx-tableview/">2016-03-13</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Quick-Cocos2d-x/" class="chip light-blue">Quick-Cocos2d-x</a>
+        
+            <a href="/tags/TableView/" class="chip light-blue">TableView</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-__u57FA_u672C_u7528_u6CD5"><span class="section table-of-contents-text">一. 基本用法</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u521B_u5EFA_u5BF9_u8C61"><span class="section table-of-contents-text">1. 创建对象</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u8BBE_u7F6E_u586B_u5145_u987A_u5E8F"><span class="section table-of-contents-text">2. 设置填充顺序</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u6CE8_u518C_u4E8B_u4EF6_u76D1_u542C"><span class="section table-of-contents-text">3. 注册事件监听</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1_29-__u6CE8_u518C_u8282_u70B9_u6570_u91CF_u56DE_u8C03"><span class="section table-of-contents-text">1). 注册节点数量回调</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2_29-__u6CE8_u518C_u83B7_u53D6_u8282_u70B9_u5C3A_u5BF8_u7684_u56DE_u8C03"><span class="section table-of-contents-text">2). 注册获取节点尺寸的回调</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3_29-__u83B7_u53D6_u5BF9_u5E94_u4F4D_u7F6E_u8282_u70B9_u7684_u56DE_u8C03"><span class="section table-of-contents-text">3). 获取对应位置节点的回调</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u83B7_u53D6/_u65B0_u589E/_u4FEE_u6539/_u5220_u9664_u8282_u70B9"><span class="section table-of-contents-text">3. 获取/新增/修改/删除节点</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u4E00_u4E9B_u5F02_u5E38_u7684_u89E3_u51B3_u65B9_u6848"><span class="section table-of-contents-text">二. 一些异常的解决方案</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-_lua__u51FA_u9519_u5BFC_u81F4_player__u5D29_u6E83"><span class="section table-of-contents-text">1. lua 出错导致 player 崩溃</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u6EDA_u52A8_u540E_u5BFC_u81F4_u8282_u70B9_u4E0A_u6309_u94AE_u89E6_u6478_u5931_u6548"><span class="section table-of-contents-text">2. 滚动后导致节点上按钮触摸失效</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u906E_u6321_u4E0A_u5C42_u6309_u94AE_u89E6_u6478_u4E8B_u4EF6"><span class="section table-of-contents-text">3. 遮挡上层按钮触摸事件</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>上篇文章说到使用 TableView 可以大幅提升界面的创建速度, 这篇文章我们来看看如何在 quick 中使用它.</p>
+<h1 id="u4E00-__u57FA_u672C_u7528_u6CD5"><a href="#u4E00-__u57FA_u672C_u7528_u6CD5" class="headerlink" title="一. 基本用法"></a>一. 基本用法</h1><h2 id="1-__u521B_u5EFA_u5BF9_u8C61"><a href="#1-__u521B_u5EFA_u5BF9_u8C61" class="headerlink" title="1. 创建对象"></a>1. 创建对象</h2><p>首先, 创建一个 TableView 对象:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> view = cc.TableView:create(cc.size(<span class="number">480</span>,<span class="number">320</span>))</span><br></pre></td></tr></table></figure>
+<p>传入的那个 size 是 viewsize, 即可视区域的尺寸, 后期也可以通过 <code>setViewSize</code> 来调节.</p>
+<h2 id="2-__u8BBE_u7F6E_u586B_u5145_u987A_u5E8F"><a href="#2-__u8BBE_u7F6E_u586B_u5145_u987A_u5E8F" class="headerlink" title="2. 设置填充顺序"></a>2. 设置填充顺序</h2><p>下面设置填充顺序, 默认是从下往上填充, 我们习惯了使用从上往下填充, 所以需要修改下:<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)</span><br></pre></td></tr></table></figure></p>
+<p>其可选值如下:<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cc.TABLEVIEW_FILL_TOPDOWN = <span class="number">0</span>  <span class="comment">-- 从上自下</span></span><br><span class="line">cc.TABLEVIEW_FILL_BOTTOMUP = <span class="number">1</span> <span class="comment">-- 从下自上</span></span><br></pre></td></tr></table></figure></p>
+<p>这个值最终会影响所有 cell 的顺序, 具体些是第 0 个元素在最上面还是在最下面.</p>
+<h2 id="3-__u6CE8_u518C_u4E8B_u4EF6_u76D1_u542C"><a href="#3-__u6CE8_u518C_u4E8B_u4EF6_u76D1_u542C" class="headerlink" title="3. 注册事件监听"></a>3. 注册事件监听</h2><p>TableView 提供了好多事件, 具体作用如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cc.SCROLLVIEW_SCRIPT_SCROLL = <span class="number">0</span></span><br><span class="line">cc.SCROLLVIEW_SCRIPT_ZOOM   = <span class="number">1</span></span><br><span class="line">cc.TABLECELL_TOUCHED        = <span class="number">2</span></span><br><span class="line">cc.TABLECELL_HIGH_LIGHT     = <span class="number">3</span></span><br><span class="line">cc.TABLECELL_UNHIGH_LIGHT   = <span class="number">4</span> </span><br><span class="line">cc.TABLECELL_WILL_RECYCLE   = <span class="number">5</span></span><br><span class="line">cc.TABLECELL_SIZE_FOR_INDEX = <span class="number">6</span> <span class="comment">-- 获取节点尺寸的回调</span></span><br><span class="line">cc.TABLECELL_SIZE_AT_INDEX  = <span class="number">7</span> <span class="comment">-- 获取对应位置节点的回调</span></span><br><span class="line">cc.NUMBER_OF_CELLS_IN_TABLEVIEW = <span class="number">8</span> <span class="comment">-- 获取节点数量的回调</span></span><br></pre></td></tr></table></figure>
+<p>但其实真正有意义的就三个, 6,7,8. 其他的<strong>根本不会回调</strong>, 注册了也没有什么用. 注册监听使用 <code>registerScriptHandler</code> 函数.</p>
+<h3 id="1_29-__u6CE8_u518C_u8282_u70B9_u6570_u91CF_u56DE_u8C03"><a href="#1_29-__u6CE8_u518C_u8282_u70B9_u6570_u91CF_u56DE_u8C03" class="headerlink" title="1). 注册节点数量回调"></a>1). 注册节点数量回调</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">view:registerScriptHandler(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">10</span> <span class="comment">-- 假如有10个节点</span></span><br><span class="line"><span class="keyword">end</span>, cc.NUMBER_OF_CELLS_IN_TABLEVIEW)</span><br></pre></td></tr></table></figure>
+<p>返回节点数量.</p>
+<h3 id="2_29-__u6CE8_u518C_u83B7_u53D6_u8282_u70B9_u5C3A_u5BF8_u7684_u56DE_u8C03"><a href="#2_29-__u6CE8_u518C_u83B7_u53D6_u8282_u70B9_u5C3A_u5BF8_u7684_u56DE_u8C03" class="headerlink" title="2). 注册获取节点尺寸的回调"></a>2). 注册获取节点尺寸的回调</h3><p>若是每个节点一致, 则可以返回一个固定尺寸; 若不一致, 可以根据 idx 去取出对应节点的尺寸.</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">view:registerScriptHandler(<span class="function"><span class="keyword">function</span><span class="params">(table, idx)</span></span></span><br><span class="line">    <span class="comment">-- 默认尺寸</span></span><br><span class="line">    <span class="keyword">local</span> size = self.defaultSize</span><br><span class="line">    <span class="keyword">local</span> cell = view:cellAtIndex(idx)</span><br><span class="line">    <span class="keyword">if</span> cell <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- cell.view 属性是在线面创建 cell 时赋值的.</span></span><br><span class="line">        size = cell.view:getBoundingBox()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> size.height, size.width</span><br><span class="line"><span class="keyword">end</span>, cc.TABLECELL_SIZE_FOR_INDEX)</span><br></pre></td></tr></table></figure>
+<p>注意, 这里如果是纵向滚动的话,返回顺序是高,宽; 横向滚动的话则返回宽,高. </p>
+<h3 id="3_29-__u83B7_u53D6_u5BF9_u5E94_u4F4D_u7F6E_u8282_u70B9_u7684_u56DE_u8C03"><a href="#3_29-__u83B7_u53D6_u5BF9_u5E94_u4F4D_u7F6E_u8282_u70B9_u7684_u56DE_u8C03" class="headerlink" title="3). 获取对应位置节点的回调"></a>3). 获取对应位置节点的回调</h3><p>这个回调的名称和上面那个很像, 有时候会分不清楚.</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">view:registerScriptHandler(<span class="function"><span class="keyword">function</span><span class="params">(table, idx)</span></span></span><br><span class="line">    <span class="keyword">local</span> cell = <span class="built_in">table</span>:dequeueCell()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">nil</span> == cell <span class="keyword">then</span></span><br><span class="line">        cell = cc.TableViewCell:new()</span><br><span class="line">        cell.view = self.class.new()</span><br><span class="line">            :pos(self.class.designSize.width/<span class="number">2</span>, self.class.designSize.height/<span class="number">2</span>)</span><br><span class="line">            :addTo(cell)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">-- 如果需要刷新的话, 可能需要自己去处理, 如不需要, 就可以不用下面的这个调用</span></span><br><span class="line">    cell.view:refresh()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cell</span><br><span class="line"><span class="keyword">end</span>, cc.TABLECELL_SIZE_AT_INDEX)</span><br></pre></td></tr></table></figure>
+<h2 id="3-__u83B7_u53D6/_u65B0_u589E/_u4FEE_u6539/_u5220_u9664_u8282_u70B9"><a href="#3-__u83B7_u53D6/_u65B0_u589E/_u4FEE_u6539/_u5220_u9664_u8282_u70B9" class="headerlink" title="3. 获取/新增/修改/删除节点"></a>3. 获取/新增/修改/删除节点</h2><p>这些操作分别对应 <code>cellAtIndex</code>/<code>updateCellAtIndex</code>/<code>insertCellAtIndex</code>/<code>removeCellAtIndex</code> . 这些接口很好理解, 但就多数情况而言, 他们可能需要和 <code>reloadData</code> 配合使用. </p>
+<p>好了, 以上就是基本用法了. 在使用时还有一些需要注意的细节:</p>
+<ol>
+<li>不能使用 setNodeEventEnable, 因为和 Node 的 registerScriptHandler 有冲突.</li>
+<li>id 从 0 开始, 而大家在 lua 这边准备的数据多是以 1 开始, 这样可能需要 +1 和 -1, 需要细心一些.</li>
+</ol>
+<hr>
+<h1 id="u4E8C-__u4E00_u4E9B_u5F02_u5E38_u7684_u89E3_u51B3_u65B9_u6848"><a href="#u4E8C-__u4E00_u4E9B_u5F02_u5E38_u7684_u89E3_u51B3_u65B9_u6848" class="headerlink" title="二. 一些异常的解决方案"></a>二. 一些异常的解决方案</h1><h2 id="1-_lua__u51FA_u9519_u5BFC_u81F4_player__u5D29_u6E83"><a href="#1-_lua__u51FA_u9519_u5BFC_u81F4_player__u5D29_u6E83" class="headerlink" title="1. lua 出错导致 player 崩溃"></a>1. lua 出错导致 player 崩溃</h2><p>TableView 回调 <code>tableCellAtIndex</code> 在lua这边的实现一旦出错, 就会在 c++ 那边收到一个 NULL 的 cell, 因为没有判空, 下面对 cell 的操作就会导致 Plaer 崩溃. 对应修改如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">     cell = _dataSource-&gt;tableCellAtIndex(<span class="keyword">this</span>, idx);</span><br><span class="line">-    <span class="keyword">this</span>-&gt;_setIndexForCell(idx, cell);</span><br><span class="line">-    <span class="keyword">this</span>-&gt;_addCellIfNecessary(cell);</span><br><span class="line">+    <span class="keyword">if</span>(cell)</span><br><span class="line">+    &#123;</span><br><span class="line">+        <span class="keyword">this</span>-&gt;_setIndexForCell(idx, cell);</span><br><span class="line">+        <span class="keyword">this</span>-&gt;_addCellIfNecessary(cell);</span><br><span class="line">+    &#125;</span><br></pre></td></tr></table></figure>
+<p>这时候, 不会崩溃了, 但是也看不到 lua 那边出的什么错误, 经过一番追踪, 定位到了 <code>LuaStack::executeFunction</code> 函数:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (error)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (traceCallback == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                CCLOG(<span class="string">"[LUA ERROR] %s"</span>, lua_tostring(_state, - <span class="number">1</span>));        <span class="comment">/* L: ... error */</span></span><br><span class="line">                lua_pop(_state, <span class="number">1</span>);                                        <span class="comment">// remove error message from stack</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>                                                           <span class="comment">/* L: ... G error */</span></span><br><span class="line">            &#123;</span><br><span class="line">+               CCLOG(<span class="string">"[LUA ERROR] %s"</span>, lua_tostring(_state, - <span class="number">2</span>));        <span class="comment">/* L: ... error */</span></span><br><span class="line">                lua_pop(_state, <span class="number">2</span>);                                        <span class="comment">// remove __G__TRACKBACK__ and error message from stack</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>虽然出错了, 但是 <code>traceCallback</code> 的值并不等于 0, 所以没有进入输出错误的逻辑, 具体用意并不明白. 我的添加了带 <code>+</code> 号的哪一行, 输出了下就可以看到 lua 的错误了.</p>
+<h2 id="2-__u6EDA_u52A8_u540E_u5BFC_u81F4_u8282_u70B9_u4E0A_u6309_u94AE_u89E6_u6478_u5931_u6548"><a href="#2-__u6EDA_u52A8_u540E_u5BFC_u81F4_u8282_u70B9_u4E0A_u6309_u94AE_u89E6_u6478_u5931_u6548" class="headerlink" title="2. 滚动后导致节点上按钮触摸失效"></a>2. 滚动后导致节点上按钮触摸失效</h2><p>大家使用时可能会遇到这样的问题, 节点上有一个利用 quick 触摸机制实现的按钮, 在 TableView 滚动后触摸事件都会失效, 按钮无法被点击.</p>
+<p>这个实际上是 quick 触摸机制的一个bug, 复现是很容易的. 大家创建一个按钮并调用 <code>retain</code>, 然后将这个按钮添加到父节点上, 在某个时候将按钮从父节点上移除 (<code>removeFromParent</code>) 并再次添加(<code>addChild</code>)上到父节点. 这时候按钮还在, 但是触摸事件已经没有了.</p>
+<p>究其原因是我们一般会在对象的 <code>ctor</code> 函数中 <code>setTouchEnable</code>, 然后 quick 在收到 <code>cleanup</code> 事件后移除了对象触摸事件, 具体逻辑大家可以看 <code>Node:EventDispatcher</code> 函数. 而一个节点从父节点上移除时恰好会发送 cleanup 事件.</p>
+<p>对应到 TableView 中来, TableViewCell 为了做到复用在 <code>dequeueCell</code> 时会调用 <code>retain</code> 函数, 并且在移出屏幕时会被从 Container 上移除掉的. 这样 TableViewCell 的所有子节点都会收到对应的 cleanup 事件.</p>
+<p>这个问题的解决方案恰好是我之前写的一篇文章, <a href="/2015/05/17/onDestroy">为 quick-cocos2d-x 添加析构事件</a>, 在这篇文章中, 已经修改为收到 destroy 事件后才去移除节点的触摸事件, 非常完美的解决了这个问题.</p>
+<blockquote>
+<p>Update: 2016-04-24</p>
+</blockquote>
+<h2 id="3-__u906E_u6321_u4E0A_u5C42_u6309_u94AE_u89E6_u6478_u4E8B_u4EF6"><a href="#3-__u906E_u6321_u4E0A_u5C42_u6309_u94AE_u89E6_u6478_u4E8B_u4EF6" class="headerlink" title="3. 遮挡上层按钮触摸事件"></a>3. 遮挡上层按钮触摸事件</h2><p>经过这几天的使用, 我发现了一个十分严重的问题. 如下图所示, TableView 中的某个按钮拖出 ViewRect 范围后会不可见, 但如果其位置恰好在 TableView 外的另一个按钮范围内, 就会优先收到点击事件. 这就会引发十分奇怪的现象, TableView 外的按钮看得见点不着, TableView 内的按钮看不见却可以响应到, 十分影响体验.</p>
+<p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f381i7v2adj206c045glr.jpg" alt=""></p>
+<p>因为有着以往 cocos 2.x 的悲惨经历, 我非常武断的认为这肯定是 TableView 的 bug, 开始着手阅读 TableView 的代码实现, 却一直未果. 然而团队中另外一位成员 @小齐同学 的意外发现, 让这个问题的谜底在无意中就被揭开了.</p>
+<p>我们在项目中大量使用了 quick-x 提供的一个控件 <code>UIScrollView</code>, 它是一个用 <code>ClippingRegionNode</code> 纯 lua 实现的 <code>CCScrollView</code>, 一直以来工作的十分良好. 但是在某一天 测试中, @齐少 意外的发现, 某个界面的 UIScrollView 出现了和 TableView 一模一样的问题, 导致上层按钮无法点击. 经过排查, 发现是因为 UIScrollView 的创建顺序被延后的原因, 如果一个按钮先于 UIScrollView 添加到父节点, 就会被 UIScrollView 中的按钮所屏蔽, 后添加则不会.</p>
+<p>当 @齐少 告诉我这个结论后, 我立刻意识到, TableView 遇到的问题肯定也是这个原因, 查看代码后果然如此, TableView 是最后被创建的. 解决方案也十分简单, 将 TableView 外部按钮放到 TableView 之后去创建就可以啦.</p>
+<hr>
+<p>恩, 以上就是我在使用 TableView 时遇到的所有问题了, 虽然解决了这些问题, 但是在使用上还是十分的繁琐. 若是在一两个界面上使用可能还可以接受, 但若是想大规模推广就很有些困难了, 代码会变得十分冗长.</p>
+<p>在此基础上, 我们又对 TableView 进行了一次封装, 数据驱动, 使用时不用过分关注界面的逻辑, 中心更多的落在了数据的组织上, 真正的做到了 “开箱即用” , 等我们内部进行推广并稳定后可以再和大家分享下心得.</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/03/19/quickx-memery-leak/" rel="next" title="记一次 quick-x 内存泄露排查">
+    上一篇：记一次 quick-x 内存泄露排查
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/03/06/game-optimize/" rel="next" title="游戏性能优化 - 界面篇">
+    下一篇：游戏性能优化 - 界面篇
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/03/13/quickx-tableview/';
+                        this.page.identifier = '2016/03/13/quickx-tableview/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

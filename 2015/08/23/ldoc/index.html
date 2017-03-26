@@ -1,0 +1,638 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>ldoc 入门指南 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="ldoc 入门指南"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>ldoc 入门指南</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2015-08-23T08:47:55.000Z"><a href="/2015/08/23/ldoc/">2015-08-23</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Lua/" class="chip light-blue">Lua</a>
+        
+            <a href="/tags/ldoc/" class="chip light-blue">ldoc</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-__u5B89_u88C5"><span class="section table-of-contents-text">一. 安装</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u5B89_u88C5luarocks"><span class="section table-of-contents-text">1. 安装luarocks</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-1__u901A_u8FC7_homebrew__u5B89_u88C5"><span class="section table-of-contents-text">1.1 通过 homebrew 安装</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5"><span class="section table-of-contents-text">1.2 通过源码安装</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u5B89_u88C5_LDoc"><span class="section table-of-contents-text">2. 安装 LDoc</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u6982_u89C8"><span class="section table-of-contents-text">二. 概览</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E09-__u8BE6_u89E3"><span class="section table-of-contents-text">三. 详解</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u6807_u7B7E"><span class="section table-of-contents-text">1. 标签</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5"><span class="section table-of-contents-text">2. 对于函数的一些高级用法</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B"><span class="section table-of-contents-text">2.1 显示参数的类型</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C"><span class="section table-of-contents-text">2.2 可选参数与默认值</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-3__u591A_u79CD_u8FD4_u56DE_u503C"><span class="section table-of-contents-text">2.3 多种返回值</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E"><span class="section table-of-contents-text">3. config.ld 的字段说明</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u9644_u5F55_3A"><span class="section table-of-contents-text">附录:</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.</p>
+<a id="more"></a>
+<p>项目前端是使用 quick-cocos2d-x 来开发的, 开发语言是 lua, 找了一下 lua 的文档生成工具, 貌似只有 LuaDoc 和 LDoc 可以选. LuaDoc 已经好几年没有人维护了, 加上 LDoc 可以兼容 LuaDoc 的文档, 所以就定了 LDoc.</p>
+<h1 id="u4E00-__u5B89_u88C5"><a href="#u4E00-__u5B89_u88C5" class="headerlink" title="一. 安装"></a>一. 安装</h1><p>因为 LDoc 依赖与 penlight 和 lfs , 所以使用 luarocks 来安装是最简单的, 不然自己还得处理依赖. 因此我们需要先安装 luarocks.</p>
+<h2 id="1-__u5B89_u88C5luarocks"><a href="#1-__u5B89_u88C5luarocks" class="headerlink" title="1. 安装luarocks"></a>1. 安装luarocks</h2><p>如果已经安装过了的话,可以跳过这一步.</p>
+<h3 id="1-1__u901A_u8FC7_homebrew__u5B89_u88C5"><a href="#1-1__u901A_u8FC7_homebrew__u5B89_u88C5" class="headerlink" title="1.1 通过 homebrew 安装"></a>1.1 通过 homebrew 安装</h3><p>通过 homwbrew 安装是最简单的,  只需要 <code>brew update</code> 和 <code>brew install luarocks</code> 两步就可以啦! 不过 brew update 等待的时间可能会比较久, 耐心不够的话可以尝试从源码安装.</p>
+<h3 id="1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5"><a href="#1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5" class="headerlink" title="1.2 通过源码安装"></a>1.2 通过源码安装</h3><p>1). 从<a href="https://github.com/keplerproject/luarocks/wiki/Release-history" target="_blank" rel="external">这里</a>下载最新版的 luarocks 源文件, 解压.</p>
+<p>2). 打开终端, cd 到刚才解压的目录.</p>
+<p>3). 键入 <code>./configure</code></p>
+<p>这一步的话比较诡异, 我在公司装的时候各种问题, 在家里装就没有问题. 比如出现了这个:</p>
+<blockquote>
+<p>Looking for Lua…<br>lua not found in $PATH.<br>You may want to use the flags –with-lua, –with-lua-bin and/or –lua-suffix. See –help.<br>configure failed.</p>
+</blockquote>
+<p>这是没有找到lua的原因, 确保你安装了lua, 可以通过<code>which lua</code>来找到lua的安装路径. 然后用<code>--with-lua-bin</code> 参数传给<code>configure</code>, 如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-lua-bin=/usr/local</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Could not find a downloader helper program. Tried: curl wget fetch.<br>Make sure one of them is installed and available in your PATH.<br>configure failed.</p>
+</blockquote>
+<p>其实我也不知道为什么会抽这个风, <code>curl</code> 和 <code>wget</code> 我都有安装的, 用 <code>--with-downloader</code> 指定一下就ok了, 如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-lua=/usr/local --with-downloader=wget</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Could not find a MD5 checksum calculator. Tried: md5sum openssl md5.<br>Make sure one of them is installed and available in your PATH.<br>configure failed.</p>
+</blockquote>
+<p>额, 还是指定一下 <code>--with-md5-checker</code> 吧!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-lua=/usr/local --with-downloader=wget --with-md5-checker=md5</span><br></pre></td></tr></table></figure>
+<p>4). 键入 <code>make build</code></p>
+<p>5). 键入 <code>make install</code></p>
+<p>如果一切正常的话, 那么就安装成功了. 可以通过键入 <code>luarocks</code> 来检测.</p>
+<h2 id="2-__u5B89_u88C5_LDoc"><a href="#2-__u5B89_u88C5_LDoc" class="headerlink" title="2. 安装 LDoc"></a>2. 安装 LDoc</h2><p>安装好 luarocks 之后, 安装 LDoc 是非常简单的, 只需要:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">luarocks install ldoc</span><br></pre></td></tr></table></figure>
+<p>就可以了, luarocks 会自动帮你安装依赖项. 安装好之后在终端键入 <code>ldoc -h</code>, 如果出现下面这个, 则代表安装成功!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldoc, a documentation generator for Lua, vs 1.4.3&#10;...</span><br></pre></td></tr></table></figure>
+<h1 id="u4E8C-__u6982_u89C8"><a href="#u4E8C-__u6982_u89C8" class="headerlink" title="二. 概览"></a>二. 概览</h1><p>让我们先通过一个简单的测试来了解下 ldoc , 先创建一个目录, 在目录下创建一个 <code>test.lua</code> 文件, 将下面的内容复制到里面:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- a test module&#10;-- @module test&#10;&#10;local test = &#123;&#125;&#10;&#10;--- this is a function&#10;-- @string param1 this is param1&#10;-- @int param2 this is param2&#10;-- @return a string value&#10;function test.my_module_function_1(param1, param2)&#10;&#9;return param1 .. param2&#10;end&#10;&#10;return test</span><br></pre></td></tr></table></figure>
+<p>然后在这个目录下打开终端, 键入 <code>ldoc test.lua</code>, 一切正常的话, 会在当前目录下生成一个名为 doc 文件夹, 打开 <code>doc/index.html</code> 文件, 会看到下面这样的东西.</p>
+<p><img src="/img/2015-08-23-1.jpg" alt=""></p>
+<p>虽然很丑陋, 但也还不错, 该有的都有. 我们仔细看一下这个测试, 总体由 test 模块 和 my_module_function_1 函数 2部分组成. 它们都是以 <code>---</code> 开始的, 这是 ldoc 的一个规则, 只有以 <code>---</code> 开始的注释才会被 ldoc 解析, 这样就可以排除掉普通的注释信息. <code>@module</code> 是一个特殊的标签, 后面跟着模块的名字, 但其实这个标签是可选的, 没有的话默认会以文件名来定义模块名.</p>
+<p>类似的标签还有很多, 我们在下面会一一说明.</p>
+<h1 id="u4E09-__u8BE6_u89E3"><a href="#u4E09-__u8BE6_u89E3" class="headerlink" title="三. 详解"></a>三. 详解</h1><h2 id="1-__u6807_u7B7E"><a href="#1-__u6807_u7B7E" class="headerlink" title="1. 标签"></a>1. 标签</h2><ul>
+<li><strong>@module</strong> 模块, 一般一个文件就是一个模块.</li>
+<li><strong>@classmod</strong> 和 @module 类似, 但是用来描述 class, 用这个标签后, 生成的文档中 Module 文字会变成 Class.</li>
+<li><strong>@submodule</strong> 如果一个模块的内容被分到了好几个文件中, 那么就可以再其他文件中用 submodule 来定义, 后面跟上master module的名字.</li>
+<li><strong>@script</strong> 和 @module 类似, 生成的文档中 Module 文字会变成 Script.</li>
+</ul>
+<blockquote>
+<p>以上几个标签都是<code>project-level</code>, 意味着每个文件中只能包含它们其中的一个, 否则生成时就会提示 <code>Module already declared!</code> 错误.</p>
+</blockquote>
+<ul>
+<li><p><strong>@author</strong> (multiple), @copyright, @license, @release 这几个啥意思就不必说了吧, 值得一提的是它们必须放在<code>project-level</code>,如 @module 标签下.</p>
+</li>
+<li><p><strong>@function</strong>, @lfunction. 用来描述函数. @function 一般情况下不用加, 只需要给函数加上<code>---</code>注释就可以. @lfunction 用来表示一个局部函数, 但是ldoc默认是不会导出局部变量和函数的.</p>
+</li>
+<li><strong>@param</strong> @int, @string, @bool, @func, @tab, @thread 用来描述函数参数, 后面几个指定了参数类型.</li>
+<li><strong>@return</strong> 函数的返回值, 函数的返回值可能有多种, 因此 @return 在一个函数中也是可以多次使用的</li>
+<li><strong>@raise</strong> 这个函数可能抛出的错误</li>
+<li><strong>@local</strong> 最大的作用是使得一个函数不被导出, 除非使用了(unless –all)</li>
+<li><strong>@see</strong> 引用文档的其他内容, 同一模块的话直接 <code>@see xxx</code>, 不同模块的话需要加上模块名 <code>@see xxmodule.xxfunc</code></li>
+<li><strong>@usage</strong> 给出函数的用例, 可以分多行来写</li>
+<li><strong>@fixme</strong>, @todo 和 @warning , 意思大家应该都懂. 但是必须在函数体内部并且以 <code>---</code> 开头才能生效.</li>
+</ul>
+<blockquote>
+<p>以上几个标签都是描述function的一些行为的</p>
+</blockquote>
+<ul>
+<li><strong>@table</strong> 描述一个table, 也可以不加, 只需要给table加上<code>---</code>注释就可以.</li>
+<li><p><strong>@field</strong> 用来描述table中的一个字段</p>
+</li>
+<li><p><strong>@section</strong> 用来把一个模块分隔成好几块</p>
+</li>
+<li><strong>@type</strong> 和 @class 的作用差不多, 但不能与 @class 同时存在. 一个文件中可以有多处 @type , 会和 @section 似得吧文件分隔成好多份.</li>
+<li><strong>@within</strong> 用来形容函数和table, 指定它们属于哪个section, 可以指定不存在的一个section, 会自动创建一个</li>
+</ul>
+<p>哈哈, 以上就是所有的标签啦, 虽然比较多, 但是有很多都不怎么常用, 所以还是很好理解的.</p>
+<h2 id="2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5"><a href="#2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5" class="headerlink" title="2. 对于函数的一些高级用法"></a>2. 对于函数的一些高级用法</h2><h3 id="2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B"><a href="#2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B" class="headerlink" title="2.1 显示参数的类型"></a>2.1 显示参数的类型</h3><p>这个前面有提过, @param 是不指明具体类型的, 若想指明的话可以用 @int, @string, @bool, @func, @tab, @thread 几个标签来.</p>
+<h3 id="2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C"><a href="#2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C" class="headerlink" title="2.2 可选参数与默认值"></a>2.2 可选参数与默认值</h3><p>可选参数的标记是自参数标签后紧跟 <code>[opt]</code> 来标识, 默认值则是 <code>[opt=xx]</code>. 让我们看一个官方的示例:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- a function with typed args.</span></span><br><span class="line"><span class="comment">-- @string name person's name</span></span><br><span class="line"><span class="comment">-- @int age</span></span><br><span class="line"><span class="comment">-- @string[opt='gregorian'] calender optional calendar</span></span><br><span class="line"><span class="comment">-- @int[opt=0] offset optional offset</span></span><br><span class="line"><span class="comment">-- @treturn string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">one</span> <span class="params">(name,age,...)</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">----&gt; displayed as: one (name, age [, calender='gregorian' [, offset=0]])</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3__u591A_u79CD_u8FD4_u56DE_u503C"><a href="#2-3__u591A_u79CD_u8FD4_u56DE_u503C" class="headerlink" title="2.3 多种返回值"></a>2.3 多种返回值</h3><p>一个函数不同的情况可能返回不同的值, 意义也都不一样, 那么怎么来表示呢? 答案是在 @return 后紧跟 <code>[x]</code> (x可以是1,2,3,…) 来标识. 生成出来的文档是用 <code>Or</code> 来列出这些不同的返回值的.</p>
+<h2 id="3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E"><a href="#3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E" class="headerlink" title="3. config.ld 的字段说明"></a>3. config.ld 的字段说明</h2><p>ldoc 运行时有一堆参数可以传递, 在终端中去做比较麻烦, 修改也不太方便. 因此我们可以创建一个 <code>config.ld</code> 配置文件来做这个事情, <code>ldoc .</code> 表示在当前目前下查找 config.ld 文件, <code>ldoc -c path/to/myconfig.ld &lt;file&gt;</code> 读取特殊的目录的配置文件. 其实 <code>config.ld</code> 就是一个lua文件, 填写时需要遵循lua语法.</p>
+<p>config.ld 文件中有一大坨的条目可以选择, 我们来看一下他们都是什么意思吧.</p>
+<ul>
+<li><strong>file</strong> 可以是一个文件名或者目录名, 如: <code>file = &#39;test.lua&#39;</code>. file 也可以是一个table, 这时里面可以填写文件数组或目录数组, 同时也可以包含另一个特殊的数组 <code>exclude</code>, 表明要排除的文件或目录</li>
+<li><strong>project</strong> 项目的名称, 会出现在文档的左上角. 默认为 <code>ldoc</code></li>
+<li><strong>title</strong> 页面的名称, 默认为 <code>Reference</code></li>
+<li><strong>all</strong> 导出 <code>local</code> 的 function</li>
+<li><strong>output</strong> 导出 html 的名字, 默认是 <code>index</code></li>
+<li><strong>dir</strong> 导出目录的名字, 默认是 <code>doc</code></li>
+<li><strong>colon</strong> 使用冒号风格代替 @ 风格的 tag</li>
+<li><strong>boilerplate</strong> 忽略所有源文件中的首个注释(块), 比如: license 注释.</li>
+<li><strong>ext</strong> 输出文件的后缀(默认为 <code>html</code>)</li>
+<li><strong>one</strong> 文档使用单列的布局</li>
+<li><strong>style, template</strong> 指定模板和样式的目录. 在 config.ld 中它也可以为 <code>true</code> , 表示使用和配置文件同一目录的模板.</li>
+<li><strong>merge</strong> 允许文档从不同的文件合并同名的 module , 而不是产生多个module.</li>
+</ul>
+<p>其它可选的参数还有很多, 但是都不常用. 大家可以<a href="http://stevedonovan.github.io/ldoc/manual/doc.md.html#Fields_allowed_in__config_ld_" target="_blank" rel="external">点击这里</a>跳转到官方文档继续查看.</p>
+<hr>
+<p>这篇文章到这里就差不多, ldoc 网上的中文资料不是很多, 加上我使用时遇到了一些问题, 因此我写下这篇文章, 主要是帮大家对 ldoc 形成一个大体的印象, 具体细节或者高级功能可能还是得去看官方的文档.</p>
+<p>当然有什么问题也欢迎大家评论指出, 多多交流!</p>
+<h2 id="u9644_u5F55_3A"><a href="#u9644_u5F55_3A" class="headerlink" title="附录:"></a>附录:</h2><p>官方文档: <a href="http://stevedonovan.github.io/ldoc/" target="_blank" rel="external">这里</a><br>github地址: <a href="https://github.com/stevedonovan/LDoc" target="_blank" rel="external">这里</a></p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2015/10/17/setup-pyqt5-on-mac/" rel="next" title="Pyqt5 MacOS 环境搭建">
+    上一篇：Pyqt5 MacOS 环境搭建
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2015/08/16/upgrad-spine-runtime/" rel="next" title="更新 spine 的 cocos2d-x runtimes">
+    下一篇：更新 spine 的 cocos2d-x runtimes
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2015/08/23/ldoc/';
+                        this.page.identifier = '2015/08/23/ldoc/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

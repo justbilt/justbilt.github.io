@@ -1,0 +1,604 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>最近搞 iOS 版遇到的一些问题和技巧 (三) | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="万一遇上了呢?">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="最近搞 iOS 版遇到的一些问题和技巧 (三)"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>最近搞 iOS 版遇到的一些问题和技巧 (三)</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-09-05T15:50:12.000Z"><a href="/2016/09/05/ios-dev-tips-3/">2016-09-05</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/iOS/" class="chip light-blue">iOS</a>
+        
+            <a href="/tags/iOS-Dev-Tips/" class="chip light-blue">iOS-Dev-Tips</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-_iOS__u5185_u8D2D_u8FD4_u56DE_u5546_u54C1_u65E0_u6548_invalid_product"><span class="section table-of-contents-text">一. iOS 内购返回商品无效 invalid product</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-_iOS__u8FD0_u884C_u5D29_u6E83_unrecognized_selector_sent_to_instance"><span class="section table-of-contents-text">二. iOS 运行崩溃 unrecognized selector sent to instance</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-__u4FEE_u6539_AppController-h__u4E2D_window__u53D8_u91CF_u7684_u58F0_u660E_u5F62_u5F0F"><span class="section table-of-contents-text">1. 修改 AppController.h 中 window 变量的声明形式</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-__u4FEE_u6539_AppController-mm"><span class="section table-of-contents-text">2. 修改 AppController.mm</span></a></li></ol></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E09-__u6E38_u620F_u5728_u4F4E_u4E8E_ios9__u7684_u7CFB_u7EDF_u542F_u52A8_u5D29_u6E83"><span class="section table-of-contents-text">三. 游戏在低于 ios9 的系统启动崩溃</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u56DB-_Facebook__u767B_u5F55_u5D29_u6E83"><span class="section table-of-contents-text">四. Facebook 登录崩溃</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E94-_ios9__u72B6_u6001_u680F_u65E0_u6CD5_u9690_u85CF"><span class="section table-of-contents-text">五. ios9 状态栏无法隐藏</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u516D-_showAlert__u8BE1_u5F02_u5D29_u6E83"><span class="section table-of-contents-text">六. showAlert 诡异崩溃</span></a></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <h1 id="u4E00-_iOS__u5185_u8D2D_u8FD4_u56DE_u5546_u54C1_u65E0_u6548_invalid_product"><a href="#u4E00-_iOS__u5185_u8D2D_u8FD4_u56DE_u5546_u54C1_u65E0_u6548_invalid_product" class="headerlink" title="一. iOS 内购返回商品无效 invalid product"></a>一. iOS 内购返回商品无效 invalid product</h1><p>我使用 quick-x 内置的 store 类请求商品信息时, 收到这样的错误:</p>
+<blockquote>
+<p>nvalidProductIdentifiers [CCStore_obj]<br>[CCStore_obj] productsRequestDidReceiveResponse() invalid pid: com.xxx.xxx</p>
+</blockquote>
+<p>首先, <strong>检查你请求的商品 id 在 iTunes 后台是否创建</strong>, 是否拼写错误. 如果没有问题, 那么就不太好办了, 会有很多原因导致这个问题.</p>
+<p>ZZB_Amoy 博客的<a href="http://blog.sina.com.cn/s/blog_a6a46b330101dgju.html" target="_blank" rel="external">这篇文章</a>总结了下可能的原因, 如下:</p>
+<blockquote>
+<ul>
+<li>创建的App ID是否启用了IAP功能。</li>
+<li>商品信息是否配置到iTurn Connect，并到达“Ready to Submit”状态。</li>
+<li>在iTurn Connect中创建Test User，并收取邮件激活。之后登录到测试用手机的设置页面中（Store选项）。</li>
+<li>App的Bundle Id是否和后台配置的App Id一致。</li>
+<li>是否创建相应的provisioning profile，并用此签名App。</li>
+<li>iTurn Connect后台配置完商品信息后，是否等待若干小时生效。</li>
+<li>SKProductsRequest请求的商品Id必须和iTurn Connect中配置的一致。（如：com.test.product.xxx）</li>
+<li>iTunes Connect中配置的银行信息是否正确。</li>
+<li>是否先删除旧App，再重新编译生成新的。</li>
+<li>请不要使用越狱手机测试。</li>
+</ul>
+</blockquote>
+<p>下面说说我两次遇到这个问题的解决方案:</p>
+<ol>
+<li>如果游戏发布区域中没有手机中 App Store 当前区的话, 需要先登陆下对应区域创建的测试账号, 将商店切换到对应区域.</li>
+<li>完善苹果开发者账号所能完善的信息, 如付款信息呀什么的, 然后莫名其妙就解决了.</li>
+<li>商品 id 大小写错误, 在 chrome 搜索时是忽略大小的.</li>
+</ol>
+<blockquote>
+<p>注：在测试阶段，可以不用上传APP软件包，但必须创建测试用Apple Id，并在手机设置中（store选项）登录。</p>
+</blockquote>
+<h1 id="u4E8C-_iOS__u8FD0_u884C_u5D29_u6E83_unrecognized_selector_sent_to_instance"><a href="#u4E8C-_iOS__u8FD0_u884C_u5D29_u6E83_unrecognized_selector_sent_to_instance" class="headerlink" title="二. iOS 运行崩溃 unrecognized selector sent to instance"></a>二. iOS 运行崩溃 unrecognized selector sent to instance</h1><p>运行游戏过程中收到如下错误:</p>
+<blockquote>
+<p>[1515:710439] -[AppController window]: unrecognized selector sent to instance 0x2c85c00<br>libc++abi.dylib: terminate_handler unexpectedly threw an exception</p>
+</blockquote>
+<p>这个在接入某一个平台 sdk 时遇到的问题, 于是便问了下他们的技术, 很快解决了问题. </p>
+<h4 id="1-__u4FEE_u6539_AppController-h__u4E2D_window__u53D8_u91CF_u7684_u58F0_u660E_u5F62_u5F0F"><a href="#1-__u4FEE_u6539_AppController-h__u4E2D_window__u53D8_u91CF_u7684_u58F0_u660E_u5F62_u5F0F" class="headerlink" title="1. 修改 AppController.h 中 window 变量的声明形式"></a>1. 修改 AppController.h 中 window 变量的声明形式</h4><p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f7j62j0mfuj20dw02n3yy.jpg" alt=""></p>
+<h4 id="2-__u4FEE_u6539_AppController-mm"><a href="#2-__u4FEE_u6539_AppController-mm" class="headerlink" title="2. 修改 AppController.mm"></a>2. 修改 AppController.mm</h4><p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f7j665yyacj207901zq32.jpg" alt=""></p>
+<p>虽然问题解决了, 但是我并不明白各种缘由. Google 了下, 大概明白了, 原来如此. 从错误中我们可以看到这句 <code>[AppController window]</code> , 从语法来看, 这是要调用 AppController 的 window 函数, 但是在我们之前的写法中没有实现这个函数, 便出错了. 而使用 <code>@property</code> 这个东西, 会自动帮你实现一个 <code>window/setWindow</code> 函数, 这样就不会找不到这个函数了.</p>
+<h1 id="u4E09-__u6E38_u620F_u5728_u4F4E_u4E8E_ios9__u7684_u7CFB_u7EDF_u542F_u52A8_u5D29_u6E83"><a href="#u4E09-__u6E38_u620F_u5728_u4F4E_u4E8E_ios9__u7684_u7CFB_u7EDF_u542F_u52A8_u5D29_u6E83" class="headerlink" title="三. 游戏在低于 ios9 的系统启动崩溃"></a>三. 游戏在低于 ios9 的系统启动崩溃</h1><p>这个也是在接入第三方 sdk 时遇到的问题, 游戏一启动就会崩溃, 收到错误如下:</p>
+<blockquote>
+<p>dyld: Symbol not found: _OBJC<em>CLASS</em>$_SFSafariViewController<br>  Referenced from: /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision<br>  Expected in: /System/Library/Frameworks/SafariServices.framework/SafariServices<br> in /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision</p>
+</blockquote>
+<p>Google 了一下, 没有任何人遇到过这样的问题, 这就十分棘手了, 完全不知从何入手. 经过一番探索, 找到了几个有用的线索:</p>
+<ol>
+<li>SFSafariViewController 这个类是 ios 9 才引入的, 这和我们已知的信息相符.</li>
+<li>所幸的是我们的游戏有多个 Scheme , 每个 Scheme 接入不同的 sdk . 其他的 Scheme 的都可以正常运行.</li>
+</ol>
+<p>这就可以肯定是某个 sdk 中使用了 <code>SFSafariViewController</code> 这个类, 但是还是没有办法定位是那个 sdk . 我不知道是否有一个命令查找符号引用, 因此只能采用最笨的排除法了, 我将引入的 sdk 依次删除, 看是否能够运行.</p>
+<p>最终定位到了某个广告统计 sdk , 在询问其 ios 技术人员后得到了解决方案. 原来他们 sdk 需要<strong>以 <code>optional</code> 的形式引入 <code>SafariServices.framework</code></strong>.</p>
+<p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1f7kanujs5rj20ol018jrf.jpg" alt=""></p>
+<p>都怪我没有仔细阅读文档, 白白耽误了一段时间, 下次一定要注意!</p>
+<h1 id="u56DB-_Facebook__u767B_u5F55_u5D29_u6E83"><a href="#u56DB-_Facebook__u767B_u5F55_u5D29_u6E83" class="headerlink" title="四. Facebook 登录崩溃"></a>四. Facebook 登录崩溃</h1><p>集成 Facebook sdk 时, 调用登录接口游戏就会崩溃, 这个问题 Google 一下就能解决, 解决方案也很简单, 在 Info.plist 中加入下面几行代码即可:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>LSApplicationQueriesSchemes<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>fbapi<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>fb-messenger-api<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>fbauth2<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>fbshareextension<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">array</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Stackoverflow 上的答案可以<a href="http://stackoverflow.com/a/33489214" target="_blank" rel="external">移步这里</a>, Facebook 官网上也<a href="https://developers.facebook.com/docs/ios/ios9" target="_blank" rel="external">给了解答</a>.</p>
+<h1 id="u4E94-_ios9__u72B6_u6001_u680F_u65E0_u6CD5_u9690_u85CF"><a href="#u4E94-_ios9__u72B6_u6001_u680F_u65E0_u6CD5_u9690_u85CF" class="headerlink" title="五. ios9 状态栏无法隐藏"></a>五. ios9 状态栏无法隐藏</h1><p>隐藏状态栏在 ios9 上换了一种方式, 还是需要在 Info.plist 中进行配置:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>UIStatusBarHidden<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">true</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>UIViewControllerBasedStatusBarAppearance<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">false</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Stackoverflow 上的答案可以<a href="http://stackoverflow.com/a/32965748" target="_blank" rel="external">移步这里</a>.</p>
+<h1 id="u516D-_showAlert__u8BE1_u5F02_u5D29_u6E83"><a href="#u516D-_showAlert__u8BE1_u5F02_u5D29_u6E83" class="headerlink" title="六. showAlert 诡异崩溃"></a>六. showAlert 诡异崩溃</h1><p>游戏内的一些弹框为了保证在游戏的最上层显示, 偷懒使用了 quick-x 提供的 <code>device.showAlert</code> 接口. showAlert 内部使用 <code>UIAlertView</code> 实现, 运行一直良好, 有一天突然就不行了, 一调用就崩溃. </p>
+<p>各种办法都试过了, 网上都说是线程安全问题, 我试了一下各种处理都不行, 打断点跟踪到最底层也无济于事. 几近绝望之时, @bin 的一句话提醒了我:</p>
+<blockquote>
+<p>会不是屏幕方向的问题 ? </p>
+</blockquote>
+<p>最终一番尝试, 删除了 <code>RootViewController.mm</code> 中几个屏幕方向相关的函数:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">*/</span><br><span class="line"><span class="comment">// Override to allow orientations other than the default portrait orientation.</span></span><br><span class="line"><span class="comment">// This method is deprecated on ios6</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsLandscape</span>( interfaceOrientation );</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsPortrait</span>( interfaceOrientation );</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// For ios6, use supportedInterfaceOrientations &amp; shouldAutorotate instead</span></span><br><span class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations&#123;</span><br><span class="line"><span class="preprocessor">#ifdef __IPHONE_6_0</span></span><br><span class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskLandscape</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskPortraitUpsideDown</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate &#123;</span><br><span class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个 bug 出现之诡异, 解决方案之诡异, 在我遇到的 bug 中也算是很少见了.</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/09/10/quickx-crash-on-phone-2/" rel="next" title="最近遇到的几个 quick-x 真机崩溃(二)">
+    上一篇：最近遇到的几个 quick-x 真机崩溃(二)
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/06/26/terse-lua-code/" rel="next" title="更简洁的 lua 逻辑代码">
+    下一篇：更简洁的 lua 逻辑代码
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/09/05/ios-dev-tips-3/';
+                        this.page.identifier = '2016/09/05/ios-dev-tips-3/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

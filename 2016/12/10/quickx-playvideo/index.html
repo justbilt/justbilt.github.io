@@ -1,0 +1,580 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>quick-x 视频播放 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="半成品, 别用!">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="quick-x 视频播放"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>quick-x 视频播放</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-12-10T14:00:28.000Z"><a href="/2016/12/10/quickx-playvideo/">2016-12-10</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Quick-Cocos2d-x/" class="chip light-blue">Quick-Cocos2d-x</a>
+        
+            <a href="/tags/videoplayer/" class="chip light-blue">videoplayer</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-__u57FA_u672C_u7528_u6CD5"><span class="section table-of-contents-text">一. 基本用法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u9047_u5230_u7684_u95EE_u9898"><span class="section table-of-contents-text">二. 遇到的问题</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u95EE_u9898_1_3A_iOS__u64AD_u653E_u89C6_u9891_u5B8C_u540E_u9ED1_u5C4F"><span class="section table-of-contents-text">问题 1: iOS 播放视频完后黑屏</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u95EE_u9898_2_3A__u5728_iOS_9-2__u4EE5_u4E0A_u4F1A_u5D29_u6E83"><span class="section table-of-contents-text">问题 2: 在 iOS 9.2 以上会崩溃</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u95EE_u9898_3_3A_iOS__u4E0A_u64AD_u653E_u89C6_u9891_u6709_u8FDB_u5EA6_u6761_2C__u53CC_u51FB_u53EF_u4EE5_u653E_u5927_u7F29_u5C0F_2C_Android__u70B9_u51FB_u53EF_u4EE5_u6682_u505C"><span class="section table-of-contents-text">问题 3: iOS 上播放视频有进度条, 双击可以放大缩小, Android 点击可以暂停</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-__u9690_u85CF_iOS__u64AD_u653E_u8FDB_u5EA6_u6761"><span class="section table-of-contents-text">1. 隐藏 iOS 播放进度条</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-__u7981_u7528_Android__u70B9_u51FB_u6682_u505C"><span class="section table-of-contents-text">2. 禁用 Android 点击暂停</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u95EE_u9898_4_3A_vivo_u624B_u673A_u65E0_u6CD5_u64AD_u653E_u89C6_u9891_u7684bug"><span class="section table-of-contents-text">问题 4: vivo手机无法播放视频的bug</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u95EE_u9898_5_3A__u591A_u6B21_u8C03_u7528_u53EF_u80FD_u4F1A_u906E_u6321_SDK__u7684_u5F39_u51FA_u754C_u9762"><span class="section table-of-contents-text">问题 5: 多次调用可能会遮挡 SDK 的弹出界面</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u95EE_u9898_6_3A__u8FD8_u6709_u4EC0_u4E48_u95EE_u9898_2C__u90FD_u8BF4_u4E86_u5427"><span class="section table-of-contents-text">问题 6: 还有什么问题, 都说了吧</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>今天我们来聊聊 QuickX 中播放视频的那些事. </p>
+<p>这篇文章来自于日常的笔记, 年代可能会有些久远, 加上当时最开始视频播放不是我来做的, 所以有些地方我的理解也不是很深刻. 若是有什么不对的地方, 还望大家不吝赐教.</p>
+<h1 id="u4E00-__u57FA_u672C_u7528_u6CD5"><a href="#u4E00-__u57FA_u672C_u7528_u6CD5" class="headerlink" title="一. 基本用法"></a>一. 基本用法</h1><p>播放一段视频:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> video = ccexp.VideoPlayer:create()</span><br><span class="line">video:setPosition(cc.p(display.cx, display.cy))</span><br><span class="line">video:setAnchorPoint(cc.p(<span class="number">0.5</span>, <span class="number">0.5</span>))</span><br><span class="line">video:setContentSize(cc.size(display.width, display.height))</span><br><span class="line">video:setFileName(<span class="string">"res/start_video.mp4"</span>)</span><br><span class="line">video:setKeepAspectRatioEnabled(<span class="keyword">true</span>)</span><br><span class="line">video:setFullScreenEnabled(<span class="keyword">true</span>)</span><br><span class="line"></span><br><span class="line">self:addChild(video)</span><br></pre></td></tr></table></figure>
+<p>监听视屏播放事件:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onVideoEventCallback</span><span class="params">(sender, eventType)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"onVideoEventCallback:"</span>, eventType)</span><br><span class="line">    <span class="keyword">if</span> eventType == ccexp.VideoPlayerEvent.PLAYING <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">elseif</span> eventType == ccexp.VideoPlayerEvent.PAUSED <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">elseif</span> eventType == ccexp.VideoPlayerEvent.STOPPED <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">elseif</span> eventType == ccexp.VideoPlayerEvent.COMPLETED <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">video:addEventListener(onVideoEventCallback)</span><br><span class="line">video:play()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然而你做完这一切还是可能会播放不出来视频, 没有关系, 多播放几次就出来啦.</p>
+</blockquote>
+<h1 id="u4E8C-__u9047_u5230_u7684_u95EE_u9898"><a href="#u4E8C-__u9047_u5230_u7684_u95EE_u9898" class="headerlink" title="二. 遇到的问题"></a>二. 遇到的问题</h1><h2 id="u95EE_u9898_1_3A_iOS__u64AD_u653E_u89C6_u9891_u5B8C_u540E_u9ED1_u5C4F"><a href="#u95EE_u9898_1_3A_iOS__u64AD_u653E_u89C6_u9891_u5B8C_u540E_u9ED1_u5C4F" class="headerlink" title="问题 1: iOS 播放视频完后黑屏"></a>问题 1: iOS 播放视频完后黑屏</h2><p>cocos2dx 3.3 iOS端播放视频完后黑屏, 控制台中提示日志: OpenGL error 0x0506 in -[CCEAGLView swapBuffers] 324</p>
+<p>解决方案:</p>
+<p><a href="http://www.cnblogs.com/cc4coco/p/4188347.html" target="_blank" rel="external">http://www.cnblogs.com/cc4coco/p/4188347.html</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>) viewDidAppear:(<span class="built_in">BOOL</span>)animated&#123;</span><br><span class="line"></span><br><span class="line">    cocos2d::Director::getInstance()-&gt;resume();</span><br><span class="line">    cocos2d::Director::getInstance()-&gt;startAnimation();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated&#123;</span><br><span class="line"></span><br><span class="line">    cocos2d::Director::getInstance()-&gt;pause();</span><br><span class="line">    cocos2d::Director::getInstance()-&gt;stopAnimation();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u95EE_u9898_2_3A__u5728_iOS_9-2__u4EE5_u4E0A_u4F1A_u5D29_u6E83"><a href="#u95EE_u9898_2_3A__u5728_iOS_9-2__u4EE5_u4E0A_u4F1A_u5D29_u6E83" class="headerlink" title="问题 2: 在 iOS 9.2 以上会崩溃"></a>问题 2: 在 iOS 9.2 以上会崩溃</h2><p>解决方案:</p>
+<p><a href="https://github.com/cocos2d/cocos2d-x/issues/14855" target="_blank" rel="external">https://github.com/cocos2d/cocos2d-x/issues/14855</a></p>
+<p>修改 VideoPlayer 类的析构函数, 将 <code>dealloc</code> 改为 <code>release</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">VideoPlayer::~VideoPlayer()</span><br><span class="line">&#123;</span><br><span class="line">     <span class="keyword">if</span>(_videoView)</span><br><span class="line">     &#123;</span><br><span class="line">-        [((UIVideoViewWrapperIos*)_videoView) dealloc];</span><br><span class="line">+        [((UIVideoViewWrapperIos*)_videoView) release];</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u95EE_u9898_3_3A_iOS__u4E0A_u64AD_u653E_u89C6_u9891_u6709_u8FDB_u5EA6_u6761_2C__u53CC_u51FB_u53EF_u4EE5_u653E_u5927_u7F29_u5C0F_2C_Android__u70B9_u51FB_u53EF_u4EE5_u6682_u505C"><a href="#u95EE_u9898_3_3A_iOS__u4E0A_u64AD_u653E_u89C6_u9891_u6709_u8FDB_u5EA6_u6761_2C__u53CC_u51FB_u53EF_u4EE5_u653E_u5927_u7F29_u5C0F_2C_Android__u70B9_u51FB_u53EF_u4EE5_u6682_u505C" class="headerlink" title="问题 3: iOS 上播放视频有进度条, 双击可以放大缩小, Android 点击可以暂停"></a>问题 3: iOS 上播放视频有进度条, 双击可以放大缩小, Android 点击可以暂停</h2><p>解决方案:</p>
+<p>这个问题挺让人啼笑皆非的, 不知道当时设计这个类的人是如何考虑的, 至少也应该提供一个关闭的接口吧. 好, 让我们看下如何解决它.</p>
+<p><img src="http://ww3.sinaimg.cn/large/006y8lVajw1fam4s9vv7ij30dj0m9q3f.jpg" alt=""></p>
+<h3 id="1-__u9690_u85CF_iOS__u64AD_u653E_u8FDB_u5EA6_u6761"><a href="#1-__u9690_u85CF_iOS__u64AD_u653E_u8FDB_u5EA6_u6761" class="headerlink" title="1. 隐藏 iOS 播放进度条"></a>1. 隐藏 iOS 播放进度条</h3><p>在 UIVideoPlayer-ios.mm 的 <code>-(void) setURL:(int)videoSource :(std::string &amp;)videoUrl</code> 函数中, 修改 <code>MPMovieControlStyleEmbedded</code> 为 <code>MPMovieControlStyleNone</code>:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-    <span class="keyword">self</span><span class="variable">.moviePlayer</span><span class="variable">.controlStyle</span> = <span class="built_in">MPMovieControlStyleEmbedded</span>;</span><br><span class="line">+    <span class="keyword">self</span><span class="variable">.moviePlayer</span><span class="variable">.controlStyle</span> = <span class="built_in">MPMovieControlStyleNone</span>;</span><br></pre></td></tr></table></figure>
+<p>进度条隐藏了, 但是视频播放时双击缩放的问题却无法解决.</p>
+<h3 id="2-__u7981_u7528_Android__u70B9_u51FB_u6682_u505C"><a href="#2-__u7981_u7528_Android__u70B9_u51FB_u6682_u505C" class="headerlink" title="2. 禁用 Android 点击暂停"></a>2. 禁用 Android 点击暂停</h3><p>修改 <code>Cocos2dxWebView.java</code> 中的 <code>onTouchEvent</code> 函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        if((event.getAction() &amp; MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)</span></span><br><span class="line"><span class="comment">//        &#123;</span></span><br><span class="line"><span class="comment">//            if (isPlaying()) &#123;</span></span><br><span class="line"><span class="comment">//                pause();</span></span><br><span class="line"><span class="comment">//            &#125; else if(mCurrentState == STATE_PAUSED)&#123;</span></span><br><span class="line"><span class="comment">//                resume();</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u95EE_u9898_4_3A_vivo_u624B_u673A_u65E0_u6CD5_u64AD_u653E_u89C6_u9891_u7684bug"><a href="#u95EE_u9898_4_3A_vivo_u624B_u673A_u65E0_u6CD5_u64AD_u653E_u89C6_u9891_u7684bug" class="headerlink" title="问题 4: vivo手机无法播放视频的bug"></a>问题 4: vivo手机无法播放视频的bug</h2><p>解决方案:</p>
+<p>经过断点跟踪, 定位到了原因, 视频的尺寸获取的有问题, 我尝试修改了 <code>setVideoRect</code> 函数中的两行代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-        mViewWidth = maxWidth;</span><br><span class="line">-        mViewHeight = maxHeight;</span><br><span class="line">+        mViewWidth = <span class="number">1</span>;</span><br><span class="line">+        mViewHeight = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>很神奇的解决了这个问题.</p>
+<h2 id="u95EE_u9898_5_3A__u591A_u6B21_u8C03_u7528_u53EF_u80FD_u4F1A_u906E_u6321_SDK__u7684_u5F39_u51FA_u754C_u9762"><a href="#u95EE_u9898_5_3A__u591A_u6B21_u8C03_u7528_u53EF_u80FD_u4F1A_u906E_u6321_SDK__u7684_u5F39_u51FA_u754C_u9762" class="headerlink" title="问题 5: 多次调用可能会遮挡 SDK 的弹出界面"></a>问题 5: 多次调用可能会遮挡 SDK 的弹出界面</h2><p>我们游戏中有一个重启的功能, 每次重启都会播放一个视频, 这样某些渠道的登录界面就看不到了, 另一个不播放视屏的项目就没有问题, 好像是每次播放都会提高游戏的层级.</p>
+<p>解决方案:</p>
+<p>遍历所有 window , 找到 SDK 的那个 window, 将它的 windowLevel 提高一级.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">UIWindow</span> * w <span class="keyword">in</span> [[<span class="built_in">UIApplication</span> sharedApplication]windows])&#123;</span><br><span class="line">    <span class="keyword">if</span> ([w isKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"XSDKOriginalWindow"</span>)]) &#123;</span><br><span class="line">        [w setWindowLevel:[[[<span class="built_in">UIApplication</span> sharedApplication]keyWindow]windowLevel]+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u95EE_u9898_6_3A__u8FD8_u6709_u4EC0_u4E48_u95EE_u9898_2C__u90FD_u8BF4_u4E86_u5427"><a href="#u95EE_u9898_6_3A__u8FD8_u6709_u4EC0_u4E48_u95EE_u9898_2C__u90FD_u8BF4_u4E86_u5427" class="headerlink" title="问题 6: 还有什么问题, 都说了吧"></a>问题 6: 还有什么问题, 都说了吧</h2><p>如果播放时候是黑屏，把游戏切到后台，再进入游戏就能从头播放！<br>如果播放时候正常，切到后台再切回来就变成黑屏</p>
+<p><a href="http://www.cocoachina.com/bbs/read.php?tid-306892.html" target="_blank" rel="external">http://www.cocoachina.com/bbs/read.php?tid-306892.html</a></p>
+<p>Cocos2d-x V3.10版本中的videoplayer问题<br><a href="http://www.voidcn.com/blog/sh15285118586/article/p-5989468.html" target="_blank" rel="external">http://www.voidcn.com/blog/sh15285118586/article/p-5989468.html</a></p>
+<p>关于cocos2dx 3.x VideoPlayer的问题<br><a href="http://blog.sina.com.cn/s/blog_93add5520102w6n9.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_93add5520102w6n9.html</a></p>
+<p>cocos2d-x视频控件VideoPlayer的用户操作栏进度条去除<br><a href="http://blog.csdn.net/pklll000pp44/article/details/51337577" target="_blank" rel="external">http://blog.csdn.net/pklll000pp44/article/details/51337577</a></p>
+<hr>
+<p>还真的是问题一大堆呢! 大家最好还是回去和策划大大商量下, 别播放视频了.</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2017/02/18/my-2016/" rel="next" title="充实而又愉快的 2016">
+    上一篇：充实而又愉快的 2016
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2016/10/29/untp-2/" rel="next" title="一个命令行的 TexturePacker 拆解工具  (二)">
+    下一篇：一个命令行的 TexturePacker 拆解工具  (二)
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/12/10/quickx-playvideo/';
+                        this.page.identifier = '2016/12/10/quickx-playvideo/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

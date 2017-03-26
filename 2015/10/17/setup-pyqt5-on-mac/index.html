@@ -1,0 +1,581 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Pyqt5 MacOS 环境搭建 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="A game developer">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Pyqt5 MacOS 环境搭建"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Pyqt5 MacOS 环境搭建</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2015-10-17T06:46:49.000Z"><a href="/2015/10/17/setup-pyqt5-on-mac/">2015-10-17</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/PyQt/" class="chip light-blue">PyQt</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#1-__u5B89_u88C5_qt"><span class="section table-of-contents-text">1. 安装 qt</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#2-__u5B89_u88C5_sip"><span class="section table-of-contents-text">2. 安装 sip</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#3-__u5B89_u88C5_PyQt"><span class="section table-of-contents-text">3. 安装 PyQt</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u5B89_u88C5_PyQt__2C__u6267_u884C_python_configure-py__u65F6_u627E_u4E0D_u5230_sip"><span class="section table-of-contents-text">1. 安装 PyQt , 执行 python configure.py 时找不到 sip</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u89E3_u51B3_u65B9_u6848_3A"><span class="section table-of-contents-text">解决方案:</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-_fatal_error_3A__u2018sip-h_u2019_file_not_found"><span class="section table-of-contents-text">2. fatal error: ‘sip.h’ file not found</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#u5982_u4F55_u4E3A_python3__u5B89_u88C5_pyqt5"><span class="section table-of-contents-text">如何为 python3 安装 pyqt5</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-__u5B89_u88C5_sip__u65F6_u9644_u52A0_u989D_u5916_u53C2_u6570_-with-python3"><span class="section table-of-contents-text">1. 安装 sip 时附加额外参数 --with-python3</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-__u5B89_u88C5_PyQt__u65F6_u9644_u52A0_u989D_u5916_u53C2_u6570_-target-py-version_3DVERSION__28e-g-_3-4_29"><span class="section table-of-contents-text">2. 安装 PyQt 时附加额外参数 --target-py-version=VERSION (e.g. 3.4)</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>尝试过用各种 python 的 gui 库来写一些小工具, TkInter, wxPython, Pyfltk , PyQt等, 最终发现还是只有 <code>wxPython</code> 和 <code>PyQt</code> 能相对靠谱一些, 控件全, 文档丰富, 使用的人多. 因为曾经使用搞过 qt , 所以最终选择了 PyQt, 这次我们来说一下如何在 Mac 上安装.</p>
+<a id="more"></a>
+<h1 id="1-__u5B89_u88C5_qt"><a href="#1-__u5B89_u88C5_qt" class="headerlink" title="1. 安装 qt"></a>1. 安装 qt</h1><p>PyQt 其实就是 qt 的 python 绑定, 所以我们首先需要安装 qt, 版本可以自行选择, <a href="http://www.qt.io/download-open-source/#section-2" target="_blank" rel="external">最新版</a> 的下载地址, <a href="http://download.qt.io/archive/qt/" target="_blank" rel="external">历史版本</a>的地址. 如果追求最新版的话, 最好是去 PyQt 的<a href="http://sourceforge.net/projects/PyQt/files/PyQt5/" target="_blank" rel="external">下载网站</a>看那一下最新版是什么, 因为 PyQt 的更新速度会落后于 qt.</p>
+<p><img src="http://static.zybuluo.com/justbilt/krc3gqufsqx99msip1jw9fqy/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-12%20%E4%B8%8A%E5%8D%887.37.42.png" alt="屏幕快照 2015-09-12 上午7.37.42.png-117.1kB"></p>
+<p>当看到这个界面时, qt 就安装成功了.</p>
+<h1 id="2-__u5B89_u88C5_sip"><a href="#2-__u5B89_u88C5_sip" class="headerlink" title="2. 安装 sip"></a>2. 安装 sip</h1><p>sip 是一个 python 调用 c 的工具, 官方网址在<a href="http://PyQt.sourceforge.net/Docs/sip4/installation.html" target="_blank" rel="external">这里</a>, 我们可以按照官网上的指南去安装, 也可以选择另一种更简单的方式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install sip</span><br></pre></td></tr></table></figure>
+<h1 id="3-__u5B89_u88C5_PyQt"><a href="#3-__u5B89_u88C5_PyQt" class="headerlink" title="3. 安装 PyQt"></a>3. 安装 PyQt</h1><hr>
+<p>我们首先去<a href="http://sourceforge.net/projects/PyQt/files/PyQt5/" target="_blank" rel="external">这里</a>下载适合自己版本, 解压, 并在终端 cd 进这个目录. 执行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python configure.py</span><br></pre></td></tr></table></figure>
+<p>如果出现 <code>Error: Use the --qmake argument to explicitly specify a working Qt qmake.</code> 错误, 则是因为我们没有将 <code>qmake</code> 加入到环境变量中. 那么 qmake 在哪里呢? 根绝安装路径和版本,差不多是在这样的一个路径中:</p>
+<p><img src="http://static.zybuluo.com/justbilt/6tbyfo13vr6hf4cuztepeja9/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-13%20%E4%B8%8B%E5%8D%884.41.29.png" alt="屏幕快照 2015-09-13 下午4.41.29.png-75.1kB"></p>
+<p>知道了路径, 我们可以似乎可以通过 <code>--qmake</code> 参数指定 qmake 目录 ,但其实我们可以把它临时的加入到环境变量中, 在终端中键入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/path/your/qt/version/clang_64/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>再次执行<code>python configure.py</code>, 一切顺林的话会遇到一个选择 license 的提示, 我们输入 <code>yes</code> 即可.</p>
+<p>等待 <code>configure</code> 完成, 我们执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<p>这次可能并没有那么顺利, 我遇到这样的错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In file included from ../qpy/QtCore/qpycore_api.h:30:&#10;../qpy/QtCore/qpycore_public_api.h:26:10: fatal error: &#39;sip.h&#39; file not found&#10;#include &#60;sip.h&#62;&#10;         ^&#10;1 error generated.&#10;make[1]: *** [qpycore_post_init.o] Error 1&#10;make: *** [sub-QtCore-make_first-ordered] Error 2</span><br></pre></td></tr></table></figure>
+<p>这时候我们需要传入 sip 的 include 路径, 如果是通过 brew 安装的(如果不是, 请看文章末尾的Q&amp;A), 可以通过 <code>brew info sip</code>获得:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew info sip&#10;sip: stable 4.16.9 (bottled), HEAD&#10;Tool to create Python bindings for C and C++ libraries&#10;http://www.riverbankcomputing.co.uk/software/sip&#10;/usr/local/Cellar/sip/4.16.9 (10 files, 908K) *</span><br></pre></td></tr></table></figure>
+<p>然后重新执行 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python configure.py --sip-incdir=/path/of/your/sip/4.16.9/include</span><br></pre></td></tr></table></figure>
+<p>等待成功后, 我们可以执行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &#38;&#38; make install</span><br></pre></td></tr></table></figure>
+<p>到此为止, 我们安装就完成了. 下面让我们用 <a href="http://zetcode.com/gui/pyqt5/" target="_blank" rel="external">zetcode</a> 上的例题测试一下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3&#10;# -*- coding: utf-8 -*-&#10;&#10;&#34;&#34;&#34;&#10;ZetCode PyQt5 tutorial &#10;&#10;In this example, we create a simple&#10;window in PyQt5.&#10;&#10;author: Jan Bodnar&#10;website: zetcode.com &#10;last edited: January 2015&#10;&#34;&#34;&#34;&#10;&#10;import sys&#10;from PyQt5.QtWidgets import QApplication, QWidget&#10;&#10;&#10;if __name__ == &#39;__main__&#39;:&#10;    &#10;    app = QApplication(sys.argv)&#10;&#10;    w = QWidget()&#10;    w.resize(250, 150)&#10;    w.move(300, 300)&#10;    w.setWindowTitle(&#39;Simple&#39;)&#10;    w.show()&#10;    &#10;    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+<p>把上面那段代码保存在一个python文件中, 然后执行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python test.py</span><br></pre></td></tr></table></figure>
+<p>如果出现下面这个界面, 就说明你成功了!</p>
+<p><img src="http://static.zybuluo.com/justbilt/qg63w41bobru04w0oki6iu8g/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-09-14%20%E4%B8%8A%E5%8D%888.02.58.png" alt="屏幕快照 2015-09-14 上午8.02.58.png-20kB"></p>
+<hr>
+<p>如果你没有通过 brew 安装 sip , 你可能遇到的问题:</p>
+<h2 id="1-__u5B89_u88C5_PyQt__2C__u6267_u884C_python_configure-py__u65F6_u627E_u4E0D_u5230_sip"><a href="#1-__u5B89_u88C5_PyQt__2C__u6267_u884C_python_configure-py__u65F6_u627E_u4E0D_u5230_sip" class="headerlink" title="1. 安装 PyQt , 执行 python configure.py 时找不到 sip"></a>1. 安装 PyQt , 执行 <code>python configure.py</code> 时找不到 sip</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh: sip: command not found&#10;Error: &#39;sip -V&#39; did not generate any output.</span><br></pre></td></tr></table></figure>
+<h2 id="u89E3_u51B3_u65B9_u6848_3A"><a href="#u89E3_u51B3_u65B9_u6848_3A" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>知道你安装 sip <code>make install</code> 时的一些信息, 比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make install&#10;cp -f sip /usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/bin/sip</span><br></pre></td></tr></table></figure></p>
+<p>然后在终端中执行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/path/of/your/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/bin/:$PATH</span><br></pre></td></tr></table></figure>
+<h2 id="2-_fatal_error_3A__u2018sip-h_u2019_file_not_found"><a href="#2-_fatal_error_3A__u2018sip-h_u2019_file_not_found" class="headerlink" title="2. fatal error: ‘sip.h’ file not found"></a>2. fatal error: ‘sip.h’ file not found</h2><p>错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In file included from qpycore_post_init.cpp:25:&#10;In file included from ../qpy/QtCore/qpycore_api.h:30:&#10;../qpy/QtCore/qpycore_public_api.h:26:10: fatal error: &#39;sip.h&#39; file not found&#10;#include &#60;sip.h&#62;&#10;         ^&#10;1 error generated.&#10;make[1]: *** [qpycore_post_init.o] Error 1&#10;make: *** [sub-QtCore-make_first-ordered] Error 2</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://python.6.x6.nabble.com/PyQt-5-1-1-Compilation-Error-td5037071.html" target="_blank" rel="external">解决方案</a>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python configure.py --sip-incdir=/path/of/your/Downloads/sip-4.16.9/siplib</span><br></pre></td></tr></table></figure>
+<hr>
+<p>Update 2015年11月25日:</p>
+<h2 id="u5982_u4F55_u4E3A_python3__u5B89_u88C5_pyqt5"><a href="#u5982_u4F55_u4E3A_python3__u5B89_u88C5_pyqt5" class="headerlink" title="如何为 python3 安装 pyqt5"></a>如何为 python3 安装 pyqt5</h2><h3 id="1-__u5B89_u88C5_sip__u65F6_u9644_u52A0_u989D_u5916_u53C2_u6570_-with-python3"><a href="#1-__u5B89_u88C5_sip__u65F6_u9644_u52A0_u989D_u5916_u53C2_u6570_-with-python3" class="headerlink" title="1. 安装 sip 时附加额外参数 --with-python3"></a>1. 安装 sip 时附加额外参数 <code>--with-python3</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install sip --with-python3</span><br></pre></td></tr></table></figure>
+<h3 id="2-__u5B89_u88C5_PyQt__u65F6_u9644_u52A0_u989D_u5916_u53C2_u6570_-target-py-version_3DVERSION__28e-g-_3-4_29"><a href="#2-__u5B89_u88C5_PyQt__u65F6_u9644_u52A0_u989D_u5916_u53C2_u6570_-target-py-version_3DVERSION__28e-g-_3-4_29" class="headerlink" title="2. 安装 PyQt 时附加额外参数 --target-py-version=VERSION (e.g. 3.4)"></a>2. 安装 PyQt 时附加额外参数 <code>--target-py-version=VERSION</code> (e.g. 3.4)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 configure.py --sip-incdir=/path/of/your/sip/include --target-py-version=VERSION</span><br></pre></td></tr></table></figure>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2015/10/31/mygui-2-run-on-osx/" rel="next" title="MyGUI学习笔记(二) 在 MacOS 上运行MyGUI">
+    上一篇：MyGUI学习笔记(二) 在 MacOS 上运行MyGUI
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2015/08/23/ldoc/" rel="next" title="ldoc 入门指南">
+    下一篇：ldoc 入门指南
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2015/10/17/setup-pyqt5-on-mac/';
+                        this.page.identifier = '2015/10/17/setup-pyqt5-on-mac/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

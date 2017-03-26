@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>quickx-3.3 热更新若干心得 | A game developer</title>
+    <meta name="author" content="justbilt">
+    
+    <meta name="description" content="热更新, 打包程序员的爱情与良药">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="quickx-3.3 热更新若干心得"/>
+    <meta property="og:site_name" content="I&#39;m bilt."/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="black">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-tag " href="/tags" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav black" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">justbilt</p>
+                        <p class="desc">Cocos2d-x Python Lua</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-tag " href="/tags" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    标签
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav black" id="category-menu">
+    
+
+            
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper black">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>quickx-3.3 热更新若干心得</h1>
+    
+
+
+            </div>
+            <time class="light-blue-link-context" datetime="2016-01-01T00:43:50.000Z"><a href="/2016/01/01/quickx-hotupdate/">2016-01-01</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <span class="tags-row">
+        
+            <a href="/tags/Quick-Cocos2d-x/" class="chip light-blue">Quick-Cocos2d-x</a>
+        
+            <a href="/tags/hotupdate/" class="chip light-blue">hotupdate</a>
+        
+    </span>
+
+
+            <div class="toc light-blue-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E00-_App__u7248_u672C_u53F7_u7684_u83B7_u53D6"><span class="section table-of-contents-text">一. App 版本号的获取</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E8C-__u5982_u4F55_u4FEE_u6539_Mac__u4E0A_UserDefault__u8BB0_u5F55"><span class="section table-of-contents-text">二. 如何修改 Mac 上 UserDefault 记录</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E09-__u5982_u4F55_u91CD_u542F_u6E38_u620F"><span class="section table-of-contents-text">三. 如何重启游戏</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u56DB-__u4EE3_u7801_u66F4_u65B0_u7B56_u7565"><span class="section table-of-contents-text">四. 代码更新策略</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#u4E94-__u66F4_u65B0_u5305_u7684_u5236_u4F5C"><span class="section table-of-contents-text">五. 更新包的制作</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-__u5982_u4F55_u6807_u8BB0_u5E76_u5BFC_u51FA_u7248_u672C_3F"><span class="section table-of-contents-text">1. 如何标记并导出版本?</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-__u5982_u4F55_u5BF9_u6BD4_u751F_u6210_diff__u6587_u4EF6"><span class="section table-of-contents-text">2. 如何对比生成 diff 文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-__u5176_u4ED6_u540E_u7EED_u5904_u7406"><span class="section table-of-contents-text">3. 其他后续处理</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry light-blue-link-context">
+                <p>关于热更新, 虽然这已经是第三次实现了, 但每一次都会有新的收获, 都会比上次更加完善一下.</p>
+<a id="more"></a>
+<h1 id="u4E00-_App__u7248_u672C_u53F7_u7684_u83B7_u53D6"><a href="#u4E00-_App__u7248_u672C_u53F7_u7684_u83B7_u53D6" class="headerlink" title="一. App 版本号的获取"></a>一. App 版本号的获取</h1><p>对于我们的游戏来说,其实是有两个版本配置的,一个是 <code>versionName</code>, 一个是 <code>versionCode</code>. versionName 只是一个显示, 类似于 <code>1.2.3</code>, 而 versionCode, 它是一个纯数字的字符串 (e.g. 4083), 它可以简单的<strong>转化为 int 去对比版本大小</strong>. 那么如何去获取app对应的版本呢 ?</p>
+<p>iOS:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> Device::getAppVersionCode()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [[[NSBundle mainBundle] objectForInfoDictionaryKey:@<span class="string">"CFBundleVersion"</span>] cStringUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MacOS 上获取版本号的方式与 iOS 一致.</p>
+<p>Android:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getAppVersionCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String versionCode = <span class="string">""</span>;</span><br><span class="line">    PackageInfo pInfo;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        pInfo = sActivity.getPackageManager().getPackageInfo(sActivity.getPackageName(), <span class="number">0</span>);</span><br><span class="line">        versionCode = <span class="string">""</span>+pInfo.versionCode;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> versionCode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了调用这个方法, 我们还需要额外实现一个 jni 的调用.</p>
+<h1 id="u4E8C-__u5982_u4F55_u4FEE_u6539_Mac__u4E0A_UserDefault__u8BB0_u5F55"><a href="#u4E8C-__u5982_u4F55_u4FEE_u6539_Mac__u4E0A_UserDefault__u8BB0_u5F55" class="headerlink" title="二. 如何修改 Mac 上 UserDefault 记录"></a>二. 如何修改 Mac 上 UserDefault 记录</h1><p>quickx-3.3 Mac 版不再像 2.x 时将 UserDefault 保存在项目的根目录, 而是使用 <code>NSUserDefaults</code> 将配置保存在了系统的配置目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/Library/Preferences/com.cocos.quick.apps.player.plist</span><br></pre></td></tr></table></figure>
+<p>双击可以使用 XCode 打开, <strong>修改保存完毕后并不会立刻生效</strong>, 而是需要再额外运行一条命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -SIGTERM cfprefsd</span><br></pre></td></tr></table></figure>
+<h1 id="u4E09-__u5982_u4F55_u91CD_u542F_u6E38_u620F"><a href="#u4E09-__u5982_u4F55_u91CD_u542F_u6E38_u620F" class="headerlink" title="三. 如何重启游戏"></a>三. 如何重启游戏</h1><p>这个做法有好多, 纯App层面的, 纯Lua层面的, 我们使用了一个虽然很土但却很简单的做法. 因为热更新只会更新 lua 代码和资源, 因此可以通过重启 LuaEngine, 清空三大缓存来实现重启. 在 Lua 中发送重启消息, C++ 接收到消息后销毁并重新创建 LuaEngine. 关键代码如下:</p>
+<p>Lua:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.Director:getInstance():getEventDispatcher():dispatchEvent(cc.EventCustom:new(<span class="string">"NEED_RESTART_APP"</span>))</span><br></pre></td></tr></table></figure>
+<p>AppDelegate.cpp:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听重启事件</span></span><br><span class="line"><span class="keyword">auto</span> callBack = [<span class="keyword">this</span>](EventCustom* event)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//do restart LuaEngine</span></span><br><span class="line">&#125;;</span><br><span class="line">Director::getInstance()-&gt;getEventDispatcher()-&gt;addCustomEventListener(<span class="string">"NEED_RESTART_APP"</span>, callBack);</span><br></pre></td></tr></table></figure>
+<h1 id="u56DB-__u4EE3_u7801_u66F4_u65B0_u7B56_u7565"><a href="#u56DB-__u4EE3_u7801_u66F4_u65B0_u7B56_u7565" class="headerlink" title="四. 代码更新策略"></a>四. 代码更新策略</h1><p>大体分为三类:</p>
+<ol>
+<li>全量更新</li>
+<li>相对于上一个版本增量更新</li>
+<li>相对于渠道版本增量更新</li>
+</ol>
+<p><strong>全量更新</strong>指每一个热更新包内都含有项目全部代码, 如果项目体量较小的话勉强可以接收这种方案, 如果项目略大一些, 更新包就会很大, 随便更改一行代码都会有 3,4M 的更新, 实乃下下之策.</p>
+<p><strong>相对于上一个版本增量更新</strong>, 这样更新包就会小很多, 达到资源的最大利用, 缺点是如果版本相差较大就会需要下载多个更新包, 如果代码采用 zip 压缩的话, 需要将这些 zip (e.g. <code>1.1-1.2.zip</code>, <code>1.2-1.3.zip</code>)都加载进来.</p>
+<p><strong>相对于渠道版本增量更新</strong>, 这一种折中的解决方案, 对比差异是永远是基于线上渠道版本, 这种做法的优点在于游戏只用额外挂载一个 <code>patch.zip</code>, 玩家也只用更新一次即可到最新版, 而代价只是会增加一些服务器更新包的存储开销.</p>
+<p>很长一段时间内, 我们都很 low 的采用了第一种解决方案, 造成这种错误的原因在于我错误的估计了增量更新的难度, 进而放宽了自我要求, 觉得全量更新还OK balabala… 多亏了 @BinStartup 童鞋强烈地需求, 才迫使我们去考虑更优解决方案, 用我们内部的一个梗来夸赞一下 Bin 童鞋: ‘牛逼呀~’ . </p>
+<h1 id="u4E94-__u66F4_u65B0_u5305_u7684_u5236_u4F5C"><a href="#u4E94-__u66F4_u65B0_u5305_u7684_u5236_u4F5C" class="headerlink" title="五. 更新包的制作"></a>五. 更新包的制作</h1><p>相比于代码层面的热更新支持, 自动化的制作热更新包才是更为重要的事情, 因为这个操作会持续的发生, 并且随着更新次数的增多复杂度会剧增.</p>
+<p>从大的层面来看, 更新包的制作主要有这么几个问题:</p>
+<h2 id="1-__u5982_u4F55_u6807_u8BB0_u5E76_u5BFC_u51FA_u7248_u672C_3F"><a href="#1-__u5982_u4F55_u6807_u8BB0_u5E76_u5BFC_u51FA_u7248_u672C_3F" class="headerlink" title="1. 如何标记并导出版本?"></a>1. 如何标记并导出版本?</h2><p>首先我们要考虑如何标记版本, 因为要做增量更新就必须得对比不同的版本, 实现的方法有好多, 你甚至可以每次都将项目拷贝一份, 用版本号来命名. 我们项目版本控制工具是 git , 因此可以使用 git tag 来标记版本号.</p>
+<p>至于导出版本, 一开始并没有考虑到这个, 本来打算直接使用 <code>git diff</code>来进行版本对比, 不幸的是我们项目中有一堆的 <code>submodule</code>, git diff 并不能对比子模块的变化. 同理 <code>git archive</code> 也不可以, 最终我们使用了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="variable">$tag</span></span><br><span class="line">git submodule update --init --recursive</span><br></pre></td></tr></table></figure>
+<p>这样当前项目的环境就到了 <code>$tag</code> 这次提交, 然后将 <code>src</code> 目录拷贝到一个临时目录, 再切换到下一个 tag . 多次之后, 就获取到了所有版本的脚本文件了.</p>
+<h2 id="2-__u5982_u4F55_u5BF9_u6BD4_u751F_u6210_diff__u6587_u4EF6"><a href="#2-__u5982_u4F55_u5BF9_u6BD4_u751F_u6210_diff__u6587_u4EF6" class="headerlink" title="2. 如何对比生成 diff 文件"></a>2. 如何对比生成 diff 文件</h2><p>因为是拷贝到了临时的目录, 所以不能通过 <code>git diff</code> 来进行对比了. 简单搜索了下, 可选的是系统自带的 <code>diff</code> 命令, 不过它的结果不方便处理. 最终决定使用 python 的 <code>filecmp</code> 模块进行对比. </p>
+<h2 id="3-__u5176_u4ED6_u540E_u7EED_u5904_u7406"><a href="#3-__u5176_u4ED6_u540E_u7EED_u5904_u7406" class="headerlink" title="3. 其他后续处理"></a>3. 其他后续处理</h2><p>diff 出来的脚本问题, 我们需要加密, 和加密 src 一样调用 <code>compile_scripts.sh</code> 即可.</p>
+<p>因为热更新需要的是一个 zip 文件, 我们可能会用到 <code>zip</code> 命令, 需要注意的一点是不能简单的使用 <code>zip -r xxx.zip yyy</code>, 这样的话压缩包内会含有 <code>yyy</code> 目录. 正确的做法是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(cd yyy; zip -r ../xxx.zip *)</span><br></pre></td></tr></table></figure>
+<hr>
+<p>重启的那个方案还有一些隐患, 所以没有放出具体的代码, 等修复之后会补上.<br>暂时就这些, 后面想到啥了再加上来.</p>
+
+                
+<p class="light-blue-link-context">
+    <a href="/2016/02/11/my-2015/" rel="next" title="继续进步的 2015">
+    上一篇：继续进步的 2015
+  </a>
+</p>
+
+
+
+<p class="light-blue-link-context">
+    <a href="/2015/11/28/pyqtdeploy/" rel="next" title="使用 Pyqtdeploy 发布你的 Pyqt 程序">
+    下一篇：使用 Pyqtdeploy 发布你的 Pyqt 程序
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <section id="comment">
+        <div style="text-align:center;">
+          <button class="btn" id="load-disqus" onclick="disqus.load();">点击加载 Disqus</button>
+        </div>        
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus = {
+                load : function disqus(){
+                    var disqus_config = function() {
+                        this.page.url = 'http://blog.justbilt.com/2016/01/01/quickx-hotupdate/';
+                        this.page.identifier = '2016/01/01/quickx-hotupdate/';
+                    };                
+                    var d = document,
+                        s = d.createElement('script');
+                    s.src = '//justbilt.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', + new Date());
+                    (d.head || d.body).appendChild(s);
+                    $('#load-disqus').remove(); ///加载后移除按钮
+                }
+            }
+        </script>
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+    </section>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink accent-3">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <div class="footer-copyright light-blue-link-context">
+    <div class="container">
+        © 2016 blog.justbilt.com, All rights reserved.
+        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+    </div>
+</div>
+
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('light-green lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink accent-3"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-69555091-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
