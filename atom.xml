@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-03-25T18:08:08.000Z</updated>
+  <updated>2017-04-09T13:06:00.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/"/>
     <id>http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/</id>
     <published>2017-03-25T01:30:30.000Z</published>
-    <updated>2017-03-25T18:08:08.000Z</updated>
+    <updated>2017-04-09T13:06:00.000Z</updated>
     
     <content type="html">&lt;p&gt;大约是在前几天刷微博的时候看到有人说多说要关站了, 赶紧去备份评论 balabala … , 难以置信, 赶紧去我的邮箱找了下, 果然找到了这封邮件:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNbRwly1fdyu57rth7j30pi08bab4.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -39,6 +39,12 @@
 &lt;blockquote&gt;
 &lt;p&gt;那时 cocos2d-x 还十分火爆,&lt;br&gt;那时我还在用 c++,&lt;br&gt;那年我才 21 岁.&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;好吧, 现在关闭装逼模式.&lt;/p&gt;
+&lt;p&gt;虽然用了这么多面的评论, 但正如 @王子亭 博主在&lt;a href=&quot;https://jysperm.me/2016/05/remove-comments-and-wechat/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇&lt;/a&gt;文章中所言:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#20174;&amp;#21478;&amp;#19968;&amp;#20010;&amp;#35282;&amp;#24230;&amp;#26469;&amp;#30475;&amp;#65292;&amp;#25105;&amp;#20889;&amp;#20102;&amp;#36825;&amp;#20040;&amp;#22810;&amp;#24180;&amp;#21338;&amp;#23458;&amp;#65292;&amp;#25910;&amp;#21040;&amp;#30340;&amp;#22823;&amp;#37096;&amp;#20998;&amp;#35780;&amp;#35770;&amp;#37117;&amp;#21644;&amp;#25991;&amp;#31456;&amp;#20869;&amp;#23481;&amp;#26080;&amp;#20851; &amp;#8212;&amp;#8212; &amp;#20182;&amp;#20204;&amp;#22312;&amp;#25226;&amp;#25991;&amp;#31456;&amp;#30340;&amp;#35780;&amp;#35770;&amp;#24403;&amp;#20316;&amp;#30041;&amp;#35328;&amp;#26495;&amp;#26469;&amp;#20351;&amp;#29992;&amp;#65292;&amp;#21644;&amp;#25105;&amp;#25171;&amp;#20010;&amp;#25307;&amp;#21628;&amp;#25110;&amp;#32773;&amp;#35810;&amp;#38382;&amp;#19968;&amp;#19979;&amp;#36817;&amp;#20917;&amp;#12290;&amp;#24403;&amp;#28982;&amp;#25105;&amp;#20063;&amp;#26366;&amp;#25910;&amp;#21040;&amp;#26497;&amp;#23569;&amp;#37096;&amp;#20998;&amp;#19968;&amp;#20123;&amp;#35748;&amp;#30495;&amp;#25776;&amp;#20889;&amp;#30340;&amp;#35780;&amp;#35770;&amp;#65292;&amp;#25105;&amp;#20063;&amp;#24076;&amp;#26395;&amp;#32487;&amp;#32493;&amp;#32473;&amp;#36825;&amp;#20123;&amp;#20154;&amp;#30041;&amp;#20986;&amp;#19968;&amp;#20123;&amp;#31354;&amp;#38388;&amp;#65306;&amp;#25105;&amp;#20250;&amp;#20197;&amp;#37038;&amp;#20214;&amp;#30340;&amp;#24418;&amp;#24335;&amp;#25509;&amp;#21463;&amp;#25991;&amp;#31456;&amp;#35780;&amp;#35770;&amp;#65292;&amp;#25105;&amp;#20250;&amp;#25361;&amp;#36873;&amp;#20854;&amp;#20013;&amp;#23545;&amp;#35835;&amp;#32773;&amp;#26377;&amp;#20215;&amp;#20540;&amp;#30340;&amp;#37096;&amp;#20998;&amp;#23637;&amp;#31034;&amp;#22312;&amp;#25991;&amp;#31456;&amp;#30340;&amp;#26411;&amp;#23614;&amp;#12290;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;子亭同学说的特别好, 刚好借着多说关闭的机会, 我移除了博客中的评论系统, 只保留了 &lt;code&gt;关于&lt;/code&gt; 这个灌水界面的评论, 还设立了一个小门槛, 只有拥有 github 账号的朋友才能评论.&lt;/p&gt;
+&lt;p&gt;以后便会省心不少吧.&lt;/p&gt;
 </content>
     
     <summary type="html">
