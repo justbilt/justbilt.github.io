@@ -90,9 +90,17 @@
   </div>
   
 		<div id="container"></div>
-		<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+		<link rel="stylesheet" href="/assets/comment.css">
 		<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 		<script>
+		const myTheme = {
+		  render(state, instance) {
+		    const container = document.createElement('div')
+		    container.appendChild(instance.renderHeader(state, instance))
+		    container.appendChild(instance.renderComments(state, instance))
+		    return container
+		  },
+		}
 		var gitment = new Gitment({
 		  id: 'blog-about--justbilt', // 可选。默认为 location.href
 		  owner: 'justbilt',
@@ -101,6 +109,7 @@
 		    client_id: 'c0d394efac8fd22e2df5',
 		    client_secret: 'cb331b5cf221e812ba5fac2d57a8ed796c3f13ed',
 		  },
+		  theme: myTheme,
 		})
 		gitment.render('container')
 		</script>  
