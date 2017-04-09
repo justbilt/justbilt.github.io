@@ -1,872 +1,1104 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang=zh>
 <head>
+    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    
-
-    <title>归档 | A game developer</title>
-    <meta name="author" content="justbilt">
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="A game developer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="I'm bilt.">
+<meta property="og:url" content="http://blog.justbilt.com/archives/index.html">
+<meta property="og:site_name" content="I'm bilt.">
+<meta property="og:description" content="A game developer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="I'm bilt.">
+<meta name="twitter:description" content="A game developer">
     
     
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+        
+          
+              <link rel="shortcut icon" href="/favicon/favicon.png">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/favicon/favicon.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon.png">
+          
+        
     
-    <meta property="og:site_name" content="I&#39;m bilt."/>
-
+    <!-- title -->
+    <title>I&#39;m bilt.</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <!-- rss -->
     
-    <meta property="og:image" content="undefined"/>
     
-
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="alternate" href="/atom.xml" title="I&#39;m bilt." type="application/atom+xml">
-    <link rel="stylesheet" href="/css/lib/materialize.min.css">
-    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-
-    
-        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
-    
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 
-
 <body>
-    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
-
-    <nav class="black">
-    <div class="nav-wrapper">
-        <a href="#" data-activates="main-menu" class="button-collapse">
-            <i class="fa fa-navicon"></i>
-        </a>
-        <div class="">
-            <a href="/" class="brand-logo hide-on-med-and-down">I&#39;m bilt.</a>
-            <ul class="right hide-on-med-and-down">
-                
-                    <li>
-                        <a class="menu-home " href="/" >
-                            <i class="fa fa-home "></i>
-                            
-                            首页
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-archive " href="/archives" >
-                            <i class="fa fa-archive "></i>
-                            
-                            归档
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-tag " href="/tags" >
-                            <i class="fa fa-bookmark "></i>
-                            
-                            标签
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-about " href="/about" >
-                            <i class="fa fa-user "></i>
-                            
-                            关于
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-search modal-trigger " href="#search" >
-                            <i class="fa fa-search "></i>
-                            
-                            搜索
-                        </a>
-                    </li>
-                
-            </ul>
-            <div>
-    <ul class="side-nav black" id="main-menu">
-        
-        <li class="side-user">
-            <div class="row">
-                <div class="col s4 no-padding">
-                    <img class="avatar-image circle responsive-img" src="http://ww3.sinaimg.cn/large/006y8lVagw1fbj0qu08ogj30hs0hsgmo.jpg" alt="User Avatar">
-                </div>
-                <div class="info col s8 valign-wrapper no-padding">
-                    <div class="valign">
-                        <p class="name">justbilt</p>
-                        <p class="desc">Cocos2d-x Python Lua</p>
-                    </div>
-                </div>
-            </div>
-        </li>
-        
-
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-home " href="/" >
-                    <i class="fa fa-home "></i>
-                    
-                    首页
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-archive " href="/archives" >
-                    <i class="fa fa-archive "></i>
-                    
-                    归档
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-tag " href="/tags" >
-                    <i class="fa fa-bookmark "></i>
-                    
-                    标签
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-about " href="/about" >
-                    <i class="fa fa-user "></i>
-                    
-                    关于
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-search modal-trigger " href="#search" >
-                    <i class="fa fa-search "></i>
-                    
-                    搜索
-                </a>
-            </li>
-        
-    </ul>
-
-    <ul class="side-nav black" id="category-menu">
     
-
-            
-
-    </ul>
-</div>
-
-        </div>
-    </div>
-</nav>
-
-<div id="search" class="modal search-modal">
-    <div class="row">
-        <div class="input-field col s12">
-              <input id="search-input" type="text">
-              <label for="search-input">搜索</label>
-        </div>
-
-    </div>
-    <div id="search-result" class="search-result col s12">
-
-    </div>
-</div>
-
-
-    <main>
-        <div class="container main-container">
+    <div class="content index width mx-auto px2 my4">
+        
+          <header id="header">
+  <a href="/">
+  
     
-
-<nav class="page-nav hide-on-small-only">
-    <div class="nav-wrapper black">
-        <span class="breadcrumb">当前位置（归档）</span>
-        
-
-        
+      <div id="logo" style="background-image: url(/favicon/favicon.png);"></div>
+    
+  
+    <div id="title">
+      <h1>I&#39;m bilt.</h1>
     </div>
-</nav>
-
-
-
-    <ul class="collapsible mt-0" data-collapsible="accordion">
-        
-        
-            <li>
-                <div class="collapsible-header active">
-                    <i class="fa fa-archive"></i>2017
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2017/03/25/bye-duoshuo-bye-comment/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-03-25T01:30:30.000Z">2017-03-25</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                多说, 再见 !
-                            </a>
-                        
-                            <a href="/2017/03/12/ios-dev-tips-4/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-03-12T02:25:47.000Z">2017-03-12</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近搞 iOS 版遇到的一些问题和技巧 (四)
-                            </a>
-                        
-                            <a href="/2017/03/04/quick-x-oop/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-03-04T02:04:44.000Z">2017-03-04</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                Quick-Cocos2d-x 中的面向对象
-                            </a>
-                        
-                            <a href="/2017/02/24/some-change-for-blog/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-02-23T16:39:14.000Z">2017-02-24</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近博客的一些变化
-                            </a>
-                        
-                            <a href="/2017/02/18/my-2016/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2017-02-18T01:39:54.000Z">2017-02-18</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                充实而又愉快的 2016
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2016
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2016/12/10/quickx-playvideo/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-12-10T14:00:28.000Z">2016-12-10</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quick-x 视频播放
-                            </a>
-                        
-                            <a href="/2016/10/29/untp-2/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-10-29T15:39:18.000Z">2016-10-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                一个命令行的 TexturePacker 拆解工具  (二)
-                            </a>
-                        
-                            <a href="/2016/09/23/quickx-utf8-support/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-09-22T22:58:40.000Z">2016-09-23</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quick-x utf8 支持
-                            </a>
-                        
-                            <a href="/2016/09/10/quickx-crash-on-phone-2/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-09-10T15:28:45.000Z">2016-09-10</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近遇到的几个 quick-x 真机崩溃(二)
-                            </a>
-                        
-                            <a href="/2016/09/05/ios-dev-tips-3/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-09-05T15:50:12.000Z">2016-09-05</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近搞 iOS 版遇到的一些问题和技巧 (三)
-                            </a>
-                        
-                            <a href="/2016/06/26/terse-lua-code/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-06-26T06:28:11.000Z">2016-06-26</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                更简洁的 lua 逻辑代码
-                            </a>
-                        
-                            <a href="/2016/06/26/ios-dev-tips-2/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-06-26T03:38:44.000Z">2016-06-26</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近搞 iOS 版遇到的一些问题和技巧 (二)
-                            </a>
-                        
-                            <a href="/2016/06/19/quickx-ipv6/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-06-19T07:39:44.000Z">2016-06-19</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quick-x 适配 IPV6
-                            </a>
-                        
-                            <a href="/2016/05/29/quickx-ios-static-lib/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-05-29T13:20:58.000Z">2016-05-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quick-x 使用静态库加速 iOS 打包
-                            </a>
-                        
-                            <a href="/2016/05/08/compress-res/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-05-08T11:57:07.000Z">2016-05-08</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                cocos2d-x 优化游戏资源体积
-                            </a>
-                        
-                            <a href="/2016/05/01/quickx-editbox-util/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-05-01T00:56:03.000Z">2016-05-01</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quick-x EditBox 几个小技巧
-                            </a>
-                        
-                            <a href="/2016/04/10/quickx-crash-on-phone/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-04-10T12:14:18.000Z">2016-04-10</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近遇到的几个 quick-x  真机崩溃
-                            </a>
-                        
-                            <a href="/2016/04/04/ios-dev-tips/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-04-04T01:13:34.000Z">2016-04-04</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                最近搞 iOS 版遇到的一些问题和技巧
-                            </a>
-                        
-                            <a href="/2016/03/19/quickx-memery-leak/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-03-19T09:48:38.000Z">2016-03-19</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                记一次 quick-x 内存泄露排查
-                            </a>
-                        
-                            <a href="/2016/03/13/quickx-tableview/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-03-13T00:02:53.000Z">2016-03-13</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                在 quick-x 中使用 TableView
-                            </a>
-                        
-                            <a href="/2016/03/06/game-optimize/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-03-06T15:46:48.000Z">2016-03-06</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                游戏性能优化 - 界面篇
-                            </a>
-                        
-                            <a href="/2016/02/29/publish-untp-to-pypi/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-02-29T15:33:24.000Z">2016-02-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                将 untp 发布到 Pypi 上
-                            </a>
-                        
-                            <a href="/2016/02/14/phone-game-AND-OLgame/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-02-14T01:45:54.000Z">2016-02-14</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                手机游戏攻防(三) 网络游戏
-                            </a>
-                        
-                            <a href="/2016/02/11/my-2015/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-02-11T01:57:21.000Z">2016-02-11</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                继续进步的 2015
-                            </a>
-                        
-                            <a href="/2016/01/01/quickx-hotupdate/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2016-01-01T00:43:50.000Z">2016-01-01</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quickx-3.3 热更新若干心得
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2015
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2015/11/28/pyqtdeploy/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-11-28T00:38:12.000Z">2015-11-28</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                使用 Pyqtdeploy 发布你的 Pyqt 程序
-                            </a>
-                        
-                            <a href="/2015/11/15/falign/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-11-15T12:14:37.000Z">2015-11-15</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                FAlign 代码洁癖患者的福音
-                            </a>
-                        
-                            <a href="/2015/10/31/mygui-2-run-on-osx/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-10-31T14:52:44.000Z">2015-10-31</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                MyGUI学习笔记(二) 在 MacOS 上运行MyGUI
-                            </a>
-                        
-                            <a href="/2015/10/17/setup-pyqt5-on-mac/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-10-17T06:46:49.000Z">2015-10-17</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                Pyqt5 MacOS 环境搭建
-                            </a>
-                        
-                            <a href="/2015/08/23/ldoc/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-08-23T08:47:55.000Z">2015-08-23</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                ldoc 入门指南
-                            </a>
-                        
-                            <a href="/2015/08/16/upgrad-spine-runtime/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-08-16T11:17:03.000Z">2015-08-16</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                更新 spine 的 cocos2d-x runtimes
-                            </a>
-                        
-                            <a href="/2015/06/06/cocos-assetsmanager/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-06-05T16:42:33.000Z">2015-06-06</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                cocos2d-x AssetsManager 问题汇总
-                            </a>
-                        
-                            <a href="/2015/05/31/my-2014/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-05-31T13:58:42.000Z">2015-05-31</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                从 C++ 到 lua 的2014
-                            </a>
-                        
-                            <a href="/2015/05/29/mygui-1-run-on-windows/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-05-29T15:30:11.000Z">2015-05-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                MyGUI学习笔记(一) 在Windows上运行MyGUI
-                            </a>
-                        
-                            <a href="/2015/05/17/onDestroy/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-05-17T06:04:37.000Z">2015-05-17</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                为 quick-cocos2d-x 添加析构事件
-                            </a>
-                        
-                            <a href="/2015/05/08/buy-imac-with-retina/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-05-08T12:45:37.000Z">2015-05-08</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                入手 iMac Retina 5K
-                            </a>
-                        
-                            <a href="/2015/04/19/untp/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-04-19T00:19:17.000Z">2015-04-19</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                一个命令行的 TexturePacker 拆解工具 (一)
-                            </a>
-                        
-                            <a href="/2015/04/05/phone-game-AND-watchdog/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-04-05T02:51:34.000Z">2015-04-05</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                手机游戏攻防(二) 守护变量法
-                            </a>
-                        
-                            <a href="/2015/04/04/phone-game-AND-encrypt-var/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-04-03T16:26:44.000Z">2015-04-04</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                手机游戏攻防(一) 变量加密法
-                            </a>
-                        
-                            <a href="/2015/03/16/quickxdev-2/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-03-16T06:45:10.000Z">2015-03-16</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                QuickxDev插件(二) debug.log文件的处理
-                            </a>
-                        
-                            <a href="/2015/03/16/quickxdev-1/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-03-16T01:49:20.000Z">2015-03-16</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                QuickxDev插件(一) 简介
-                            </a>
-                        
-                            <a href="/2015/01/29/jingo/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2015-01-29T14:13:47.000Z">2015-01-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                搭建自己的 wiki 之 jingo 篇
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2014
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2014/12/15/svn/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-12-14T16:58:31.000Z">2014-12-15</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                svn commit 守则
-                            </a>
-                        
-                            <a href="/2014/10/29/quickx-CCGraySprite-invisible/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-10-29T05:01:33.000Z">2014-10-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quickx CCGraySprite 消失坑 (已更新解决方案)
-                            </a>
-                        
-                            <a href="/2014/10/17/spend-money-on-network/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-10-17T07:31:31.000Z">2014-10-17</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                我花在互联网服务上的钱
-                            </a>
-                        
-                            <a href="/2014/09/11/quickx-addto/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-09-11T11:59:57.000Z">2014-09-11</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                quickx addTo导致tag无效坑
-                            </a>
-                        
-                            <a href="/2014/07/02/setup_python_on_mac/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-07-01T22:12:54.000Z">2014-07-02</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                在mac上搭建python环境
-                            </a>
-                        
-                            <a href="/2014/06/10/rtt_savetofile_in_player/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-06-10T09:42:36.000Z">2014-06-10</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                在Player中保存CCRenderTexture到文件
-                            </a>
-                        
-                            <a href="/2014/05/17/some_problem_of_player/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-05-17T04:04:10.000Z">2014-05-17</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                盘点 quick-cocos2d-x Player 粗线的问题
-                            </a>
-                        
-                            <a href="/2014/05/01/my-2013/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-05-01T02:44:14.000Z">2014-05-01</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                我的2013
-                            </a>
-                        
-                            <a href="/2014/03/19/umeng_apk_tools/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-03-19T02:18:22.000Z">2014-03-19</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                友盟渠道包工具
-                            </a>
-                        
-                            <a href="/2014/02/01/images_to_bmfont/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-02-01T00:34:33.000Z">2014-02-01</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                将一堆小图转化为BMFont工具
-                            </a>
-                        
-                            <a href="/2014/01/26/quickx_on_mac/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2014-01-26T10:15:44.000Z">2014-01-26</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                在MacOS上搭建mafiagame版的quick-cocos2d-x
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-            <li>
-                <div class="collapsible-header ">
-                    <i class="fa fa-archive"></i>2013
-                </div>
-                <div class="collapsible-body">
-                    <div class="collection">
-                        
-                            <a href="/2013/12/12/use_tp_on_command_line/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-12-12T02:33:02.000Z">2013-12-12</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                在Command Line中使用TexturePacker
-                            </a>
-                        
-                            <a href="/2013/11/29/cocos2dx_simpleaudio/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-11-29T08:07:51.000Z">2013-11-29</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                修改SimpleAudioEngine在win32下的实现
-                            </a>
-                        
-                            <a href="/2013/11/28/cocos2dx_loop_sound/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-11-28T00:28:03.000Z">2013-11-28</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                从保卫萝卜看cocos2d-x循环播放音效的问题
-                            </a>
-                        
-                            <a href="/2013/11/03/elbow/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-11-03T00:28:03.000Z">2013-11-03</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                弯管(拐角)对方向的改变
-                            </a>
-                        
-                            <a href="/2013/10/16/cocos2d-x-tiledmap-tips/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-10-16T06:01:26.000Z">2013-10-16</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                TiledMap Tips
-                            </a>
-                        
-                            <a href="/2013/09/11/cocos2d-x-ccshake/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-09-11T07:37:58.000Z">2013-09-11</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                cocos2d-x 抖动效果 CCShake
-                            </a>
-                        
-                            <a href="/2013/07/23/cocos2d-x-获取系统时间的问题/" class="collection-item grey-text text-darken-1">
-                                <time datetime="2013-07-23T07:59:46.000Z">2013-07-23</time>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                cocos2d-x 获取系统时间的问题
-                            </a>
-                        
-                    </div>
-                </div>
-            </li>
-        
-    </ul>
-
-
-</div>
-
-        <div class="fixed-action-btn float-sitemap">
-    <a class="btn-floating btn-large pink accent-3">
-      <i class="fa fa-caret-square-o-up"></i>
-    </a>
+  </a>
+  <div id="nav">
     <ul>
-      <li><a class="btn-return-top btn-floating waves-effect red" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
-      <li><a class="btn-floating waves-effect button-collapse purple"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+      <li class="icon">
+        <a href="#"><i class="fa fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">Home</a></li>
+       
+        <li><a href="/about/">About</a></li>
+       
+        <li><a href="/archives/">Writing</a></li>
+       
+        <li><a href="http://github.com/justbilt">Projects</a></li>
+      
     </ul>
   </div>
+</header>
 
-    </main>
-    <div class="footer-copyright light-blue-link-context">
-    <div class="container">
-        © 2016 blog.justbilt.com, All rights reserved.
-        <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        
+        <ul class="post-list">
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2017-03-25T01:30:30.000Z" itemprop="datePublished">2017-03-25</time>
     </div>
-</div>
 
 
+      <span>
+    
+        <a class="" href="/2017/03/25/bye-duoshuo-bye-comment/">多说, 再见 !</a>
+    
 
-    <noscript>
-    <div class="noscript">
-        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2017-03-12T02:25:47.000Z" itemprop="datePublished">2017-03-12</time>
     </div>
-</noscript>
-<div class="noscript">
-    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
-</div>
 
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/materialize.min.js"></script>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
-<script>
-    (function($) {
-        $(document).ready(function() {
-            // 隐藏禁用javascript（针对微信内置浏览器）的提示
-            $('.noscript').hide();
-
-            // 图片缩放效果
-            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
-
-            // 给图片加上点击放大效果（materialbox插件）
-            $imgs.addClass('materialboxed').each(function(i, el) {
-                $(this).attr('data-caption', $(this).attr('alt') || ' ');
-            }).materialbox();
-
-            // 优化表格的显示
-            $('table').each(function() {
-                var $table = $(this);
-                // 除去多行代码的情况
-                if ($table.find('pre').length == 0) {
-                    $table.addClass('responsive-table striped bordered');
-                }
-            });
-
-            // 首页幻灯片
-            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
-
-            $(".button-collapse").sideNav();
-            $(".category-menu").sideNav();
-
-            // 针对gallery post
-            $('.carousel').carousel({full_width: true});
-            $('.carousel-control.prev').click(function() {
-                $('.carousel').carousel('prev');
-            });
-            $('.carousel-control.next').click(function() {
-                $('.carousel').carousel('next');
-            });
-
-            // 文章目录
-            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
-
-            // 目录随屏幕滚动（防止目录过长越过footer）
-            var $toc = $('.toc');
-            var scrollTargetTop = 0;
-            $(window).scroll(function() {
-                var $activeLink = $toc.find('a.active.section');
-                if ($(window).scrollTop() < 100) {
-                    scrollTargetTop = 0;
-                } else {
-                    if ($activeLink[0]) {
-                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
-                    }
-                }
-                $toc.css('top', '-' + scrollTargetTop + 'px');
-            });
-
-            // 修正文章目录的left-border颜色
-            var color = $('.table-of-contents-text').css('color');
-            $('.table-of-contents-link').css('border-left-color', color);
-
-            // 针对移动端做的优化：FAB按钮点击一下收回
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                $('.fixed-action-btn').addClass('click-to-toggle');
-            }
-            // 回到顶部
-            $('.btn-return-top').click(function() {
-                $('body, html').animate({
-                    scrollTop: 0
-                }, 500);
-            });
-
-            // 重置读书页面的Tab标签页的颜色
-            $('li.tab a').hover(function() {
-                $(this).toggleClass('text-lighten-4');
-            });
-            $('.indicator').addClass('light-green lighten-2');
-
-            
-            // 添加new标签
-            $('').append('<span class="new badge pink accent-3"></span>');
-            
-
-            // 搜索功能
-            $('.modal-trigger').leanModal({
-                // 打开搜索框时自动聚焦
-                ready: function() {
-                    if ($('#search').is(":visible")) {
-                        $('#search-input').focus();
-                    }
-                }
-            });
-            var searchXml = "search.xml";
-            if (searchXml.length == 0) {
-             	searchXml = "search.xml";
-            }
-            var searchPath = "/" + searchXml;
-            initSearch(searchPath, 'search-input', 'search-result');
-        });
-
-        // 初始化搜索与匹配函数
-        var initSearch = function(path, search_id, content_id) {
-            'use strict';
-            $.ajax({
-                url: path,
-                dataType: "xml",
-                success: function(xmlResponse) {
-                    // get the contents from search data
-                    var datas = $("entry", xmlResponse).map(function() {
-                        return {
-                            title: $("title", this).text(),
-                            content: $("content", this).text(),
-                            url: $("url", this).text()
-                        };
-                    }).get();
-                    var $input = document.getElementById(search_id);
-                    var $resultContent = document.getElementById(content_id);
-                    $input.addEventListener('input', function() {
-                        var str = '<ul class=\"search-result-list\">';
-                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                        $resultContent.innerHTML = "";
-                        if (this.value.trim().length <= 0) {
-                            return;
-                        }
-                        // perform local searching
-                        datas.forEach(function(data) {
-                            var isMatch = true;
-                            var content_index = [];
-                            var data_title = data.title.trim().toLowerCase();
-                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                            var data_url = data.url;
-                            var index_title = -1;
-                            var index_content = -1;
-                            var first_occur = -1;
-                            // only match artiles with not empty titles and contents
-                            if (data_title != '' && data_content != '') {
-                                keywords.forEach(function(keyword, i) {
-                                    index_title = data_title.indexOf(keyword);
-                                    index_content = data_content.indexOf(keyword);
-                                    if (index_title < 0 && index_content < 0) {
-                                        isMatch = false;
-                                    } else {
-                                        if (index_content < 0) {
-                                            index_content = 0;
-                                        }
-                                        if (i == 0) {
-                                            first_occur = index_content;
-                                        }
-                                    }
-                                });
-                            }
-                            // show search results
-                            if (isMatch) {
-                                keywords.forEach(function(keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    data_title = data_title.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
-                                });
-
-                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                                var content = data.content.trim().replace(/<[^>]+>/g, "");
-                                if (first_occur >= 0) {
-                                    // cut out 100 characters
-                                    var start = first_occur - 20;
-                                    var end = first_occur + 80;
-                                    if (start < 0) {
-                                        start = 0;
-                                    }
-                                    if (start == 0) {
-                                        end = 100;
-                                    }
-                                    if (end > content.length) {
-                                        end = content.length;
-                                    }
-                                    var match_content = content.substring(start, end);
-                                    // highlight all keywords
-                                    keywords.forEach(function(keyword) {
-                                        var regS = new RegExp(keyword, "gi");
-                                        match_content = match_content.replace(regS, "<span class=\"search-keyword light-blue lighten-2\">" + keyword + "</span>");
-                                    });
-
-                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
-                                }
-                                str += "</li>";
-                            }
-                        });
-                        str += "</ul>";
-                        $resultContent.innerHTML = str;
-                    });
-                }
-            });
-        }
-    })(jQuery);
-</script>
+      <span>
+    
+        <a class="" href="/2017/03/12/ios-dev-tips-4/">最近搞 iOS 版遇到的一些问题和技巧 (四)</a>
+    
 
 
-<script src="/js/prettify.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("pre").addClass("prettyprint");
-        prettyPrint();
-    });
-</script>
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2017-03-04T02:04:44.000Z" itemprop="datePublished">2017-03-04</time>
+    </div>
 
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-69555091-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
+      <span>
+    
+        <a class="" href="/2017/03/04/quick-x-oop/">Quick-Cocos2d-x 中的面向对象</a>
+    
 
 
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2017-02-23T16:39:14.000Z" itemprop="datePublished">2017-02-24</time>
+    </div>
 
 
+      <span>
+    
+        <a class="" href="/2017/02/24/some-change-for-blog/">最近博客的一些变化</a>
+    
 
 
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2017-02-18T01:39:54.000Z" itemprop="datePublished">2017-02-18</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2017/02/18/my-2016/">充实而又愉快的 2016</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-12-10T14:00:28.000Z" itemprop="datePublished">2016-12-10</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/12/10/quickx-playvideo/">quick-x 视频播放</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-10-29T15:39:18.000Z" itemprop="datePublished">2016-10-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/10/29/untp-2/">一个命令行的 TexturePacker 拆解工具  (二)</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-09-22T22:58:40.000Z" itemprop="datePublished">2016-09-23</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/09/23/quickx-utf8-support/">quick-x utf8 支持</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-09-10T15:28:45.000Z" itemprop="datePublished">2016-09-10</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/09/10/quickx-crash-on-phone-2/">最近遇到的几个 quick-x 真机崩溃(二)</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-09-05T15:50:12.000Z" itemprop="datePublished">2016-09-05</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/09/05/ios-dev-tips-3/">最近搞 iOS 版遇到的一些问题和技巧 (三)</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-06-26T06:28:11.000Z" itemprop="datePublished">2016-06-26</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/06/26/terse-lua-code/">更简洁的 lua 逻辑代码</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-06-26T03:38:44.000Z" itemprop="datePublished">2016-06-26</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/06/26/ios-dev-tips-2/">最近搞 iOS 版遇到的一些问题和技巧 (二)</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-06-19T07:39:44.000Z" itemprop="datePublished">2016-06-19</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/06/19/quickx-ipv6/">quick-x 适配 IPV6</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-05-29T13:20:58.000Z" itemprop="datePublished">2016-05-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/05/29/quickx-ios-static-lib/">quick-x 使用静态库加速 iOS 打包</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-05-08T11:57:07.000Z" itemprop="datePublished">2016-05-08</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/05/08/compress-res/">cocos2d-x 优化游戏资源体积</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-05-01T00:56:03.000Z" itemprop="datePublished">2016-05-01</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/05/01/quickx-editbox-util/">quick-x EditBox 几个小技巧</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-04-10T12:14:18.000Z" itemprop="datePublished">2016-04-10</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/04/10/quickx-crash-on-phone/">最近遇到的几个 quick-x  真机崩溃</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-04-04T01:13:34.000Z" itemprop="datePublished">2016-04-04</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/04/04/ios-dev-tips/">最近搞 iOS 版遇到的一些问题和技巧</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-03-19T09:48:38.000Z" itemprop="datePublished">2016-03-19</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/03/19/quickx-memery-leak/">记一次 quick-x 内存泄露排查</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-03-13T00:02:53.000Z" itemprop="datePublished">2016-03-13</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/03/13/quickx-tableview/">在 quick-x 中使用 TableView</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-03-06T15:46:48.000Z" itemprop="datePublished">2016-03-06</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/03/06/game-optimize/">游戏性能优化 - 界面篇</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-02-29T15:33:24.000Z" itemprop="datePublished">2016-02-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/02/29/publish-untp-to-pypi/">将 untp 发布到 Pypi 上</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-02-14T01:45:54.000Z" itemprop="datePublished">2016-02-14</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/02/14/phone-game-AND-OLgame/">手机游戏攻防(三) 网络游戏</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-02-11T01:57:21.000Z" itemprop="datePublished">2016-02-11</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/02/11/my-2015/">继续进步的 2015</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2016-01-01T00:43:50.000Z" itemprop="datePublished">2016-01-01</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2016/01/01/quickx-hotupdate/">quickx-3.3 热更新若干心得</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-11-28T00:38:12.000Z" itemprop="datePublished">2015-11-28</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/11/28/pyqtdeploy/">使用 Pyqtdeploy 发布你的 Pyqt 程序</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-11-15T12:14:37.000Z" itemprop="datePublished">2015-11-15</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/11/15/falign/">FAlign 代码洁癖患者的福音</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-10-31T14:52:44.000Z" itemprop="datePublished">2015-10-31</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/10/31/mygui-2-run-on-osx/">MyGUI学习笔记(二) 在 MacOS 上运行MyGUI</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-10-17T06:46:49.000Z" itemprop="datePublished">2015-10-17</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/10/17/setup-pyqt5-on-mac/">Pyqt5 MacOS 环境搭建</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-08-23T08:47:55.000Z" itemprop="datePublished">2015-08-23</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/08/23/ldoc/">ldoc 入门指南</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-08-16T11:17:03.000Z" itemprop="datePublished">2015-08-16</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/08/16/upgrad-spine-runtime/">更新 spine 的 cocos2d-x runtimes</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-06-05T16:42:33.000Z" itemprop="datePublished">2015-06-06</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/06/06/cocos-assetsmanager/">cocos2d-x AssetsManager 问题汇总</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-05-31T13:58:42.000Z" itemprop="datePublished">2015-05-31</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/05/31/my-2014/">从 C++ 到 lua 的2014</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-05-29T15:30:11.000Z" itemprop="datePublished">2015-05-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/05/29/mygui-1-run-on-windows/">MyGUI学习笔记(一) 在Windows上运行MyGUI</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-05-17T06:04:37.000Z" itemprop="datePublished">2015-05-17</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/05/17/onDestroy/">为 quick-cocos2d-x 添加析构事件</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-05-08T12:45:37.000Z" itemprop="datePublished">2015-05-08</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/05/08/buy-imac-with-retina/">入手 iMac Retina 5K</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-04-19T00:19:17.000Z" itemprop="datePublished">2015-04-19</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/04/19/untp/">一个命令行的 TexturePacker 拆解工具 (一)</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-04-05T02:51:34.000Z" itemprop="datePublished">2015-04-05</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/04/05/phone-game-AND-watchdog/">手机游戏攻防(二) 守护变量法</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-04-03T16:26:44.000Z" itemprop="datePublished">2015-04-04</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/04/04/phone-game-AND-encrypt-var/">手机游戏攻防(一) 变量加密法</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-03-16T06:45:10.000Z" itemprop="datePublished">2015-03-16</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/03/16/quickxdev-2/">QuickxDev插件(二) debug.log文件的处理</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-03-16T01:49:20.000Z" itemprop="datePublished">2015-03-16</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/03/16/quickxdev-1/">QuickxDev插件(一) 简介</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2015-01-29T14:13:47.000Z" itemprop="datePublished">2015-01-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2015/01/29/jingo/">搭建自己的 wiki 之 jingo 篇</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-12-14T16:58:31.000Z" itemprop="datePublished">2014-12-15</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/12/15/svn/">svn commit 守则</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-10-29T05:01:33.000Z" itemprop="datePublished">2014-10-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/10/29/quickx-CCGraySprite-invisible/">quickx CCGraySprite 消失坑 (已更新解决方案)</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-10-17T07:31:31.000Z" itemprop="datePublished">2014-10-17</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/10/17/spend-money-on-network/">我花在互联网服务上的钱</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-09-11T11:59:57.000Z" itemprop="datePublished">2014-09-11</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/09/11/quickx-addto/">quickx addTo导致tag无效坑</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-07-01T22:12:54.000Z" itemprop="datePublished">2014-07-02</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/07/02/setup_python_on_mac/">在mac上搭建python环境</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-06-10T09:42:36.000Z" itemprop="datePublished">2014-06-10</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/06/10/rtt_savetofile_in_player/">在Player中保存CCRenderTexture到文件</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-05-17T04:04:10.000Z" itemprop="datePublished">2014-05-17</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/05/17/some_problem_of_player/">盘点 quick-cocos2d-x Player 粗线的问题</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-05-01T02:44:14.000Z" itemprop="datePublished">2014-05-01</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/05/01/my-2013/">我的2013</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-03-19T02:18:22.000Z" itemprop="datePublished">2014-03-19</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/03/19/umeng_apk_tools/">友盟渠道包工具</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-02-01T00:34:33.000Z" itemprop="datePublished">2014-02-01</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/02/01/images_to_bmfont/">将一堆小图转化为BMFont工具</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2014-01-26T10:15:44.000Z" itemprop="datePublished">2014-01-26</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2014/01/26/quickx_on_mac/">在MacOS上搭建mafiagame版的quick-cocos2d-x</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-12-12T02:33:02.000Z" itemprop="datePublished">2013-12-12</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/12/12/use_tp_on_command_line/">在Command Line中使用TexturePacker</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-11-29T08:07:51.000Z" itemprop="datePublished">2013-11-29</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/11/29/cocos2dx_simpleaudio/">修改SimpleAudioEngine在win32下的实现</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-11-28T00:28:03.000Z" itemprop="datePublished">2013-11-28</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/11/28/cocos2dx_loop_sound/">从保卫萝卜看cocos2d-x循环播放音效的问题</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-11-03T00:28:03.000Z" itemprop="datePublished">2013-11-03</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/11/03/elbow/">弯管(拐角)对方向的改变</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-10-16T06:01:26.000Z" itemprop="datePublished">2013-10-16</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/10/16/cocos2d-x-tiledmap-tips/">TiledMap Tips</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-09-11T07:37:58.000Z" itemprop="datePublished">2013-09-11</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/09/11/cocos2d-x-ccshake/">cocos2d-x 抖动效果 CCShake</a>
+    
+
+
+<span>
+    </li>
+  
+    <li class="post-item">
+      
+    <div class="meta">
+        <time datetime="2013-07-23T07:59:46.000Z" itemprop="datePublished">2013-07-23</time>
+    </div>
+
+
+      <span>
+    
+        <a class="" href="/2013/07/23/cocos2d-x-获取系统时间的问题/">cocos2d-x 获取系统时间的问题</a>
+    
+
+
+<span>
+    </li>
+  
+</ul>
+
+
+    </div>
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 justbilt
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/justbilt">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
 
 </body>
 </html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css" type="text/css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css" type="text/css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-69555091-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'justbilt';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

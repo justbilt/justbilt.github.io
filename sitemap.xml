@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.justbilt.com/about/index.html</loc>
+    
+    <lastmod>2017-04-09T03:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/links/index.html</loc>
     
     <lastmod>2017-03-25T18:51:37.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/</loc>
     
     <lastmod>2017-03-25T18:08:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/about/index.html</loc>
-    
-    <lastmod>2017-03-25T18:04:46.000Z</lastmod>
     
   </url>
   
