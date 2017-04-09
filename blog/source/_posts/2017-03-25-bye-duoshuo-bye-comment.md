@@ -41,6 +41,22 @@ tags:
 那年我才 21 岁.
 
 
+
+---
+
+好吧, 现在关闭装逼模式.
+
+虽然用了这么多面的评论, 但正如 @王子亭 博主在[这篇][8]文章中所言:
+
+```
+从另一个角度来看，我写了这么多年博客，收到的大部分评论都和文章内容无关 —— 他们在把文章的评论当作留言板来使用，和我打个招呼或者询问一下近况。当然我也曾收到极少部分一些认真撰写的评论，我也希望继续给这些人留出一些空间：我会以邮件的形式接受文章评论，我会挑选其中对读者有价值的部分展示在文章的末尾。
+```
+
+子亭同学说的特别好, 刚好借着多说关闭的机会, 我移除了博客中的评论系统, 只保留了 `关于` 这个灌水界面的评论, 还设立了一个小门槛, 只有拥有 github 账号的朋友才能评论.
+
+以后便会省心不少吧.
+
+
 [1]: https://ww3.sinaimg.cn/large/006tNbRwly1fdyu57rth7j30pi08bab4.jpg
 [2]: https://ww2.sinaimg.cn/large/006tNbRwly1fdyuh2osr9j30bu0j2gmh.jpg
 [3]: https://ww4.sinaimg.cn/large/006tNbRwly1fdyujgpr90j30um0kk0wp.jpg
@@ -48,3 +64,4 @@ tags:
 [5]: https://ww4.sinaimg.cn/large/006tNbRwly1fdyuxow26aj30nf022weq.jpg
 [6]: /2017/02/24/some-change-for-blog/
 [7]: https://ww4.sinaimg.cn/large/006tNbRwly1fdyv73hz7fj30ng040aai.jpg
+[8]: https://jysperm.me/2016/05/remove-comments-and-wechat/
