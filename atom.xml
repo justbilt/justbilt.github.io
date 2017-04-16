@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-04-09T13:06:00.000Z</updated>
+  <updated>2017-04-16T10:19:40.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -16,41 +16,45 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>多说, 再见 !</title>
-    <link href="http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/"/>
-    <id>http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/</id>
-    <published>2017-03-25T01:30:30.000Z</published>
-    <updated>2017-04-09T13:06:00.000Z</updated>
+    <title>洁癖患者的 Git GUI 指南</title>
+    <link href="http://blog.justbilt.com/2017/04/12/the-git-for-neat-freak/"/>
+    <id>http://blog.justbilt.com/2017/04/12/the-git-for-neat-freak/</id>
+    <published>2017-04-12T15:34:12.000Z</published>
+    <updated>2017-04-16T10:19:40.000Z</updated>
     
-    <content type="html">&lt;p&gt;大约是在前几天刷微博的时候看到有人说多说要关站了, 赶紧去备份评论 balabala … , 难以置信, 赶紧去我的邮箱找了下, 果然找到了这封邮件:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNbRwly1fdyu57rth7j30pi08bab4.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;震惊 !!! 依然难以置信 !!!&lt;/p&gt;
-&lt;p&gt;我急忙把这个消息转发到了公司的微信群里, 却很快就被其他消息淹没, 没有激起一点浪花.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tNbRwly1fdyuh2osr9j30bu0j2gmh.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;他们可能也很奇怪, 多说是什么鬼, 关闭了和我有什么关系 ? 嗯哪, 毕竟写博和读博都只是小众的需求.&lt;/p&gt;
-&lt;p&gt;将时间拨回 2013 年, 那时我刚把博客从 WordPress 切换到 hexo, 那时 hexo 的默认评论还是 disqus 呢, 由于众所周知的原因, 速度非常慢. 经过一番查找, 选择了多说, 速度快, 还支持国内的各种社交账号登录, 免费, 很良心.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNbRwly1fdyujgpr90j30um0kk0wp.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;我在新博客写的第一篇文章是 &lt;a href=&quot;/2013/11/03/elbow/&quot;&gt;&amp;lt;&amp;lt;弯管(拐角)对方向的改变&amp;gt;&amp;gt;&lt;/a&gt; ,时间 &lt;code&gt;2013/11/03&lt;/code&gt;, 收到的第一条评论是:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNbRwly1fdyuxow26aj30nf022weq.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;是 firedragonpzy 兄发来的[给力], 这么多年过去了, 不知他现在做什么?　&lt;/p&gt;
-&lt;p&gt;最后一篇有多说评论的文章是 &lt;a href=&quot;/2017/02/24/some-change-for-blog/&quot;&gt;&amp;lt;&amp;lt;最近博客的一些变化&amp;gt;&amp;gt;&lt;/a&gt;, 时间 &lt;code&gt;2017/02/24&lt;/code&gt;, 是回复山人的吐槽:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNbRwly1fdyv73hz7fj30ng040aai.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;所以, 你以为多说的关闭意味着什么 ? &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;那时 cocos2d-x 还十分火爆,&lt;br&gt;那时我还在用 c++,&lt;br&gt;那年我才 21 岁.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;p&gt;好吧, 现在关闭装逼模式.&lt;/p&gt;
-&lt;p&gt;虽然用了这么多面的评论, 但正如 @王子亭 博主在&lt;a href=&quot;https://jysperm.me/2016/05/remove-comments-and-wechat/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇&lt;/a&gt;文章中所言:&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#20174;&amp;#21478;&amp;#19968;&amp;#20010;&amp;#35282;&amp;#24230;&amp;#26469;&amp;#30475;&amp;#65292;&amp;#25105;&amp;#20889;&amp;#20102;&amp;#36825;&amp;#20040;&amp;#22810;&amp;#24180;&amp;#21338;&amp;#23458;&amp;#65292;&amp;#25910;&amp;#21040;&amp;#30340;&amp;#22823;&amp;#37096;&amp;#20998;&amp;#35780;&amp;#35770;&amp;#37117;&amp;#21644;&amp;#25991;&amp;#31456;&amp;#20869;&amp;#23481;&amp;#26080;&amp;#20851; &amp;#8212;&amp;#8212; &amp;#20182;&amp;#20204;&amp;#22312;&amp;#25226;&amp;#25991;&amp;#31456;&amp;#30340;&amp;#35780;&amp;#35770;&amp;#24403;&amp;#20316;&amp;#30041;&amp;#35328;&amp;#26495;&amp;#26469;&amp;#20351;&amp;#29992;&amp;#65292;&amp;#21644;&amp;#25105;&amp;#25171;&amp;#20010;&amp;#25307;&amp;#21628;&amp;#25110;&amp;#32773;&amp;#35810;&amp;#38382;&amp;#19968;&amp;#19979;&amp;#36817;&amp;#20917;&amp;#12290;&amp;#24403;&amp;#28982;&amp;#25105;&amp;#20063;&amp;#26366;&amp;#25910;&amp;#21040;&amp;#26497;&amp;#23569;&amp;#37096;&amp;#20998;&amp;#19968;&amp;#20123;&amp;#35748;&amp;#30495;&amp;#25776;&amp;#20889;&amp;#30340;&amp;#35780;&amp;#35770;&amp;#65292;&amp;#25105;&amp;#20063;&amp;#24076;&amp;#26395;&amp;#32487;&amp;#32493;&amp;#32473;&amp;#36825;&amp;#20123;&amp;#20154;&amp;#30041;&amp;#20986;&amp;#19968;&amp;#20123;&amp;#31354;&amp;#38388;&amp;#65306;&amp;#25105;&amp;#20250;&amp;#20197;&amp;#37038;&amp;#20214;&amp;#30340;&amp;#24418;&amp;#24335;&amp;#25509;&amp;#21463;&amp;#25991;&amp;#31456;&amp;#35780;&amp;#35770;&amp;#65292;&amp;#25105;&amp;#20250;&amp;#25361;&amp;#36873;&amp;#20854;&amp;#20013;&amp;#23545;&amp;#35835;&amp;#32773;&amp;#26377;&amp;#20215;&amp;#20540;&amp;#30340;&amp;#37096;&amp;#20998;&amp;#23637;&amp;#31034;&amp;#22312;&amp;#25991;&amp;#31456;&amp;#30340;&amp;#26411;&amp;#23614;&amp;#12290;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;子亭同学说的特别好, 刚好借着多说关闭的机会, 我移除了博客中的评论系统, 只保留了 &lt;code&gt;关于&lt;/code&gt; 这个灌水界面的评论, 还设立了一个小门槛, 只有拥有 github 账号的朋友才能评论.&lt;/p&gt;
-&lt;p&gt;以后便会省心不少吧.&lt;/p&gt;
+    <content type="html">&lt;script src=&quot;https://gist.github.com/justbilt/94a03e92901eb82dfcc124eb546518c4.js&quot;&gt;&lt;/script&gt;
+
+
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;大约是在前几天刷微博的时候看到有人说多说要关站了, 赶紧去备份评论 balabala … , 难以置信, 赶紧去我的邮箱找了下, 果然找到了这封邮件:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNbRwly1fdyu
+      &lt;script src=&quot;https://gist.github.com/justbilt/94a03e92901eb82dfcc124eb546518c4.js&quot;&gt;&lt;/script&gt;
+
+
+
+    
+    </summary>
+    
+    
+      <category term="git" scheme="http://blog.justbilt.com/tags/git/"/>
+    
+      <category term="neat-freak" scheme="http://blog.justbilt.com/tags/neat-freak/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多说, 再见 !</title>
+    <link href="http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/"/>
+    <id>http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/</id>
+    <published>2017-03-25T01:30:30.000Z</published>
+    <updated>2017-04-12T16:05:18.000Z</updated>
+    
+    <content type="html">&lt;script src=&quot;https://gist.github.com/justbilt/89131776a4e141b3273b9d669e16db82.js&quot;&gt;&lt;/script&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;script src=&quot;https://gist.github.com/justbilt/89131776a4e141b3273b9d669e16db82.js&quot;&gt;&lt;/script&gt;
     
     </summary>
     
@@ -1168,73 +1172,6 @@
       <category term="MemoryLeak" scheme="http://blog.justbilt.com/tags/MemoryLeak/"/>
     
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 quick-x 中使用 TableView</title>
-    <link href="http://blog.justbilt.com/2016/03/13/quickx-tableview/"/>
-    <id>http://blog.justbilt.com/2016/03/13/quickx-tableview/</id>
-    <published>2016-03-13T00:02:53.000Z</published>
-    <updated>2017-03-12T02:22:53.000Z</updated>
-    
-    <content type="html">&lt;p&gt;上篇文章说到使用 TableView 可以大幅提升界面的创建速度, 这篇文章我们来看看如何在 quick 中使用它.&lt;/p&gt;
-&lt;h1 id=&quot;u4E00-__u57FA_u672C_u7528_u6CD5&quot;&gt;&lt;a href=&quot;#u4E00-__u57FA_u672C_u7528_u6CD5&quot; class=&quot;headerlink&quot; title=&quot;一. 基本用法&quot;&gt;&lt;/a&gt;一. 基本用法&lt;/h1&gt;&lt;h2 id=&quot;1-__u521B_u5EFA_u5BF9_u8C61&quot;&gt;&lt;a href=&quot;#1-__u521B_u5EFA_u5BF9_u8C61&quot; class=&quot;headerlink&quot; title=&quot;1. 创建对象&quot;&gt;&lt;/a&gt;1. 创建对象&lt;/h2&gt;&lt;p&gt;首先, 创建一个 TableView 对象:&lt;/p&gt;
-&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;local&lt;/span&gt; view = cc.TableView:create(cc.size(&lt;span class=&quot;number&quot;&gt;480&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;320&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;传入的那个 size 是 viewsize, 即可视区域的尺寸, 后期也可以通过 &lt;code&gt;setViewSize&lt;/code&gt; 来调节.&lt;/p&gt;
-&lt;h2 id=&quot;2-__u8BBE_u7F6E_u586B_u5145_u987A_u5E8F&quot;&gt;&lt;a href=&quot;#2-__u8BBE_u7F6E_u586B_u5145_u987A_u5E8F&quot; class=&quot;headerlink&quot; title=&quot;2. 设置填充顺序&quot;&gt;&lt;/a&gt;2. 设置填充顺序&lt;/h2&gt;&lt;p&gt;下面设置填充顺序, 默认是从下往上填充, 我们习惯了使用从上往下填充, 所以需要修改下:&lt;br&gt;&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;其可选值如下:&lt;br&gt;&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLEVIEW_FILL_TOPDOWN = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;  &lt;span class=&quot;comment&quot;&gt;-- 从上自下&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLEVIEW_FILL_BOTTOMUP = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;-- 从下自上&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;这个值最终会影响所有 cell 的顺序, 具体些是第 0 个元素在最上面还是在最下面.&lt;/p&gt;
-&lt;h2 id=&quot;3-__u6CE8_u518C_u4E8B_u4EF6_u76D1_u542C&quot;&gt;&lt;a href=&quot;#3-__u6CE8_u518C_u4E8B_u4EF6_u76D1_u542C&quot; class=&quot;headerlink&quot; title=&quot;3. 注册事件监听&quot;&gt;&lt;/a&gt;3. 注册事件监听&lt;/h2&gt;&lt;p&gt;TableView 提供了好多事件, 具体作用如下:&lt;/p&gt;
-&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cc.SCROLLVIEW_SCRIPT_SCROLL = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.SCROLLVIEW_SCRIPT_ZOOM   = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLECELL_TOUCHED        = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLECELL_HIGH_LIGHT     = &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLECELL_UNHIGH_LIGHT   = &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLECELL_WILL_RECYCLE   = &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLECELL_SIZE_FOR_INDEX = &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;-- 获取节点尺寸的回调&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.TABLECELL_SIZE_AT_INDEX  = &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;-- 获取对应位置节点的回调&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cc.NUMBER_OF_CELLS_IN_TABLEVIEW = &lt;span class=&quot;number&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;-- 获取节点数量的回调&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;但其实真正有意义的就三个, 6,7,8. 其他的&lt;strong&gt;根本不会回调&lt;/strong&gt;, 注册了也没有什么用. 注册监听使用 &lt;code&gt;registerScriptHandler&lt;/code&gt; 函数.&lt;/p&gt;
-&lt;h3 id=&quot;1_29-__u6CE8_u518C_u8282_u70B9_u6570_u91CF_u56DE_u8C03&quot;&gt;&lt;a href=&quot;#1_29-__u6CE8_u518C_u8282_u70B9_u6570_u91CF_u56DE_u8C03&quot; class=&quot;headerlink&quot; title=&quot;1). 注册节点数量回调&quot;&gt;&lt;/a&gt;1). 注册节点数量回调&lt;/h3&gt;&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;view:registerScriptHandler(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;-- 假如有10个节点&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;, cc.NUMBER_OF_CELLS_IN_TABLEVIEW)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;返回节点数量.&lt;/p&gt;
-&lt;h3 id=&quot;2_29-__u6CE8_u518C_u83B7_u53D6_u8282_u70B9_u5C3A_u5BF8_u7684_u56DE_u8C03&quot;&gt;&lt;a href=&quot;#2_29-__u6CE8_u518C_u83B7_u53D6_u8282_u70B9_u5C3A_u5BF8_u7684_u56DE_u8C03&quot; class=&quot;headerlink&quot; title=&quot;2). 注册获取节点尺寸的回调&quot;&gt;&lt;/a&gt;2). 注册获取节点尺寸的回调&lt;/h3&gt;&lt;p&gt;若是每个节点一致, 则可以返回一个固定尺寸; 若不一致, 可以根据 idx 去取出对应节点的尺寸.&lt;/p&gt;
-&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;view:registerScriptHandler(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(table, idx)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;-- 默认尺寸&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;local&lt;/span&gt; size = self.defaultSize&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;local&lt;/span&gt; cell = view:cellAtIndex(idx)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; cell &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;-- cell.view 属性是在线面创建 cell 时赋值的.&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        size = cell.view:getBoundingBox()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; size.height, size.width&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;, cc.TABLECELL_SIZE_FOR_INDEX)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;注意, 这里如果是纵向滚动的话,返回顺序是高,宽; 横向滚动的话则返回宽,高. &lt;/p&gt;
-&lt;h3 id=&quot;3_29-__u83B7_u53D6_u5BF9_u5E94_u4F4D_u7F6E_u8282_u70B9_u7684_u56DE_u8C03&quot;&gt;&lt;a href=&quot;#3_29-__u83B7_u53D6_u5BF9_u5E94_u4F4D_u7F6E_u8282_u70B9_u7684_u56DE_u8C03&quot; class=&quot;headerlink&quot; title=&quot;3). 获取对应位置节点的回调&quot;&gt;&lt;/a&gt;3). 获取对应位置节点的回调&lt;/h3&gt;&lt;p&gt;这个回调的名称和上面那个很像, 有时候会分不清楚.&lt;/p&gt;
-&lt;figure class=&quot;highlight lua&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;view:registerScriptHandler(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(table, idx)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;local&lt;/span&gt; cell = &lt;span class=&quot;built_in&quot;&gt;table&lt;/span&gt;:dequeueCell()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;nil&lt;/span&gt; == cell &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cell = cc.TableViewCell:new()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cell.view = self.class.new()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            :pos(self.class.designSize.width/&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, self.class.designSize.height/&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            :addTo(cell)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;-- 如果需要刷新的话, 可能需要自己去处理, 如不需要, 就可以不用下面的这个调用&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    cell.view:refresh()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; cell&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;, cc.TABLECELL_SIZE_AT_INDEX)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;3-__u83B7_u53D6/_u65B0_u589E/_u4FEE_u6539/_u5220_u9664_u8282_u70B9&quot;&gt;&lt;a href=&quot;#3-__u83B7_u53D6/_u65B0_u589E/_u4FEE_u6539/_u5220_u9664_u8282_u70B9&quot; class=&quot;headerlink&quot; title=&quot;3. 获取/新增/修改/删除节点&quot;&gt;&lt;/a&gt;3. 获取/新增/修改/删除节点&lt;/h2&gt;&lt;p&gt;这些操作分别对应 &lt;code&gt;cellAtIndex&lt;/code&gt;/&lt;code&gt;updateCellAtIndex&lt;/code&gt;/&lt;code&gt;insertCellAtIndex&lt;/code&gt;/&lt;code&gt;removeCellAtIndex&lt;/code&gt; . 这些接口很好理解, 但就多数情况而言, 他们可能需要和 &lt;code&gt;reloadData&lt;/code&gt; 配合使用. &lt;/p&gt;
-&lt;p&gt;好了, 以上就是基本用法了. 在使用时还有一些需要注意的细节:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;不能使用 setNodeEventEnable, 因为和 Node 的 registerScriptHandler 有冲突.&lt;/li&gt;
-&lt;li&gt;id 从 0 开始, 而大家在 lua 这边准备的数据多是以 1 开始, 这样可能需要 +1 和 -1, 需要细心一些.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;u4E8C-__u4E00_u4E9B_u5F02_u5E38_u7684_u89E3_u51B3_u65B9_u6848&quot;&gt;&lt;a href=&quot;#u4E8C-__u4E00_u4E9B_u5F02_u5E38_u7684_u89E3_u51B3_u65B9_u6848&quot; class=&quot;headerlink&quot; title=&quot;二. 一些异常的解决方案&quot;&gt;&lt;/a&gt;二. 一些异常的解决方案&lt;/h1&gt;&lt;h2 id=&quot;1-_lua__u51FA_u9519_u5BFC_u81F4_player__u5D29_u6E83&quot;&gt;&lt;a href=&quot;#1-_lua__u51FA_u9519_u5BFC_u81F4_player__u5D29_u6E83&quot; class=&quot;headerlink&quot; title=&quot;1. lua 出错导致 player 崩溃&quot;&gt;&lt;/a&gt;1. lua 出错导致 player 崩溃&lt;/h2&gt;&lt;p&gt;TableView 回调 &lt;code&gt;tableCellAtIndex&lt;/code&gt; 在lua这边的实现一旦出错, 就会在 c++ 那边收到一个 NULL 的 cell, 因为没有判空, 下面对 cell 的操作就会导致 Plaer 崩溃. 对应修改如下:&lt;/p&gt;
-&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;     cell = _dataSource-&amp;gt;tableCellAtIndex(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, idx);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-    &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;-&amp;gt;_setIndexForCell(idx, cell);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-    &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;-&amp;gt;_addCellIfNecessary(cell);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(cell)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;-&amp;gt;_setIndexForCell(idx, cell);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;-&amp;gt;_addCellIfNecessary(cell);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;这时候, 不会崩溃了, 但是也看不到 lua 那边出的什么错误, 经过一番追踪, 定位到了 &lt;code&gt;LuaStack::executeFunction&lt;/code&gt; 函数:&lt;/p&gt;
-&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (error)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (traceCallback == &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                CCLOG(&lt;span class=&quot;string&quot;&gt;&quot;[LUA ERROR] %s&quot;&lt;/span&gt;, lua_tostring(_state, - &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;));        &lt;span class=&quot;comment&quot;&gt;/* L: ... error */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                lua_pop(_state, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);                                        &lt;span class=&quot;comment&quot;&gt;// remove error message from stack&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;                                                           &lt;span class=&quot;comment&quot;&gt;/* L: ... G error */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+               CCLOG(&lt;span class=&quot;string&quot;&gt;&quot;[LUA ERROR] %s&quot;&lt;/span&gt;, lua_tostring(_state, - &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;));        &lt;span class=&quot;comment&quot;&gt;/* L: ... error */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                lua_pop(_state, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;);                                        &lt;span class=&quot;comment&quot;&gt;// remove __G__TRACKBACK__ and error message from stack&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;虽然出错了, 但是 &lt;code&gt;traceCallback&lt;/code&gt; 的值并不等于 0, 所以没有进入输出错误的逻辑, 具体用意并不明白. 我的添加了带 &lt;code&gt;+&lt;/code&gt; 号的哪一行, 输出了下就可以看到 lua 的错误了.&lt;/p&gt;
-&lt;h2 id=&quot;2-__u6EDA_u52A8_u540E_u5BFC_u81F4_u8282_u70B9_u4E0A_u6309_u94AE_u89E6_u6478_u5931_u6548&quot;&gt;&lt;a href=&quot;#2-__u6EDA_u52A8_u540E_u5BFC_u81F4_u8282_u70B9_u4E0A_u6309_u94AE_u89E6_u6478_u5931_u6548&quot; class=&quot;headerlink&quot; title=&quot;2. 滚动后导致节点上按钮触摸失效&quot;&gt;&lt;/a&gt;2. 滚动后导致节点上按钮触摸失效&lt;/h2&gt;&lt;p&gt;大家使用时可能会遇到这样的问题, 节点上有一个利用 quick 触摸机制实现的按钮, 在 TableView 滚动后触摸事件都会失效, 按钮无法被点击.&lt;/p&gt;
-&lt;p&gt;这个实际上是 quick 触摸机制的一个bug, 复现是很容易的. 大家创建一个按钮并调用 &lt;code&gt;retain&lt;/code&gt;, 然后将这个按钮添加到父节点上, 在某个时候将按钮从父节点上移除 (&lt;code&gt;removeFromParent&lt;/code&gt;) 并再次添加(&lt;code&gt;addChild&lt;/code&gt;)上到父节点. 这时候按钮还在, 但是触摸事件已经没有了.&lt;/p&gt;
-&lt;p&gt;究其原因是我们一般会在对象的 &lt;code&gt;ctor&lt;/code&gt; 函数中 &lt;code&gt;setTouchEnable&lt;/code&gt;, 然后 quick 在收到 &lt;code&gt;cleanup&lt;/code&gt; 事件后移除了对象触摸事件, 具体逻辑大家可以看 &lt;code&gt;Node:EventDispatcher&lt;/code&gt; 函数. 而一个节点从父节点上移除时恰好会发送 cleanup 事件.&lt;/p&gt;
-&lt;p&gt;对应到 TableView 中来, TableViewCell 为了做到复用在 &lt;code&gt;dequeueCell&lt;/code&gt; 时会调用 &lt;code&gt;retain&lt;/code&gt; 函数, 并且在移出屏幕时会被从 Container 上移除掉的. 这样 TableViewCell 的所有子节点都会收到对应的 cleanup 事件.&lt;/p&gt;
-&lt;p&gt;这个问题的解决方案恰好是我之前写的一篇文章, &lt;a href=&quot;/2015/05/17/onDestroy&quot;&gt;为 quick-cocos2d-x 添加析构事件&lt;/a&gt;, 在这篇文章中, 已经修改为收到 destroy 事件后才去移除节点的触摸事件, 非常完美的解决了这个问题.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Update: 2016-04-24&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;3-__u906E_u6321_u4E0A_u5C42_u6309_u94AE_u89E6_u6478_u4E8B_u4EF6&quot;&gt;&lt;a href=&quot;#3-__u906E_u6321_u4E0A_u5C42_u6309_u94AE_u89E6_u6478_u4E8B_u4EF6&quot; class=&quot;headerlink&quot; title=&quot;3. 遮挡上层按钮触摸事件&quot;&gt;&lt;/a&gt;3. 遮挡上层按钮触摸事件&lt;/h2&gt;&lt;p&gt;经过这几天的使用, 我发现了一个十分严重的问题. 如下图所示, TableView 中的某个按钮拖出 ViewRect 范围后会不可见, 但如果其位置恰好在 TableView 外的另一个按钮范围内, 就会优先收到点击事件. 这就会引发十分奇怪的现象, TableView 外的按钮看得见点不着, TableView 内的按钮看不见却可以响应到, 十分影响体验.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/7f870d23gw1f381i7v2adj206c045glr.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;因为有着以往 cocos 2.x 的悲惨经历, 我非常武断的认为这肯定是 TableView 的 bug, 开始着手阅读 TableView 的代码实现, 却一直未果. 然而团队中另外一位成员 @小齐同学 的意外发现, 让这个问题的谜底在无意中就被揭开了.&lt;/p&gt;
-&lt;p&gt;我们在项目中大量使用了 quick-x 提供的一个控件 &lt;code&gt;UIScrollView&lt;/code&gt;, 它是一个用 &lt;code&gt;ClippingRegionNode&lt;/code&gt; 纯 lua 实现的 &lt;code&gt;CCScrollView&lt;/code&gt;, 一直以来工作的十分良好. 但是在某一天 测试中, @齐少 意外的发现, 某个界面的 UIScrollView 出现了和 TableView 一模一样的问题, 导致上层按钮无法点击. 经过排查, 发现是因为 UIScrollView 的创建顺序被延后的原因, 如果一个按钮先于 UIScrollView 添加到父节点, 就会被 UIScrollView 中的按钮所屏蔽, 后添加则不会.&lt;/p&gt;
-&lt;p&gt;当 @齐少 告诉我这个结论后, 我立刻意识到, TableView 遇到的问题肯定也是这个原因, 查看代码后果然如此, TableView 是最后被创建的. 解决方案也十分简单, 将 TableView 外部按钮放到 TableView 之后去创建就可以啦.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;恩, 以上就是我在使用 TableView 时遇到的所有问题了, 虽然解决了这些问题, 但是在使用上还是十分的繁琐. 若是在一两个界面上使用可能还可以接受, 但若是想大规模推广就很有些困难了, 代码会变得十分冗长.&lt;/p&gt;
-&lt;p&gt;在此基础上, 我们又对 TableView 进行了一次封装, 数据驱动, 使用时不用过分关注界面的逻辑, 中心更多的落在了数据的组织上, 真正的做到了 “开箱即用” , 等我们内部进行推广并稳定后可以再和大家分享下心得.&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      如何使用 TableView 这个效率提升利器? 
-    
-    </summary>
-    
-    
-      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
-    
-      <category term="TableView" scheme="http://blog.justbilt.com/tags/TableView/"/>
     
   </entry>
   

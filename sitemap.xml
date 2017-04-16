@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.justbilt.com/2017/04/12/the-git-for-neat-freak/</loc>
+    
+    <lastmod>2017-04-16T10:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2017/03/25/bye-duoshuo-bye-comment/</loc>
     
-    <lastmod>2017-04-09T13:06:00.000Z</lastmod>
+    <lastmod>2017-04-12T16:05:18.000Z</lastmod>
     
   </url>
   
@@ -233,7 +240,7 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/10/31/mygui-2-run-on-osx/</loc>
+    <loc>http://blog.justbilt.com/2015/05/29/mygui-1-run-on-windows/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -429,14 +436,14 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/05/31/my-2014/</loc>
+    <loc>http://blog.justbilt.com/2015/10/31/mygui-2-run-on-osx/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/05/29/mygui-1-run-on-windows/</loc>
+    <loc>http://blog.justbilt.com/2015/05/31/my-2014/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
