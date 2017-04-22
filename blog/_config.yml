@@ -69,7 +69,7 @@ category_generator:
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: cactus-dark
+theme: material
 
 search:
   path: search.xml
