@@ -4,3 +4,6 @@
 [submodule "blog/themes/cactus-dark"]
 	path = blog/themes/cactus-dark
 	url = https://github.com/probberechts/cactus-dark.git
+[submodule "blog/themes/anatole"]
+	path = blog/themes/anatole
+	url = https://github.com/Ben02/hexo-theme-Anatole.git

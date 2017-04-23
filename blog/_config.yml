@@ -69,7 +69,7 @@ category_generator:
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: material
+theme: anatole
 
 search:
   path: search.xml
