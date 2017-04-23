@@ -1,4 +1,4 @@
-title: quickx addTo导致tag无效坑
+title: Quick-Cocos2d-x addTo导致tag无效坑
 date: 2014-09-11 19:59:57
 tags:
 - Quick-Cocos2d-x

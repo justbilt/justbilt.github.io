@@ -1,5 +1,5 @@
 
-title: 在 quick-x 中使用 TableView
+title: 在 Quick-cocos2d-x 中使用 TableView
 date: 2016-03-13 08:02:53
 tags:
 - Quick-Cocos2d-x
@@ -179,7 +179,7 @@ TableView 回调 `tableCellAtIndex` 在lua这边的实现一旦出错, 就会在
 
 因为有着以往 cocos 2.x 的悲惨经历, 我非常武断的认为这肯定是 TableView 的 bug, 开始着手阅读 TableView 的代码实现, 却一直未果. 然而团队中另外一位成员 @小齐同学 的意外发现, 让这个问题的谜底在无意中就被揭开了.
 
-我们在项目中大量使用了 quick-x 提供的一个控件 `UIScrollView`, 它是一个用 `ClippingRegionNode` 纯 lua 实现的 `CCScrollView`, 一直以来工作的十分良好. 但是在某一天 测试中, @齐少 意外的发现, 某个界面的 UIScrollView 出现了和 TableView 一模一样的问题, 导致上层按钮无法点击. 经过排查, 发现是因为 UIScrollView 的创建顺序被延后的原因, 如果一个按钮先于 UIScrollView 添加到父节点, 就会被 UIScrollView 中的按钮所屏蔽, 后添加则不会.
+我们在项目中大量使用了 Quick-cocos2d-x 提供的一个控件 `UIScrollView`, 它是一个用 `ClippingRegionNode` 纯 lua 实现的 `CCScrollView`, 一直以来工作的十分良好. 但是在某一天 测试中, @齐少 意外的发现, 某个界面的 UIScrollView 出现了和 TableView 一模一样的问题, 导致上层按钮无法点击. 经过排查, 发现是因为 UIScrollView 的创建顺序被延后的原因, 如果一个按钮先于 UIScrollView 添加到父节点, 就会被 UIScrollView 中的按钮所屏蔽, 后添加则不会.
 
 当 @齐少 告诉我这个结论后, 我立刻意识到, TableView 遇到的问题肯定也是这个原因, 查看代码后果然如此, TableView 是最后被创建的. 解决方案也十分简单, 将 TableView 外部按钮放到 TableView 之后去创建就可以啦.
 

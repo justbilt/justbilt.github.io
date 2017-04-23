@@ -1,8 +1,6 @@
 title: 更简洁的 lua 逻辑代码
 date: 2016-06-26 14:28:11
-tags:
-- Lua
-- 游戏心得
+tags: [Lua, code-style, neat-freak]
 description: "奇技淫巧耳!"
 ---
 

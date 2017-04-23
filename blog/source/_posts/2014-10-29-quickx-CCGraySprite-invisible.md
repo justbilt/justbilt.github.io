@@ -1,4 +1,4 @@
-title: quickx CCGraySprite 消失坑 (已更新解决方案)
+title: Quick-Cocos2d-x CCGraySprite 消失坑 (已更新解决方案)
 date: 2014-10-29 13:01:33
 tags:
 - Quick-Cocos2d-x

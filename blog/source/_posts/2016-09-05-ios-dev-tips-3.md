@@ -9,7 +9,7 @@ description: "万一遇上了呢?"
 
 # 一. iOS 内购返回商品无效 invalid product
 
-我使用 quick-x 内置的 store 类请求商品信息时, 收到这样的错误:
+我使用 Quick-cocos2d-x 内置的 store 类请求商品信息时, 收到这样的错误:
 
 > nvalidProductIdentifiers [CCStore_obj] 
 [CCStore_obj] productsRequestDidReceiveResponse() invalid pid: com.xxx.xxx
@@ -109,7 +109,7 @@ Stackoverflow 上的答案可以[移步这里][7].
 
 # 六. showAlert 诡异崩溃
 
-游戏内的一些弹框为了保证在游戏的最上层显示, 偷懒使用了 quick-x 提供的 `device.showAlert` 接口. showAlert 内部使用 `UIAlertView` 实现, 运行一直良好, 有一天突然就不行了, 一调用就崩溃. 
+游戏内的一些弹框为了保证在游戏的最上层显示, 偷懒使用了 Quick-cocos2d-x 提供的 `device.showAlert` 接口. showAlert 内部使用 `UIAlertView` 实现, 运行一直良好, 有一天突然就不行了, 一调用就崩溃. 
 
 各种办法都试过了, 网上都说是线程安全问题, 我试了一下各种处理都不行, 打断点跟踪到最底层也无济于事. 几近绝望之时, @bin 的一句话提醒了我:
 

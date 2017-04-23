@@ -38,7 +38,7 @@ xcodebuild -exportArchive -exportFormat ipa -archivePath your-archive-file-name.
 如果没有发布应用的话, 需要用沙盒测试账号来测试. 我们需要先在 `设置>iTunes Store 和 App Store`中 **注销账号**, 然后打开游戏, 开始购买, 这时候输入你的测试账号. 成功后如果有跳转 App Store 的话或者绑定付款方式的话, 不同理会, 再返回应用购买就可以了.
 
 ## 六. 崩溃: showAlert 崩溃
-某一次突然, 一旦调用 quick-x 提供的 `device.showAlert` 就会崩溃, 断点调试无果, 崩溃时提示的内容也不尽相同.
+某一次突然, 一旦调用 Quick-cocos2d-x 提供的 `device.showAlert` 就会崩溃, 断点调试无果, 崩溃时提示的内容也不尽相同.
 **解决方案:**
 删除 `RootViewController.mm` 中所有和屏幕方向代码, 就解决啦.
 

@@ -1,4 +1,4 @@
-title: 盘点 quick-cocos2d-x Player 粗线的问题
+title: 盘点 Quick-cocos2d-x Player 粗线的问题
 date: 2014-05-17 12:04:10
 tags:
 - Quick-Cocos2d-x

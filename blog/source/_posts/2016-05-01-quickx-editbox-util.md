@@ -1,4 +1,4 @@
-title: quick-x EditBox 几个小技巧
+title: Quick-cocos2d-x EditBox 几个小技巧
 date: 2016-05-01 08:56:03
 tags:
 - Quick-Cocos2d-x

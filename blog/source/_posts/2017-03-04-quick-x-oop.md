@@ -24,11 +24,11 @@ print("aa:", c.aa, "bb:", c.bb, "cc", c.cc) -- output: aa:  1   bb: 2   cc  3
 
 如上, 只是加了两个 `setmetatable`, c 便可以访问到 a 和 b 的属性, 是不是很神奇.
 
-# 二. Quick-x 中的实现
+# 二. Quick-cocos2d-x 中的实现
 
-Quick-x 作为一个 framework 自然也实现了一套这样的机制, 因为函数实现比较长, 所以我就不粘贴代码了, 大家可以[跳转这里查看][1]. 纵观这段代码, 可以以最外层的 `if-else` 将这段逻辑分成两部分, 继承自 Cocos 的对象和继承自 Lua 的 Table, 为什么要这么分呢 ?
+Quick-Cocos2d-x 作为一个 framework 自然也实现了一套这样的机制, 因为函数实现比较长, 所以我就不粘贴代码了, 大家可以[跳转这里查看][1]. 纵观这段代码, 可以以最外层的 `if-else` 将这段逻辑分成两部分, 继承自 Cocos 的对象和继承自 Lua 的 Table, 为什么要这么分呢 ?
 
-因为 Cocos 的对象在 Lua 中的 type 是 `userdata`, 是不能设置 metatable 的, 所以我们之前说的那套继承的方法就行不通了, Quick-x 在这里的选择是把所有的变量都复制一份, 做了一次一维的深拷贝. 
+因为 Cocos 的对象在 Lua 中的 type 是 `userdata`, 是不能设置 metatable 的, 所以我们之前说的那套继承的方法就行不通了, Quick-cocos2d-x 在这里的选择是把所有的变量都复制一份, 做了一次一维的深拷贝. 
 
 所以, 抛开继承的实现不同, 这两个分支的逻辑是一致的. 我们精简下, 可以分离出下面这段简短的代码:
 
@@ -107,7 +107,7 @@ Dog.new("Jack", 5):say()
 
 > 既然 Cocos 的对象是一个 `userdata`, 那么我们为什么可以往这个 userdata 上添加新的 Lua 属性呢 ?
 
-Quick-x 为 C++ 导出 Lua 接口的工具是 tolua++ , 其中有两个接口叫: `tolua.setpeer` 和 `tolua.gerpeer` , 这个 peer 又是一个什么东西呢 ?
+Quick-Cocos2d-x 为 C++ 导出 Lua 接口的工具是 tolua++ , 其中有两个接口叫: `tolua.setpeer` 和 `tolua.gerpeer` , 这个 peer 又是一个什么东西呢 ?
 
 ![][4]
 

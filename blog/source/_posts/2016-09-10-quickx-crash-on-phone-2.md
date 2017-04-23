@@ -1,4 +1,4 @@
-title: 最近遇到的几个 quick-x 真机崩溃(二)
+title: 最近遇到的几个 Quick-cocos2d-x 真机崩溃(二)
 date: 2016-09-10 23:28:45
 tags:
 - Quick-Cocos2d-x

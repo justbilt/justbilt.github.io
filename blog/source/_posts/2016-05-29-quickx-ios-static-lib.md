@@ -1,4 +1,4 @@
-title: quick-x 使用静态库加速 iOS 打包
+title: Quick-cocos2d-x 使用静态库加速 iOS 打包
 date: 2016-05-29 21:20:58
 tags:
 - Quick-Cocos2d-x
@@ -6,7 +6,7 @@ tags:
 description: "亲爱的, 打完这个包就回家"
 ---
 
-quick-x 项目的 iOS 工程使用 `Tgarget Dependencise` 依赖 `cocos2d_lib` 和 `cocos_lua_bindings` 工程.
+Quick-Cocos2d-x 项目的 iOS 工程使用 `Tgarget Dependencise` 依赖 `cocos2d_lib` 和 `cocos_lua_bindings` 工程.
 
 ![QQ20160529-0.png-27kB][1]
 

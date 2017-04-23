@@ -1,4 +1,4 @@
-title: 记一次 quick-x 内存泄露排查
+title: 记一次 Quick-cocos2d-x 内存泄露排查
 date: 2016-03-19 17:48:38
 tags:
 - Quick-Cocos2d-x
