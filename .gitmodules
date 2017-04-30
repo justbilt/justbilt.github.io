@@ -1,9 +1,3 @@
-[submodule "blog/themes/raytaylorism"]
-	path = blog/themes/raytaylorism
-	url = https://github.com/justbilt/hexo-theme-raytaylorism.git
-[submodule "blog/themes/cactus-dark"]
-	path = blog/themes/cactus-dark
-	url = https://github.com/probberechts/cactus-dark.git
 [submodule "blog/themes/anatole"]
 	path = blog/themes/anatole
 	url = https://github.com/Ben02/hexo-theme-Anatole.git
