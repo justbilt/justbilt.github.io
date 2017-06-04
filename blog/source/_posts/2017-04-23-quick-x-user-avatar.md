@@ -1,6 +1,6 @@
 title: Quick-cocos2d-x 自定义头像
 date: 2017-04-23 21:54:41
-tags: [Quick-cocos2d-x]
+tags: [Quick-Cocos2d-x]
 ---
 
 前段时间我们团队实现了游戏中自定义头像模块, 这是一个比较有意思的功能, 加上网上这方面的资料也不多, 所以给大家分享下我们的做法. 
