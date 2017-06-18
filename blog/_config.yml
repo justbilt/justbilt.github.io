@@ -9,6 +9,7 @@ description: A game developer
 author: justbilt
 email: wangbilt@gmail.com
 language: zh-CN
+avatar: /favicon/slogon.gif
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -69,7 +70,7 @@ category_generator:
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: anatole
+theme: material-flow
 
 search:
   path: search.xml
@@ -84,7 +85,6 @@ sitemap:
   path: sitemap.xml
 
 disqus_shortname: justbilt
-
 
 flowchart:
   # raphael:   # optional, the source url of raphael.js
