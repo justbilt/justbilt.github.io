@@ -1,3 +1,6 @@
 [submodule "blog/themes/anatole"]
 	path = blog/themes/anatole
 	url = git@git.oschina.net:justbilt/hexo-theme-Anatole.git
+[submodule "blog/themes/material-flow"]
+	path = blog/themes/material-flow
+	url = git@git.oschina.net:justbilt/hexo-theme-material-flow.git
