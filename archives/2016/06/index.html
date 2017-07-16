@@ -1,203 +1,447 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="A game developer">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Archives: 2016/6 | Justbilt</title>
+  <meta name="description" content="A game developer" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Justbilt">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="A game developer">
 <meta property="og:type" content="website">
-<meta property="og:title" content="I'm bilt.">
+<meta property="og:title" content="Justbilt">
 <meta property="og:url" content="http://blog.justbilt.com/archives/2016/06/index.html">
-<meta property="og:site_name" content="I'm bilt.">
+<meta property="og:site_name" content="Justbilt">
 <meta property="og:description" content="A game developer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I'm bilt.">
+<meta name="twitter:title" content="Justbilt">
 <meta name="twitter:description" content="A game developer">
     
-    
-        
-          
-              <link rel="shortcut icon" href="/favicon/favicon.png">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/favicon/favicon.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon.png">
-          
-        
-    
-    <!-- title -->
-    <title>I&#39;m bilt.</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <!-- rss -->
-    
-    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
 </head>
 
 <body>
-    
-    <div class="content index width mx-auto px2 my4">
-        
-          <header id="header">
-  <a href="/">
-  
-    
-      <div id="logo" style="background-image: url(/favicon/favicon.png);"></div>
-    
-  
-    <div id="title">
-      <h1>I&#39;m bilt.</h1>
-    </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#"><i class="fa fa-bars fa-2x"></i></a>
-      </li>
-       
-        <li><a href="/">Home</a></li>
-       
-        <li><a href="/about/">About</a></li>
-       
-        <li><a href="/archives/">Writing</a></li>
-       
-        <li><a href="http://github.com/justbilt">Projects</a></li>
-       
-        <li><a href="/atom.xml">Feed</a></li>
-      
-    </ul>
-  </div>
-</header>
-
-        
-        <div id="archive">
-  <ul class="post-list">
-    
-    
-    
-      
-      
-      
-      
-        <h2>2016</h2>
-      
-      <li class="post-item">
-        
-    <div class="meta">
-        <time datetime="2016-06-26T06:28:11.000Z" itemprop="datePublished">2016-06-26</time>
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2016/06/26/terse-lua-code/">更简洁的 lua 逻辑代码</a>
-    
-
-
-<span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-        <time datetime="2016-06-26T03:38:44.000Z" itemprop="datePublished">2016-06-26</time>
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2016/06/26/ios-dev-tips-2/">最近搞 iOS 版遇到的一些问题和技巧 (二)</a>
-    
-
-
-<span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-        <time datetime="2016-06-19T07:39:44.000Z" itemprop="datePublished">2016-06-19</time>
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2016/06/19/quickx-ipv6/">quick-x 适配 IPV6</a>
-    
-
-
-<span>
-      </li>
-    
-  </ul>
-  
-
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
 </div>
 
-    </div>
-    
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2017 justbilt
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
+
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Justbilt
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-links' href='/links'>
+								Links
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
+
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a href="/links" class="nav-links nav">
+				Links
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
+
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
         
-      </ul>
-    </nav>
+	
+  <script>
+    window.subData= { title:"Year : 2016.6"}
+  </script>
+
+<section class="post-list">
+	
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2016/06/26/terse-lua-code/">
+        更简洁的 lua 逻辑代码
+      </a>
+    </h2>
+    
+    <time>
+      6月 26, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>爱因斯坦的质能方程 <code>E=MC^2</code>, 用在编程界同样适用 <code>Error = More Code ^ 2</code>. 代码越多, 出错的可能性就更大, 这个结论很正确呀. 那么我们如何使用更少的代码实现同样的需求呢 ?</p>
+<p>一. 普通技</p>
+<h2 id="1-bool-值与-if-语句的择决"><a href="#1-bool-值与-if-语句的择决" class="headerlink" title="1. bool 值与 if 语句的择决"></a>1. bool 值与 if 语句的择决</h2><p>让我们来看一段代码:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</div><div class="line"><span class="keyword">if</span> monthly_is_taken == <span class="literal">true</span> <span class="keyword">then</span></div><div class="line">    self._monthly_take:setButtonEnabled(<span class="literal">false</span>)</div><div class="line"><span class="keyword">else</span></div><div class="line">    self._monthly_take:setButtonEnabled(<span class="literal">true</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>显然这个 if 语句是没有必要的, 我们可以直接使用 bool 进行函数参数传递:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</div><div class="line">self._monthly_take:setButtonEnabled(monthly_is_taken)</div></pre></td></tr></table></figure>
+<p>我们可以看到减少了 %60 的代码, 逻辑反而变得更清晰了.</p>
+<h2 id="2-减少非必须的中间变量"><a href="#2-减少非必须的中间变量" class="headerlink" title="2. 减少非必须的中间变量"></a>2. 减少非必须的中间变量</h2><p>我们都明白了中间变量的意义, 主要是为提高代码的可读性. 但是有时候中间变量的太多, 在增加码量的同时, 也会打断我们的我们的思路.</p>
+<p>比如我们要算一个等差数列的和, 我们都知道使用公式 <code>(首项+末项)*项数/2</code>, 我们看一下这个实现:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</div><div class="line"><span class="keyword">local</span> array_len = #array</div><div class="line"><span class="keyword">local</span> first_element = array[<span class="number">1</span>]</div><div class="line"><span class="keyword">local</span> last_element = array[array_len]</div><div class="line"><span class="keyword">local</span> sum = (first_element+last_element)*array_len/<span class="number">2</span></div></pre></td></tr></table></figure>
+<p>就不如下面这个实现:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</div><div class="line"><span class="keyword">local</span> sum = (array[<span class="number">1</span>]+array[#array])*#array/<span class="number">2</span></div></pre></td></tr></table></figure>
+<p>这样的话, 我们上一个示例的代码可以进一步精简:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self._monthly_take:setButtonEnabled(app.player:getAttribute(<span class="string">"monthly_is_taken"</span>))</div></pre></td></tr></table></figure>
+<h2 id="3-使用-elseif-优化-if-语句"><a href="#3-使用-elseif-优化-if-语句" class="headerlink" title="3. 使用 elseif 优化 if 语句"></a>3. 使用 elseif 优化 if 语句</h2><p>如果是逻辑相悖的判断条件, 我们可以使用 elseif 语句连接, 而不用多个 if 语句. </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>我们可以修改为:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>这样修改后, 对逻辑的执行时间也优化哟, 因为一但有一个 if 语句命中, 后面的 elseif 都不会再去判断了.</p>
+<h2 id="4-使用-config-优化-if-elseif-语句"><a href="#4-使用-config-优化-if-elseif-语句" class="headerlink" title="4. 使用 config 优化 if-elseif 语句"></a>4. 使用 config 优化 if-elseif 语句</h2><p>如果一个逻辑中有大量的 if-elseif 语句, 我么就可以使用 config 的形式替换掉它, 使得逻辑更加简洁.</p>
+<p>让我们看一个示例:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_SYSTEM <span class="keyword">then</span></div><div class="line">    self._title:setString(_data.content.content.subtype)</div><div class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</div><div class="line">    self.title = TextEnum.CNReset.SYSTEM_INFORMATION</div><div class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK <span class="keyword">then</span></div><div class="line">    self._title:setString(TextEnum.CNReset.KICK)</div><div class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</div><div class="line">    self.title = TextEnum.CNReset.KICK</div><div class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN <span class="keyword">then</span></div><div class="line">    self._title:setString(TextEnum.CNReset.JOIN_IN)</div><div class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</div><div class="line">    self.title = TextEnum.CNReset.JOIN_IN</div><div class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT <span class="keyword">then</span></div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>这是一段关于邮件标题的逻辑, 这里只节选出了 1/4 的代码, 真的是又臭又长. 我们可以这样子去优化它:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> CONFIG = &#123;</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_SYSTEM] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">local</span> <span class="built_in">config</span> = CONFIG[_data.<span class="built_in">type</span>]</div><div class="line"><span class="keyword">if</span> <span class="built_in">config</span> <span class="keyword">then</span></div><div class="line">    self._title:setString(<span class="built_in">config</span>.title)</div><div class="line">    self._name:setString(<span class="built_in">config</span>.name)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>因为只是代码节选, 所以上面修改是一段伪代码, 但是看起来超级清爽的有木有! 对于一开始无法确定的数据如何配置呢? 我们可以配置一个 <code>function</code>, 用的时候取出来调用就可以啦.</p>
+<h1 id="二-黑科技"><a href="#二-黑科技" class="headerlink" title="二. 黑科技"></a>二. 黑科技</h1><h2 id="1-数据默认值的设定"><a href="#1-数据默认值的设定" class="headerlink" title="1. 数据默认值的设定"></a>1. 数据默认值的设定</h2><p>当我们拿到一段数据后, 总是要先预处理数据, 后面才是使用数据. 预处理阶段很重要的一步就是某些数据的默认值.</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num1 <span class="keyword">then</span></div><div class="line">        _num1 = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span> </div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num2 <span class="keyword">then</span></div><div class="line">        _num2 = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num3 <span class="keyword">then</span></div><div class="line">        _num3 = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>很繁琐是不是, 这时候我们可以使用 and 和 or 来优化默认值的设置:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></div><div class="line">    _num1 = _num1 <span class="keyword">or</span> <span class="number">0</span></div><div class="line">    _num2 = _num2 <span class="keyword">or</span> <span class="number">0</span></div><div class="line">    _num3 = _num3 <span class="keyword">or</span> <span class="number">0</span></div><div class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>当 <code>or</code> 的前面部分是 <code>nil</code> 或者 <code>false</code> 的情况下, 返回这个表达式的值后面部分. 下面我列举一下常用类型的默认值用法:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- number</span></div><div class="line">a = a <span class="keyword">or</span> <span class="number">0</span></div><div class="line"><span class="comment">-- string</span></div><div class="line">a = a <span class="keyword">or</span> <span class="string">""</span> </div><div class="line"><span class="comment">-- function</span></div><div class="line">a = a <span class="keyword">or</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span><span class="keyword">end</span></div><div class="line"><span class="comment">-- table</span></div><div class="line">a = a <span class="keyword">or</span> &#123;&#125;</div><div class="line"><span class="comment">-- boolean</span></div><div class="line">a = a == <span class="literal">nil</span> <span class="keyword">and</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
+<p>这里值得一提的是 <code>boolean</code> 类型, 如果希望默认值是 false 话, 就不需要默认值, 因为 nil 和 false 对于判断来说以意义一致. 而如果希望默认值是 true 的话, 并不是 <code>a = a or true</code>, 而是 <code>a == nil and true</code>, 大家可以细想一下其中的含义.</p>
+<h2 id="2-table-中元素的初始化"><a href="#2-table-中元素的初始化" class="headerlink" title="2. table 中元素的初始化"></a>2. table 中元素的初始化</h2><p>比如我们要统计一个列表中, 每个元素出现的次数:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</div><div class="line"><span class="keyword">local</span> counter = &#123;&#125;</div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> counter[v] <span class="keyword">then</span></div><div class="line">        counter[v] = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    counter[v] = counter[v] + <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>因为 <code>counter</code> 不可能提前初始化好, 所以总是要判断存不存在这个元素, 我们也可以利用上面提到的技巧做这个事情:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</div><div class="line"><span class="keyword">local</span> counter = &#123;&#125;</div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></div><div class="line">    counter[v] = (counter[v] <span class="keyword">or</span> <span class="number">0</span>) + <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>是不是变得很简洁 ?</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/neat-freak/">neat-freak</a>
+      
+        <a href="/tags/Lua/">Lua</a>
+      
+        <a href="/tags/code-style/">code-style</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2016/06/26/ios-dev-tips-2/">
+        最近搞 iOS 版遇到的一些问题和技巧 (二)
+      </a>
+    </h2>
+    
+    <time>
+      6月 26, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <h2 id="一-XCode-Could-not-find-Developer-Disk-Image"><a href="#一-XCode-Could-not-find-Developer-Disk-Image" class="headerlink" title="一. XCode: Could not find Developer Disk Image"></a>一. XCode: Could not find Developer Disk Image</h2><p><img src="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg" alt="101138-1ab6ab96d37904bd.jpeg-4.5kB"><br><strong>解决方案:</strong><br><a href="http://www.jianshu.com/p/3930df903a44" target="_blank" rel="external">http://www.jianshu.com/p/3930df903a44</a><br>这个问题可能是因为你 XCode 没有下载对应 iOS 的 SDK 导致, 一般情况需要同步更新 XCode.</p>
+<h2 id="二-XCode-无法导出-Archive-的项目"><a href="#二-XCode-无法导出-Archive-的项目" class="headerlink" title="二. XCode: 无法导出 Archive 的项目"></a>二. XCode: 无法导出 Archive 的项目</h2><p>这个问题有可能是你项目 Team 选择的是一个没有开发者资格的账号导致的, 虽然可以正常开发, 真机调试, 但是是不能发布的, 所以也无法 Export .<br><strong>解决方案:</strong></p>
+<ol>
+<li>更换一个有开发者资格的账号重新 Archive 导出, 但是 Bundle ID 就得换一个了.</li>
+<li>通过命令行工具导出.<br>在 Organizer 中找到你想导出的 Archive, 右键选择在文件夹中显示, 复制路径, 打开终端:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -exportArchive -exportFormat ipa -archivePath your-archive-file-name.xcarchive -exportPath ~/Desktop/test.ipa</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="三-XCode-App-Installation-failed"><a href="#三-XCode-App-Installation-failed" class="headerlink" title="三. XCode: App Installation failed"></a>三. XCode: App Installation failed</h2><p><img src="http://static.zybuluo.com/justbilt/kl9sahl74sqfnxgjem57f390/Unknown.png" alt="Unknown.png-45.1kB"><br>很可能是之前手机已经装过一个同 Bundle ID 的应用, 但是现在换了签名.<br><strong>解决方案:</strong><br>删掉手机已经安装的那个应用就可以啦.</p>
+<h2 id="四-XCode-Failed-to-code-sign-“xxxx”"><a href="#四-XCode-Failed-to-code-sign-“xxxx”" class="headerlink" title="四. XCode: Failed to code sign “xxxx”"></a>四. XCode: Failed to code sign “xxxx”</h2><p><img src="http://static.zybuluo.com/justbilt/eb80q3re93fflmiuhygk4f1m/QQ20160626-0.png" alt="QQ20160626-0.png-437.7kB"><br>签名失败了, 这种情况一般发生在使用别人给的证书打包时. 这时候我们项目 <code>Build Setting &gt; Code Signing Identity</code> 就不能选择 <code>iOS Developer</code>, 而是要选择导入的签名文件.</p>
+<h2 id="五-内购-无法连接到-iTunes-Store"><a href="#五-内购-无法连接到-iTunes-Store" class="headerlink" title="五. 内购: 无法连接到 iTunes Store"></a>五. 内购: 无法连接到 iTunes Store</h2><p>如果没有发布应用的话, 需要用沙盒测试账号来测试. 我们需要先在 <code>设置&gt;iTunes Store 和 App Store</code>中 <strong>注销账号</strong>, 然后打开游戏, 开始购买, 这时候输入你的测试账号. 成功后如果有跳转 App Store 的话或者绑定付款方式的话, 不同理会, 再返回应用购买就可以了.</p>
+<h2 id="六-崩溃-showAlert-崩溃"><a href="#六-崩溃-showAlert-崩溃" class="headerlink" title="六. 崩溃: showAlert 崩溃"></a>六. 崩溃: showAlert 崩溃</h2><p>某一次突然, 一旦调用 Quick-cocos2d-x 提供的 <code>device.showAlert</code> 就会崩溃, 断点调试无果, 崩溃时提示的内容也不尽相同.<br><strong>解决方案:</strong><br>删除 <code>RootViewController.mm</code> 中所有和屏幕方向代码, 就解决啦.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation</div><div class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations</div><div class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate</div><div class="line">- (<span class="keyword">void</span>)didRotateFromInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)fromInterfaceOrientation</div></pre></td></tr></table></figure>
+<h2 id="七-崩溃-iOS-9-2-播放视频崩溃"><a href="#七-崩溃-iOS-9-2-播放视频崩溃" class="headerlink" title="七. 崩溃: iOS 9.2+ 播放视频崩溃"></a>七. 崩溃: iOS 9.2+ 播放视频崩溃</h2><p>感谢 @子龙山人 大神提供的解决方案, <a href="https://github.com/cocos2d/cocos2d-x/issues/14855" target="_blank" rel="external">点击这里查看</a>.</p>
+<p>将 <code>UIVideoPlayer-ios.mm</code> 文件 <code>~VideoPlayer()</code> 函数中的 <code>dealloc</code> 修改为 <code>release</code> 即可.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) dealloc];</div><div class="line">+        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) release];</div></pre></td></tr></table></figure>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/iOS/">iOS</a>
+      
+        <a href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2016/06/19/quickx-ipv6/">
+        Quick-cocos2d-x 适配 IPV6
+      </a>
+    </h2>
+    
+    <time>
+      6月 19, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <h1 id="一-IPV6-是啥"><a href="#一-IPV6-是啥" class="headerlink" title="一. IPV6 是啥 ?"></a>一. IPV6 是啥 ?</h1><p>这两天一个运营的同事跑过来问我:</p>
+<blockquote>
+<p>他: 咱们的游戏适配那啥 VIP6 了么?<br>我: ….</p>
+</blockquote>
+<p>苹果商店在儿童节之后就不允许未适配 IPV6 的应用上架了, IPV6 是啥 ? 需要做些什么呢 ? 看完这两篇文章就明白了:</p>
+<p><a href="http://www.jianshu.com/p/a6bab07c4062" target="_blank" rel="external">iOS应用支持IPV6，就那点事儿</a><br><a href="http://www.jianshu.com/p/69ed4489762c" target="_blank" rel="external">针对苹果最新审核要求为应用兼容IPv6</a></p>
+<p>虽然这两篇文章是针对应用的, 但是从中我们也能了解大概的做法:</p>
+<ol>
+<li>不建议使用底层的网络API</li>
+<li>不要用IP地址</li>
+</ol>
+<h1 id="二-COCOS2D-X-适配-IPV6"><a href="#二-COCOS2D-X-适配-IPV6" class="headerlink" title="二. COCOS2D-X 适配 IPV6"></a>二. COCOS2D-X 适配 IPV6</h1><p>cocos 依赖的三方库涉及到 IPV6 问题的库为 <code>curl</code>, <code>websocket</code>, cocos 自己提供的模块需要适配的有: </p>
+<ol>
+<li>HttpClient</li>
+<li>AssetsManagerEx</li>
+<li>SocketIO</li>
+<li>WebSocket</li>
+<li>Console</li>
+<li>ScriptingCore</li>
+</ol>
+<p>cocos 官方也第一时间适配了 IPV6, 具体内容可以看这篇文章:<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODAxNTM2NA==&amp;mid=2659642350&amp;idx=1&amp;sn=a7db1bb86e965f8408c1687f73b23c7e&amp;scene=1&amp;srcid=0619ztJlty4HuLRBOll0Yr6V&amp;key=18e81ac7415f67c4acff47973e6979565cda32dd8f6c87dca6f733d6e6b4118817536543eb3844b8c890968fdbb06eed&amp;ascene=0&amp;uin=Mjk2MDM0NjgyMA%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1021)&amp;version=11020201&amp;pass_ticket=WECSEWT6jaVZNRKNNwilauFgBa%2FhDiF9DioAiHKmly2CArsnkf%2FQbQJchxVf%2F7bk" target="_blank" rel="external">儿童节后苹果爸爸只爱IPv6 Cocos2d-x第一时间支持</a>, 里面描述的很简单:</p>
+<blockquote>
+<p>如果你需要支持纯IPv6网络，只需要更新CURL和libwebsocket网络。</p>
+</blockquote>
+<p>让我们尝试一下.</p>
+<h2 id="1-下载-cocos2d-x-3rd-party-libs-bin"><a href="#1-下载-cocos2d-x-3rd-party-libs-bin" class="headerlink" title="1. 下载 cocos2d-x-3rd-party-libs-bin"></a>1. 下载 cocos2d-x-3rd-party-libs-bin</h2><p>这一步看似很简单, 实则不然. 你不会想到从 github 上下载一个 100 多 MB 的文件是多麽困难, 为此我花费了近 2个小时的时间.</p>
+<p>我下载的是 99 版的, 解压代用.</p>
+<h2 id="2-更新-curl"><a href="#2-更新-curl" class="headerlink" title="2. 更新 curl"></a>2. 更新 curl</h2><p>拷贝解压出来的文件夹中的 <code>curl</code> 目录到 <code>quick-cocos2d-x/external</code>, 替换原来的 <code>curl</code> 目录.</p>
+<p>打开 xcode, 编译, 发现有 100 多个错误:</p>
+<p><img src="http://static.zybuluo.com/justbilt/6b752pk1bzragqhjgbl2llky/image_1alkfke1vag91ccc1p15179c1jtcm.png" alt="image_1alkfke1vag91ccc1p15179c1jtcm.png-113.9kB"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Undefined symbols for architecture i386:</div><div class="line">  &quot;_ASN1_INTEGER_get&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">  &quot;_ASN1_STRING_data&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">  &quot;_ASN1_STRING_length&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>不要惊慌, 这是因为新版本 curl 多了一些静态库, 我们需要引入它们, 在 XCode 项目输找到 <code>cocos2d_lib &gt; external &gt; curl &gt; ios</code> 目录上右键, 选择 <code>Add Files to &#39;cocos2d_lib.xcodeproj&#39;</code>:</p>
+<p><img src="http://static.zybuluo.com/justbilt/1c0jehn0zxvrj7u3pf2cugam/image_1alkfv73t446cr3sc41r6r1hqj13.png" alt="image_1alkfv73t446cr3sc41r6r1hqj13.png-238.8kB"></p>
+<p>选中 <code>libcrypto.a</code> 和 <code>libssl.a</code>, targets 选择 <code>libcocos2d iOS</code>, 确定, 重新编译, 搞定.</p>
+<h2 id="3-更新-websocket"><a href="#3-更新-websocket" class="headerlink" title="3. 更新 websocket"></a>3. 更新 websocket</h2><blockquote>
+<p>注: 我们项目并没有用到 websocket , 所以这里只是搞到编译通过, 运行时有木有问题就不到知道了!</p>
+</blockquote>
+<p>和 curl 类似, 拷贝 cocos2d-x-3rd-party-libs 中的 <code>websockets</code> 目录到 <code>quick-cocos2d-x/external</code>, 替换原来的 <code>websockets</code> 目录.</p>
+<p>因为最新版的 websockets api 变化挺大, 所以我们需要使用 cocos <a href="https://github.com/cocos2d/cocos2d-x/tree/v3/cocos/network" target="_blank" rel="external">最新的</a> WebSocket.h 和 WebSocket.cpp 替换 quick-cocos2d-x/cocos/network 中的 <code>WebSocket</code> .</p>
+<p>编译, 会有一处错误发生在 <code>WebSocket::WebSocket()</code> 中, 因为 quick 中并没有 <code>Director::EVENT_RESET</code> 消息, 我们注释掉这段代码即可.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="comment">// reserve data buffer to avoid allocate memory frequently</span></div><div class="line">    _receivedData.reserve(WS_RESERVE_RECEIVE_BUFFER_SIZE);</div><div class="line">    <span class="keyword">if</span> (__websocketInstances == <span class="literal">nullptr</span>)</div><div class="line">    &#123;</div><div class="line">        __websocketInstances = <span class="keyword">new</span> (<span class="built_in">std</span>::nothrow) <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;WebSocket*&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    __websocketInstances-&gt;push_back(<span class="keyword">this</span>);</div><div class="line">    </div><div class="line"><span class="comment">//    std::shared_ptr&lt;std::atomic&lt;bool&gt;&gt; isDestroyed = _isDestroyed;</span></div><div class="line"><span class="comment">//    _resetDirectorListener = Director::getInstance()-&gt;getEventDispatcher()-&gt;addCustomEventListener(Director::EVENT_RESET, [this, isDestroyed](EventCustom*)&#123;</span></div><div class="line"><span class="comment">//        if (*isDestroyed)</span></div><div class="line"><span class="comment">//            return;</span></div><div class="line"><span class="comment">//        close();</span></div><div class="line"><span class="comment">//    &#125;);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="三-QUICK-COCOS2D-X-适配-IPV6"><a href="#三-QUICK-COCOS2D-X-适配-IPV6" class="headerlink" title="三. QUICK-COCOS2D-X 适配 IPV6"></a>三. QUICK-COCOS2D-X 适配 IPV6</h1><h2 id="1-如何适配"><a href="#1-如何适配" class="headerlink" title="1. 如何适配"></a>1. 如何适配</h2><p>Quick-Cocos2d-x 中主要是 luasocket 的适配, 适配的方法就是选择性的调用 <code>socket.tcp6()</code> 和 <code>socket.tcp()</code>, udp 也是如此.</p>
+<p>Quick-Cocos2d-x 中调创建 socket 是在 <code>SocketTCP:connect</code> 函数中, 并没有预留 ipv6 参数, 我们需要添加一下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SocketTCP:connect</span><span class="params">(__host, __port, __retryConnectWhenFailure, __ipv6)</span></span></div><div class="line">    <span class="keyword">if</span> __host <span class="keyword">then</span> self.host = __host <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> __port <span class="keyword">then</span> self.port = __port <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> __retryConnectWhenFailure ~= <span class="literal">nil</span> <span class="keyword">then</span> self.isRetryConnect = __retryConnectWhenFailure <span class="keyword">end</span></div><div class="line">    <span class="built_in">assert</span>(self.host <span class="keyword">or</span> self.port, <span class="string">"Host and port are necessary!"</span>)</div><div class="line">    <span class="comment">--printInfo("%s.connect(%s, %d)", self.name, self.host, self.port)</span></div><div class="line">    <span class="keyword">if</span> __ipv6 <span class="keyword">then</span></div><div class="line">        self.tcp = socket.tcp6()</div><div class="line">    <span class="keyword">else</span></div><div class="line">        self.tcp = socket.tcp()</div><div class="line">    <span class="keyword">end</span></div><div class="line">    </div><div class="line">    self.tcp:settimeout(<span class="number">0</span>)</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>然后, 如果要连接 ipv6 的服务器的话, <code>__ipv6</code> 值传 <code>true</code> 即可.</p>
+<h2 id="2-如何判断一个服务器是-ipv6-还是-ipv4"><a href="#2-如何判断一个服务器是-ipv6-还是-ipv4" class="headerlink" title="2. 如何判断一个服务器是 ipv6 还是 ipv4"></a>2. 如何判断一个服务器是 ipv6 还是 ipv4</h2><p>lua 中 socket 的 dns 模块提供了一个函数 <code>getaddrinfo</code>, 可以返回一个服务器的 dns 解析结果数组, 其中一个很重要的字段就是 <code>family</code>, 有 <code>inet</code> 和 <code>inet6</code> 两个值可选.</p>
+<p>大家可以运行 <code>dump(socket.dns.getaddrinfo(&quot;ipv6-test.com&quot;))</code> 看下结果:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- <span class="string">"&lt;var&gt;"</span> = &#123;</div><div class="line">-     <span class="number">1</span> = &#123;</div><div class="line">-         <span class="string">"addr"</span>   = <span class="string">"5.135.165.173"</span></div><div class="line">-         <span class="string">"family"</span> = <span class="string">"inet"</span></div><div class="line">-     &#125;</div><div class="line">-     <span class="number">2</span> = &#123;</div><div class="line">-         <span class="string">"addr"</span>   = <span class="string">"2001:41d0:8:e8ad::1"</span></div><div class="line">-         <span class="string">"family"</span> = <span class="string">"inet6"</span></div><div class="line">-     &#125;</div><div class="line">- &#125;</div></pre></td></tr></table></figure>
+<p>我们遍历一下这个结果, 如果其中有 <code>&quot;family&quot; = &quot;inet6&quot;</code> 的解析, 就可以使用 ipv6 进行连接了, 代码实现如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">isSupportIpv6</span><span class="params">(_domain)</span></span></div><div class="line">    <span class="keyword">local</span> result = socket.dns.getaddrinfo(_domain)</div><div class="line">    <span class="keyword">local</span> ipv6 = <span class="literal">false</span></div><div class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></div><div class="line">        <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(result) <span class="keyword">do</span></div><div class="line">            <span class="keyword">if</span> v.family == <span class="string">"inet6"</span> <span class="keyword">then</span></div><div class="line">                ipv6 = <span class="literal">true</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> ipv6</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>我们将这个函数的结果作为 <code>SocketTCP:connect</code> 的最后一个参数传入即可.</p>
+<h1 id="四-还有什么要注意的"><a href="#四-还有什么要注意的" class="headerlink" title="四. 还有什么要注意的"></a>四. 还有什么要注意的</h1><h2 id="1-一定要使用使用域名"><a href="#1-一定要使用使用域名" class="headerlink" title="1. 一定要使用使用域名"></a>1. 一定要使用使用域名</h2><p>向苹果提审的服务器一定要使用域名, 所有的地方都是如此, 包括 http 请求, 热更新返回的 <code>version.md</code> 地址.</p>
+<h2 id="2-做好兼容性测试"><a href="#2-做好兼容性测试" class="headerlink" title="2. 做好兼容性测试"></a>2. 做好兼容性测试</h2><p>测试 IPV6 ONLY 的时候使用最新的 iOS 9.3 做测试, 苹果他们审核的时候也是只审核最新的系统是否正常. </p>
+<p>但是我们实现的时候要兼容的不同的系统, 网络环境(<code>IPV6 兼容</code> 和 <code>IPV6 ONLY</code>), 因为用户的网络可能是各种各样样, 这些组合都要测试到.</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/iOS/">iOS</a>
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+</section>
+
+
+
+      </div>
+      <aside class='l_side'>
+        
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='/favicon/slogon.gif' />
+
+<div class='header'>justbilt</div>
+<div class='content'>
+<div class='desc'>"Only learning can make me happy"</div>
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 15px; color: #6b6b6b">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 15px; color: #6b6b6b">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 15px; color: #6b6b6b">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 15px; color: #6b6b6b">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 19px; color: #151515">Tool</a> <a href="/tags/blog/" style="font-size: 15px; color: #6b6b6b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18px; color: #2b2b2b">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 15px; color: #6b6b6b">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15px; color: #6b6b6b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 15px; color: #6b6b6b">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 15px; color: #6b6b6b">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19px; color: #151515">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 16px; color: #555">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 16px; color: #555">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 15px; color: #6b6b6b">优化</a> <a href="/tags/年结/" style="font-size: 17px; color: #404040">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 16px; color: #555">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 19px; color: #151515">游戏心得</a> <a href="/tags/生活/" style="font-size: 15px; color: #6b6b6b">生活</a> <a href="/tags/音效/" style="font-size: 15px; color: #6b6b6b">音效</a>
+    </div>
+</div>
+
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
   </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/justbilt" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://weibo.com/justbilt" class="social weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-weibo"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
+    
+  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
 </footer>
 
+
+  <script>setLoadingBarProgress(80);</script>
+  
+<script>
+  var disqus_shortname = 'justbilt';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css" type="text/css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css" type="text/css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-69555091-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-

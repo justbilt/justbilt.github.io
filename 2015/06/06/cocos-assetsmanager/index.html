@@ -1,279 +1,306 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>cocos2d-x AssetsManager 问题汇总 | Justbilt</title>
+  <meta name="description" content="A game developer" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Justbilt">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!">
+<meta name="keywords" content="Quick-Cocos2d-x,hotupdate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cocos2d-x AssetsManager 问题汇总">
 <meta property="og:url" content="http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/index.html">
-<meta property="og:site_name" content="I'm bilt.">
+<meta property="og:site_name" content="Justbilt">
 <meta property="og:description" content="大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!">
 <meta property="og:updated_time" content="2017-03-12T02:22:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cocos2d-x AssetsManager 问题汇总">
 <meta name="twitter:description" content="大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!">
     
-    
-        
-          
-              <link rel="shortcut icon" href="/favicon/favicon.png">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/favicon/favicon.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon.png">
-          
-        
-    
-    <!-- title -->
-    <title>cocos2d-x AssetsManager 问题汇总</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <!-- rss -->
-    
-    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
 </head>
 
 <body>
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2015/08/16/upgrad-spine-runtime/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
-        
-        
-        <li><a class="icon" href="/2015/05/31/my-2014/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
-        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&text=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&is_video=false&description=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=cocos2d-x AssetsManager 问题汇总&body=Check out this article: http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&name=cocos2d-x AssetsManager 问题汇总&description=&lt;p&gt;大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-__u201Ccan_not_open_destination_file_xxx_u201D"><span class="toc-number">1.</span> <span class="toc-text">1. “can not open destination file xxx”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-__u4E0B_u8F7D_u8FDB_u5EA6_u95EE_u9898"><span class="toc-number">2.</span> <span class="toc-text">2. 下载进度问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Update_3A_2015_u5E7406_u670825_u65E5"><span class="toc-number">2.1.</span> <span class="toc-text">Update: 2015年06月25日</span></a></li></ol></li></ol>
-    </div>
-  </span>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
 </div>
 
-    
-    <div class="content index width mx-auto px2 my4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        cocos2d-x AssetsManager 问题汇总
-    </h1>
 
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Justbilt
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-links' href='/links'>
+								Links
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
 
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a href="/links" class="nav-links nav">
+				Links
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">I'm bilt.</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2015-06-05T16:42:33.000Z" itemprop="datePublished">2015-06-06</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>, <a class="tag-link" href="/tags/hotupdate/">hotupdate</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!</p>
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-cocos-assetsmanager"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2015/06/06/cocos-assetsmanager/">
+    	cocos2d-x AssetsManager 问题汇总
+    </a>
+  </h2>
+	<time>
+	  6月 6, 2015
+	</time>
+	
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-“can-not-open-destination-file-xxx”"><span class="toc-number">1.</span> <span class="toc-text">1. “can not open destination file xxx”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-下载进度问题"><span class="toc-number">2.</span> <span class="toc-text">2. 下载进度问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Update-2015年06月25日"><span class="toc-number">2.1.</span> <span class="toc-text">Update: 2015年06月25日</span></a></li></ol></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!</p>
 <a id="more"></a>
-<h1 id="1-__u201Ccan_not_open_destination_file_xxx_u201D"><a href="#1-__u201Ccan_not_open_destination_file_xxx_u201D" class="headerlink" title="1. “can not open destination file xxx”"></a>1. “can not open destination file xxx”</h1><p>AssetsManager 在解压时有一定概率会出现这个错误, 让我们先定位错误发生点:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FILE *out = fopen(fullPath.c_str(), <span class="string">"wb"</span>);</span><br><span class="line"><span class="keyword">if</span> (! out)</span><br><span class="line">&#123;</span><br><span class="line">    CCLOG(<span class="string">"can not open destination file %s"</span>, fullPath.c_str());</span><br><span class="line">    unzCloseCurrentFile(zipfile);</span><br><span class="line">    unzClose(zipfile);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="1-“can-not-open-destination-file-xxx”"><a href="#1-“can-not-open-destination-file-xxx”" class="headerlink" title="1. “can not open destination file xxx”"></a>1. “can not open destination file xxx”</h1><p>AssetsManager 在解压时有一定概率会出现这个错误, 让我们先定位错误发生点:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">FILE *out = fopen(fullPath.c_str(), <span class="string">"wb"</span>);</div><div class="line"><span class="keyword">if</span> (! out)</div><div class="line">&#123;</div><div class="line">    CCLOG(<span class="string">"can not open destination file %s"</span>, fullPath.c_str());</div><div class="line">    unzCloseCurrentFile(zipfile);</div><div class="line">    unzClose(zipfile);</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>嗯, 其实就是打开一个文件去写的时候发生了错误, 这个 <code>fullPath</code> 就是解压的目标路径, 但是这个目标路径的文件夹是有可能不存在的, 比如 <code>download/res/ui/test.png</code>, 如果 <code>`download/res/ui</code> 目录不存在, 就会解压失败.</p>
 <p>这个问题也有别人遇到了, 还有具体的原因分析, 大家可以看这里: <a href="http://bbs.firedragonpzy.com.cn/forum.php?mod=viewthread&amp;tid=119" target="_blank" rel="external">AssetsManager在下载某些特定内容的zip文件后解压缩会失败</a>.</p>
 <p>解决方案也比较简单, 已经在 3.x 有实现了, 就是在解压文件前, <strong>遍历创建下每个层级的目录</strong> 就可以了, 代码如下:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//There are not directory entry in some case.</span></span><br><span class="line"><span class="comment">//So we need to test whether the file directory exists when uncompressing file entry</span></span><br><span class="line"><span class="comment">//, if does not exist then create directory</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">string</span> <span class="title">fileNameStr</span><span class="params">(fileName)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">size_t</span> startIndex=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">size_t</span> index=fileNameStr.find(<span class="string">"/"</span>,startIndex);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(index != <span class="built_in">std</span>::<span class="built_in">string</span>::npos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">string</span> dir=_storagePath+fileNameStr.substr(<span class="number">0</span>,index);</span><br><span class="line">    FILE *out = fopen(dir.c_str(), <span class="string">"r"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!out)&#123;</span><br><span class="line">        <span class="keyword">if</span> (!createDirectory(dir.c_str()))&#123;</span><br><span class="line">            CCLOG(<span class="string">"can not create directory %s"</span>, dir.c_str());</span><br><span class="line">            unzClose(zipfile);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            CCLOG(<span class="string">"create directory %s"</span>,dir.c_str());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        fclose(out);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    startIndex=index+<span class="number">1</span>;</span><br><span class="line">    index=fileNameStr.find(<span class="string">"/"</span>,startIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-__u4E0B_u8F7D_u8FDB_u5EA6_u95EE_u9898"><a href="#2-__u4E0B_u8F7D_u8FDB_u5EA6_u95EE_u9898" class="headerlink" title="2. 下载进度问题"></a>2. 下载进度问题</h1><p>AssetsManager 的下载进度会在控制台上打印出来, 但是这个进度却与我们注册监听的进度不太一致, 经常都下载完成了, 进度却只走了 10% 左右, 而解压确实是没有占用进度的, 令人十分困惑.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//There are not directory entry in some case.</span></div><div class="line"><span class="comment">//So we need to test whether the file directory exists when uncompressing file entry</span></div><div class="line"><span class="comment">//, if does not exist then create directory</span></div><div class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">string</span> <span class="title">fileNameStr</span><span class="params">(fileName)</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">size_t</span> startIndex=<span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">size_t</span> index=fileNameStr.find(<span class="string">"/"</span>,startIndex);</div><div class="line"></div><div class="line"><span class="keyword">while</span>(index != <span class="built_in">std</span>::<span class="built_in">string</span>::npos)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">const</span> <span class="built_in">string</span> dir=_storagePath+fileNameStr.substr(<span class="number">0</span>,index);</div><div class="line">    FILE *out = fopen(dir.c_str(), <span class="string">"r"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(!out)&#123;</div><div class="line">        <span class="keyword">if</span> (!createDirectory(dir.c_str()))&#123;</div><div class="line">            CCLOG(<span class="string">"can not create directory %s"</span>, dir.c_str());</div><div class="line">            unzClose(zipfile);</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            CCLOG(<span class="string">"create directory %s"</span>,dir.c_str());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        fclose(out);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    startIndex=index+<span class="number">1</span>;</div><div class="line">    index=fileNameStr.find(<span class="string">"/"</span>,startIndex);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="2-下载进度问题"><a href="#2-下载进度问题" class="headerlink" title="2. 下载进度问题"></a>2. 下载进度问题</h1><p>AssetsManager 的下载进度会在控制台上打印出来, 但是这个进度却与我们注册监听的进度不太一致, 经常都下载完成了, 进度却只走了 10% 左右, 而解压确实是没有占用进度的, 令人十分困惑.</p>
 <p>经过仔细阅读源码和分析, 发现了问题所在, AssetsManager 实际上是多线程的, 使用消息队列在线程间通信. 下载线程有消息了, 会压入队列中, 主线程注册了update, 不断的从队列中拿取消息, 处理, 删除. 这套设定其实还是蛮不错的, 但是却<strong>没有考虑到主线程的处理能力不足</strong>的情况. 下面是下载进度的逻辑:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">assetsManagerProgressFunc</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">double</span> totalToDownload, <span class="keyword">double</span> nowDownloaded, <span class="keyword">double</span> totalToUpLoad, <span class="keyword">double</span> nowUpLoaded)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    AssetsManager* manager = (AssetsManager*)ptr;</span><br><span class="line">    AssetsManager::Message *msg = <span class="keyword">new</span> AssetsManager::Message();</span><br><span class="line">    msg-&gt;what = ASSETSMANAGER_MESSAGE_PROGRESS;</span><br><span class="line">    </span><br><span class="line">    ProgressMessage *progressData = <span class="keyword">new</span> ProgressMessage();</span><br><span class="line">    progressData-&gt;percent = (<span class="keyword">int</span>)(nowDownloaded/totalToDownload*<span class="number">100</span>);</span><br><span class="line">    progressData-&gt;manager = manager;</span><br><span class="line">    msg-&gt;obj = progressData;</span><br><span class="line">    </span><br><span class="line">    manager-&gt;_schedule-&gt;sendMessage(msg);</span><br><span class="line">    </span><br><span class="line">    CCLOG(<span class="string">"downloading... %d%%"</span>, (<span class="keyword">int</span>)(nowDownloaded/totalToDownload*<span class="number">100</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">assetsManagerProgressFunc</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">double</span> totalToDownload, <span class="keyword">double</span> nowDownloaded, <span class="keyword">double</span> totalToUpLoad, <span class="keyword">double</span> nowUpLoaded)</span></span></div><div class="line">&#123;</div><div class="line">    AssetsManager* manager = (AssetsManager*)ptr;</div><div class="line">    AssetsManager::Message *msg = <span class="keyword">new</span> AssetsManager::Message();</div><div class="line">    msg-&gt;what = ASSETSMANAGER_MESSAGE_PROGRESS;</div><div class="line">    </div><div class="line">    ProgressMessage *progressData = <span class="keyword">new</span> ProgressMessage();</div><div class="line">    progressData-&gt;percent = (<span class="keyword">int</span>)(nowDownloaded/totalToDownload*<span class="number">100</span>);</div><div class="line">    progressData-&gt;manager = manager;</div><div class="line">    msg-&gt;obj = progressData;</div><div class="line">    </div><div class="line">    manager-&gt;_schedule-&gt;sendMessage(msg);</div><div class="line">    </div><div class="line">    CCLOG(<span class="string">"downloading... %d%%"</span>, (<span class="keyword">int</span>)(nowDownloaded/totalToDownload*<span class="number">100</span>));</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>举个例子, 下载线程每秒压入5个消息, 但是主线程的update回调是1秒一次, 得等5s才能处理完成. 这样就会导致下载早已完成, 但主线程却还有一大坨的消息没有处理完成, 仍旧在不紧不慢的处理着. 解决问题的方法也比较简单, 可以从两个角度入手, 提升主线程的处理能力和减少下载线程的消息制造. 由于主线程已经是注册的帧事件 update 了, 没有提升的空间, 所以只能从第二个角度入手了.</p>
 <p>分析了下需求, 对于下载进度的索取, 其实没有必要过于精确, 精确到1%就可以了. 这样的话一共只会产生100个事件, 大大减少了事件的数量. 这个问题, 3.x 也做了处理, 和我的想法一致. 摘录实现如下:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">assetsManagerProgressFunc</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">double</span> totalToDownload, <span class="keyword">double</span> nowDownloaded, <span class="keyword">double</span> totalToUpLoad, <span class="keyword">double</span> nowUpLoaded)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> percent = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> tmp = (<span class="keyword">int</span>)(nowDownloaded / totalToDownload * <span class="number">100</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (percent != tmp)</span><br><span class="line">    &#123;</span><br><span class="line">        percent = tmp;</span><br><span class="line">        Director::getInstance()-&gt;getScheduler()-&gt;performFunctionInCocosThread([=]&#123;</span><br><span class="line">            <span class="keyword">auto</span> manager = <span class="keyword">static_cast</span>&lt;AssetsManager*&gt;(ptr);</span><br><span class="line">            <span class="keyword">if</span> (manager-&gt;_delegate)</span><br><span class="line">                manager-&gt;_delegate-&gt;onProgress(percent);</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        CCLOG(<span class="string">"downloading... %d%%"</span>, percent);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">assetsManagerProgressFunc</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">double</span> totalToDownload, <span class="keyword">double</span> nowDownloaded, <span class="keyword">double</span> totalToUpLoad, <span class="keyword">double</span> nowUpLoaded)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">int</span> percent = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> tmp = (<span class="keyword">int</span>)(nowDownloaded / totalToDownload * <span class="number">100</span>);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (percent != tmp)</div><div class="line">    &#123;</div><div class="line">        percent = tmp;</div><div class="line">        Director::getInstance()-&gt;getScheduler()-&gt;performFunctionInCocosThread([=]&#123;</div><div class="line">            <span class="keyword">auto</span> manager = <span class="keyword">static_cast</span>&lt;AssetsManager*&gt;(ptr);</div><div class="line">            <span class="keyword">if</span> (manager-&gt;_delegate)</div><div class="line">                manager-&gt;_delegate-&gt;onProgress(percent);</div><div class="line">        &#125;);</div><div class="line">        </div><div class="line">        CCLOG(<span class="string">"downloading... %d%%"</span>, percent);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在查看源码的时候, 也发现了一些非常有意思的事情. AssetsManager 有做一个这样的设定, 下载全部完成后, 会将 <code>downloaded-version-code</code> 字段写入到 <code>UserDefault</code> 中, 解压完成后删除这个字段, 为什么呢? </p>
 <p>为了应对解压过程中出现了一些意外, 比如关闭了游戏进程, 这样重启游戏的时候就不用再下载更新包了. 这本是一个不错的设定, 但是它使用了事件队列来做这个事情, 上面说过, 下载完成后, 其实积压了一大坨的事件, 所以这个事件根本不会立刻被执行到. 但是解压的操作却不会受次影响, 会立刻执行到. 这会导致什么问题呢? <strong>导致先删除<code>downloaded-version-code</code>字段, 后设置, 与预期的执行顺序完全想反</strong>. 虽然最后可能不会影响到什么, 但是却是一段非常危险的代码.</p>
 <hr>
-<h2 id="Update_3A_2015_u5E7406_u670825_u65E5"><a href="#Update_3A_2015_u5E7406_u670825_u65E5" class="headerlink" title="Update: 2015年06月25日"></a>Update: 2015年06月25日</h2><p>还是接着上面的那个问题, AssetsManager 将 <code>downloaded-version-code</code> 记录到了 <code>UserDefault</code> 中, 但是只有<strong>解压成功</strong>了才会删除, 那么解压失败了呢? 解压失败失败的原因有好多, 如果是下载的更新包有问题的话, 重启后仍然不会重新下载, 直接开始解压, 就会陷入到一个循环中, 一直出错. 解决的办法是什么呢? </p>
+<h2 id="Update-2015年06月25日"><a href="#Update-2015年06月25日" class="headerlink" title="Update: 2015年06月25日"></a>Update: 2015年06月25日</h2><p>还是接着上面的那个问题, AssetsManager 将 <code>downloaded-version-code</code> 记录到了 <code>UserDefault</code> 中, 但是只有<strong>解压成功</strong>了才会删除, 那么解压失败了呢? 解压失败失败的原因有好多, 如果是下载的更新包有问题的话, 重启后仍然不会重新下载, 直接开始解压, 就会陷入到一个循环中, 一直出错. 解决的办法是什么呢? </p>
 <blockquote>
 <p>舍弃掉这个优化.</p>
 </blockquote>
 <p>将 AssetsManager 中的这几行注释掉, 就不会记录 <code>downloaded-version-code</code>, 出错后重启就会重新下载:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CCUserDefault::sharedUserDefault()-&#62;setStringForKey(KEY_OF_DOWNLOADED_VERSION,&#10;                                                    ((AssetsManager*)msg-&#62;obj)-&#62;_version.c_str());&#10;CCUserDefault::sharedUserDefault()-&#62;flush();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CCUserDefault::sharedUserDefault()-&gt;setStringForKey(KEY_OF_DOWNLOADED_VERSION,</div><div class="line">                                                    ((AssetsManager*)msg-&gt;obj)-&gt;_version.c_str());</div><div class="line">CCUserDefault::sharedUserDefault()-&gt;flush();</div></pre></td></tr></table></figure>
 <p>我们的游戏就遇到了这样的情况, 玩家热更解压失败后就一直处于解压失败的状态, 只能删除游戏重新安装了!</p>
 <p>哈哈,正如你所想的,3.x 也做了这样的处理:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (! uncompress())&#10;&#123;&#10;    Director::getInstance()-&#62;getScheduler()-&#62;performFunctionInCocosThread([&#38;, this]&#123;&#10;        UserDefault::getInstance()-&#62;setStringForKey(this-&#62;keyOfDownloadedVersion().c_str(),&#34;&#34;);&#10;        UserDefault::getInstance()-&#62;flush();&#10;        if (this-&#62;_delegate)&#10;            this-&#62;_delegate-&#62;onError(ErrorCode::UNCOMPRESS);&#10;    &#125;);&#10;    break;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (! uncompress())</div><div class="line">&#123;</div><div class="line">    Director::getInstance()-&gt;getScheduler()-&gt;performFunctionInCocosThread([&amp;, this]&#123;</div><div class="line">        UserDefault::getInstance()-&gt;setStringForKey(this-&gt;keyOfDownloadedVersion().c_str(),&quot;&quot;);</div><div class="line">        UserDefault::getInstance()-&gt;flush();</div><div class="line">        if (this-&gt;_delegate)</div><div class="line">            this-&gt;_delegate-&gt;onError(ErrorCode::UNCOMPRESS);</div><div class="line">    &#125;);</div><div class="line">    break;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>解压失败后就直接清除了 <code>downloaded-version-code</code> 的记录.</p>
 <hr>
 <p>从上述可以看到, 这些问题都已在 3.x 中解决, 所以能升级引擎的还是赶紧升级. 同时也会明白cocos的坑还是蛮多的, 大家一定要做好测试呀!</p>
 <p>–EOF–</p>
 
-  </div>
-</article>
-
-
-
-    </div>
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+        <a href="/tags/hotupdate/">hotupdate</a>
+      
+	  </div>
     
-      <div id="footer-post-container">
-  <div id="footer-post">
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: 'cocos2d-x AssetsManager 问题汇总',
+		tools: true
+	}
+</script>
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
+      </div>
+      <aside class='l_side'>
         
-      </ul>
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='/favicon/slogon.gif' />
+
+<div class='header'>justbilt</div>
+<div class='content'>
+<div class='desc'>"Only learning can make me happy"</div>
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 15px; color: #6b6b6b">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 15px; color: #6b6b6b">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 15px; color: #6b6b6b">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 15px; color: #6b6b6b">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 19px; color: #151515">Tool</a> <a href="/tags/blog/" style="font-size: 15px; color: #6b6b6b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18px; color: #2b2b2b">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 15px; color: #6b6b6b">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15px; color: #6b6b6b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 15px; color: #6b6b6b">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 15px; color: #6b6b6b">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19px; color: #151515">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 16px; color: #555">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 16px; color: #555">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 15px; color: #6b6b6b">优化</a> <a href="/tags/年结/" style="font-size: 17px; color: #404040">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 16px; color: #555">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 19px; color: #151515">游戏心得</a> <a href="/tags/生活/" style="font-size: 15px; color: #6b6b6b">生活</a> <a href="/tags/音效/" style="font-size: 15px; color: #6b6b6b">音效</a>
     </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-__u201Ccan_not_open_destination_file_xxx_u201D"><span class="toc-number">1.</span> <span class="toc-text">1. “can not open destination file xxx”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-__u4E0B_u8F7D_u8FDB_u5EA6_u95EE_u9898"><span class="toc-number">2.</span> <span class="toc-text">2. 下载进度问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Update_3A_2015_u5E7406_u670825_u65E5"><span class="toc-number">2.1.</span> <span class="toc-text">Update: 2015年06月25日</span></a></li></ol></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&text=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&is_video=false&description=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=cocos2d-x AssetsManager 问题汇总&body=Check out this article: http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&title=cocos2d-x AssetsManager 问题汇总"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/&name=cocos2d-x AssetsManager 问题汇总&description=&lt;p&gt;大家做热更新的时候都会用到 AssetsManager , 我们使用的 2.2.6 版本还存在一些问题, 在这里记录一下, 希望大家能够避开这些!&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-      <ul>
-        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
-        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
-        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
-      </ul>
-    </div>
-
-  </div>
 </div>
 
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/justbilt" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://weibo.com/justbilt" class="social weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-weibo"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
     
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2017 justbilt
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </nav>
-  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
 </footer>
 
+
+  <script>setLoadingBarProgress(80);</script>
+  
+<script>
+  var disqus_shortname = 'justbilt';
+  
+  var disqus_url = 'http://blog.justbilt.com/2015/06/06/cocos-assetsmanager/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css" type="text/css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css" type="text/css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-69555091-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-

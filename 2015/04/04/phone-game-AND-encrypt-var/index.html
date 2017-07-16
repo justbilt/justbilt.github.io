@@ -1,287 +1,310 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!
-游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>手机游戏攻防(一) 变量加密法 | Justbilt</title>
+  <meta name="description" content="A game developer" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Justbilt">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同! 游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta name="keywords" content="游戏心得,手机游戏攻防">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手机游戏攻防(一) 变量加密法">
 <meta property="og:url" content="http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/index.html">
-<meta property="og:site_name" content="I'm bilt.">
-<meta property="og:description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!
-游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta property="og:site_name" content="Justbilt">
+<meta property="og:description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同! 游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
 <meta property="og:image" content="http://blog.justbilt.com/img/31036b15a219185ac6a0c54157ebf36937540518.jpg">
 <meta property="og:updated_time" content="2017-03-12T01:22:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手机游戏攻防(一) 变量加密法">
-<meta name="twitter:description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!
-游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta name="twitter:description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同! 游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta name="twitter:image" content="http://blog.justbilt.com/img/31036b15a219185ac6a0c54157ebf36937540518.jpg">
     
-    
-        
-          
-              <link rel="shortcut icon" href="/favicon/favicon.png">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/favicon/favicon.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon.png">
-          
-        
-    
-    <!-- title -->
-    <title>手机游戏攻防(一) 变量加密法</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <!-- rss -->
-    
-    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
 </head>
 
 <body>
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2015/04/05/phone-game-AND-watchdog/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
-        
-        
-        <li><a class="icon" href="/2015/03/16/quickxdev-2/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
-        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&text=手机游戏攻防(一) 变量加密法"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&is_video=false&description=手机游戏攻防(一) 变量加密法"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=手机游戏攻防(一) 变量加密法&body=Check out this article: http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&name=手机游戏攻防(一) 变量加密法&description=&lt;p&gt;这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!&lt;/p&gt;
-&lt;p&gt;游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668"><span class="toc-number">1.</span> <span class="toc-text">一.什么是八门神器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E8C-_u539F_u7406"><span class="toc-number">2.</span> <span class="toc-text">二.原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E09-_u5E94_u5BF9_u65B9_u6848"><span class="toc-number">3.</span> <span class="toc-text">三.应对方案</span></a></li></ol>
-    </div>
-  </span>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
 </div>
 
-    
-    <div class="content index width mx-auto px2 my4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        手机游戏攻防(一) 变量加密法
-    </h1>
 
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Justbilt
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-links' href='/links'>
+								Links
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
 
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a href="/links" class="nav-links nav">
+				Links
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">I'm bilt.</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2015-04-03T16:26:44.000Z" itemprop="datePublished">2015-04-04</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/手机游戏攻防/">手机游戏攻防</a>, <a class="tag-link" href="/tags/游戏心得/">游戏心得</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!</p>
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-phone-game-AND-encrypt-var"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2015/04/04/phone-game-AND-encrypt-var/">
+    	手机游戏攻防(一) 变量加密法
+    </a>
+  </h2>
+	<time>
+	  4月 4, 2015
+	</time>
+	
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-什么是八门神器"><span class="toc-number">1.</span> <span class="toc-text">一.什么是八门神器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-原理"><span class="toc-number">2.</span> <span class="toc-text">二.原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-应对方案"><span class="toc-number">3.</span> <span class="toc-text">三.应对方案</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!</p>
 <p>游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!</p>
 <a id="more"></a>
-<h3 id="u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668"><a href="#u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668" class="headerlink" title="一.什么是八门神器"></a>一.什么是八门神器</h3><p>不明白八门神器为何物的请自行Google!这里我引用百度百科(点击这里:<a href="http://baike.baidu.com/view/3258873.htm" target="_blank" rel="external">http://baike.baidu.com/view/3258873.htm</a>)中的一段话:</p>
+<h3 id="一-什么是八门神器"><a href="#一-什么是八门神器" class="headerlink" title="一.什么是八门神器"></a>一.什么是八门神器</h3><p>不明白八门神器为何物的请自行Google!这里我引用百度百科(点击这里:<a href="http://baike.baidu.com/view/3258873.htm" target="_blank" rel="external">http://baike.baidu.com/view/3258873.htm</a>)中的一段话:</p>
 <blockquote>
 <p>八门神器是安卓、iOS、塞班平台上通用的游戏修改工具，可以修改内存中的数值和参数，达到修改游戏HP、MP、金钱、等级等的作用。八门神器类似于PC平台的金山游侠等游戏修改器，是手机游戏中的金手指。但八门神器在安卓平台下需要Root权限才能正常工作，在iOS平台下需要iPhone越狱才能正常工作，并且支持中、英双语言，并且自带帮助说明。</p>
 </blockquote>
 <p>建议大家还是亲自去使用下这个工具,效果请看下图:</p>
 <p><img src="/img/31036b15a219185ac6a0c54157ebf36937540518.jpg" alt=""></p>
-<h3 id="u4E8C-_u539F_u7406"><a href="#u4E8C-_u539F_u7406" class="headerlink" title="二.原理"></a>二.原理</h3><p>知己知彼百战百胜,我们要先了解八门神器的原理:</p>
+<h3 id="二-原理"><a href="#二-原理" class="headerlink" title="二.原理"></a>二.原理</h3><p>知己知彼百战百胜,我们要先了解八门神器的原理:</p>
 <blockquote>
 <p>在游戏运行时，内存和处理器都会对于游戏进行非常复杂的数据交换和变更，这是因为游戏有很多的数据，例如金钱、HP值、等级、攻击力、防御力等数据，而这些数据，就在内存和处理器的各个地址当中，玩家只需要在八门神器中搜索相关的数据值，八门神器就会将搜索出记录此数据的各个地址显示，玩家进行多次的数据变更后再次搜索，到最后就会确定此地址到底是哪一个，然后将此地址的数值进行修改，回到游戏中，相关的数据也会变化!<br>总结下,就是八门神器会搜索出对应数值的内存地址,然后改变内存地址对应的值!</p>
 </blockquote>
-<h3 id="u4E09-_u5E94_u5BF9_u65B9_u6848"><a href="#u4E09-_u5E94_u5BF9_u65B9_u6848" class="headerlink" title="三.应对方案"></a>三.应对方案</h3><p>这样我们貌似可以从两个方面去入手解决这个问题:</p>
+<h3 id="三-应对方案"><a href="#三-应对方案" class="headerlink" title="三.应对方案"></a>三.应对方案</h3><p>这样我们貌似可以从两个方面去入手解决这个问题:</p>
 <ol>
 <li>让它搜不着!</li>
 <li>让它改变不了!</li>
 </ol>
 <p>我们今天先来看看第一种方法. 用过这个工具的人都明白,一般情况下,一次搜索就能准确定位内存地址的情况非常少见(除非这个数字非常大,非常奇葩),都是先搜索,获得大量(几十万)的数据,然后回到游戏中,改变这个值,再回到八门神器,会自动筛选出之前搜索到的结果有哪些改变了…直到只剩下几个结果,这个时候我们挨个去改变值会变得十分的Easy!</p>
 <p><strong>1.改变内存地址</strong></p>
-<p>想想这个过程,好像只有第一次搜索是全局搜索,后面的每次搜索都是在之前搜索的结果上进行筛选!这样如果我们游戏中每次改变这个变量的时都去改变这个变量的内存地址,这样它就搜索不到了!代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> DynamicInt</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	DynamicInt()&#123;m_pValue=<span class="literal">NULL</span>;&#125;</span><br><span class="line"></span><br><span class="line">	~DynamicInt()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (m_pValue)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> m_pValue;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *m_pValue;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(<span class="keyword">int</span> nValue)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (m_pValue)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> m_pValue;</span><br><span class="line">		&#125;</span><br><span class="line">		m_pValue=<span class="keyword">new</span> <span class="keyword">int</span>();</span><br><span class="line">		*m_pValue=nValue;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> * m_pValue;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>想想这个过程,好像只有第一次搜索是全局搜索,后面的每次搜索都是在之前搜索的结果上进行筛选!这样如果我们游戏中每次改变这个变量的时都去改变这个变量的内存地址,这样它就搜索不到了!代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DynamicInt</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	DynamicInt()&#123;m_pValue=<span class="literal">NULL</span>;&#125;</div><div class="line"></div><div class="line">	~DynamicInt()</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (m_pValue)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">delete</span> m_pValue;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> *m_pValue;&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(<span class="keyword">int</span> nValue)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (m_pValue)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">delete</span> m_pValue;</div><div class="line">		&#125;</div><div class="line">		m_pValue=<span class="keyword">new</span> <span class="keyword">int</span>();</div><div class="line">		*m_pValue=nValue;</div><div class="line">	&#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">int</span> * m_pValue;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p> 经过尝试,这个方法并不管用,还能被破解,不知我的做法错误呢还是八门神器的原理不是这样!请懂行人指出!</p>
 <blockquote>
 <p>注: 经过分析, 可能是因为你 delete 后立刻 new 会获取到同一块内存地址的原因~ 这样的话, 我们也好说, 我们先换下顺序可能就可以了, 不过我没有进行过测试!</p>
 </blockquote>
 <p><strong>2.加密数据</strong></p>
-<p>换个思路,我们为何不在数据上做手脚,对数据进行加密(如:表面上显示的是50,内部存的却是50^0xff),这样他搜索表面上的数字当然搜索不到!代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> _H_DYNAMICVALUE_H_</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> _H_DYNAMICVALUE_H_</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> CEncryptValue</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	CEncryptValue()</span><br><span class="line">		: m_Value(<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	~CEncryptValue()</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function">T <span class="title">getValue</span><span class="params">()</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> m_Value ^ m_EncryptKey;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(T value)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		m_Value = value;</span><br><span class="line">		m_EncryptKey = rand();</span><br><span class="line">		m_Value ^= m_EncryptKey;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">offset</span><span class="params">(T value)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		setValue(getValue() + value);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	T m_Value;</span><br><span class="line">	<span class="keyword">int</span> m_EncryptKey;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">int</span>&gt; CDynamicValueInt;</span><br><span class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">float</span>&gt; CDynamicValueFloat;</span><br><span class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">bool</span>&gt; CDynamicValueBool;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<p>换个思路,我们为何不在数据上做手脚,对数据进行加密(如:表面上显示的是50,内部存的却是50^0xff),这样他搜索表面上的数字当然搜索不到!代码如下:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _H_DYNAMICVALUE_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> _H_DYNAMICVALUE_H_</span></div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">class</span> <span class="title">CEncryptValue</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	CEncryptValue()</div><div class="line">		: m_Value(<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">	&#125;</div><div class="line">	~CEncryptValue()</div><div class="line">	&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function">T <span class="title">getValue</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> m_Value ^ m_EncryptKey;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(T value)</span></span></div><div class="line">	&#123;</div><div class="line">		m_Value = value;</div><div class="line">		m_EncryptKey = rand();</div><div class="line">		m_Value ^= m_EncryptKey;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">offset</span><span class="params">(T value)</span></span></div><div class="line">	&#123;</div><div class="line">		setValue(getValue() + value);</div><div class="line">	&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	T m_Value;</div><div class="line">	<span class="keyword">int</span> m_EncryptKey;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">int</span>&gt; CDynamicValueInt;</div><div class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">float</span>&gt; CDynamicValueFloat;</div><div class="line"><span class="keyword">typedef</span> CEncryptValue&lt;<span class="keyword">bool</span>&gt; CDynamicValueBool;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure></p>
 <p>使用时:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CDynamicValueInt m_DynamicMoney;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置金钱数</span></span><br><span class="line">m_DynamicMoney.setValue(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到金钱</span></span><br><span class="line">m_DynamicMoney.getValue()</span><br><span class="line"></span><br><span class="line"><span class="comment">//改变金钱</span></span><br><span class="line">m_DynamicMoney.offset(-<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">CDynamicValueInt m_DynamicMoney;</div><div class="line"></div><div class="line"><span class="comment">//设置金钱数</span></div><div class="line">m_DynamicMoney.setValue(<span class="number">1000</span>);</div><div class="line"></div><div class="line"><span class="comment">//得到金钱</span></div><div class="line">m_DynamicMoney.getValue()</div><div class="line"></div><div class="line"><span class="comment">//改变金钱</span></div><div class="line">m_DynamicMoney.offset(<span class="number">-100</span>);</div></pre></td></tr></table></figure>
 <p>这个方法经过测试,十分管用!也是我目前采取的方案!大家可以直接拿来使用!</p>
 <p>写在后面的话:</p>
 <p>有些人可能会骂八门神器的作者无耻之类,我非常不认同,大家都是靠手艺吃饭的,么有什么无耻不无耻的,如果你的游戏被破解了,只能说明你比较傻!还有对使用八门神器破解游戏的玩家表示同情,因为你一旦破解了,整个游戏就没有意义了!</p>
 
-  </div>
-</article>
-
-
-
-    </div>
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/游戏心得/">游戏心得</a>
+      
+        <a href="/tags/手机游戏攻防/">手机游戏攻防</a>
+      
+	  </div>
     
-      <div id="footer-post-container">
-  <div id="footer-post">
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: '手机游戏攻防(一) 变量加密法',
+		tools: true
+	}
+</script>
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
+      </div>
+      <aside class='l_side'>
         
-      </ul>
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='/favicon/slogon.gif' />
+
+<div class='header'>justbilt</div>
+<div class='content'>
+<div class='desc'>"Only learning can make me happy"</div>
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 15px; color: #6b6b6b">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 15px; color: #6b6b6b">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 15px; color: #6b6b6b">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 15px; color: #6b6b6b">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 19px; color: #151515">Tool</a> <a href="/tags/blog/" style="font-size: 15px; color: #6b6b6b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18px; color: #2b2b2b">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 15px; color: #6b6b6b">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15px; color: #6b6b6b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 15px; color: #6b6b6b">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 15px; color: #6b6b6b">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19px; color: #151515">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 16px; color: #555">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 16px; color: #555">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 15px; color: #6b6b6b">优化</a> <a href="/tags/年结/" style="font-size: 17px; color: #404040">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 16px; color: #555">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 19px; color: #151515">游戏心得</a> <a href="/tags/生活/" style="font-size: 15px; color: #6b6b6b">生活</a> <a href="/tags/音效/" style="font-size: 15px; color: #6b6b6b">音效</a>
     </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00-_u4EC0_u4E48_u662F_u516B_u95E8_u795E_u5668"><span class="toc-number">1.</span> <span class="toc-text">一.什么是八门神器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E8C-_u539F_u7406"><span class="toc-number">2.</span> <span class="toc-text">二.原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E09-_u5E94_u5BF9_u65B9_u6848"><span class="toc-number">3.</span> <span class="toc-text">三.应对方案</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&text=手机游戏攻防(一) 变量加密法"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&is_video=false&description=手机游戏攻防(一) 变量加密法"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=手机游戏攻防(一) 变量加密法&body=Check out this article: http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&title=手机游戏攻防(一) 变量加密法"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/&name=手机游戏攻防(一) 变量加密法&description=&lt;p&gt;这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!&lt;/p&gt;
-&lt;p&gt;游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-      <ul>
-        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
-        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
-        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
-      </ul>
-    </div>
-
-  </div>
 </div>
 
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/justbilt" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://weibo.com/justbilt" class="social weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-weibo"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
     
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2017 justbilt
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </nav>
-  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
 </footer>
 
+
+  <script>setLoadingBarProgress(80);</script>
+  
+<script>
+  var disqus_shortname = 'justbilt';
+  
+  var disqus_url = 'http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css" type="text/css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css" type="text/css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-69555091-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-

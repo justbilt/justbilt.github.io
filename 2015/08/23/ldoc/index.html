@@ -1,151 +1,166 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>ldoc 入门指南 | Justbilt</title>
+  <meta name="description" content="A game developer" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Justbilt">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.">
+<meta name="keywords" content="Lua,ldoc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ldoc 入门指南">
 <meta property="og:url" content="http://blog.justbilt.com/2015/08/23/ldoc/index.html">
-<meta property="og:site_name" content="I'm bilt.">
+<meta property="og:site_name" content="Justbilt">
 <meta property="og:description" content="最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.">
 <meta property="og:image" content="http://blog.justbilt.com/img/2015-08-23-1.jpg">
 <meta property="og:updated_time" content="2017-03-12T01:22:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ldoc 入门指南">
 <meta name="twitter:description" content="最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.">
+<meta name="twitter:image" content="http://blog.justbilt.com/img/2015-08-23-1.jpg">
     
-    
-        
-          
-              <link rel="shortcut icon" href="/favicon/favicon.png">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/favicon/favicon.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon.png">
-          
-        
-    
-    <!-- title -->
-    <title>ldoc 入门指南</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <!-- rss -->
-    
-    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
 </head>
 
 <body>
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2015/10/17/setup-pyqt5-on-mac/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
-        
-        
-        <li><a class="icon" href="/2015/08/16/upgrad-spine-runtime/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
-        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2015/08/23/ldoc/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2015/08/23/ldoc/&text=ldoc 入门指南"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2015/08/23/ldoc/&is_video=false&description=ldoc 入门指南"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ldoc 入门指南&body=Check out this article: http://blog.justbilt.com/2015/08/23/ldoc/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2015/08/23/ldoc/&name=ldoc 入门指南&description=&lt;p&gt;最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u4E00-__u5B89_u88C5"><span class="toc-number">1.</span> <span class="toc-text">一. 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-__u5B89_u88C5luarocks"><span class="toc-number">1.1.</span> <span class="toc-text">1. 安装luarocks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1__u901A_u8FC7_homebrew__u5B89_u88C5"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 通过 homebrew 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 通过源码安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-__u5B89_u88C5_LDoc"><span class="toc-number">1.2.</span> <span class="toc-text">2. 安装 LDoc</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4E8C-__u6982_u89C8"><span class="toc-number">2.</span> <span class="toc-text">二. 概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4E09-__u8BE6_u89E3"><span class="toc-number">3.</span> <span class="toc-text">三. 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-__u6807_u7B7E"><span class="toc-number">3.1.</span> <span class="toc-text">1. 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5"><span class="toc-number">3.2.</span> <span class="toc-text">2. 对于函数的一些高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.1 显示参数的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2 可选参数与默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3__u591A_u79CD_u8FD4_u56DE_u503C"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.3 多种返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E"><span class="toc-number">3.3.</span> <span class="toc-text">3. config.ld 的字段说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u9644_u5F55_3A"><span class="toc-number">3.4.</span> <span class="toc-text">附录:</span></a></li></ol></li></ol>
-    </div>
-  </span>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
 </div>
 
-    
-    <div class="content index width mx-auto px2 my4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        ldoc 入门指南
-    </h1>
 
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Justbilt
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-links' href='/links'>
+								Links
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
 
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a href="/links" class="nav-links nav">
+				Links
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">I'm bilt.</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2015-08-23T08:47:55.000Z" itemprop="datePublished">2015-08-23</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Lua/">Lua</a>, <a class="tag-link" href="/tags/ldoc/">ldoc</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.</p>
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-ldoc"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2015/08/23/ldoc/">
+    	ldoc 入门指南
+    </a>
+  </h2>
+	<time>
+	  8月 23, 2015
+	</time>
+	
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-安装"><span class="toc-number">1.</span> <span class="toc-text">一. 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-安装luarocks"><span class="toc-number">1.1.</span> <span class="toc-text">1. 安装luarocks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-通过-homebrew-安装"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 通过 homebrew 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-通过源码安装"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 通过源码安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-安装-LDoc"><span class="toc-number">1.2.</span> <span class="toc-text">2. 安装 LDoc</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-概览"><span class="toc-number">2.</span> <span class="toc-text">二. 概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三-详解"><span class="toc-number">3.</span> <span class="toc-text">三. 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-标签"><span class="toc-number">3.1.</span> <span class="toc-text">1. 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-对于函数的一些高级用法"><span class="toc-number">3.2.</span> <span class="toc-text">2. 对于函数的一些高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-显示参数的类型"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.1 显示参数的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-可选参数与默认值"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2 可选参数与默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-多种返回值"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.3 多种返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-config-ld-的字段说明"><span class="toc-number">3.3.</span> <span class="toc-text">3. config.ld 的字段说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-number">3.4.</span> <span class="toc-text">附录:</span></a></li></ol></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.</p>
 <a id="more"></a>
 <p>项目前端是使用 quick-cocos2d-x 来开发的, 开发语言是 lua, 找了一下 lua 的文档生成工具, 貌似只有 LuaDoc 和 LDoc 可以选. LuaDoc 已经好几年没有人维护了, 加上 LDoc 可以兼容 LuaDoc 的文档, 所以就定了 LDoc.</p>
-<h1 id="u4E00-__u5B89_u88C5"><a href="#u4E00-__u5B89_u88C5" class="headerlink" title="一. 安装"></a>一. 安装</h1><p>因为 LDoc 依赖与 penlight 和 lfs , 所以使用 luarocks 来安装是最简单的, 不然自己还得处理依赖. 因此我们需要先安装 luarocks.</p>
-<h2 id="1-__u5B89_u88C5luarocks"><a href="#1-__u5B89_u88C5luarocks" class="headerlink" title="1. 安装luarocks"></a>1. 安装luarocks</h2><p>如果已经安装过了的话,可以跳过这一步.</p>
-<h3 id="1-1__u901A_u8FC7_homebrew__u5B89_u88C5"><a href="#1-1__u901A_u8FC7_homebrew__u5B89_u88C5" class="headerlink" title="1.1 通过 homebrew 安装"></a>1.1 通过 homebrew 安装</h3><p>通过 homwbrew 安装是最简单的,  只需要 <code>brew update</code> 和 <code>brew install luarocks</code> 两步就可以啦! 不过 brew update 等待的时间可能会比较久, 耐心不够的话可以尝试从源码安装.</p>
-<h3 id="1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5"><a href="#1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5" class="headerlink" title="1.2 通过源码安装"></a>1.2 通过源码安装</h3><p>1). 从<a href="https://github.com/keplerproject/luarocks/wiki/Release-history" target="_blank" rel="external">这里</a>下载最新版的 luarocks 源文件, 解压.</p>
+<h1 id="一-安装"><a href="#一-安装" class="headerlink" title="一. 安装"></a>一. 安装</h1><p>因为 LDoc 依赖与 penlight 和 lfs , 所以使用 luarocks 来安装是最简单的, 不然自己还得处理依赖. 因此我们需要先安装 luarocks.</p>
+<h2 id="1-安装luarocks"><a href="#1-安装luarocks" class="headerlink" title="1. 安装luarocks"></a>1. 安装luarocks</h2><p>如果已经安装过了的话,可以跳过这一步.</p>
+<h3 id="1-1-通过-homebrew-安装"><a href="#1-1-通过-homebrew-安装" class="headerlink" title="1.1 通过 homebrew 安装"></a>1.1 通过 homebrew 安装</h3><p>通过 homwbrew 安装是最简单的,  只需要 <code>brew update</code> 和 <code>brew install luarocks</code> 两步就可以啦! 不过 brew update 等待的时间可能会比较久, 耐心不够的话可以尝试从源码安装.</p>
+<h3 id="1-2-通过源码安装"><a href="#1-2-通过源码安装" class="headerlink" title="1.2 通过源码安装"></a>1.2 通过源码安装</h3><p>1). 从<a href="https://github.com/keplerproject/luarocks/wiki/Release-history" target="_blank" rel="external">这里</a>下载最新版的 luarocks 源文件, 解压.</p>
 <p>2). 打开终端, cd 到刚才解压的目录.</p>
 <p>3). 键入 <code>./configure</code></p>
 <p>这一步的话比较诡异, 我在公司装的时候各种问题, 在家里装就没有问题. 比如出现了这个:</p>
@@ -153,31 +168,31 @@
 <p>Looking for Lua…<br>lua not found in $PATH.<br>You may want to use the flags –with-lua, –with-lua-bin and/or –lua-suffix. See –help.<br>configure failed.</p>
 </blockquote>
 <p>这是没有找到lua的原因, 确保你安装了lua, 可以通过<code>which lua</code>来找到lua的安装路径. 然后用<code>--with-lua-bin</code> 参数传给<code>configure</code>, 如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-lua-bin=/usr/local</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --with-lua-bin=/usr/local</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Could not find a downloader helper program. Tried: curl wget fetch.<br>Make sure one of them is installed and available in your PATH.<br>configure failed.</p>
 </blockquote>
 <p>其实我也不知道为什么会抽这个风, <code>curl</code> 和 <code>wget</code> 我都有安装的, 用 <code>--with-downloader</code> 指定一下就ok了, 如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-lua=/usr/local --with-downloader=wget</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --with-lua=/usr/local --with-downloader=wget</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Could not find a MD5 checksum calculator. Tried: md5sum openssl md5.<br>Make sure one of them is installed and available in your PATH.<br>configure failed.</p>
 </blockquote>
 <p>额, 还是指定一下 <code>--with-md5-checker</code> 吧!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-lua=/usr/local --with-downloader=wget --with-md5-checker=md5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --with-lua=/usr/local --with-downloader=wget --with-md5-checker=md5</div></pre></td></tr></table></figure>
 <p>4). 键入 <code>make build</code></p>
 <p>5). 键入 <code>make install</code></p>
 <p>如果一切正常的话, 那么就安装成功了. 可以通过键入 <code>luarocks</code> 来检测.</p>
-<h2 id="2-__u5B89_u88C5_LDoc"><a href="#2-__u5B89_u88C5_LDoc" class="headerlink" title="2. 安装 LDoc"></a>2. 安装 LDoc</h2><p>安装好 luarocks 之后, 安装 LDoc 是非常简单的, 只需要:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">luarocks install ldoc</span><br></pre></td></tr></table></figure>
+<h2 id="2-安装-LDoc"><a href="#2-安装-LDoc" class="headerlink" title="2. 安装 LDoc"></a>2. 安装 LDoc</h2><p>安装好 luarocks 之后, 安装 LDoc 是非常简单的, 只需要:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">luarocks install ldoc</div></pre></td></tr></table></figure>
 <p>就可以了, luarocks 会自动帮你安装依赖项. 安装好之后在终端键入 <code>ldoc -h</code>, 如果出现下面这个, 则代表安装成功!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldoc, a documentation generator for Lua, vs 1.4.3&#10;...</span><br></pre></td></tr></table></figure>
-<h1 id="u4E8C-__u6982_u89C8"><a href="#u4E8C-__u6982_u89C8" class="headerlink" title="二. 概览"></a>二. 概览</h1><p>让我们先通过一个简单的测试来了解下 ldoc , 先创建一个目录, 在目录下创建一个 <code>test.lua</code> 文件, 将下面的内容复制到里面:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- a test module&#10;-- @module test&#10;&#10;local test = &#123;&#125;&#10;&#10;--- this is a function&#10;-- @string param1 this is param1&#10;-- @int param2 this is param2&#10;-- @return a string value&#10;function test.my_module_function_1(param1, param2)&#10;&#9;return param1 .. param2&#10;end&#10;&#10;return test</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ldoc, a documentation generator for Lua, vs 1.4.3</div><div class="line">...</div></pre></td></tr></table></figure>
+<h1 id="二-概览"><a href="#二-概览" class="headerlink" title="二. 概览"></a>二. 概览</h1><p>让我们先通过一个简单的测试来了解下 ldoc , 先创建一个目录, 在目录下创建一个 <code>test.lua</code> 文件, 将下面的内容复制到里面:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">--- a test module</div><div class="line">-- @module test</div><div class="line"></div><div class="line">local test = &#123;&#125;</div><div class="line"></div><div class="line">--- this is a function</div><div class="line">-- @string param1 this is param1</div><div class="line">-- @int param2 this is param2</div><div class="line">-- @return a string value</div><div class="line">function test.my_module_function_1(param1, param2)</div><div class="line">	return param1 .. param2</div><div class="line">end</div><div class="line"></div><div class="line">return test</div></pre></td></tr></table></figure>
 <p>然后在这个目录下打开终端, 键入 <code>ldoc test.lua</code>, 一切正常的话, 会在当前目录下生成一个名为 doc 文件夹, 打开 <code>doc/index.html</code> 文件, 会看到下面这样的东西.</p>
 <p><img src="/img/2015-08-23-1.jpg" alt=""></p>
 <p>虽然很丑陋, 但也还不错, 该有的都有. 我们仔细看一下这个测试, 总体由 test 模块 和 my_module_function_1 函数 2部分组成. 它们都是以 <code>---</code> 开始的, 这是 ldoc 的一个规则, 只有以 <code>---</code> 开始的注释才会被 ldoc 解析, 这样就可以排除掉普通的注释信息. <code>@module</code> 是一个特殊的标签, 后面跟着模块的名字, 但其实这个标签是可选的, 没有的话默认会以文件名来定义模块名.</p>
 <p>类似的标签还有很多, 我们在下面会一一说明.</p>
-<h1 id="u4E09-__u8BE6_u89E3"><a href="#u4E09-__u8BE6_u89E3" class="headerlink" title="三. 详解"></a>三. 详解</h1><h2 id="1-__u6807_u7B7E"><a href="#1-__u6807_u7B7E" class="headerlink" title="1. 标签"></a>1. 标签</h2><ul>
+<h1 id="三-详解"><a href="#三-详解" class="headerlink" title="三. 详解"></a>三. 详解</h1><h2 id="1-标签"><a href="#1-标签" class="headerlink" title="1. 标签"></a>1. 标签</h2><ul>
 <li><strong>@module</strong> 模块, 一般一个文件就是一个模块.</li>
 <li><strong>@classmod</strong> 和 @module 类似, 但是用来描述 class, 用这个标签后, 生成的文档中 Module 文字会变成 Class.</li>
 <li><strong>@submodule</strong> 如果一个模块的内容被分到了好几个文件中, 那么就可以再其他文件中用 submodule 来定义, 后面跟上master module的名字.</li>
@@ -212,11 +227,11 @@
 <li><strong>@within</strong> 用来形容函数和table, 指定它们属于哪个section, 可以指定不存在的一个section, 会自动创建一个</li>
 </ul>
 <p>哈哈, 以上就是所有的标签啦, 虽然比较多, 但是有很多都不怎么常用, 所以还是很好理解的.</p>
-<h2 id="2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5"><a href="#2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5" class="headerlink" title="2. 对于函数的一些高级用法"></a>2. 对于函数的一些高级用法</h2><h3 id="2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B"><a href="#2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B" class="headerlink" title="2.1 显示参数的类型"></a>2.1 显示参数的类型</h3><p>这个前面有提过, @param 是不指明具体类型的, 若想指明的话可以用 @int, @string, @bool, @func, @tab, @thread 几个标签来.</p>
-<h3 id="2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C"><a href="#2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C" class="headerlink" title="2.2 可选参数与默认值"></a>2.2 可选参数与默认值</h3><p>可选参数的标记是自参数标签后紧跟 <code>[opt]</code> 来标识, 默认值则是 <code>[opt=xx]</code>. 让我们看一个官方的示例:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- a function with typed args.</span></span><br><span class="line"><span class="comment">-- @string name person's name</span></span><br><span class="line"><span class="comment">-- @int age</span></span><br><span class="line"><span class="comment">-- @string[opt='gregorian'] calender optional calendar</span></span><br><span class="line"><span class="comment">-- @int[opt=0] offset optional offset</span></span><br><span class="line"><span class="comment">-- @treturn string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">one</span> <span class="params">(name,age,...)</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">----&gt; displayed as: one (name, age [, calender='gregorian' [, offset=0]])</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-3__u591A_u79CD_u8FD4_u56DE_u503C"><a href="#2-3__u591A_u79CD_u8FD4_u56DE_u503C" class="headerlink" title="2.3 多种返回值"></a>2.3 多种返回值</h3><p>一个函数不同的情况可能返回不同的值, 意义也都不一样, 那么怎么来表示呢? 答案是在 @return 后紧跟 <code>[x]</code> (x可以是1,2,3,…) 来标识. 生成出来的文档是用 <code>Or</code> 来列出这些不同的返回值的.</p>
-<h2 id="3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E"><a href="#3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E" class="headerlink" title="3. config.ld 的字段说明"></a>3. config.ld 的字段说明</h2><p>ldoc 运行时有一堆参数可以传递, 在终端中去做比较麻烦, 修改也不太方便. 因此我们可以创建一个 <code>config.ld</code> 配置文件来做这个事情, <code>ldoc .</code> 表示在当前目前下查找 config.ld 文件, <code>ldoc -c path/to/myconfig.ld &lt;file&gt;</code> 读取特殊的目录的配置文件. 其实 <code>config.ld</code> 就是一个lua文件, 填写时需要遵循lua语法.</p>
+<h2 id="2-对于函数的一些高级用法"><a href="#2-对于函数的一些高级用法" class="headerlink" title="2. 对于函数的一些高级用法"></a>2. 对于函数的一些高级用法</h2><h3 id="2-1-显示参数的类型"><a href="#2-1-显示参数的类型" class="headerlink" title="2.1 显示参数的类型"></a>2.1 显示参数的类型</h3><p>这个前面有提过, @param 是不指明具体类型的, 若想指明的话可以用 @int, @string, @bool, @func, @tab, @thread 几个标签来.</p>
+<h3 id="2-2-可选参数与默认值"><a href="#2-2-可选参数与默认值" class="headerlink" title="2.2 可选参数与默认值"></a>2.2 可选参数与默认值</h3><p>可选参数的标记是自参数标签后紧跟 <code>[opt]</code> 来标识, 默认值则是 <code>[opt=xx]</code>. 让我们看一个官方的示例:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--- a function with typed args.</span></div><div class="line"><span class="comment">-- @string name person's name</span></div><div class="line"><span class="comment">-- @int age</span></div><div class="line"><span class="comment">-- @string[opt='gregorian'] calender optional calendar</span></div><div class="line"><span class="comment">-- @int[opt=0] offset optional offset</span></div><div class="line"><span class="comment">-- @treturn string</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">one</span> <span class="params">(name,age,...)</span></span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="comment">----&gt; displayed as: one (name, age [, calender='gregorian' [, offset=0]])</span></div></pre></td></tr></table></figure>
+<h3 id="2-3-多种返回值"><a href="#2-3-多种返回值" class="headerlink" title="2.3 多种返回值"></a>2.3 多种返回值</h3><p>一个函数不同的情况可能返回不同的值, 意义也都不一样, 那么怎么来表示呢? 答案是在 @return 后紧跟 <code>[x]</code> (x可以是1,2,3,…) 来标识. 生成出来的文档是用 <code>Or</code> 来列出这些不同的返回值的.</p>
+<h2 id="3-config-ld-的字段说明"><a href="#3-config-ld-的字段说明" class="headerlink" title="3. config.ld 的字段说明"></a>3. config.ld 的字段说明</h2><p>ldoc 运行时有一堆参数可以传递, 在终端中去做比较麻烦, 修改也不太方便. 因此我们可以创建一个 <code>config.ld</code> 配置文件来做这个事情, <code>ldoc .</code> 表示在当前目前下查找 config.ld 文件, <code>ldoc -c path/to/myconfig.ld &lt;file&gt;</code> 读取特殊的目录的配置文件. 其实 <code>config.ld</code> 就是一个lua文件, 填写时需要遵循lua语法.</p>
 <p>config.ld 文件中有一大坨的条目可以选择, 我们来看一下他们都是什么意思吧.</p>
 <ul>
 <li><strong>file</strong> 可以是一个文件名或者目录名, 如: <code>file = &#39;test.lua&#39;</code>. file 也可以是一个table, 这时里面可以填写文件数组或目录数组, 同时也可以包含另一个特殊的数组 <code>exclude</code>, 表明要排除的文件或目录</li>
@@ -236,113 +251,126 @@
 <hr>
 <p>这篇文章到这里就差不多, ldoc 网上的中文资料不是很多, 加上我使用时遇到了一些问题, 因此我写下这篇文章, 主要是帮大家对 ldoc 形成一个大体的印象, 具体细节或者高级功能可能还是得去看官方的文档.</p>
 <p>当然有什么问题也欢迎大家评论指出, 多多交流!</p>
-<h2 id="u9644_u5F55_3A"><a href="#u9644_u5F55_3A" class="headerlink" title="附录:"></a>附录:</h2><p>官方文档: <a href="http://stevedonovan.github.io/ldoc/" target="_blank" rel="external">这里</a><br>github地址: <a href="https://github.com/stevedonovan/LDoc" target="_blank" rel="external">这里</a></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录:"></a>附录:</h2><p>官方文档: <a href="http://stevedonovan.github.io/ldoc/" target="_blank" rel="external">这里</a><br>github地址: <a href="https://github.com/stevedonovan/LDoc" target="_blank" rel="external">这里</a></p>
 
-  </div>
-</article>
-
-
-
-    </div>
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/Lua/">Lua</a>
+      
+        <a href="/tags/ldoc/">ldoc</a>
+      
+	  </div>
     
-      <div id="footer-post-container">
-  <div id="footer-post">
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: 'ldoc 入门指南',
+		tools: true
+	}
+</script>
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
+      </div>
+      <aside class='l_side'>
         
-      </ul>
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='/favicon/slogon.gif' />
+
+<div class='header'>justbilt</div>
+<div class='content'>
+<div class='desc'>"Only learning can make me happy"</div>
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 15px; color: #6b6b6b">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 15px; color: #6b6b6b">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 15px; color: #6b6b6b">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 15px; color: #6b6b6b">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 19px; color: #151515">Tool</a> <a href="/tags/blog/" style="font-size: 15px; color: #6b6b6b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18px; color: #2b2b2b">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 15px; color: #6b6b6b">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15px; color: #6b6b6b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 15px; color: #6b6b6b">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 15px; color: #6b6b6b">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19px; color: #151515">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 16px; color: #555">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 16px; color: #555">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 15px; color: #6b6b6b">优化</a> <a href="/tags/年结/" style="font-size: 17px; color: #404040">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 16px; color: #555">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 19px; color: #151515">游戏心得</a> <a href="/tags/生活/" style="font-size: 15px; color: #6b6b6b">生活</a> <a href="/tags/音效/" style="font-size: 15px; color: #6b6b6b">音效</a>
     </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u4E00-__u5B89_u88C5"><span class="toc-number">1.</span> <span class="toc-text">一. 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-__u5B89_u88C5luarocks"><span class="toc-number">1.1.</span> <span class="toc-text">1. 安装luarocks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1__u901A_u8FC7_homebrew__u5B89_u88C5"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 通过 homebrew 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2__u901A_u8FC7_u6E90_u7801_u5B89_u88C5"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 通过源码安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-__u5B89_u88C5_LDoc"><span class="toc-number">1.2.</span> <span class="toc-text">2. 安装 LDoc</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4E8C-__u6982_u89C8"><span class="toc-number">2.</span> <span class="toc-text">二. 概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4E09-__u8BE6_u89E3"><span class="toc-number">3.</span> <span class="toc-text">三. 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-__u6807_u7B7E"><span class="toc-number">3.1.</span> <span class="toc-text">1. 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-__u5BF9_u4E8E_u51FD_u6570_u7684_u4E00_u4E9B_u9AD8_u7EA7_u7528_u6CD5"><span class="toc-number">3.2.</span> <span class="toc-text">2. 对于函数的一些高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1__u663E_u793A_u53C2_u6570_u7684_u7C7B_u578B"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.1 显示参数的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2__u53EF_u9009_u53C2_u6570_u4E0E_u9ED8_u8BA4_u503C"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2 可选参数与默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3__u591A_u79CD_u8FD4_u56DE_u503C"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.3 多种返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_config-ld__u7684_u5B57_u6BB5_u8BF4_u660E"><span class="toc-number">3.3.</span> <span class="toc-text">3. config.ld 的字段说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u9644_u5F55_3A"><span class="toc-number">3.4.</span> <span class="toc-text">附录:</span></a></li></ol></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2015/08/23/ldoc/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2015/08/23/ldoc/&text=ldoc 入门指南"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2015/08/23/ldoc/&is_video=false&description=ldoc 入门指南"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ldoc 入门指南&body=Check out this article: http://blog.justbilt.com/2015/08/23/ldoc/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2015/08/23/ldoc/&title=ldoc 入门指南"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2015/08/23/ldoc/&name=ldoc 入门指南&description=&lt;p&gt;最近因为服务端的一些变故, 需要一份客户端与服务器交互的 api 文档. 首先肯定是要排除掉手写的, api 文档这货肯定是要自动生成啦, 要不以后维护起来得死人的.&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-      <ul>
-        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
-        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
-        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
-      </ul>
-    </div>
-
-  </div>
 </div>
 
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/justbilt" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://weibo.com/justbilt" class="social weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-weibo"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
     
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2017 justbilt
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </nav>
-  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
 </footer>
 
+
+  <script>setLoadingBarProgress(80);</script>
+  
+<script>
+  var disqus_shortname = 'justbilt';
+  
+  var disqus_url = 'http://blog.justbilt.com/2015/08/23/ldoc/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css" type="text/css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css" type="text/css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-69555091-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-

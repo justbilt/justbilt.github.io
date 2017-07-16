@@ -1,146 +1,161 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Quick-Cocos2d-x CCGraySprite 消失坑 (已更新解决方案) | Justbilt</title>
+  <meta name="description" content="A game developer" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Justbilt">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.">
+<meta name="keywords" content="Quick-Cocos2d-x">
 <meta property="og:type" content="article">
-<meta property="og:title" content="quickx CCGraySprite 消失坑 (已更新解决方案)">
+<meta property="og:title" content="Quick-Cocos2d-x CCGraySprite 消失坑 (已更新解决方案)">
 <meta property="og:url" content="http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/index.html">
-<meta property="og:site_name" content="I'm bilt.">
+<meta property="og:site_name" content="Justbilt">
 <meta property="og:description" content="前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/7f870d23jw1elry310gmoj20dv090jsl.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/7f870d23gw1enoa7sayraj20tu0lkjsq.jpg">
-<meta property="og:updated_time" content="2017-03-12T02:22:53.000Z">
+<meta property="og:updated_time" content="2017-04-23T04:39:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="quickx CCGraySprite 消失坑 (已更新解决方案)">
+<meta name="twitter:title" content="Quick-Cocos2d-x CCGraySprite 消失坑 (已更新解决方案)">
 <meta name="twitter:description" content="前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/7f870d23jw1elry310gmoj20dv090jsl.jpg">
     
-    
-        
-          
-              <link rel="shortcut icon" href="/favicon/favicon.png">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/favicon/favicon.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon.png">
-          
-        
-    
-    <!-- title -->
-    <title>quickx CCGraySprite 消失坑 (已更新解决方案)</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <!-- rss -->
-    
-    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
 </head>
 
 <body>
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2014/12/15/svn/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
-        
-        
-        <li><a class="icon" href="/2014/10/17/spend-money-on-network/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
-        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&text=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&is_video=false&description=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=quickx CCGraySprite 消失坑 (已更新解决方案)&body=Check out this article: http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&name=quickx CCGraySprite 消失坑 (已更新解决方案)&description=&lt;p&gt;前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update_12_u670820_u65E5_3A"><span class="toc-number">1.</span> <span class="toc-text">Update 12月20日:</span></a></li></ol>
-    </div>
-  </span>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
 </div>
 
-    
-    <div class="content index width mx-auto px2 my4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        quickx CCGraySprite 消失坑 (已更新解决方案)
-    </h1>
 
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Justbilt
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-links' href='/links'>
+								Links
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
 
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a href="/links" class="nav-links nav">
+				Links
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">I'm bilt.</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2014-10-29T05:01:33.000Z" itemprop="datePublished">2014-10-29</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.</p>
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-quickx-CCGraySprite-invisible"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2014/10/29/quickx-CCGraySprite-invisible/">
+    	Quick-Cocos2d-x CCGraySprite 消失坑 (已更新解决方案)
+    </a>
+  </h2>
+	<time>
+	  10月 29, 2014
+	</time>
+	
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-12月20日"><span class="toc-number">1.</span> <span class="toc-text">Update 12月20日:</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.</p>
 <a id="more"></a>
 <p><img src="http://ww2.sinaimg.cn/large/7f870d23jw1elry310gmoj20dv090jsl.jpg" alt=""></p>
 <p>大家看上图中的一个灰色的精灵, 这个是由<code>CCGraySprite</code>创建出来的, 它被添加了到了CCNode中, 当第一次进入界面是正常, 退出界面, 再次进入改界面就看不见了, 但是只要一移动这个界面就又可以看见了.</p>
@@ -149,131 +164,142 @@
 <p>第二个可能, lua这边的内存被释放掉了,同样无法解释上边的现象</p>
 <p>第三个可能, <code>CCGraySprite</code>的内部实现又问题, 这个比较好证明, <strong>换一种变灰的实现</strong>就可以验证了.</p>
 <p>于是我们改用zrong贡献的滤镜来实现变灰的功能:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建灰度精灵</span></span><br><span class="line">_spr = CCFilteredSpriteWithOne:createWithTexture(_texture, _rect)</span><br><span class="line"><span class="keyword">local</span> filters = filter.newFilter(<span class="string">"GRAY"</span>)</span><br><span class="line">_spr:setFilter(filters)</span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 创建灰度精灵</span></div><div class="line">_spr = CCFilteredSpriteWithOne:createWithTexture(_texture, _rect)</div><div class="line"><span class="keyword">local</span> filters = filter.newFilter(<span class="string">"GRAY"</span>)</div><div class="line">_spr:setFilter(filters)</div></pre></td></tr></table></figure>
 <p>验证结果果然是<code>CCGraySprite</code>的问题,用<code>CCFilteredSprite</code>替换可以解决.</p>
 <p><del>因为比较着急, 虽然最后解决了, 但没有具体去分析原因, 希望有知道原因的同学可以告知一下.</del></p>
-<h3 id="Update_12_u670820_u65E5_3A"><a href="#Update_12_u670820_u65E5_3A" class="headerlink" title="Update 12月20日:"></a>Update 12月20日:</h3><p>今天又遇到了这个bug, 看来得好好研究下了!</p>
+<h3 id="Update-12月20日"><a href="#Update-12月20日" class="headerlink" title="Update 12月20日:"></a>Update 12月20日:</h3><p>今天又遇到了这个bug, 看来得好好研究下了!</p>
 <p>Google了一下, 看来不止我一个人遇到了这个问题, <a href="http://www.cocoachina.com/bbs/read.php?tid-217500-page-e-fpage-1.html" target="_blank" rel="external">谁用过CCGraySprite，移除再新建就不会显示了</a>, 虽然没有解决, 但是知道怎么重现了.</p>
 <blockquote>
 <p>谁用过CCGraySprite，<strong>移除再新建就不会显示了</strong>，不知道大家用什么灰态精灵，求解.</p>
 </blockquote>
 <p>这个确实容易重现, 测试代码:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:ctor</span><span class="params">()</span></span></span><br><span class="line">    ui.newMenu(&#123;ui.newTTFLabelMenuItem(&#123;text = <span class="string">"删除&amp;创建"</span>, listener = handler(self, self.init)&#125;)&#125;)</span><br><span class="line">        :pos(display.cx, display.cy - <span class="number">100</span>)</span><br><span class="line">        :addTo(self)</span><br><span class="line"></span><br><span class="line">    self:init()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:init</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">if</span> self.spr <span class="keyword">then</span></span><br><span class="line">        self.spr:removeFromParent()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    self.spr = CCNodeExtend.extend(CCGraySprite:create(<span class="string">"start.png"</span>))</span><br><span class="line">        :pos(display.cx, display.cy)</span><br><span class="line">        :addTo(self)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:ctor</span><span class="params">()</span></span></div><div class="line">    ui.newMenu(&#123;ui.newTTFLabelMenuItem(&#123;text = <span class="string">"删除&amp;创建"</span>, listener = handler(self, self.init)&#125;)&#125;)</div><div class="line">        :pos(display.cx, display.cy - <span class="number">100</span>)</div><div class="line">        :addTo(self)</div><div class="line"></div><div class="line">    self:init()</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:init</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">if</span> self.spr <span class="keyword">then</span></div><div class="line">        self.spr:removeFromParent()</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    self.spr = CCNodeExtend.extend(CCGraySprite:<span class="built_in">create</span>(<span class="string">"start.png"</span>))</div><div class="line">        :pos(display.cx, display.cy)</div><div class="line">        :addTo(self)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p>我们新建一个CCGraySprite, 点击按钮后删除再重新创建, 就真的看不见了!</p>
 <p>起初我们猜测是因为删除后立刻创建的问题, 在加了定时器后依然如此, 排除!</p>
 <p>然后我们去看CCGraySprite的实现, 既然第二次创建会出现问题, 那么很可能是init的实现有问题, CCGraySprite 的实现最终都会调用 initWithTexture</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CCGLProgram* pProgram = CCShaderCache::sharedShaderCache()-&gt;programForKey(kCCShader_PositionTextureGray);</span><br><span class="line">setShaderProgram(pProgram);</span><br><span class="line">CHECK_GL_ERROR_DEBUG();</span><br><span class="line"></span><br><span class="line"><span class="comment">//为渲染的顶点流增加属性（顶点属性： position, texCoord, color, normal 等）</span></span><br><span class="line">getShaderProgram()-&gt;addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);</span><br><span class="line">getShaderProgram()-&gt;addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);</span><br><span class="line">getShaderProgram()-&gt;addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);</span><br><span class="line">CHECK_GL_ERROR_DEBUG();</span><br><span class="line"></span><br><span class="line"><span class="comment">//链接生成shaderProgram，初始化完毕后调用生成才能够在程序中使用 </span></span><br><span class="line">getShaderProgram()-&gt;link();</span><br><span class="line">CHECK_GL_ERROR_DEBUG();</span><br><span class="line"></span><br><span class="line"><span class="comment">//更新2dx自带的几个uniform 值（使之与shader中的变量值同步）</span></span><br><span class="line">getShaderProgram()-&gt;updateUniforms();</span><br><span class="line">CHECK_GL_ERROR_DEBUG();</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">CCGLProgram* pProgram = CCShaderCache::sharedShaderCache()-&gt;programForKey(kCCShader_PositionTextureGray);</div><div class="line">setShaderProgram(pProgram);</div><div class="line">CHECK_GL_ERROR_DEBUG();</div><div class="line"></div><div class="line"><span class="comment">//为渲染的顶点流增加属性（顶点属性： position, texCoord, color, normal 等）</span></div><div class="line">getShaderProgram()-&gt;addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);</div><div class="line">getShaderProgram()-&gt;addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);</div><div class="line">getShaderProgram()-&gt;addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);</div><div class="line">CHECK_GL_ERROR_DEBUG();</div><div class="line"></div><div class="line"><span class="comment">//链接生成shaderProgram，初始化完毕后调用生成才能够在程序中使用 </span></div><div class="line">getShaderProgram()-&gt;link();</div><div class="line">CHECK_GL_ERROR_DEBUG();</div><div class="line"></div><div class="line"><span class="comment">//更新2dx自带的几个uniform 值（使之与shader中的变量值同步）</span></div><div class="line">getShaderProgram()-&gt;updateUniforms();</div><div class="line">CHECK_GL_ERROR_DEBUG();</div></pre></td></tr></table></figure>
 <p>因为在<code>CCShaderCache::loadDefaultShader</code>中看到过一样的代码, 就怀疑是因为<strong>多次初始化</strong>的原因. 经过排查, 将</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getShaderProgram()-&gt;link();</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">getShaderProgram()-&gt;link();</div></pre></td></tr></table></figure>
 <p>这行代码注释掉之后成功! 附图:</p>
 <p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1enoa7sayraj20tu0lkjsq.jpg" alt=""></p>
 <p>(EOF)</p>
 
-  </div>
-</article>
-
-
-
-    </div>
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+	  </div>
     
-      <div id="footer-post-container">
-  <div id="footer-post">
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: 'Quick-Cocos2d-x CCGraySprite 消失坑 (已更新解决方案)',
+		tools: true
+	}
+</script>
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
+      </div>
+      <aside class='l_side'>
         
-      </ul>
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='/favicon/slogon.gif' />
+
+<div class='header'>justbilt</div>
+<div class='content'>
+<div class='desc'>"Only learning can make me happy"</div>
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 15px; color: #6b6b6b">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 15px; color: #6b6b6b">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 15px; color: #6b6b6b">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 15px; color: #6b6b6b">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 19px; color: #151515">Tool</a> <a href="/tags/blog/" style="font-size: 15px; color: #6b6b6b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18px; color: #2b2b2b">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 15px; color: #6b6b6b">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15px; color: #6b6b6b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 15px; color: #6b6b6b">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 15px; color: #6b6b6b">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19px; color: #151515">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 16px; color: #555">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 16px; color: #555">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 15px; color: #6b6b6b">优化</a> <a href="/tags/年结/" style="font-size: 17px; color: #404040">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 16px; color: #555">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 19px; color: #151515">游戏心得</a> <a href="/tags/生活/" style="font-size: 15px; color: #6b6b6b">生活</a> <a href="/tags/音效/" style="font-size: 15px; color: #6b6b6b">音效</a>
     </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update_12_u670820_u65E5_3A"><span class="toc-number">1.</span> <span class="toc-text">Update 12月20日:</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&text=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&is_video=false&description=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=quickx CCGraySprite 消失坑 (已更新解决方案)&body=Check out this article: http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&title=quickx CCGraySprite 消失坑 (已更新解决方案)"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/&name=quickx CCGraySprite 消失坑 (已更新解决方案)&description=&lt;p&gt;前几天团队中小A遇到了一个非常诡异的问题, 特此记录一下.&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-      <ul>
-        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
-        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
-        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
-      </ul>
-    </div>
-
-  </div>
 </div>
 
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/justbilt" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://weibo.com/justbilt" class="social weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-weibo"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
     
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2017 justbilt
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="http://github.com/justbilt">Projects</a></li>
-         
-          <li><a href="/atom.xml">Feed</a></li>
-        
-      </ul>
-    </nav>
-  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
 </footer>
 
+
+  <script>setLoadingBarProgress(80);</script>
+  
+<script>
+  var disqus_shortname = 'justbilt';
+  
+  var disqus_url = 'http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css" type="text/css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css" type="text/css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-69555091-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-
