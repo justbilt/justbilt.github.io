@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-07-16T01:14:38.000Z</updated>
+  <updated>2017-07-16T09:30:53.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>最近搞 iOS 版遇到的一些问题和技巧 (五)</title>
+    <link href="http://blog.justbilt.com/2017/07/16/ios-dev-tips-5/"/>
+    <id>http://blog.justbilt.com/2017/07/16/ios-dev-tips-5/</id>
+    <published>2017-07-16T03:36:20.000Z</published>
+    <updated>2017-07-16T09:30:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这段时间又积攒下了不少的技巧和解决方案, 感觉 XCode 越来越牛逼了, 尤其是在应用的账号设置方面, 之前遇到的一些低级问题可能已经不复存在了.</p>
+<a id="more"></a>
+<h1 id="此应用在未来的-iOS-版本下将无法使用"><a href="#此应用在未来的-iOS-版本下将无法使用" class="headerlink" title="此应用在未来的 iOS 版本下将无法使用"></a>此应用在未来的 iOS 版本下将无法使用</h1><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fhlkn3of4wj316y0p4aku.jpg" alt=""></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>发生这个问题的原因就是应用没有支持 arm64 CPU 架构, 不同的CPU架构对应的设备如下:</p>
+<blockquote>
+<p>arm64：iPhone6s | iphone6s plus｜iPhone6｜ iPhone6 plus｜iPhone5S | iPad Air｜ iPad mini2(iPad mini with Retina Display)<br>armv7s：iPhone5｜iPhone5C｜iPad4(iPad with Retina Display)<br>armv7：iPhone4｜iPhone4S｜iPad｜iPad2｜iPad3(The New iPad)｜iPad mini｜iPod Touch 3G｜iPod Touch4</p>
+</blockquote>
+<p>一般出现这个问题, 很有可能是 <strong>XCode Architectures 设置或导出包的方式有问题</strong>:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fhlkyqgvv0j30jy02odg2.jpg" alt=""></p>
+<p>这里面有两个地方需要关注一下: <code>Build Avtive Architecture Only</code> 和 <code>Vaild Architectures</code>, 前者是为了加速真机运行的速度, 一般 debug 会设置为 YES, release 版会设置为 NO; 后者是应用所支持的 CPU 架构.</p>
+<p>所以我们必须得保证 Vaild Architectures 中有 arm64, 并且打包出 release 版才可以, 我们遇到这个问题的原因是打包同学使用了 debug 版的 app 做成 ipa 安装包的原因.</p>
+<hr>
+<h1 id="clang-error-no-such-file-or-directory-‘XXX’"><a href="#clang-error-no-such-file-or-directory-‘XXX’" class="headerlink" title="clang: error: no such file or directory: ‘XXX’"></a>clang: error: no such file or directory: ‘XXX’</h1><p>造成这个错误的原因有好多, 这次的报错极其诡异, 连系统库都会报找不到.</p>
+<h2 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>经过排查, 发现是 <code>Other Link Flag</code> 中有一个单行的 <code>-force_laod</code>, 估计是删除的时候少删了一行.</p>
+<hr>
+<h1 id="XCode-真机调试安装失败-提示证书过期"><a href="#XCode-真机调试安装失败-提示证书过期" class="headerlink" title="XCode 真机调试安装失败, 提示证书过期"></a>XCode 真机调试安装失败, 提示证书过期</h1><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fhllu9g2m4j30ad03r3yo.jpg" alt=""></p>
+<h2 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>真机调试的时候一般使用的是开发证书, 开发证书可以有很多个, 在钥匙串中找到过期的证书删掉就可以啦, XCode 会自动匹配一个没有过期的证书.</p>
+<hr>
+<h1 id="导出-dis-包出错-IDEDistributionErrorDomain-error-3"><a href="#导出-dis-包出错-IDEDistributionErrorDomain-error-3" class="headerlink" title="导出 dis 包出错, IDEDistributionErrorDomain error 3"></a>导出 dis 包出错, IDEDistributionErrorDomain error 3</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: exportArchive: The operation couldn’t be completed. (IDEDistributionErrorDomain error 3.)</div><div class="line">Error Domain=IDEDistributionErrorDomain Code=3 <span class="string">"(null)"</span> UserInfo=&#123;IDEDistributionErrorSigningIdentityToItemToUnderlyingErrorKey=&#123;&#125;</div></pre></td></tr></table></figure>
+<h2 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>其实就是证书和 Provisioning Profiles 没有匹配上, 很有可能是其他小伙伴 revoke 了你的 dis 证书.</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fhlmmvhb27j30ud0jajth.jpg" alt=""></p>
+<p>去 <a href="https://developer.apple.com/account/ios/profile/" target="_blank" rel="external">苹果开发者中心</a> 查看对应的 Profiles 的 status 是否正常, 修改完后下载运行一下, 然后重新导出就好了.</p>
+<hr>
+<h1 id="沙盒测试-此时没有权限在Sandbox购买此InApp"><a href="#沙盒测试-此时没有权限在Sandbox购买此InApp" class="headerlink" title="沙盒测试: 此时没有权限在Sandbox购买此InApp"></a>沙盒测试: 此时没有权限在Sandbox购买此InApp</h1><p>其实描述的很清晰, 这个沙盒账号不是你这个应用的, 请仔细检查一下.</p>
+<h2 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>更换正确的沙盒测试账号.</p>
+<hr>
+<h1 id="QQ-一键加群跳转过去后群不正确"><a href="#QQ-一键加群跳转过去后群不正确" class="headerlink" title="QQ: 一键加群跳转过去后群不正确"></a>QQ: 一键加群跳转过去后群不正确</h1><p>检查 LSApplicationQueriesSchemes 中是否有 <code>mqqapi</code>:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fhlmr1lvfkj30y00bcgno.jpg" alt=""></p>
+<h2 id="解决方案-5"><a href="#解决方案-5" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>如果没有的话添加一个就好啦.</p>
+<hr>
+<h1 id="导出-dev-包出错-IDEDistributionErrorDomain-Code-14"><a href="#导出-dev-包出错-IDEDistributionErrorDomain-Code-14" class="headerlink" title="导出 dev 包出错, IDEDistributionErrorDomain Code=14"></a>导出 dev 包出错, IDEDistributionErrorDomain Code=14</h1><p>查看终端日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/Users/justbilt/.rvm/bin/rvm: line 66: shell_session_update: command not found</div><div class="line">+ xcodebuild -exportArchive -exportOptionsPlist /Users/justbilt/Documents/work/easy_slg_client/frameworks/runtime-src/proj.ios_mac/ios_export_dev.plist -archivePath /Users/justbilt/Documents/work/easy_slg_client/.build/yile.guopan-1.4.0.f592c19533-0607170734.xcarchive -exportPath /Users/justbilt/Documents/work/easy_slg_client/.build/0607192643399129</div><div class="line">2017-06-07 19:26:43.906 xcodebuild[4724:25032817] [MT] PluginLoading: Required plug-in compatibility UUID E0A62D1F-3C18-4D74-BFE5-A4167D643966 for plug-in at path &apos;~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/XAlign.xcplugin&apos; not present in DVTPlugInCompatibilityUUIDs</div><div class="line">2017-06-07 19:26:44.068 xcodebuild[4724:25032817] [MT] IDEDistribution: -[IDEDistributionLogging _createLoggingBundleAtPath:]: Created bundle at path &apos;/var/folders/ff/wpytbgmd3rl1pn9dd02nbjc80000gn/T/guopan_2017-06-07_19-26-44.068.xcdistributionlogs&apos;.</div><div class="line">2017-06-07 19:26:58.844 xcodebuild[4724:25032817] [MT] IDEDistribution: Step failed: &lt;IDEDistributionThinningStep: 0x7fb80e6cb860&gt;: Error Domain=IDEDistributionErrorDomain Code=14 &quot;No applicable devices found.&quot; UserInfo=&#123;NSLocalizedDescription=No applicable devices found.&#125;</div><div class="line">error: exportArchive: No applicable devices found.</div></pre></td></tr></table></figure>
+<p>找到其中的 xcdistributionlogs 日志文件路径:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/var/folders/ff/wpytbgmd3rl1pn9dd02nbjc80000gn/T/guopan_2017-06-07_19-26-44.068.xcdistributionlogs</div></pre></td></tr></table></figure>
+<p>在 IDEDistribution.standard.log 文件中可以找到真正的错误原因:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">guopan.app/guopan arm64 -&gt;</div><div class="line">error: Info.plist of “guopan.app/heepayImage.bundle” specifies a non-existent file for the CFBundleExecutable key</div><div class="line">error: Info.plist of “guopan.app/walletResources.bundle/Contents” specifies a non-existent file for the CFBundleExecutable key</div><div class="line">2017-06-07 11:08:24 +0000  Validating IPA structure...</div><div class="line">2017-06-07 11:08:24 +0000 [MT] /Applications/Xcode.app/Contents/Developer/usr/bin/ipatool exited with 1</div><div class="line">2017-06-07 11:08:24 +0000 [MT] ipatool JSON: &#123;</div><div class="line">    alerts =     (</div><div class="line">                &#123;</div><div class="line">            code = 0;</div><div class="line">            description = &quot;Info.plist of \U201cguopan.app/heepayImage.bundle\U201d specifies a non-existent file for the CFBundleExecutable key&quot;;</div><div class="line">            info =             &#123;</div><div class="line">            &#125;;</div><div class="line">            level = ERROR;</div><div class="line">            type = &quot;malformed-payload&quot;;</div><div class="line">        &#125;,</div><div class="line">                &#123;</div><div class="line">            code = 0;</div><div class="line">            description = &quot;Info.plist of \U201cguopan.app/walletResources.bundle/Contents\U201d specifies a non-existent file for the CFBundleExecutable key&quot;;</div><div class="line">            info =             &#123;</div><div class="line">            &#125;;</div><div class="line">            level = ERROR;</div><div class="line">            type = &quot;malformed-payload&quot;;</div><div class="line">        &#125;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="解决方案-6"><a href="#解决方案-6" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>可以看到这里有两个 Error, 意思就是这两个 .bundle 中的 <code>Info.plist</code> 中的 key <code>CFBundleExecutable</code> 字段指定了一个不存在的文件, 这个指定其实没有啥用, 我们删掉它就可以了. </p>
+<p>用 Sublime 打开这个 plist, 删除下面这两行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;key&gt;CFBundleExecutable&lt;/key&gt;</div><div class="line">&lt;string&gt;xxx&lt;/string&gt;</div></pre></td></tr></table></figure>
+<p>如果你打开的文件是一团乱码, 那么这个文件应 2进制 形式的 plist, 我们可以用一个命令行工具把它转化为 xml 形式的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plutil -convert xml1 xxx/heepayImage.bundle/Info.plist</div></pre></td></tr></table></figure>
+<p>然后删除掉.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      万一遇上了呢?
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
+    
+      <category term="iOS-Dev-Tips" scheme="http://blog.justbilt.com/tags/iOS-Dev-Tips/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 Electron 重写 convert2fnt</title>
@@ -175,9 +239,9 @@
     </summary>
     
     
-      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
-    
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
+    
+      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
     
       <category term="IAP" scheme="http://blog.justbilt.com/tags/IAP/"/>
     
@@ -482,9 +546,9 @@
     </summary>
     
     
-      <category term="git" scheme="http://blog.justbilt.com/tags/git/"/>
-    
       <category term="neat-freak" scheme="http://blog.justbilt.com/tags/neat-freak/"/>
+    
+      <category term="git" scheme="http://blog.justbilt.com/tags/git/"/>
     
   </entry>
   
@@ -530,11 +594,11 @@
     </summary>
     
     
+      <category term="blog" scheme="http://blog.justbilt.com/tags/blog/"/>
+    
       <category term="duoshuo" scheme="http://blog.justbilt.com/tags/duoshuo/"/>
     
       <category term="comment" scheme="http://blog.justbilt.com/tags/comment/"/>
-    
-      <category term="blog" scheme="http://blog.justbilt.com/tags/blog/"/>
     
   </entry>
   
@@ -1203,11 +1267,11 @@
     </summary>
     
     
+      <category term="code-style" scheme="http://blog.justbilt.com/tags/code-style/"/>
+    
       <category term="neat-freak" scheme="http://blog.justbilt.com/tags/neat-freak/"/>
     
       <category term="Lua" scheme="http://blog.justbilt.com/tags/Lua/"/>
-    
-      <category term="code-style" scheme="http://blog.justbilt.com/tags/code-style/"/>
     
   </entry>
   
@@ -1318,9 +1382,9 @@
     </summary>
     
     
-      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
-    
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
+    
+      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
     
   </entry>
   
@@ -1378,68 +1442,9 @@
     </summary>
     
     
-      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
-    
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
     
-  </entry>
-  
-  <entry>
-    <title>cocos2d-x 优化游戏资源体积</title>
-    <link href="http://blog.justbilt.com/2016/05/08/compress-res/"/>
-    <id>http://blog.justbilt.com/2016/05/08/compress-res/</id>
-    <published>2016-05-08T11:57:07.000Z</published>
-    <updated>2017-03-12T01:22:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一-删除无用资源"><a href="#一-删除无用资源" class="headerlink" title="一. 删除无用资源"></a>一. 删除无用资源</h1><p>在我们版本迭代的过程中, 总有一些图片被废弃掉, 如果当时忘记删除的话, 久而久之也就忘记了. 如果在上线前不做一次整理的话, 它们就会残存在你的资源中, 浪费包的体积.</p>
-<p>为避免这种情况, 我们可以做的是:</p>
-<h2 id="1-废弃的图片一定要及时删除"><a href="#1-废弃的图片一定要及时删除" class="headerlink" title="1. 废弃的图片一定要及时删除"></a>1. 废弃的图片一定要及时删除</h2><h2 id="2-编写废弃资源查找工具"><a href="#2-编写废弃资源查找工具" class="headerlink" title="2. 编写废弃资源查找工具"></a>2. 编写废弃资源查找工具</h2><p>可以用到的系统命令是 <code>ack</code>, 我们可以通过 <code>brew install ack</code> 安装, 使用的效果:</p>
-<p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f3upxy29uej20iy083gna.jpg" alt=""></p>
-<p>关于 ack 的更多用法请<a href="http://beyondgrep.com/documentation/" target="_blank" rel="external">移步这里</a>.</p>
-<h1 id="二-使用替代对象"><a href="#二-使用替代对象" class="headerlink" title="二. 使用替代对象"></a>二. 使用替代对象</h1><h2 id="1-使用9图"><a href="#1-使用9图" class="headerlink" title="1. 使用9图"></a>1. 使用9图</h2><p>大家都知道图片在拉伸的过程中会失真, 那么如何避免这个情况呢? 使用9图. </p>
-<p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f3uqafyaevj206t04mjrj.jpg" alt=""></p>
-<p>注: 配图来自<a href="http://mux.baidu.com/?p=1506" target="_blank" rel="external">http://mux.baidu.com/?p=1506</a></p>
-<p>这样我们就可以将一张很大的图缩小到很小, 然后使用9图拉伸, 起到节省资源的目的. 9图在 cocos 中的对象是 <code>Scale9Sprite</code>, 具体用法可以参考<a href="http://shahdza.blog.51cto.com/2410787/1543284" target="_blank" rel="external">这篇文章</a>.</p>
-<h2 id="2-通过修改色调实现资源复用"><a href="#2-通过修改色调实现资源复用" class="headerlink" title="2. 通过修改色调实现资源复用"></a>2. 通过修改色调实现资源复用</h2><p>知乎上有一篇问题讲的就是这个:<br><a href="https://www.zhihu.com/question/31133351" target="_blank" rel="external">拳皇中的人物变色是如何实现的？</a><br><a href="http://daily.zhihu.com/story/4797855" target="_blank" rel="external">知乎日报上的这篇</a></p>
-<p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f3uqjn3tz0j20ig08at9r.jpg" alt=""></p>
-<p>cocos2d-x 版由 <a href="https://fusijie.github.io/2015/05/27/sprite-with-hue/" target="_blank" rel="external">@偶尔e网事</a> 大神实现, 对应的对象是 <code>SpriteWithHue</code>, 目前已经默认集成到了 cocos2d-x 中.</p>
-<p>这样我们就可以将原来只是色调差异的图片用程序来实现啦~</p>
-<h2 id="3-使用平铺"><a href="#3-使用平铺" class="headerlink" title="3. 使用平铺"></a>3. 使用平铺</h2><p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f3ur1pd7j5j20m8069tbd.jpg" alt=""></p>
-<p>注: 配图来自<a href="http://bullteacher.com/7-textures.html" target="_blank" rel="external">http://bullteacher.com/7-textures.html</a></p>
-<p>游戏中的有些图片完全可以通过平铺实现, 这样的话我们就可以让美术只出一个平铺单元的图片,在程序中去实现平铺.</p>
-<p>首先, 平铺的这个功能是 opengl 层面就支持的, 详情大家可以<a href="http://bullteacher.com/7-textures.html" target="_blank" rel="external">移步这里</a>, cocos2d-x 中实现平铺很简单:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 首先, 使用平铺单元图片创建一个精灵</span></div><div class="line"><span class="keyword">local</span> sprite = cc.Sprite:<span class="built_in">create</span>(<span class="string">"your_repeat_image.png"</span>)</div><div class="line"><span class="comment">-- 然后, 设置纹理参数</span></div><div class="line">sprite:getTexture():setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.REPEAT)</div><div class="line"><span class="comment">-- 最后, 将这个精灵的纹理矩形设置为我们想要的大小</span></div><div class="line">sprite:setTextureRect(cc.rect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1024</span>,<span class="number">1024</span>))</div></pre></td></tr></table></figure>
-<blockquote>
-<p>注意:　平铺单元图片的尺寸只能是2的幂</p>
-</blockquote>
-<h1 id="三-压缩"><a href="#三-压缩" class="headerlink" title="三. 压缩"></a>三. 压缩</h1><h2 id="1-无损压缩"><a href="#1-无损压缩" class="headerlink" title="1. 无损压缩"></a>1. 无损压缩</h2><p>无损压缩还是十分值得推荐的, 它的原理知乎上<a href="https://www.zhihu.com/question/23752454" target="_blank" rel="external">这个答案</a>讲的很清晰, 我节选其中的关键文字:</p>
-<blockquote>
-<p>1.核心原理很简单，通俗的解释一下，就是由于PNG格式的灵活性，他可以有很多种方式表示同一张图片，不同方式有时就会导致文件大小不一样…<br>2.还有一点是PNG采用的是deflate算法，也非常的灵活，他的压缩率和encoder的实现有关，不同的encoder使用的时间，压缩出来的大小都不一样…<br>3.当然除了上面这两点是真正的无损压缩以外，还有减小PNG文件大小的方式就是去除一些对图片本身没有任何影响的metadata…</p>
-</blockquote>
-<p>所以无损压缩纯粹是单方面的受益, <strong>是一定要做的</strong>.</p>
-<p>我们无损压缩主要用到的工具: <a href="https://imageoptim.com/mac" target="_blank" rel="external">ImageOptim</a></p>
-<h2 id="2-有损压缩"><a href="#2-有损压缩" class="headerlink" title="2. 有损压缩"></a>2. 有损压缩</h2><p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1f3uvav83k9j20g707fabp.jpg" alt=""></p>
-<p>有损压缩会损失一部分的图片质量, 但带来的受益还是十分可观的. 这是一个抉择的过程, 以最小的代价获取最大的受益, 甚至不能批量处理, 可能需要一张一张的人肉对比压缩.</p>
-<p>我们有损压缩主要用到的工具: <a href="http://ppduck.com/" target="_blank" rel="external">PP鸭</a></p>
-<h1 id="四-选择正确的图片格式"><a href="#四-选择正确的图片格式" class="headerlink" title="四. 选择正确的图片格式"></a>四. 选择正确的图片格式</h1><h2 id="1-将无-alpha-通道的-png-图片存储为-jpg"><a href="#1-将无-alpha-通道的-png-图片存储为-jpg" class="headerlink" title="1. 将无 alpha 通道的 png 图片存储为 jpg"></a>1. 将无 alpha 通道的 png 图片存储为 jpg</h2><h2 id="2-选用压缩率更高的图片格式"><a href="#2-选用压缩率更高的图片格式" class="headerlink" title="2. 选用压缩率更高的图片格式"></a>2. 选用压缩率更高的图片格式</h2><h1 id="五-其他"><a href="#五-其他" class="headerlink" title="五. 其他"></a>五. 其他</h1><h2 id="1-圆形图片只使用-1-4"><a href="#1-圆形图片只使用-1-4" class="headerlink" title="1. 圆形图片只使用 1/4"></a>1. 圆形图片只使用 1/4</h2><p>然后在程序中翻转3次,得到其他角度的图片. 一般会用在图片尺寸特别大的场景. </p>
-<p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f3uvnfb31aj20hd09v74p.jpg" alt=""></p>
-<p>如上图, 我们游戏中一个全屏幕的雷达就是通过这个方案减少图片体积的.</p>
-<h2 id="2-缩小图片"><a href="#2-缩小图片" class="headerlink" title="2. 缩小图片"></a>2. 缩小图片</h2><p>将展示精度不强的图片(比如: 游戏背景上的小装饰, 爆炸的序列帧)缩小, 在程序中放大. </p>
-<h2 id="3-特殊方案分离png的透明通道"><a href="#3-特殊方案分离png的透明通道" class="headerlink" title="3. 特殊方案分离png的透明通道"></a>3. 特殊方案分离png的透明通道</h2><p><a href="http://www.cocoachina.com/bbs/read.php?tid-201144.html" target="_blank" rel="external">用jpg和黑白色png作为遮罩实现透明</a><br><a href="http://blog.csdn.net/dawn_moon/article/details/8631783" target="_blank" rel="external">用shader使图片背景透明</a><br><a href="http://www.cnblogs.com/elang/p/4104452.html" target="_blank" rel="external">cocos2dx中使用JPG图和只带Alpha的PNG图合成渲染</a></p>
-<p>我们之前曾经采取过其中的一个方案, 将一张 png 图片拆分为 jpg+alpha.png 的形式, 整体的包体小了近 25% , 不过也带来的其他的一些副作用.</p>
-<p>建议大家使用这类黑科技前一定要做好调研和测试用例, 评估一下实际的收益.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      优化资源体积是一个旷日持久的战役, 那我们从哪里入手呢? 
-    
-    </summary>
-    
-    
-      <category term="游戏心得" scheme="http://blog.justbilt.com/tags/%E6%B8%B8%E6%88%8F%E5%BF%83%E5%BE%97/"/>
-    
-      <category term="优化" scheme="http://blog.justbilt.com/tags/%E4%BC%98%E5%8C%96/"/>
+      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
     
   </entry>
   

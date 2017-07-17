@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title><![CDATA[最近搞 iOS 版遇到的一些问题和技巧 (五)]]></title>
+      <url>http://blog.justbilt.com/2017/07/16/ios-dev-tips-5/</url>
+      <content type="html"><![CDATA[<p>这段时间又积攒下了不少的技巧和解决方案, 感觉 XCode 越来越牛逼了, 尤其是在应用的账号设置方面, 之前遇到的一些低级问题可能已经不复存在了.</p>
+<a id="more"></a>
+<h1 id="此应用在未来的-iOS-版本下将无法使用"><a href="#此应用在未来的-iOS-版本下将无法使用" class="headerlink" title="此应用在未来的 iOS 版本下将无法使用"></a>此应用在未来的 iOS 版本下将无法使用</h1><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fhlkn3of4wj316y0p4aku.jpg" alt=""></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>发生这个问题的原因就是应用没有支持 arm64 CPU 架构, 不同的CPU架构对应的设备如下:</p>
+<blockquote>
+<p>arm64：iPhone6s | iphone6s plus｜iPhone6｜ iPhone6 plus｜iPhone5S | iPad Air｜ iPad mini2(iPad mini with Retina Display)<br>armv7s：iPhone5｜iPhone5C｜iPad4(iPad with Retina Display)<br>armv7：iPhone4｜iPhone4S｜iPad｜iPad2｜iPad3(The New iPad)｜iPad mini｜iPod Touch 3G｜iPod Touch4</p>
+</blockquote>
+<p>一般出现这个问题, 很有可能是 <strong>XCode Architectures 设置或导出包的方式有问题</strong>:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fhlkyqgvv0j30jy02odg2.jpg" alt=""></p>
+<p>这里面有两个地方需要关注一下: <code>Build Avtive Architecture Only</code> 和 <code>Vaild Architectures</code>, 前者是为了加速真机运行的速度, 一般 debug 会设置为 YES, release 版会设置为 NO; 后者是应用所支持的 CPU 架构.</p>
+<p>所以我们必须得保证 Vaild Architectures 中有 arm64, 并且打包出 release 版才可以, 我们遇到这个问题的原因是打包同学使用了 debug 版的 app 做成 ipa 安装包的原因.</p>
+<hr>
+<h1 id="clang-error-no-such-file-or-directory-‘XXX’"><a href="#clang-error-no-such-file-or-directory-‘XXX’" class="headerlink" title="clang: error: no such file or directory: ‘XXX’"></a>clang: error: no such file or directory: ‘XXX’</h1><p>造成这个错误的原因有好多, 这次的报错极其诡异, 连系统库都会报找不到.</p>
+<h2 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>经过排查, 发现是 <code>Other Link Flag</code> 中有一个单行的 <code>-force_laod</code>, 估计是删除的时候少删了一行.</p>
+<hr>
+<h1 id="XCode-真机调试安装失败-提示证书过期"><a href="#XCode-真机调试安装失败-提示证书过期" class="headerlink" title="XCode 真机调试安装失败, 提示证书过期"></a>XCode 真机调试安装失败, 提示证书过期</h1><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fhllu9g2m4j30ad03r3yo.jpg" alt=""></p>
+<h2 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>真机调试的时候一般使用的是开发证书, 开发证书可以有很多个, 在钥匙串中找到过期的证书删掉就可以啦, XCode 会自动匹配一个没有过期的证书.</p>
+<hr>
+<h1 id="导出-dis-包出错-IDEDistributionErrorDomain-error-3"><a href="#导出-dis-包出错-IDEDistributionErrorDomain-error-3" class="headerlink" title="导出 dis 包出错, IDEDistributionErrorDomain error 3"></a>导出 dis 包出错, IDEDistributionErrorDomain error 3</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: exportArchive: The operation couldn’t be completed. (IDEDistributionErrorDomain error 3.)</div><div class="line">Error Domain=IDEDistributionErrorDomain Code=3 <span class="string">"(null)"</span> UserInfo=&#123;IDEDistributionErrorSigningIdentityToItemToUnderlyingErrorKey=&#123;&#125;</div></pre></td></tr></table></figure>
+<h2 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>其实就是证书和 Provisioning Profiles 没有匹配上, 很有可能是其他小伙伴 revoke 了你的 dis 证书.</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fhlmmvhb27j30ud0jajth.jpg" alt=""></p>
+<p>去 <a href="https://developer.apple.com/account/ios/profile/" target="_blank" rel="external">苹果开发者中心</a> 查看对应的 Profiles 的 status 是否正常, 修改完后下载运行一下, 然后重新导出就好了.</p>
+<hr>
+<h1 id="沙盒测试-此时没有权限在Sandbox购买此InApp"><a href="#沙盒测试-此时没有权限在Sandbox购买此InApp" class="headerlink" title="沙盒测试: 此时没有权限在Sandbox购买此InApp"></a>沙盒测试: 此时没有权限在Sandbox购买此InApp</h1><p>其实描述的很清晰, 这个沙盒账号不是你这个应用的, 请仔细检查一下.</p>
+<h2 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>更换正确的沙盒测试账号.</p>
+<hr>
+<h1 id="QQ-一键加群跳转过去后群不正确"><a href="#QQ-一键加群跳转过去后群不正确" class="headerlink" title="QQ: 一键加群跳转过去后群不正确"></a>QQ: 一键加群跳转过去后群不正确</h1><p>检查 LSApplicationQueriesSchemes 中是否有 <code>mqqapi</code>:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fhlmr1lvfkj30y00bcgno.jpg" alt=""></p>
+<h2 id="解决方案-5"><a href="#解决方案-5" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>如果没有的话添加一个就好啦.</p>
+<hr>
+<h1 id="导出-dev-包出错-IDEDistributionErrorDomain-Code-14"><a href="#导出-dev-包出错-IDEDistributionErrorDomain-Code-14" class="headerlink" title="导出 dev 包出错, IDEDistributionErrorDomain Code=14"></a>导出 dev 包出错, IDEDistributionErrorDomain Code=14</h1><p>查看终端日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/Users/justbilt/.rvm/bin/rvm: line 66: shell_session_update: command not found</div><div class="line">+ xcodebuild -exportArchive -exportOptionsPlist /Users/justbilt/Documents/work/easy_slg_client/frameworks/runtime-src/proj.ios_mac/ios_export_dev.plist -archivePath /Users/justbilt/Documents/work/easy_slg_client/.build/yile.guopan-1.4.0.f592c19533-0607170734.xcarchive -exportPath /Users/justbilt/Documents/work/easy_slg_client/.build/0607192643399129</div><div class="line">2017-06-07 19:26:43.906 xcodebuild[4724:25032817] [MT] PluginLoading: Required plug-in compatibility UUID E0A62D1F-3C18-4D74-BFE5-A4167D643966 for plug-in at path &apos;~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/XAlign.xcplugin&apos; not present in DVTPlugInCompatibilityUUIDs</div><div class="line">2017-06-07 19:26:44.068 xcodebuild[4724:25032817] [MT] IDEDistribution: -[IDEDistributionLogging _createLoggingBundleAtPath:]: Created bundle at path &apos;/var/folders/ff/wpytbgmd3rl1pn9dd02nbjc80000gn/T/guopan_2017-06-07_19-26-44.068.xcdistributionlogs&apos;.</div><div class="line">2017-06-07 19:26:58.844 xcodebuild[4724:25032817] [MT] IDEDistribution: Step failed: &lt;IDEDistributionThinningStep: 0x7fb80e6cb860&gt;: Error Domain=IDEDistributionErrorDomain Code=14 &quot;No applicable devices found.&quot; UserInfo=&#123;NSLocalizedDescription=No applicable devices found.&#125;</div><div class="line">error: exportArchive: No applicable devices found.</div></pre></td></tr></table></figure>
+<p>找到其中的 xcdistributionlogs 日志文件路径:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/var/folders/ff/wpytbgmd3rl1pn9dd02nbjc80000gn/T/guopan_2017-06-07_19-26-44.068.xcdistributionlogs</div></pre></td></tr></table></figure>
+<p>在 IDEDistribution.standard.log 文件中可以找到真正的错误原因:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">guopan.app/guopan arm64 -&gt;</div><div class="line">error: Info.plist of “guopan.app/heepayImage.bundle” specifies a non-existent file for the CFBundleExecutable key</div><div class="line">error: Info.plist of “guopan.app/walletResources.bundle/Contents” specifies a non-existent file for the CFBundleExecutable key</div><div class="line">2017-06-07 11:08:24 +0000  Validating IPA structure...</div><div class="line">2017-06-07 11:08:24 +0000 [MT] /Applications/Xcode.app/Contents/Developer/usr/bin/ipatool exited with 1</div><div class="line">2017-06-07 11:08:24 +0000 [MT] ipatool JSON: &#123;</div><div class="line">    alerts =     (</div><div class="line">                &#123;</div><div class="line">            code = 0;</div><div class="line">            description = &quot;Info.plist of \U201cguopan.app/heepayImage.bundle\U201d specifies a non-existent file for the CFBundleExecutable key&quot;;</div><div class="line">            info =             &#123;</div><div class="line">            &#125;;</div><div class="line">            level = ERROR;</div><div class="line">            type = &quot;malformed-payload&quot;;</div><div class="line">        &#125;,</div><div class="line">                &#123;</div><div class="line">            code = 0;</div><div class="line">            description = &quot;Info.plist of \U201cguopan.app/walletResources.bundle/Contents\U201d specifies a non-existent file for the CFBundleExecutable key&quot;;</div><div class="line">            info =             &#123;</div><div class="line">            &#125;;</div><div class="line">            level = ERROR;</div><div class="line">            type = &quot;malformed-payload&quot;;</div><div class="line">        &#125;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="解决方案-6"><a href="#解决方案-6" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>可以看到这里有两个 Error, 意思就是这两个 .bundle 中的 <code>Info.plist</code> 中的 key <code>CFBundleExecutable</code> 字段指定了一个不存在的文件, 这个指定其实没有啥用, 我们删掉它就可以了. </p>
+<p>用 Sublime 打开这个 plist, 删除下面这两行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;key&gt;CFBundleExecutable&lt;/key&gt;</div><div class="line">&lt;string&gt;xxx&lt;/string&gt;</div></pre></td></tr></table></figure>
+<p>如果你打开的文件是一团乱码, 那么这个文件应 2进制 形式的 plist, 我们可以用一个命令行工具把它转化为 xml 形式的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plutil -convert xml1 xxx/heepayImage.bundle/Info.plist</div></pre></td></tr></table></figure>
+<p>然后删除掉.</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> iOS-Dev-Tips </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[使用 Electron 重写 convert2fnt]]></title>
       <url>http://blog.justbilt.com/2017/07/09/convert2fnt-electron-rewrite/</url>
       <content type="html"><![CDATA[<p>大概是 14 年 2 月份的时候, 我使用刚学会 Python 写了一个小工具: <a href="https://github.com/justbilt/convert2fnt" target="_blank" rel="external">convert2fnt</a>, 为此还写了一篇文章 <a href="/2014/02/01/images_to_bmfont/">将一堆图片转化为BMFont工具</a> 介绍这个工具. 它的主要应用场景是这个样子的:</p>
@@ -145,9 +203,9 @@
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> Quick-Cocos2d-x </tag>
+            
+            <tag> iOS </tag>
             
             <tag> IAP </tag>
             
@@ -424,9 +482,9 @@
         
         <tags>
             
-            <tag> git </tag>
-            
             <tag> neat-freak </tag>
+            
+            <tag> git </tag>
             
         </tags>
         
@@ -464,11 +522,11 @@
         
         <tags>
             
+            <tag> blog </tag>
+            
             <tag> duoshuo </tag>
             
             <tag> comment </tag>
-            
-            <tag> blog </tag>
             
         </tags>
         
@@ -1077,11 +1135,11 @@
         
         <tags>
             
+            <tag> code-style </tag>
+            
             <tag> neat-freak </tag>
             
             <tag> Lua </tag>
-            
-            <tag> code-style </tag>
             
         </tags>
         
@@ -1180,9 +1238,9 @@
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> Quick-Cocos2d-x </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -1234,9 +1292,9 @@
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> Quick-Cocos2d-x </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -1914,11 +1972,11 @@
         
         <tags>
             
+            <tag> code-style </tag>
+            
             <tag> neat-freak </tag>
             
             <tag> Tool </tag>
-            
-            <tag> code-style </tag>
             
             <tag> FAlign </tag>
             
@@ -3825,15 +3883,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://blog.justbilt.com/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>http://blog.justbilt.com/links/index.html</url>
-      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="external">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="external">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="external">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="external">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="external">http://qipa.world/</a></p>
+      <title><![CDATA[关于]]></title>
+      <url>http://blog.justbilt.com/about/index.html</url>
+      <content type="html"><![CDATA[<p>我是 bilt, 发音应该类似于 “biu油特” , 这个单词最开始是我自造的, 现在如果你词典去查的话, 会有一个 <strong>总胆红素</strong> 的意思. 因为这个单词比较短, 所以我一般会在前面加一个 just , 这样合起来就是 <code>justbilt</code> 了.</p>
+<p><img src="/favicon/logo.png" alt=""></p>
 ]]></content>
     </entry>
     
@@ -4998,10 +5051,15 @@ a.gitment-editor-footer-tip:hover {
     </entry>
     
     <entry>
-      <title><![CDATA[关于]]></title>
-      <url>http://blog.justbilt.com/about/index.html</url>
-      <content type="html"><![CDATA[<p>我是 bilt, 发音应该类似于 “biu油特” , 这个单词最开始是我自造的, 现在如果你词典去查的话, 会有一个 <strong>总胆红素</strong> 的意思. 因为这个单词比较短, 所以我一般会在前面加一个 just , 这样合起来就是 <code>justbilt</code> 了.</p>
-<p><img src="/favicon/logo.png" alt=""></p>
+      <title><![CDATA[tags]]></title>
+      <url>http://blog.justbilt.com/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>http://blog.justbilt.com/links/index.html</url>
+      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="external">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="external">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="external">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="external">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="external">http://qipa.world/</a></p>
 ]]></content>
     </entry>
     
