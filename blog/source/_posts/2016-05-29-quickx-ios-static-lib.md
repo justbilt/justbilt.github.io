@@ -129,6 +129,6 @@ Quick-Cocos2d-x 项目的 iOS 工程使用 `Tgarget Dependencise` 依赖 `cocos2
   [1]: http://static.zybuluo.com/justbilt/i0vtatej9k1wx2d9ck8fmqhy/QQ20160529-0.png
   [2]: http://www.nicnocquee.com/2016/01/20/build-cocos2d-x-fat-static-library.html
   [3]: https://gist.github.com/nicnocquee/9dc4c4a128d7c0bafe23#file-buildstaticlib-sh
-  [4]: https://gist.github.com/justbilt/903ef34b568527d57c9bd9bf4069ed72
+  [4]: https://gist.github.com/justbilt/e84e3e83984dd0ad4e005525b7bc1033
   [5]: http://static.zybuluo.com/justbilt/3d9eiua1tind8aycakjwymgl/QQ20160529-1.png
   [6]: http://static.zybuluo.com/justbilt/5g1o6ozh1j4dlybcjftfybnr/QQ20160529-3.png
