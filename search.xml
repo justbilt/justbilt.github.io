@@ -4,6 +4,87 @@
   
     
     <entry>
+      <title><![CDATA[聊聊 Google 支付的那些事]]></title>
+      <url>http://blog.justbilt.com/2017/07/23/integrate-google-iab/</url>
+      <content type="html"><![CDATA[<p>在之前的文章中, 有很多篇都是很 Apple IAP 相关的, 而 Google IAB 的却一篇都没有, 这对于占了半壁江山的 Android 很不公平.</p>
+<p>就作为一个开发者而言, IAB 的体验是比 IAP 要好的. 它体现在这么几个方面:</p>
+<ol>
+<li>测试账号就是 Goolge 账号, 不像苹果那样是沙盒账号. 这样不同账号下的应用可以设置同一个测试账号, 避免来回切换账号.</li>
+<li>支持退款查询. 在苹果上, 只能吃了这个哑巴亏.</li>
+</ol>
+<p>但是 IAB 也有一些不太便利的地方, 后面我们会讨论它.</p>
+<a id="more"></a>
+<h1 id="一-集成"><a href="#一-集成" class="headerlink" title="一. 集成"></a>一. 集成</h1><p>IAB 本身提供了一些列的 <a href="https://developer.android.com/google/play/billing/billing_reference.html" target="_blank" rel="external">API</a> 去实现购买, 一次典型的购买流程是这个样子的:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fhtste5cqlj30fn0fkta9.jpg" alt=""></p>
+<p>这里面有一些细节我们其实是可以不用知道的, 所以我们使用了一个二次封装的库<a href="https://github.com/anjlab/android-inapp-billing-v3" target="_blank" rel="external">android-inapp-billing-v3</a>去实现. 使用了这个库后, 实现内购变得很简单:</p>
+<h2 id="1-添加监听"><a href="#1-添加监听" class="headerlink" title="1. 添加监听"></a>1. 添加监听</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line"></div><div class="line">    bp = <span class="keyword">new</span> BillingProcessor(context, <span class="string">"IAB_LICENSE_KEY"</span>, <span class="keyword">new</span> BillingProcessor.IBillingHandler() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProductPurchased</span><span class="params">(String productId, TransactionDetails details)</span> </span>&#123;</div><div class="line">            <span class="comment">// 购买成功</span></div><div class="line">            Log.d(<span class="string">"message:"</span>, details.purchaseInfo.responseData);</div><div class="line">            Log.d(<span class="string">"signature:"</span>, details.purchaseInfo.signature);</div><div class="line">            Log.d(<span class="string">"productid:"</span>, productId);</div><div class="line">        &#125;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBillingError</span><span class="params">(<span class="keyword">int</span> errorCode, Throwable error)</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (errorCode == Constants.BILLING_RESPONSE_RESULT_USER_CANCELED)&#123;</div><div class="line">                <span class="comment">// 购买取消</span></div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            String reason = <span class="string">"UNKNOWN_ERROR"</span>;</div><div class="line">            <span class="keyword">if</span> (mErrorCodeReason.containsKey(errorCode)) &#123;</div><div class="line">                reason = mErrorCodeReason.get(errorCode);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 购买失败</span></div><div class="line">            Log.d(<span class="string">"buy failure: "</span>, reason);</div><div class="line">        &#125;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBillingInitialized</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="comment">// 初始化成功</span></div><div class="line">        &#125;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPurchaseHistoryRestored</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="comment">// 恢复内购</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-处理购买结果"><a href="#2-处理购买结果" class="headerlink" title="2. 处理购买结果"></a>2. 处理购买结果</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, data);</div><div class="line">    <span class="keyword">return</span> bp.handleActivityResult(requestCode, resultCode, data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-购买商品"><a href="#3-购买商品" class="headerlink" title="3. 购买商品"></a>3. 购买商品</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bp.purchase(<span class="keyword">this</span>, <span class="string">"android.test.purchased"</span>);</div></pre></td></tr></table></figure>
+<h2 id="4-消耗商品"><a href="#4-消耗商品" class="headerlink" title="4. 消耗商品"></a>4. 消耗商品</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bp.consumePurchase(productId);</div></pre></td></tr></table></figure>
+<h1 id="二-测试"><a href="#二-测试" class="headerlink" title="二. 测试"></a>二. 测试</h1><h2 id="1-使用静态响应进行测试"><a href="#1-使用静态响应进行测试" class="headerlink" title="1. 使用静态响应进行测试"></a>1. 使用静态响应进行测试</h2><p>IAB 默认提供了一系列的商品作为测试商品, 这些商品和应用及商品无关, 我们可以使用这些商品来测试充值功能是否集成成功和服务器签名验证是否正确.</p>
+<p>详情可以参考 <a href="https://developer.android.com/google/play/billing/billing_testing.html#billing-testing-static" target="_blank" rel="external">这篇 Google 官方文档</a>.</p>
+<h2 id="2-使用真实交易进行测试"><a href="#2-使用真实交易进行测试" class="headerlink" title="2. 使用真实交易进行测试"></a>2. 使用真实交易进行测试</h2><p>在项目上线前, 我们需要测试下应用内的商品处理是否正常, 所以要使用真实的环境来测试. 要达到这个目的, 我们需要进行一些列的操作才可以达到.</p>
+<ul>
+<li>正确创建商品并与项目关联.</li>
+<li>Google Play 后台已经上传并发布了一个 Bata/Alpha 版本.</li>
+<li>使用和 Google Play 后台已经发布的应用相同的签名和版本打包出来的应用.</li>
+<li>在 Google Play 后台添加<a href="https://developer.android.com/google/play/billing/billing_admin.html#billing-testing-setup" target="_blank" rel="external">测试账号</a>.</li>
+<li>确认应用的发布地区有这个测试账号的所在地区.</li>
+<li>确保测试用手机安装了谷歌服务框架, 开启翻墙并登陆了上面添加的测试账号.</li>
+</ul>
+<p>这只是其中一部分需求, 还有一些原因会导致你无法正确测试充值.</p>
+<h1 id="三-常见错误及解决方案"><a href="#三-常见错误及解决方案" class="headerlink" title="三. 常见错误及解决方案"></a>三. 常见错误及解决方案</h1><h2 id="1-需要验证身份-您需要登录自己-Google-账号"><a href="#1-需要验证身份-您需要登录自己-Google-账号" class="headerlink" title="1. 需要验证身份. 您需要登录自己 Google 账号"></a>1. 需要验证身份. 您需要登录自己 Google 账号</h2><p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fhtuer58r3j30ik09igm5.jpg" alt=""></p>
+<p>解决方案:</p>
+<blockquote>
+<p>商品id不正确, 请检查下购买时传入的商品 id 和 Google Play 后台是否一致</p>
+</blockquote>
+<h2 id="2-此版本的应用未配置为通过-Google-Play-结算"><a href="#2-此版本的应用未配置为通过-Google-Play-结算" class="headerlink" title="2. 此版本的应用未配置为通过 Google Play 结算."></a>2. 此版本的应用未配置为通过 Google Play 结算.</h2><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fhtuhz9vy0j30r80ds759.jpg" alt=""></p>
+<p>解决方案:</p>
+<blockquote>
+<p>可能在测试账号所在的区没有包含在应用的发售地区中, 请检查配置, 修改后需要耐心等待生效.</p>
+</blockquote>
+<h2 id="3-您所要求的项目目前无法购买"><a href="#3-您所要求的项目目前无法购买" class="headerlink" title="3. 您所要求的项目目前无法购买."></a>3. 您所要求的项目目前无法购买.</h2><p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fhtukfl8ilj30rn0ge3zj.jpg" alt=""></p>
+<p>解决方案:</p>
+<blockquote>
+<p>可能是应用版本不正确的原因, 请与 Google Play 后台的测试版本应用对应的版本号对比.</p>
+</blockquote>
+<p>Ps. 这个是很早之前的一个错误, 貌似 Google 目前已经不再检查版本号这个属性了.</p>
+<h2 id="4-从服务器检索信息出错-DF-DIC-02"><a href="#4-从服务器检索信息出错-DF-DIC-02" class="headerlink" title="4. 从服务器检索信息出错.[DF-DIC-02]"></a>4. 从服务器检索信息出错.[DF-DIC-02]</h2><p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fhtuo2rcywj30ds08fq3a.jpg" alt=""></p>
+<blockquote>
+<p>可能是商品 id 不正确或者支付逻辑错误导致传入了错误的商品 id, 详细原因可以移步我知乎上的<a href="https://www.zhihu.com/question/26935519/answer/182780390" target="_blank" rel="external">这个回答</a></p>
+</blockquote>
+<h2 id="5-添加测试账号"><a href="#5-添加测试账号" class="headerlink" title="5. 添加测试账号"></a>5. 添加测试账号</h2><p>测试账号分为两种:</p>
+<ol>
+<li>下载测试账号列表<ol>
+<li>如果应用处于未发布的状态, 只有这个列表中的用户可以充值</li>
+</ol>
+</li>
+<li>充值测试账号列表<ol>
+<li>这个列表中的用户可以免费充值</li>
+</ol>
+</li>
+</ol>
+<p>测试充值这两个缺一不可.</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>IAB 最麻烦的地方就是它的测试充值, 原因在于它的错误提示不是 “人话”, 这个只能靠我们的丰富经验来解决了.</p>
+<p>参考资料:</p>
+<ol>
+<li><a href="http://blog.csdn.net/n5/article/details/50705745" target="_blank" rel="external">http://blog.csdn.net/n5/article/details/50705745</a></li>
+<li><a href="https://developer.android.com/google/play/billing/index.html" target="_blank" rel="external">https://developer.android.com/google/play/billing/index.html</a></li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> IAB </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[最近搞 iOS 版遇到的一些问题和技巧 (五)]]></title>
       <url>http://blog.justbilt.com/2017/07/16/ios-dev-tips-5/</url>
       <content type="html"><![CDATA[<p>这段时间又积攒下了不少的技巧和解决方案, 感觉 XCode 越来越牛逼了, 尤其是在应用的账号设置方面, 之前遇到的一些低级问题可能已经不复存在了.</p>
@@ -817,7 +898,22 @@
 </blockquote>
 <p>这篇文章已经是关于 untp 的第三篇文章了, 所有的文章列表可以<a href="/tags/untp">查看这里</a>. 下面我来讲讲 untp 最近的几次更新以及后续的一个维护计划.</p>
 <a id="more"></a>
-<h1 id="一-更新"><a href="#一-更新" class="headerlink" title="一. 更新"></a>一. 更新</h1><h2 id="1-0-5"><a href="#1-0-5" class="headerlink" title="1.0.5"></a>1.0.5</h2><ol>
+<h1 id="一-更新"><a href="#一-更新" class="headerlink" title="一. 更新"></a>一. 更新</h1><h2 id="1-0-9"><a href="#1-0-9" class="headerlink" title="1.0.9"></a>1.0.9</h2><ol>
+<li>修复: 解析 plist 时因为数据中含有空白符号导致解析失败的 bug</li>
+</ol>
+<h2 id="1-0-8"><a href="#1-0-8" class="headerlink" title="1.0.8"></a>1.0.8</h2><ol>
+<li>新增: 支持 cocos2d-0.99.4 格式支持</li>
+</ol>
+<h2 id="1-0-7"><a href="#1-0-7" class="headerlink" title="1.0.7"></a>1.0.7</h2><ol>
+<li>修复: 解析文件返回值错误导致解析失败</li>
+</ol>
+<h2 id="1-0-6"><a href="#1-0-6" class="headerlink" title="1.0.6"></a>1.0.6</h2><ol>
+<li>新增: 可以将 fnt 转化为图片</li>
+<li>修复: 将 pvr 转化为 png 时会污染原始目录</li>
+<li>修复: 当 plist 中的图片含有路径时无法正确生成图片</li>
+<li>修复: 当 offset 为 float 值时解析 plist 出错</li>
+</ol>
+<h2 id="1-0-5"><a href="#1-0-5" class="headerlink" title="1.0.5"></a>1.0.5</h2><ol>
 <li>拆解单个文件时支持 <code>-o</code> 参数指定输出目录</li>
 <li>可以在 <code>python</code> 中 <code>import</code></li>
 <li>支持 cocos2d/cocos2d-x v3 格式</li>
@@ -1254,7 +1350,7 @@
 <p>这样子在 iOS Archive 时会重新编译这两个项目, 十分痛苦, 尤其是一次出七八个渠道的包, 好几个小时就耗在里面了.</p>
 <p>为什么不用静态库, 编译出 .a , 使用时直接链接就可以了嘛.</p>
 <h1 id="一-编译静态库"><a href="#一-编译静态库" class="headerlink" title="一. 编译静态库"></a>一. 编译静态库</h1><p>找了一下, 原来早已经有小伙伴想到了这点, 这篇文章 <a href="http://www.nicnocquee.com/2016/01/20/build-cocos2d-x-fat-static-library.html" target="_blank" rel="external">Build cocos2d-x fat static library</a> 就特别棒. 从中我们可以发现一个特别有用的脚本 <a href="https://gist.github.com/nicnocquee/9dc4c4a128d7c0bafe23#file-buildstaticlib-sh" target="_blank" rel="external">buildstaticlib.sh</a>, 可以直接使用 xcode 工程编译出静态库.</p>
-<p>不过这个脚本只能编译出 <code>Release</code> 版, 我修改下可以传入 <code>configuration</code>, 这样我们可以分别编译出 Debug 和 Release 版的静态库啦, 我修改后的<a href="https://gist.github.com/justbilt/903ef34b568527d57c9bd9bf4069ed72" target="_blank" rel="external">文件在这里</a>.</p>
+<p>不过这个脚本只能编译出 <code>Release</code> 版, 我修改下可以传入 <code>configuration</code>, 这样我们可以分别编译出 Debug 和 Release 版的静态库啦, 我修改后的<a href="https://gist.github.com/justbilt/e84e3e83984dd0ad4e005525b7bc1033" target="_blank" rel="external">文件在这里</a>.</p>
 <p>因为我们要编译出多个静态库, 所有又写了另一个脚本 <code>build.sh</code> 调用 <code>buildstaticlib.sh</code> , 内容如下:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj <span class="string">"libluacocos2d iOS"</span> <span class="string">"Release"</span></div><div class="line"></div><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/build/cocos2d_libs.xcodeproj <span class="string">"libcocos2d iOS"</span> <span class="string">"Release"</span></div><div class="line"></div><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj <span class="string">"libluacocos2d iOS"</span> <span class="string">"Debug"</span></div><div class="line"></div><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/build/cocos2d_libs.xcodeproj <span class="string">"libcocos2d iOS"</span> <span class="string">"Debug"</span></div></pre></td></tr></table></figure>
 <p>运行成功后会在当前目录生成 4 个 .a 文件, 下一步中将会用到.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── build.sh</div><div class="line">├── buildstaticlib.sh</div><div class="line">├── libcocos2d\ iOS-debug.a</div><div class="line">├── libcocos2d\ iOS.a</div><div class="line">├── libluacocos2d\ iOS-debug.a</div><div class="line">└── libluacocos2d\ iOS.a</div></pre></td></tr></table></figure></p>
@@ -5051,16 +5147,16 @@ a.gitment-editor-footer-tip:hover {
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://blog.justbilt.com/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>http://blog.justbilt.com/links/index.html</url>
       <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="external">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="external">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="external">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="external">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="external">http://qipa.world/</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://blog.justbilt.com/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   

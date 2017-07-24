@@ -139,6 +139,41 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2017/02/24/some-change-for-blog/">
+        最近博客的一些变化
+      </a>
+    </h2>
+    
+    <time>
+      2月 24, 2017
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>虽然最近博客的产量不高, 但是折腾的比较多. 而且每次折腾完都会有一些新的素材, 这样又可以对付一篇博客出来啦. 逃)</p>
+
+    
+	  <div class="readmore">
+      <a href="/2017/02/24/some-change-for-blog/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/blog/">blog</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2017/02/18/my-2016/">
         充实而又愉快的 2016
       </a>
@@ -639,77 +674,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/05/29/quickx-ios-static-lib/">
-        Quick-cocos2d-x 使用静态库加速 iOS 打包
-      </a>
-    </h2>
-    
-    <time>
-      5月 29, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>Quick-Cocos2d-x 项目的 iOS 工程使用 <code>Tgarget Dependencise</code> 依赖 <code>cocos2d_lib</code> 和 <code>cocos_lua_bindings</code> 工程.</p>
-<p><img src="http://static.zybuluo.com/justbilt/i0vtatej9k1wx2d9ck8fmqhy/QQ20160529-0.png" alt="QQ20160529-0.png-27kB"></p>
-<p>这样子在 iOS Archive 时会重新编译这两个项目, 十分痛苦, 尤其是一次出七八个渠道的包, 好几个小时就耗在里面了.</p>
-<p>为什么不用静态库, 编译出 .a , 使用时直接链接就可以了嘛.</p>
-<h1 id="一-编译静态库"><a href="#一-编译静态库" class="headerlink" title="一. 编译静态库"></a>一. 编译静态库</h1><p>找了一下, 原来早已经有小伙伴想到了这点, 这篇文章 <a href="http://www.nicnocquee.com/2016/01/20/build-cocos2d-x-fat-static-library.html" target="_blank" rel="external">Build cocos2d-x fat static library</a> 就特别棒. 从中我们可以发现一个特别有用的脚本 <a href="https://gist.github.com/nicnocquee/9dc4c4a128d7c0bafe23#file-buildstaticlib-sh" target="_blank" rel="external">buildstaticlib.sh</a>, 可以直接使用 xcode 工程编译出静态库.</p>
-<p>不过这个脚本只能编译出 <code>Release</code> 版, 我修改下可以传入 <code>configuration</code>, 这样我们可以分别编译出 Debug 和 Release 版的静态库啦, 我修改后的<a href="https://gist.github.com/justbilt/903ef34b568527d57c9bd9bf4069ed72" target="_blank" rel="external">文件在这里</a>.</p>
-<p>因为我们要编译出多个静态库, 所有又写了另一个脚本 <code>build.sh</code> 调用 <code>buildstaticlib.sh</code> , 内容如下:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj <span class="string">"libluacocos2d iOS"</span> <span class="string">"Release"</span></div><div class="line"></div><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/build/cocos2d_libs.xcodeproj <span class="string">"libcocos2d iOS"</span> <span class="string">"Release"</span></div><div class="line"></div><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj <span class="string">"libluacocos2d iOS"</span> <span class="string">"Debug"</span></div><div class="line"></div><div class="line">./buildstaticlib.sh <span class="variable">$QUICK_V3_ROOT</span>/build/cocos2d_libs.xcodeproj <span class="string">"libcocos2d iOS"</span> <span class="string">"Debug"</span></div></pre></td></tr></table></figure>
-<p>运行成功后会在当前目录生成 4 个 .a 文件, 下一步中将会用到.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── build.sh</div><div class="line">├── buildstaticlib.sh</div><div class="line">├── libcocos2d\ iOS-debug.a</div><div class="line">├── libcocos2d\ iOS.a</div><div class="line">├── libluacocos2d\ iOS-debug.a</div><div class="line">└── libluacocos2d\ iOS.a</div></pre></td></tr></table></figure></p>
-<h1 id="二-使用静态库"><a href="#二-使用静态库" class="headerlink" title="二. 使用静态库"></a>二. 使用静态库</h1><p>使用 XCode 打开 <code>proj.ios_mac</code> 目录下的 <code>xxx.xcodeproj</code> 工程.</p>
-<h2 id="1-移除-Tgarget-Dependencise"><a href="#1-移除-Tgarget-Dependencise" class="headerlink" title="1. 移除 Tgarget Dependencise"></a>1. 移除 Tgarget Dependencise</h2><p>首先移除对 <code>cocos2d_lib</code> 和 <code>cocos_lua_bindings</code> 工程的依赖, 右键点击 <code>Delete</code> 然后选择 <code>Remove reference</code> 就可以.</p>
-<p><img src="http://static.zybuluo.com/justbilt/3d9eiua1tind8aycakjwymgl/QQ20160529-1.png" alt="QQ20160529-1.png-49.2kB"></p>
-<h2 id="2-添加-Other-Linker-Flags"><a href="#2-添加-Other-Linker-Flags" class="headerlink" title="2. 添加 Other Linker Flags"></a>2. 添加 Other Linker Flags</h2><p>我们静态库的依赖是在这里添加的, 在 Debug 和 Release 选项中分别加入对应的静态库.<br><img src="http://static.zybuluo.com/justbilt/5g1o6ozh1j4dlybcjftfybnr/QQ20160529-3.png" alt="QQ20160529-3.png-117.8kB"></p>
-<p>这样就完成啦, 尝试一下 Archive 的速度吧 !</p>
-<h1 id="三-其他"><a href="#三-其他" class="headerlink" title="三. 其他"></a>三. 其他</h1><h2 id="1-调试环境与生产环境"><a href="#1-调试环境与生产环境" class="headerlink" title="1. 调试环境与生产环境"></a>1. 调试环境与生产环境</h2><p>我们改成静态库后, 调试 cocos 引擎的代码会多有不便, 而且一旦修改了 cocos 的代码, 就得重新生成静态库, 对于开发阶段太不友好了.</p>
-<p>我们的解决方案, 就是再建立一个 debug 工程, 这个工程依旧使用依赖项目的方式编译 cocos , 调试流程和以前一致. 上线打包时则使用我们的静态库版本, 多渠道也做在这个工程中, 享受静态库带来的编译加速.</p>
-<p>最终我们的目录结构是这个样子的:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── runtime-src</div><div class="line">│   ├── Classes</div><div class="line">│   ├── proj.android</div><div class="line">│   ├── proj.android_no_anysdk</div><div class="line">│   ├── proj.android_studio</div><div class="line">│   ├── proj.ios_mac</div><div class="line">│   ├── proj.win32</div><div class="line">│   └── proj.wp8-xaml</div><div class="line">└── runtime-src-debug</div><div class="line">    ├── Classes</div><div class="line">    └── proj.ios_mac</div></pre></td></tr></table></figure>
-<h2 id="2-生产环境工程瘦身"><a href="#2-生产环境工程瘦身" class="headerlink" title="2. 生产环境工程瘦身"></a>2. 生产环境工程瘦身</h2><p>这一步可有可无, 我的代码洁癖又犯了, 所以顺手改了一下. </p>
-<p>这时的生产环境除静态库外的内容和调试环境几乎一致, 然而有一些东西是我们用不到的:</p>
-<ol>
-<li>mac 平台对应的内容</li>
-<li>Classes/runtime 下的内容</li>
-</ol>
-<p>删除这些时改动了 AppDelegate 中的东西, 这也上一步为什么从 <code>runtimes-src</code> 目录复制了一份.</p>
-<h2 id="3-进一步加速编译"><a href="#3-进一步加速编译" class="headerlink" title="3. 进一步加速编译"></a>3. 进一步加速编译</h2><p>这一步我们目前还没有做, 只是一个想法.</p>
-<p>修改完使用静态库后, 编译速度得到了很大的提升, 但还没有达到极致, 因为 quick 特有的 c++ 文件还是以文件形式存在于工程中的. 所有 Archive 的时候还是有一百多个源文件需要编译.</p>
-<p>如果我们能进一步拆分, 新建一个 lib 工程, 将 quick 的源文件添加和依赖项目添加进去, 我们的游戏只依赖这样的一个静态库, 是否可以达到一个极致的编译速度 ?</p>
-<h2 id="4-静态库文件的版本管理"><a href="#4-静态库文件的版本管理" class="headerlink" title="4. 静态库文件的版本管理"></a>4. 静态库文件的版本管理</h2><p>在编译出 debug 版的静态库之前, 我还有想法将这几个静态库压缩上传到 git 上, 编译出 debug 版之后, 我就一个想法, ignore them !</p>
-<p>所以我最终的策略 将这几个 .a 在 git 上忽略掉, 同时在那个目录保留了一个编译脚本, 谁要用到 iOS 项目的时候, 发现没有 .a , 自己运行脚本编译一份就可以啦 !</p>
-<h2 id="5-编译脚本优化"><a href="#5-编译脚本优化" class="headerlink" title="5. 编译脚本优化 ?"></a>5. 编译脚本优化 ?</h2><p>现在那个编译脚本会编译出一个 <code>fat</code>(armv7 armv7s arm64 i386 x86_64) 版的静态库, 内部实现其实是编译了好多次, 导致现在编译时间非常长.</p>
-<p>思考:</p>
-<ol>
-<li>是否有必要编出 <code>i386 x86_64</code> 版本 ?</li>
-<li>看到虾神的一篇文章貌似说可以以 armv7+arm64, i386+x86_64 组合两次打出所有版本.</li>
-</ol>
-<h2 id="6-最终-Archive-出的包会比使用源文件大"><a href="#6-最终-Archive-出的包会比使用源文件大" class="headerlink" title="6. 最终 Archive 出的包会比使用源文件大 ?"></a>6. 最终 Archive 出的包会比使用源文件大 ?</h2><p>看到网上有过这个说法, 我没有在修改前后分别 Archive 对比包体, 不太严谨. </p>
-<p>但和我之前某一次的包相比, 只大了几百KB, 还不太确定是不是与使用静态库有关系, 大家在修改时可以注意对比一下.</p>
-
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/iOS/">iOS</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -746,7 +710,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
     </div>
 </div>
 
