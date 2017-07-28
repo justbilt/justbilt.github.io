@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-07-24T22:58:44.000Z</updated>
+  <updated>2017-07-28T01:10:37.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.justbilt.com/2017/07/23/integrate-google-iab/"/>
     <id>http://blog.justbilt.com/2017/07/23/integrate-google-iab/</id>
     <published>2017-07-23T02:20:07.000Z</published>
-    <updated>2017-07-24T22:58:44.000Z</updated>
+    <updated>2017-07-28T01:10:37.000Z</updated>
     
     <content type="html"><![CDATA[<p>在之前的文章中, 有很多篇都是很 Apple IAP 相关的, 而 Google IAB 的却一篇都没有, 这对于占了半壁江山的 Android 很不公平.</p>
 <p>就作为一个开发者而言, IAB 的体验是比 IAP 要好的. 它体现在这么几个方面:</p>
@@ -49,20 +49,20 @@
 <li>确保测试用手机安装了谷歌服务框架, 开启翻墙并登陆了上面添加的测试账号.</li>
 </ul>
 <p>这只是其中一部分需求, 还有一些原因会导致你无法正确测试充值.</p>
-<h1 id="三-常见错误及解决方案"><a href="#三-常见错误及解决方案" class="headerlink" title="三. 常见错误及解决方案"></a>三. 常见错误及解决方案</h1><h2 id="1-需要验证身份-您需要登录自己-Google-账号"><a href="#1-需要验证身份-您需要登录自己-Google-账号" class="headerlink" title="1. 需要验证身份. 您需要登录自己 Google 账号"></a>1. 需要验证身份. 您需要登录自己 Google 账号</h2><p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fhtuer58r3j30ik09igm5.jpg" alt=""></p>
+<h1 id="三-常见错误及解决方案"><a href="#三-常见错误及解决方案" class="headerlink" title="三. 常见错误及解决方案"></a>三. 常见错误及解决方案</h1><h2 id="1-需要验证身份-您需要登录自己-Google-账号"><a href="#1-需要验证身份-您需要登录自己-Google-账号" class="headerlink" title="1. 需要验证身份. 您需要登录自己 Google 账号"></a>1. 需要验证身份. 您需要登录自己 Google 账号</h2><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fhzbhgvtu7j30dw079gmc.jpg" alt=""></p>
 <p>解决方案:</p>
 <blockquote>
 <p>商品id不正确, 请检查下购买时传入的商品 id 和 Google Play 后台是否一致</p>
 </blockquote>
-<h2 id="2-此版本的应用未配置为通过-Google-Play-结算"><a href="#2-此版本的应用未配置为通过-Google-Play-结算" class="headerlink" title="2. 此版本的应用未配置为通过 Google Play 结算."></a>2. 此版本的应用未配置为通过 Google Play 结算.</h2><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fhtuhz9vy0j30r80ds759.jpg" alt=""></p>
+<h2 id="2-此版本的应用未配置为通过-Google-Play-结算"><a href="#2-此版本的应用未配置为通过-Google-Play-结算" class="headerlink" title="2. 此版本的应用未配置为通过 Google Play 结算."></a>2. 此版本的应用未配置为通过 Google Play 结算.</h2><p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fhzbtvd43jj30dw079gmd.jpg" alt=""></p>
 <p>解决方案:</p>
 <blockquote>
 <p>可能在测试账号所在的区没有包含在应用的发售地区中, 请检查配置, 修改后需要耐心等待生效.</p>
 </blockquote>
-<h2 id="3-您所要求的项目目前无法购买"><a href="#3-您所要求的项目目前无法购买" class="headerlink" title="3. 您所要求的项目目前无法购买."></a>3. 您所要求的项目目前无法购买.</h2><p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fhtukfl8ilj30rn0ge3zj.jpg" alt=""></p>
+<h2 id="3-无法购买您要买的商品"><a href="#3-无法购买您要买的商品" class="headerlink" title="3. 无法购买您要买的商品."></a>3. 无法购买您要买的商品.</h2><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fhyskeq0czj30du08caae.jpg" alt=""></p>
 <p>解决方案:</p>
 <blockquote>
-<p>可能是应用版本不正确的原因, 请与 Google Play 后台的测试版本应用对应的版本号对比.</p>
+<p>封闭测试需要点击链接成为测试人员, 连接形式: <code>https://play.google.com/apps/testing/xxx</code></p>
 </blockquote>
 <p>Ps. 这个是很早之前的一个错误, 貌似 Google 目前已经不再检查版本号这个属性了.</p>
 <h2 id="4-从服务器检索信息出错-DF-DIC-02"><a href="#4-从服务器检索信息出错-DF-DIC-02" class="headerlink" title="4. 从服务器检索信息出错.[DF-DIC-02]"></a>4. 从服务器检索信息出错.[DF-DIC-02]</h2><p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fhtuo2rcywj30ds08fq3a.jpg" alt=""></p>
