@@ -139,6 +139,68 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2016/02/14/phone-game-AND-OLgame/">
+        手机游戏攻防(三) 网络游戏
+      </a>
+    </h2>
+    
+    <time>
+      2月 14, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>这篇文章好早就写了, 一直放在草稿箱, 今天整理的时候发现了, 于是修改了一下就发布了出来 !</p>
+<hr>
+<p>前段时间我们的游戏公测了下, 在安全这方面遇到了不少问题, 和大家分享一下.</p>
+<h2 id="1-道具负数卖出"><a href="#1-道具负数卖出" class="headerlink" title="1. 道具负数卖出"></a>1. 道具负数卖出</h2><p>卖出道具是多数游戏都有的一个功能, <strong>那么如果卖出一个负数量的道具呢?</strong> 卖出道具的逻辑可能是这样的:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sell</span><span class="params">(_id, _count)</span></span></div><div class="line">	item_data[_id].count = item_data[_id].count - _count</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>可以看到, 如果不做任何保护的话, 一旦 <code>_count</code> 是负数, 实际会变成<strong>加法</strong>. 我们遇到的第一个问题就是这个, 玩家通过八门神器或烧饼助手修改出售数量为负数, 这样就会变成增加道具. 一般情况下, 游戏后端会拦截住, 返回卖出失败的结果, 但是不巧, 他们也没有做类似的判断. </p>
+<blockquote>
+<p>解决方案:</p>
+</blockquote>
+<p>对于前端来说, 可以粗暴的断言一下, 因为正常肯定不会出现这个情况, 也可以温和的 Alert 一个提示. 如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sell</span><span class="params">(_id, _count)</span></span></div><div class="line">	<span class="keyword">if</span> _count &lt; <span class="number">1</span> <span class="keyword">then</span></div><div class="line">		Alert.new(<span class="string">"卖出道具数量不能小于1"</span>)</div><div class="line">		<span class="keyword">return</span></div><div class="line">	<span class="keyword">end</span></div><div class="line">	item_data[_id].count = item_data[_id].count - _count</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>但这种限制肯定是服务端做的, 毕竟客户端这里只是第一道防线, 中间还有太多的手脚可做 !</p>
+<h2 id="2-游戏加速"><a href="#2-游戏加速" class="headerlink" title="2. 游戏加速"></a>2. 游戏加速</h2><p>烧饼助手有一个游戏加速的功能, 类似于变速齿轮. 可以将游戏加速到十倍甚至百倍的速度, 一般对于网游来说, 真实的时间是服务端来计算的, 客户端的计时只是一个表现. 但是由于我们的战斗模块基本上是离线的, 所以这里在加速的情况下出了问题.</p>
+<p>我们战斗有一个特色就是主公技, 是一系列非常强大的技能. 因此在战斗中会严格控制释放次数, 通过<strong>消耗能量</strong>和<strong>冷却时间</strong>来实现. 正常情况下, 战斗中加速的话整个战斗的节奏就会加快, 因此不会有问题.</p>
+<p>但是不知为何, 我们的人物动作加速到一定倍数后就会停止, 而主公技的能量回复和冷却速度却会无限增大, 因此表现出来的就是主公技可以<strong>无限释放</strong>, 玩家可以轻松挑战数倍强于自己的敌人!</p>
+<p>发现这个问题后, 我和小伙伴们都惊呆了, 原来还可以这样搞!!! </p>
+<blockquote>
+<p>解决方案:</p>
+</blockquote>
+<p>现在我们的解决方案是将主公技的能量回复速度与人物动作联系起来, 这样不至于太变态. 同时加入了战斗的时间限制, 如果加速到10倍以上的, 时间很快会耗尽, 战斗失败! </p>
+<p>但是我想到了一个更好的办法, 能从源头解决这个问题, 就是<strong>对比系统的时间流逝与游戏内的时间流逝速度</strong>. 一般, 变速齿轮只会改你当前游戏的时间, 没法改动系统的时间. 只要我么通过 native 的函数获取原生系统的时间, 一对比就可以发现有木有使用加速了.</p>
+<p>但是目前还没有去实现这个想法, 有机会吧!</p>
+<h2 id="2-socket-抓包-发包"><a href="#2-socket-抓包-发包" class="headerlink" title="2. socket 抓包/发包"></a>2. socket 抓包/发包</h2><p>当看到群里有玩家讨论抓包的时候, 我们都目瞪口呆, 这年头作弊都需要高科技了! 玩家通过截取客户端发送的数据包, 重复发送, 这样可以轻松避开客户端的各种限制, 从而达到作弊的目的.</p>
+<blockquote>
+<p>解决方案:</p>
+</blockquote>
+<p>最终的解决方案还是得靠服务端严谨的逻辑来避免, 各种检查参数, 检查返回值! 也可以通过设计来避免, 比如每次发送数据包都附加一个 id 属性, 这个 id 会以某种规则增长, 服务端哪里也有一个 id , 对比之后就可以判断是否玩家作弊了 !</p>
+<hr>
+<p>哈哈, 综上所述, 一个有经验的游戏服务端是多麽的重要.</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/游戏心得/">游戏心得</a>
+      
+        <a href="/tags/手机游戏攻防/">手机游戏攻防</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2016/02/11/my-2015/">
         继续进步的 2015
       </a>
@@ -496,45 +558,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2015/05/31/my-2014/">
-        从 C++ 到 lua 的2014
-      </a>
-    </h2>
-    
-    <time>
-      5月 31, 2015
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>2014的年结又晚了好多, 若是用一句话去总结这一年的变化的话, 那就是:</p>
-<blockquote>
-<p>从 C++ 到 lua</p>
-</blockquote>
-<p>大约是元旦的时候, 到了公司 C , 放弃了使用2年多的c++, 搞起了lua, 学习了 quick-cocos2d-x. 这一年工作,生活发生了好多变化, 自己的心态也变化了好多.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2015/05/31/my-2014/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/年结/">年结</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -571,7 +594,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
     </div>
 </div>
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-07-28T01:10:37.000Z</updated>
+  <updated>2017-08-31T23:35:11.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -16,11 +16,74 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>手撸一个像《乱世王者》那样的 WebView</title>
+    <link href="http://blog.justbilt.com/2017/08/25/webview-like-lswz/"/>
+    <id>http://blog.justbilt.com/2017/08/25/webview-like-lswz/</id>
+    <published>2017-08-24T16:45:08.000Z</published>
+    <updated>2017-08-31T23:35:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. </p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fj3pcpg3k8j31kw0xw4qp.jpg" alt=""></p>
+<p>在游戏中更多界面中有几个按钮, 点击后会跳转到 WebView, 如下图:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fj3pou45vcj30af0ijn2s.jpg" alt=""></p>
+<p>这个 WebView 做得很不错呀, 比 Cocos 自带的光秃秃的 WebView 好数倍, 本着从(hou)善(yan)如(wu)流(chi)的人生哲理, 便开始思索着是不是搞到我们的游戏中去? </p>
+<p>那么它是如何实现的呢? 根据多年经验, 从资源入手是最简单的办法了, 拆开乱世王者的 Android 包, 在 res 文件夹中搜索 png, 我们很容易的发现下面这些资源:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fixluudqm1j30yo0jcn3g.jpg" alt=""></p>
+<p>命名都是类似: <code>com_tencent_msdk_webview_left_unclickable.png</code>, 看来是 <code>msdk</code> 里面的一个组件, 我们没有接入 msdk 的计划, 所以没有办法直接调用了. 让我们来分析下这个界面:</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fiy0x704zhj309h0dzmxd.jpg" alt=""></p>
+<p>Cocos 默认提供的 WebView 只有中间部分, 上下是没有的. 这两部分应该是用 Android 写的原生界面, 但是我对 Android 也是一知半解, 写出来估计都是 bug, 还没有办法热更新. </p>
+<p>看着满地的资源, 我不禁陷入了深思. 有了, 是不是只创建出中间尺寸大小的 Webview, 然后用这些图片在 Cocos 中绘制出标题栏和工具栏, 菜单和 WebView 的交互可以用 WebView 提供的 api 来搞. </p>
+<p>粗略看了下 WebView 提供的 api:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canGoBack</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">goBack</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canGoForward</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">goForward</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">reload</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>在加上 <code>removeFromParent</code>, 下方的工具栏是没有问题了. 我们 ui 编辑器使用的是 Cocos Builder, 我很快拼出了效果:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fj110v95r4j31kw1f9127.jpg" alt=""></p>
+<p>下面便是在代码中撸这几个菜单的逻辑了, 这部分还是挺麻烦的, 只要细心一些, 很快也能搞定:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--</span></div><div class="line"><span class="comment">-- Author: wangbilt@gmail.com</span></div><div class="line"><span class="comment">-- Date: 2017-08-21 11:26:18</span></div><div class="line"><span class="comment">--</span></div><div class="line"><span class="keyword">local</span> PageFullscreenWebview = class(<span class="string">"PageFullscreenWebview"</span>, <span class="built_in">require</span>(<span class="string">"app.layout.package.page_fullscreen_webview_layout"</span>))</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:ctor</span><span class="params">()</span></span></div><div class="line">    PageFullscreenWebview.super.ctor(self)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview = ccexp.WebView:<span class="built_in">create</span>()</div><div class="line">    self.webview:setAnchorPoint(cc.p(<span class="number">0</span>, <span class="number">0</span>))</div><div class="line">    self.webview:setScalesPageToFit(<span class="literal">false</span>)</div><div class="line">    self.webview:setContentSize(cc.size(display.width, display.height - self._nodeToolBar:getContentSize().height))</div><div class="line">    self.webview:setPosition(<span class="number">0</span>, self._nodeToolBar:getContentSize().height)</div><div class="line">    self.webview:setOnDidFinishLoading(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">        self:performWithDelay(handler(self,self._loadFinishCallBack), <span class="number">0</span>)</div><div class="line">    <span class="keyword">end</span>)    </div><div class="line">    self:addChild(self.webview)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:loadURL</span><span class="params">(_url, _callback)</span></span></div><div class="line">    self.webview:loadURL(_url)</div><div class="line">    self.on_finish_callback = _callback</div><div class="line">    self._btnRefresh:setVisible(<span class="literal">false</span>)</div><div class="line">    self._btnLeft:setButtonEnabled(<span class="literal">false</span>)</div><div class="line">    self._btnRight:setButtonEnabled(<span class="literal">false</span>)    </div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:_disableToolBar</span><span class="params">()</span></span></div><div class="line">    self._btnLeft:setButtonEnabled(<span class="literal">false</span>)</div><div class="line">    self._btnRight:setButtonEnabled(<span class="literal">false</span>)</div><div class="line">    self._btnRefresh:setVisible(<span class="literal">false</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:_loadFinishCallBack</span><span class="params">(...)</span></span></div><div class="line">    self._btnRefresh:setVisible(<span class="literal">true</span>)</div><div class="line">    self._btnLeft:setButtonEnabled(self.webview:canGoBack())</div><div class="line">    self._btnRight:setButtonEnabled(self.webview:canGoForward())</div><div class="line">    <span class="keyword">if</span> self.on_finish_callback <span class="keyword">then</span></div><div class="line">        self.on_finish_callback()</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClose</span><span class="params">(_callback)</span></span></div><div class="line">    self.on_close_callback = _callback</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickClose</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickClose"</span>,_params.tag, _params.target)</div><div class="line">    self.on_close_callback()</div><div class="line">    self:removeFromParent()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickLeft</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickLeft:"</span>,_params.tag, _params.target)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview:goBack()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickRefresh</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickRefresh:"</span>,_params.tag, _params.target)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview:reload()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickRight</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickRight:"</span>,_params.tag, _params.target)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview:goForward()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:show</span><span class="params">()</span></span></div><div class="line">    display.getRunningScene():addChild(self, <span class="number">10000</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">return</span> PageFullscreenWebview</div></pre></td></tr></table></figure>
+<p>看看实际的效果:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fj11145fcrj30f00qoab6.jpg" alt=""></p>
+<blockquote>
+<p>Ps. 在这之间还遇到了一个bug, 就是在 WebView 出现的时候按 back 键会崩溃, 最终重写 Avtivity 一个空的 <code>onBackPressed</code> 实现解决问题.</p>
+</blockquote>
+<p>是不是足以以假乱真了呢 ? 不要高兴太早, 还有标题,进度条功能没有实现呢. 让我们来分析下这几个功能:</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>看了下 Cocos 提供的 API, 是没有与标题相关的, 只能我们自己去绑定. 那么该如何获取标题呢?</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android:"></a>Android:</h3><p>在 <a href="https://ws4.sinaimg.cn/large/006tNc79ly1fj11145fcrj30f00qoab6.jpg" target="_blank" rel="external">stackoverflow 的这个答案</a> 中找到解决方案:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">WebView mWebView = (WebView) findViewById(R.id.mwebview);</div><div class="line">mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageFinished</span><span class="params">(WebView view, String url)</span> </span>&#123;</div><div class="line">        ExperimentingActivity.<span class="keyword">this</span>.setTitle(view.getTitle());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">webview.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;</div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceivedTitle</span><span class="params">(WebView view, String title)</span> </span>&#123;  </div><div class="line">        <span class="keyword">super</span>.onReceivedTitle(view, title);  </div><div class="line">    &#125; </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS:"></a>iOS:</h3><p>同样, 我们可以很容易的找到 iOS 的<a href="https://stackoverflow.com/a/20059707" target="_blank" rel="external">解决方案</a>:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)webViewDidFinishLoad:(<span class="built_in">UIWebView</span> *)webView&#123;</div><div class="line">    <span class="built_in">NSString</span> *theTitle=[webView stringByEvaluatingJavaScriptFromString:<span class="string">@"document.title"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有了上面代码后, 我们可以很容易的实现获取标题的代码, 比较麻烦的是还需要修改 WebView 的 c++ 部分, 如果最终要在 Lua 中使用的话还需要导出接口.</p>
+<h2 id="进度条"><a href="#进度条" class="headerlink" title="进度条"></a>进度条</h2><h3 id="Android-1"><a href="#Android-1" class="headerlink" title="Android:"></a>Android:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">webview.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> progress)</span>   </span></div><div class="line">    &#123;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="iOS-1"><a href="#iOS-1" class="headerlink" title="iOS"></a>iOS</h3><p>iOS 我找了很久, 貌似是没有办法获取进度的, 只能做一个假的效果:</p>
+<blockquote>
+<p>在开始加载网页的时候启动一个定时器, 让进度条以一个缓慢的速度前进, 收到加载完成的消息时让进度条瞬间移动到终点.</p>
+</blockquote>
+<p>所以, 我们可以分平台实现, 也可以统一代码, 都使用假的进度条.</p>
+<hr>
+<p>经过与 PM 的一番交流后, 一致同意放弃这两个功能. 因为觉得目前的效果还可以, 加上不改动 c++ 就可以热更新上去.</p>
+<p>所以很可惜, 这次没有办法搞彻底了, 下次有机会我们接着搞.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ws1.si
+    
+    </summary>
+    
+    
+      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
+    
+      <category term="WebView" scheme="http://blog.justbilt.com/tags/WebView/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊 Google 支付的那些事</title>
     <link href="http://blog.justbilt.com/2017/07/23/integrate-google-iab/"/>
     <id>http://blog.justbilt.com/2017/07/23/integrate-google-iab/</id>
     <published>2017-07-23T02:20:07.000Z</published>
-    <updated>2017-07-28T01:10:37.000Z</updated>
+    <updated>2017-08-24T16:39:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>在之前的文章中, 有很多篇都是很 Apple IAP 相关的, 而 Google IAB 的却一篇都没有, 这对于占了半壁江山的 Android 很不公平.</p>
 <p>就作为一个开发者而言, IAB 的体验是比 IAP 要好的. 它体现在这么几个方面:</p>
@@ -62,9 +125,22 @@
 <h2 id="3-无法购买您要买的商品"><a href="#3-无法购买您要买的商品" class="headerlink" title="3. 无法购买您要买的商品."></a>3. 无法购买您要买的商品.</h2><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fhyskeq0czj30du08caae.jpg" alt=""></p>
 <p>解决方案:</p>
 <blockquote>
-<p>封闭测试需要点击链接成为测试人员, 连接形式: <code>https://play.google.com/apps/testing/xxx</code></p>
+<ol>
+<li>检查版本号是否与发布应用的版本号一致</li>
+</ol>
 </blockquote>
-<p>Ps. 这个是很早之前的一个错误, 貌似 Google 目前已经不再检查版本号这个属性了.</p>
+<p>Updata: </p>
+<blockquote>
+<p>这个是很早之前的一个错误, 貌似 Google 目前已经不再检查版本号这个属性了.</p>
+<ol>
+<li>确认有没有发布 Beta/Alpha</li>
+<li>如果是封闭测试需要点击链接成为测试人员, 连接形式: <code>https://play.google.com/apps/testing/xxx</code></li>
+</ol>
+</blockquote>
+<p>Update 2017年08月15日:</p>
+<blockquote>
+<p>今天又遇到了这个问题, 什么都没有改, 过了一会突然又好了, 猜想是不是发布之后还需要一段时间才能生效.</p>
+</blockquote>
 <h2 id="4-从服务器检索信息出错-DF-DIC-02"><a href="#4-从服务器检索信息出错-DF-DIC-02" class="headerlink" title="4. 从服务器检索信息出错.[DF-DIC-02]"></a>4. 从服务器检索信息出错.[DF-DIC-02]</h2><p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fhtuo2rcywj30ds08fq3a.jpg" alt=""></p>
 <blockquote>
 <p>可能是商品 id 不正确或者支付逻辑错误导致传入了错误的商品 id, 详细原因可以移步我知乎上的<a href="https://www.zhihu.com/question/26935519/answer/182780390" target="_blank" rel="external">这个回答</a></p>
@@ -516,7 +592,7 @@
 <p>原来这种 http 请求我们是封装了一层的, 这个 <code>POST</code> 和 <code>GET</code> 是通过参数传入的, 外部传入的其实是一个枚举. 然而在我之前的重构中, 修改了这个枚举的名字, 导致传入的值是 nil, 这就导致没有调用 createHTTPRequest 时没有传入 methed 参数, 默认就是 GET 类型的, 因为平台的 http 实现不同, 导致有些平台正常, 有些平台会出错.</p>
 <p>上传头像的内容就是这些.</p>
 <h1 id="三-下载头像"><a href="#三-下载头像" class="headerlink" title="三. 下载头像"></a>三. 下载头像</h1><p>对于这个问题, 我们开始还打算在 c++ 端用 curl 实现, 然后到处到 Lua 这边使用, 直到发现了 HttpClient 的 <code>saveResponseData</code> 接口. 调用了这个接口可以直接把 Response 中的数据保存在本地, 这样下载单个文件就搞定了. 下载代码如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- http下载</span></div><div class="line"><span class="comment">--[[</span></div><div class="line">	@param string _url _url地址</div><div class="line">	@param string _savepath 指定的存储路径</div><div class="line">	@param function _callfunc 下载完成回调方法</div><div class="line">]]</div><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">_download</span><span class="params">(_url, _savepath, _callfunc)</span></span></div><div class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</div><div class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></div><div class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></div><div class="line"></div><div class="line">                <span class="comment">--判断是否下载成功</span></div><div class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></div><div class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</div><div class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></div><div class="line">                	success = <span class="literal">true</span></div><div class="line">                <span class="keyword">end</span></div><div class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></div><div class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</div><div class="line">    req:setTimeout(<span class="number">60</span>)</div><div class="line">    req:start()</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- http下载</span></div><div class="line"><span class="comment">--[[</span></div><div class="line">	@param string _url _url地址</div><div class="line">	@param string _savepath 指定的存储路径</div><div class="line">	@param function _callfunc 下载完成回调方法</div><div class="line">]]</div><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> _download<span class="params">(_url, _savepath, _callfunc)</span></span></div><div class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</div><div class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></div><div class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></div><div class="line"></div><div class="line">                <span class="comment">--判断是否下载成功</span></div><div class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></div><div class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</div><div class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></div><div class="line">                	success = <span class="literal">true</span></div><div class="line">                <span class="keyword">end</span></div><div class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></div><div class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</div><div class="line">    req:setTimeout(<span class="number">60</span>)</div><div class="line">    req:start()</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p>但是整个下载功能呢并没有这么简单, 我们应该考虑到 <code>本地缓存</code>, <code>去重</code>, <code>队列限制</code>等情况, 这样我们可以实现一个通用的下载模块, 不仅仅是为自定义头像功能, 其他的模块也可以使用.</p>
 <h1 id="四-显示头像"><a href="#四-显示头像" class="headerlink" title="四. 显示头像"></a>四. 显示头像</h1><p>这个功能其实很简单了, 为了什么要单独拿出来说呢? 就是我们要实现的很优雅. 自定义头像这个功能可能不是一开始就提出的, 因为改了 Native 层的代码, 所以需要线上换包, 这就比较麻烦了, 所以我们这个模块要和之前的头像保持兼容. </p>
 <p>我们游戏中的显示头像的地方有很多, 我们不能把下载的调用写的到处都是, 比较优雅的做法是实现一个头像控件, 在这个控件内部处理普通头像和自定义头像的逻辑. 为了提高用户体验, 下载的过程中我们可以显示一张替代图或者之前的普通头像.</p>
@@ -1417,82 +1493,6 @@
       <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
     
       <category term="iOS-Dev-Tips" scheme="http://blog.justbilt.com/tags/iOS-Dev-Tips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Quick-cocos2d-x 适配 IPV6</title>
-    <link href="http://blog.justbilt.com/2016/06/19/quickx-ipv6/"/>
-    <id>http://blog.justbilt.com/2016/06/19/quickx-ipv6/</id>
-    <published>2016-06-19T07:39:44.000Z</published>
-    <updated>2017-04-23T04:37:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一-IPV6-是啥"><a href="#一-IPV6-是啥" class="headerlink" title="一. IPV6 是啥 ?"></a>一. IPV6 是啥 ?</h1><p>这两天一个运营的同事跑过来问我:</p>
-<blockquote>
-<p>他: 咱们的游戏适配那啥 VIP6 了么?<br>我: ….</p>
-</blockquote>
-<p>苹果商店在儿童节之后就不允许未适配 IPV6 的应用上架了, IPV6 是啥 ? 需要做些什么呢 ? 看完这两篇文章就明白了:</p>
-<p><a href="http://www.jianshu.com/p/a6bab07c4062" target="_blank" rel="external">iOS应用支持IPV6，就那点事儿</a><br><a href="http://www.jianshu.com/p/69ed4489762c" target="_blank" rel="external">针对苹果最新审核要求为应用兼容IPv6</a></p>
-<p>虽然这两篇文章是针对应用的, 但是从中我们也能了解大概的做法:</p>
-<ol>
-<li>不建议使用底层的网络API</li>
-<li>不要用IP地址</li>
-</ol>
-<h1 id="二-COCOS2D-X-适配-IPV6"><a href="#二-COCOS2D-X-适配-IPV6" class="headerlink" title="二. COCOS2D-X 适配 IPV6"></a>二. COCOS2D-X 适配 IPV6</h1><p>cocos 依赖的三方库涉及到 IPV6 问题的库为 <code>curl</code>, <code>websocket</code>, cocos 自己提供的模块需要适配的有: </p>
-<ol>
-<li>HttpClient</li>
-<li>AssetsManagerEx</li>
-<li>SocketIO</li>
-<li>WebSocket</li>
-<li>Console</li>
-<li>ScriptingCore</li>
-</ol>
-<p>cocos 官方也第一时间适配了 IPV6, 具体内容可以看这篇文章:<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODAxNTM2NA==&amp;mid=2659642350&amp;idx=1&amp;sn=a7db1bb86e965f8408c1687f73b23c7e&amp;scene=1&amp;srcid=0619ztJlty4HuLRBOll0Yr6V&amp;key=18e81ac7415f67c4acff47973e6979565cda32dd8f6c87dca6f733d6e6b4118817536543eb3844b8c890968fdbb06eed&amp;ascene=0&amp;uin=Mjk2MDM0NjgyMA%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1021)&amp;version=11020201&amp;pass_ticket=WECSEWT6jaVZNRKNNwilauFgBa%2FhDiF9DioAiHKmly2CArsnkf%2FQbQJchxVf%2F7bk" target="_blank" rel="external">儿童节后苹果爸爸只爱IPv6 Cocos2d-x第一时间支持</a>, 里面描述的很简单:</p>
-<blockquote>
-<p>如果你需要支持纯IPv6网络，只需要更新CURL和libwebsocket网络。</p>
-</blockquote>
-<p>让我们尝试一下.</p>
-<h2 id="1-下载-cocos2d-x-3rd-party-libs-bin"><a href="#1-下载-cocos2d-x-3rd-party-libs-bin" class="headerlink" title="1. 下载 cocos2d-x-3rd-party-libs-bin"></a>1. 下载 cocos2d-x-3rd-party-libs-bin</h2><p>这一步看似很简单, 实则不然. 你不会想到从 github 上下载一个 100 多 MB 的文件是多麽困难, 为此我花费了近 2个小时的时间.</p>
-<p>我下载的是 99 版的, 解压代用.</p>
-<h2 id="2-更新-curl"><a href="#2-更新-curl" class="headerlink" title="2. 更新 curl"></a>2. 更新 curl</h2><p>拷贝解压出来的文件夹中的 <code>curl</code> 目录到 <code>quick-cocos2d-x/external</code>, 替换原来的 <code>curl</code> 目录.</p>
-<p>打开 xcode, 编译, 发现有 100 多个错误:</p>
-<p><img src="http://static.zybuluo.com/justbilt/6b752pk1bzragqhjgbl2llky/image_1alkfke1vag91ccc1p15179c1jtcm.png" alt="image_1alkfke1vag91ccc1p15179c1jtcm.png-113.9kB"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Undefined symbols for architecture i386:</div><div class="line">  &quot;_ASN1_INTEGER_get&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">  &quot;_ASN1_STRING_data&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">  &quot;_ASN1_STRING_length&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">    ...</div></pre></td></tr></table></figure>
-<p>不要惊慌, 这是因为新版本 curl 多了一些静态库, 我们需要引入它们, 在 XCode 项目输找到 <code>cocos2d_lib &gt; external &gt; curl &gt; ios</code> 目录上右键, 选择 <code>Add Files to &#39;cocos2d_lib.xcodeproj&#39;</code>:</p>
-<p><img src="http://static.zybuluo.com/justbilt/1c0jehn0zxvrj7u3pf2cugam/image_1alkfv73t446cr3sc41r6r1hqj13.png" alt="image_1alkfv73t446cr3sc41r6r1hqj13.png-238.8kB"></p>
-<p>选中 <code>libcrypto.a</code> 和 <code>libssl.a</code>, targets 选择 <code>libcocos2d iOS</code>, 确定, 重新编译, 搞定.</p>
-<h2 id="3-更新-websocket"><a href="#3-更新-websocket" class="headerlink" title="3. 更新 websocket"></a>3. 更新 websocket</h2><blockquote>
-<p>注: 我们项目并没有用到 websocket , 所以这里只是搞到编译通过, 运行时有木有问题就不到知道了!</p>
-</blockquote>
-<p>和 curl 类似, 拷贝 cocos2d-x-3rd-party-libs 中的 <code>websockets</code> 目录到 <code>quick-cocos2d-x/external</code>, 替换原来的 <code>websockets</code> 目录.</p>
-<p>因为最新版的 websockets api 变化挺大, 所以我们需要使用 cocos <a href="https://github.com/cocos2d/cocos2d-x/tree/v3/cocos/network" target="_blank" rel="external">最新的</a> WebSocket.h 和 WebSocket.cpp 替换 quick-cocos2d-x/cocos/network 中的 <code>WebSocket</code> .</p>
-<p>编译, 会有一处错误发生在 <code>WebSocket::WebSocket()</code> 中, 因为 quick 中并没有 <code>Director::EVENT_RESET</code> 消息, 我们注释掉这段代码即可.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="comment">// reserve data buffer to avoid allocate memory frequently</span></div><div class="line">    _receivedData.reserve(WS_RESERVE_RECEIVE_BUFFER_SIZE);</div><div class="line">    <span class="keyword">if</span> (__websocketInstances == <span class="literal">nullptr</span>)</div><div class="line">    &#123;</div><div class="line">        __websocketInstances = <span class="keyword">new</span> (<span class="built_in">std</span>::nothrow) <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;WebSocket*&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    __websocketInstances-&gt;push_back(<span class="keyword">this</span>);</div><div class="line">    </div><div class="line"><span class="comment">//    std::shared_ptr&lt;std::atomic&lt;bool&gt;&gt; isDestroyed = _isDestroyed;</span></div><div class="line"><span class="comment">//    _resetDirectorListener = Director::getInstance()-&gt;getEventDispatcher()-&gt;addCustomEventListener(Director::EVENT_RESET, [this, isDestroyed](EventCustom*)&#123;</span></div><div class="line"><span class="comment">//        if (*isDestroyed)</span></div><div class="line"><span class="comment">//            return;</span></div><div class="line"><span class="comment">//        close();</span></div><div class="line"><span class="comment">//    &#125;);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="三-QUICK-COCOS2D-X-适配-IPV6"><a href="#三-QUICK-COCOS2D-X-适配-IPV6" class="headerlink" title="三. QUICK-COCOS2D-X 适配 IPV6"></a>三. QUICK-COCOS2D-X 适配 IPV6</h1><h2 id="1-如何适配"><a href="#1-如何适配" class="headerlink" title="1. 如何适配"></a>1. 如何适配</h2><p>Quick-Cocos2d-x 中主要是 luasocket 的适配, 适配的方法就是选择性的调用 <code>socket.tcp6()</code> 和 <code>socket.tcp()</code>, udp 也是如此.</p>
-<p>Quick-Cocos2d-x 中调创建 socket 是在 <code>SocketTCP:connect</code> 函数中, 并没有预留 ipv6 参数, 我们需要添加一下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SocketTCP:connect</span><span class="params">(__host, __port, __retryConnectWhenFailure, __ipv6)</span></span></div><div class="line">    <span class="keyword">if</span> __host <span class="keyword">then</span> self.host = __host <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> __port <span class="keyword">then</span> self.port = __port <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> __retryConnectWhenFailure ~= <span class="literal">nil</span> <span class="keyword">then</span> self.isRetryConnect = __retryConnectWhenFailure <span class="keyword">end</span></div><div class="line">    <span class="built_in">assert</span>(self.host <span class="keyword">or</span> self.port, <span class="string">"Host and port are necessary!"</span>)</div><div class="line">    <span class="comment">--printInfo("%s.connect(%s, %d)", self.name, self.host, self.port)</span></div><div class="line">    <span class="keyword">if</span> __ipv6 <span class="keyword">then</span></div><div class="line">        self.tcp = socket.tcp6()</div><div class="line">    <span class="keyword">else</span></div><div class="line">        self.tcp = socket.tcp()</div><div class="line">    <span class="keyword">end</span></div><div class="line">    </div><div class="line">    self.tcp:settimeout(<span class="number">0</span>)</div><div class="line">    ...</div></pre></td></tr></table></figure>
-<p>然后, 如果要连接 ipv6 的服务器的话, <code>__ipv6</code> 值传 <code>true</code> 即可.</p>
-<h2 id="2-如何判断一个服务器是-ipv6-还是-ipv4"><a href="#2-如何判断一个服务器是-ipv6-还是-ipv4" class="headerlink" title="2. 如何判断一个服务器是 ipv6 还是 ipv4"></a>2. 如何判断一个服务器是 ipv6 还是 ipv4</h2><p>lua 中 socket 的 dns 模块提供了一个函数 <code>getaddrinfo</code>, 可以返回一个服务器的 dns 解析结果数组, 其中一个很重要的字段就是 <code>family</code>, 有 <code>inet</code> 和 <code>inet6</code> 两个值可选.</p>
-<p>大家可以运行 <code>dump(socket.dns.getaddrinfo(&quot;ipv6-test.com&quot;))</code> 看下结果:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- <span class="string">"&lt;var&gt;"</span> = &#123;</div><div class="line">-     <span class="number">1</span> = &#123;</div><div class="line">-         <span class="string">"addr"</span>   = <span class="string">"5.135.165.173"</span></div><div class="line">-         <span class="string">"family"</span> = <span class="string">"inet"</span></div><div class="line">-     &#125;</div><div class="line">-     <span class="number">2</span> = &#123;</div><div class="line">-         <span class="string">"addr"</span>   = <span class="string">"2001:41d0:8:e8ad::1"</span></div><div class="line">-         <span class="string">"family"</span> = <span class="string">"inet6"</span></div><div class="line">-     &#125;</div><div class="line">- &#125;</div></pre></td></tr></table></figure>
-<p>我们遍历一下这个结果, 如果其中有 <code>&quot;family&quot; = &quot;inet6&quot;</code> 的解析, 就可以使用 ipv6 进行连接了, 代码实现如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">isSupportIpv6</span><span class="params">(_domain)</span></span></div><div class="line">    <span class="keyword">local</span> result = socket.dns.getaddrinfo(_domain)</div><div class="line">    <span class="keyword">local</span> ipv6 = <span class="literal">false</span></div><div class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></div><div class="line">        <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(result) <span class="keyword">do</span></div><div class="line">            <span class="keyword">if</span> v.family == <span class="string">"inet6"</span> <span class="keyword">then</span></div><div class="line">                ipv6 = <span class="literal">true</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> ipv6</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>我们将这个函数的结果作为 <code>SocketTCP:connect</code> 的最后一个参数传入即可.</p>
-<h1 id="四-还有什么要注意的"><a href="#四-还有什么要注意的" class="headerlink" title="四. 还有什么要注意的"></a>四. 还有什么要注意的</h1><h2 id="1-一定要使用使用域名"><a href="#1-一定要使用使用域名" class="headerlink" title="1. 一定要使用使用域名"></a>1. 一定要使用使用域名</h2><p>向苹果提审的服务器一定要使用域名, 所有的地方都是如此, 包括 http 请求, 热更新返回的 <code>version.md</code> 地址.</p>
-<h2 id="2-做好兼容性测试"><a href="#2-做好兼容性测试" class="headerlink" title="2. 做好兼容性测试"></a>2. 做好兼容性测试</h2><p>测试 IPV6 ONLY 的时候使用最新的 iOS 9.3 做测试, 苹果他们审核的时候也是只审核最新的系统是否正常. </p>
-<p>但是我们实现的时候要兼容的不同的系统, 网络环境(<code>IPV6 兼容</code> 和 <code>IPV6 ONLY</code>), 因为用户的网络可能是各种各样样, 这些组合都要测试到.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      你们的游戏适配那啥 VIP6 了么?
-    
-    </summary>
-    
-    
-      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
-    
-      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
     
   </entry>
   

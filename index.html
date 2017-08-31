@@ -139,6 +139,79 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2017/08/25/webview-like-lswz/">
+        手撸一个像《乱世王者》那样的 WebView
+      </a>
+    </h2>
+    
+    <time>
+      8月 25, 2017
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. </p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fj3pcpg3k8j31kw0xw4qp.jpg" alt=""></p>
+<p>在游戏中更多界面中有几个按钮, 点击后会跳转到 WebView, 如下图:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fj3pou45vcj30af0ijn2s.jpg" alt=""></p>
+<p>这个 WebView 做得很不错呀, 比 Cocos 自带的光秃秃的 WebView 好数倍, 本着从(hou)善(yan)如(wu)流(chi)的人生哲理, 便开始思索着是不是搞到我们的游戏中去? </p>
+<p>那么它是如何实现的呢? 根据多年经验, 从资源入手是最简单的办法了, 拆开乱世王者的 Android 包, 在 res 文件夹中搜索 png, 我们很容易的发现下面这些资源:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fixluudqm1j30yo0jcn3g.jpg" alt=""></p>
+<p>命名都是类似: <code>com_tencent_msdk_webview_left_unclickable.png</code>, 看来是 <code>msdk</code> 里面的一个组件, 我们没有接入 msdk 的计划, 所以没有办法直接调用了. 让我们来分析下这个界面:</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fiy0x704zhj309h0dzmxd.jpg" alt=""></p>
+<p>Cocos 默认提供的 WebView 只有中间部分, 上下是没有的. 这两部分应该是用 Android 写的原生界面, 但是我对 Android 也是一知半解, 写出来估计都是 bug, 还没有办法热更新. </p>
+<p>看着满地的资源, 我不禁陷入了深思. 有了, 是不是只创建出中间尺寸大小的 Webview, 然后用这些图片在 Cocos 中绘制出标题栏和工具栏, 菜单和 WebView 的交互可以用 WebView 提供的 api 来搞. </p>
+<p>粗略看了下 WebView 提供的 api:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canGoBack</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">goBack</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canGoForward</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">goForward</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">reload</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>在加上 <code>removeFromParent</code>, 下方的工具栏是没有问题了. 我们 ui 编辑器使用的是 Cocos Builder, 我很快拼出了效果:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fj110v95r4j31kw1f9127.jpg" alt=""></p>
+<p>下面便是在代码中撸这几个菜单的逻辑了, 这部分还是挺麻烦的, 只要细心一些, 很快也能搞定:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--</span></div><div class="line"><span class="comment">-- Author: wangbilt@gmail.com</span></div><div class="line"><span class="comment">-- Date: 2017-08-21 11:26:18</span></div><div class="line"><span class="comment">--</span></div><div class="line"><span class="keyword">local</span> PageFullscreenWebview = class(<span class="string">"PageFullscreenWebview"</span>, <span class="built_in">require</span>(<span class="string">"app.layout.package.page_fullscreen_webview_layout"</span>))</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:ctor</span><span class="params">()</span></span></div><div class="line">    PageFullscreenWebview.super.ctor(self)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview = ccexp.WebView:<span class="built_in">create</span>()</div><div class="line">    self.webview:setAnchorPoint(cc.p(<span class="number">0</span>, <span class="number">0</span>))</div><div class="line">    self.webview:setScalesPageToFit(<span class="literal">false</span>)</div><div class="line">    self.webview:setContentSize(cc.size(display.width, display.height - self._nodeToolBar:getContentSize().height))</div><div class="line">    self.webview:setPosition(<span class="number">0</span>, self._nodeToolBar:getContentSize().height)</div><div class="line">    self.webview:setOnDidFinishLoading(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">        self:performWithDelay(handler(self,self._loadFinishCallBack), <span class="number">0</span>)</div><div class="line">    <span class="keyword">end</span>)    </div><div class="line">    self:addChild(self.webview)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:loadURL</span><span class="params">(_url, _callback)</span></span></div><div class="line">    self.webview:loadURL(_url)</div><div class="line">    self.on_finish_callback = _callback</div><div class="line">    self._btnRefresh:setVisible(<span class="literal">false</span>)</div><div class="line">    self._btnLeft:setButtonEnabled(<span class="literal">false</span>)</div><div class="line">    self._btnRight:setButtonEnabled(<span class="literal">false</span>)    </div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:_disableToolBar</span><span class="params">()</span></span></div><div class="line">    self._btnLeft:setButtonEnabled(<span class="literal">false</span>)</div><div class="line">    self._btnRight:setButtonEnabled(<span class="literal">false</span>)</div><div class="line">    self._btnRefresh:setVisible(<span class="literal">false</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:_loadFinishCallBack</span><span class="params">(...)</span></span></div><div class="line">    self._btnRefresh:setVisible(<span class="literal">true</span>)</div><div class="line">    self._btnLeft:setButtonEnabled(self.webview:canGoBack())</div><div class="line">    self._btnRight:setButtonEnabled(self.webview:canGoForward())</div><div class="line">    <span class="keyword">if</span> self.on_finish_callback <span class="keyword">then</span></div><div class="line">        self.on_finish_callback()</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClose</span><span class="params">(_callback)</span></span></div><div class="line">    self.on_close_callback = _callback</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickClose</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickClose"</span>,_params.tag, _params.target)</div><div class="line">    self.on_close_callback()</div><div class="line">    self:removeFromParent()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickLeft</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickLeft:"</span>,_params.tag, _params.target)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview:goBack()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickRefresh</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickRefresh:"</span>,_params.tag, _params.target)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview:reload()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:onClickRight</span><span class="params">(_params)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onClickRight:"</span>,_params.tag, _params.target)</div><div class="line">    self:_disableToolBar()</div><div class="line">    self.webview:goForward()</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageFullscreenWebview:show</span><span class="params">()</span></span></div><div class="line">    display.getRunningScene():addChild(self, <span class="number">10000</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">return</span> PageFullscreenWebview</div></pre></td></tr></table></figure>
+<p>看看实际的效果:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fj11145fcrj30f00qoab6.jpg" alt=""></p>
+<blockquote>
+<p>Ps. 在这之间还遇到了一个bug, 就是在 WebView 出现的时候按 back 键会崩溃, 最终重写 Avtivity 一个空的 <code>onBackPressed</code> 实现解决问题.</p>
+</blockquote>
+<p>是不是足以以假乱真了呢 ? 不要高兴太早, 还有标题,进度条功能没有实现呢. 让我们来分析下这几个功能:</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>看了下 Cocos 提供的 API, 是没有与标题相关的, 只能我们自己去绑定. 那么该如何获取标题呢?</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android:"></a>Android:</h3><p>在 <a href="https://ws4.sinaimg.cn/large/006tNc79ly1fj11145fcrj30f00qoab6.jpg" target="_blank" rel="external">stackoverflow 的这个答案</a> 中找到解决方案:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">WebView mWebView = (WebView) findViewById(R.id.mwebview);</div><div class="line">mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageFinished</span><span class="params">(WebView view, String url)</span> </span>&#123;</div><div class="line">        ExperimentingActivity.<span class="keyword">this</span>.setTitle(view.getTitle());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">webview.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;</div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceivedTitle</span><span class="params">(WebView view, String title)</span> </span>&#123;  </div><div class="line">        <span class="keyword">super</span>.onReceivedTitle(view, title);  </div><div class="line">    &#125; </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS:"></a>iOS:</h3><p>同样, 我们可以很容易的找到 iOS 的<a href="https://stackoverflow.com/a/20059707" target="_blank" rel="external">解决方案</a>:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)webViewDidFinishLoad:(<span class="built_in">UIWebView</span> *)webView&#123;</div><div class="line">    <span class="built_in">NSString</span> *theTitle=[webView stringByEvaluatingJavaScriptFromString:<span class="string">@"document.title"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有了上面代码后, 我们可以很容易的实现获取标题的代码, 比较麻烦的是还需要修改 WebView 的 c++ 部分, 如果最终要在 Lua 中使用的话还需要导出接口.</p>
+<h2 id="进度条"><a href="#进度条" class="headerlink" title="进度条"></a>进度条</h2><h3 id="Android-1"><a href="#Android-1" class="headerlink" title="Android:"></a>Android:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">webview.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> progress)</span>   </span></div><div class="line">    &#123;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="iOS-1"><a href="#iOS-1" class="headerlink" title="iOS"></a>iOS</h3><p>iOS 我找了很久, 貌似是没有办法获取进度的, 只能做一个假的效果:</p>
+<blockquote>
+<p>在开始加载网页的时候启动一个定时器, 让进度条以一个缓慢的速度前进, 收到加载完成的消息时让进度条瞬间移动到终点.</p>
+</blockquote>
+<p>所以, 我们可以分平台实现, 也可以统一代码, 都使用假的进度条.</p>
+<hr>
+<p>经过与 PM 的一番交流后, 一致同意放弃这两个功能. 因为觉得目前的效果还可以, 加上不改动 c++ 就可以热更新上去.</p>
+<p>所以很可惜, 这次没有办法搞彻底了, 下次有机会我们接着搞.</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+        <a href="/tags/WebView/">WebView</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2017/07/23/integrate-google-iab/">
         聊聊 Google 支付的那些事
       </a>
@@ -491,41 +564,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/03/04/quick-x-oop/">
-        Quick-Cocos2d-x 中的面向对象
-      </a>
-    </h2>
-    
-    <time>
-      3月 4, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>虽说现在一直提倡组合优于继承, 但是我们这帮深受 c++ 毒害的大好青年还是对继承有着深深的感情. Lua 这门语言本身并没有提供面向对象的机制, 不过我们可以很容易的通过 Lua 的 metatable 来实现一套面向对象的机制.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/03/04/quick-x-oop/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -557,7 +595,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
     </div>
 </div>
 
