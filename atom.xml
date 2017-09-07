@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-08-31T23:55:24.000Z</updated>
+  <updated>2017-09-07T14:19:53.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,104 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>将 python 数据转化为 lua 格式</title>
+    <link href="http://blog.justbilt.com/2017/09/03/serialize-lua-in-pyhton/"/>
+    <id>http://blog.justbilt.com/2017/09/03/serialize-lua-in-pyhton/</id>
+    <published>2017-09-03T07:45:53.000Z</published>
+    <updated>2017-09-07T14:19:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们团队的技术栈是: <code>Lua + Python</code>, 前端采用 Lua 写项目, Python 做工具支持, 而后端则采用纯 Python 开发, 所以会经常遇到 Python 和 Lua 数据的转化.</p>
+<a id="more"></a>
+<p>目前业内采用的方法大致有两种:</p>
+<ol>
+<li>用 Python 写一个 Lua 的语法解析, 用 Lua 写一个 Pyhton 的语法解析, 这样就可以互相转化了.</li>
+<li>使用一个大家都支持的数据结构做中转, 如: Json 或 Yaml.</li>
+</ol>
+<p>第一种方案比较复杂, Python 解析 Lua 倒是有 <a href="https://github.com/SirAnthony/slpp" target="_blank" rel="external">slpp</a> 这样的项目, Lua 解析 Python 的则是没有, 因此大家更多的是采用第二种方案.</p>
+<p>第二种方案中 json 其实是一个很不错的解决方案, 性能也比 Lua 快一些, 但是 json 没有办法存储 number 类型的 key, 这一点在数据结构的设计上很蛋疼, 可能会让你的代码充斥着 <code>tostring</code>, <code>tonumber</code> 这样的代码.</p>
+<p>经过观察, json 和 Lua 这两种文件格式其实是十分像的, 那么我是否只要魔改下 python 的 json 库, 使之支持 number 做 key, 然后保存为 Lua 文件 ?</p>
+<h1 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h1><h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>首先我们找到 json 库的源码 <a href="https://github.com/python/cpython/blob/master/Lib/json" target="_blank" rel="external">https://github.com/python/cpython/blob/master/Lib/json</a>, 这个目录中有 4 个文件, 我们把 <code>encoder.py</code> 下载下来, 保存为 <code>lua.py</code>.</p>
+<p>但是只有这一个文件是没有办法直接运行的, 我们再从 <code>encoder.py</code> 同级的 <code>__init__.py</code> 中复制 <code>dumps</code> 函数到 <code>lua.py</code> 的末尾.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dumps</span><span class="params">(obj, skipkeys=False, ensure_ascii=True, check_circular=True,</span></span></div><div class="line">              allow_nan=True, cls=None, indent=None, separators=None,</div><div class="line">              encoding=<span class="string">'utf-8'</span>, default=None, sort_keys=False, **kw):</div><div class="line">       <span class="keyword">if</span> cls <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">              cls = JSONEncoder</div><div class="line">       <span class="keyword">return</span> cls(</div><div class="line">              skipkeys=skipkeys, ensure_ascii=ensure_ascii,</div><div class="line">              check_circular=check_circular, allow_nan=allow_nan, indent=indent,</div><div class="line">              separators=separators, encoding=encoding, default=default,</div><div class="line">              sort_keys=sort_keys, **kw).encode(obj)</div></pre></td></tr></table></figure>
+<p>我们在 <code>lua.py</code> 同级目录新建一个 <code>test.py</code> 做测试, 这里我们把一个python的数据保存为 <code>test.lua</code> 文件:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> lua</div><div class="line">data = &#123;</div><div class="line">    <span class="string">"a"</span>: <span class="number">1</span>,</div><div class="line">    <span class="number">2</span>:<span class="number">2</span>,</div><div class="line">    <span class="string">"3a"</span>: <span class="number">3</span>,</div><div class="line">    <span class="string">"4"</span>:[</div><div class="line">        <span class="number">1</span>,<span class="number">2</span>,<span class="string">"a"</span>,<span class="keyword">False</span></div><div class="line">    ]</div><div class="line">&#125;</div><div class="line"><span class="keyword">with</span> open(<span class="string">"test.lua"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:</div><div class="line">    f.write(lua.dumps(data, ensure_ascii=<span class="keyword">False</span>, indent=<span class="number">2</span>, sort_keys=<span class="keyword">True</span>))</div></pre></td></tr></table></figure>
+<p>完成后直接终端运行 <code>python test.py</code> 就可以看到一个新生成了一个 lua 文件, 内容如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"2"</span>: <span class="number">2</span>, </div><div class="line">  <span class="string">"3a"</span>: <span class="number">3</span>, </div><div class="line">  <span class="string">"4"</span>: [</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  ], </div><div class="line">  <span class="string">"a"</span>: <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们第一步的工作就搞定了.</p>
+<h2 id="2-魔改-lua-py"><a href="#2-魔改-lua-py" class="headerlink" title="2. 魔改 lua.py"></a>2. 魔改 lua.py</h2><p>其实上一步生成的文件内容并不是 lua 格式的, 其实还是 json 格式, 只是我们将后缀改为 lua 了而已. 这个格式和真正的 lua 想比有两处不对:</p>
+<ol>
+<li>Lua 的数组使用 <code>{}</code> 表示.</li>
+<li>Lua 使用 <code>=</code> 做 key,value 的分隔.</li>
+<li>Lua string 类型的 key, 不用加引号, 如果要加引号的话, 需要同时加一对方括号.</li>
+</ol>
+<p>第一个问题很好解决, 我们搜索 <code>&#39;[</code>, 可以找到 <code>_iterencode_list</code> 这个函数, 大概看一眼就知道怎么改了:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">_iterencode_list</span><span class="params">(lst, _current_indent_level)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lst:</div><div class="line">        <span class="keyword">yield</span> <span class="string">'&#123;&#125;'</span></div><div class="line">        <span class="keyword">return</span></div><div class="line">    ...</div><div class="line">    buf = <span class="string">'&#123;'</span></div><div class="line">    ...</div><div class="line">    <span class="keyword">yield</span> <span class="string">'&#125;'</span></div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>我们修改完, 运行 <code>python test.py</code> 看下效果:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"2"</span>: <span class="number">2</span>, </div><div class="line">  <span class="string">"3a"</span>: <span class="number">3</span>, </div><div class="line">  <span class="string">"4"</span>: &#123;</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  &#125;, </div><div class="line">  <span class="string">"a"</span>: <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>是不是已经有点意思了? 我们再接再厉, 找找第二个问题如何解决. 我们搜索 <code>&#39;:</code> 可以找到这行代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">key_separator = <span class="string">': '</span></div></pre></td></tr></table></figure>
+<p>将 <code>&#39;: &#39;</code> 修改为 <code>&#39; = &#39;</code> 就可以啦, 我们看下结果:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"2"</span> = <span class="number">2</span>, </div><div class="line">  <span class="string">"3a"</span> = <span class="number">3</span>, </div><div class="line">  <span class="string">"4"</span> = &#123;</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  &#125;, </div><div class="line">  <span class="string">"a"</span> = <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么第三个问题该如何入手呢? 给童鞋们三秒钟的思考时间. </p>
+<blockquote>
+<p>3s</p>
+<p>2s</p>
+<p>1s</p>
+</blockquote>
+<p>揭晓答案, 既然 <code>key_separator</code> 是分隔 key, value 的, 我们找找哪里用到 key_separator 是不是发现点什么呢 ? 很快我们能定位到 <code>_iterencode_dict</code> 函数的这行代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">yield</span> _encoder(key)</div><div class="line"><span class="keyword">yield</span> _key_separator</div></pre></td></tr></table></figure>
+<p>这个 <code>_encoder(key)</code> 会不会对应 key 的生成呢? 我们修改下试试, 将这句话替换为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">yield</span> <span class="string">'['</span> + _encoder(key) + <span class="string">']'</span></div></pre></td></tr></table></figure>
+<p>运行, 结果如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  [<span class="string">"2"</span>] = <span class="number">2</span>, </div><div class="line">  [<span class="string">"3a"</span>] = <span class="number">3</span>, </div><div class="line">  [<span class="string">"4"</span>] = &#123;</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  &#125;, </div><div class="line">  [<span class="string">"a"</span>] = <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>哎呀, 我这是搞定了吗? 骚年, 恭喜你, 你已经完成了 99% 的工作了, 这段代码的最前方还少一个 <code>return</code> , 我们可以很轻易的加上. 我通过修改 <code>test.py</code> 实现了这个功能:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f.write(lua.dumps(data, ensure_ascii=False, indent=2, sort_keys=True))</div><div class="line"># 修改为:</div><div class="line">f.write(&quot;return &quot; + lua.dumps(data, ensure_ascii=False, indent=2, sort_keys=True))</div></pre></td></tr></table></figure>
+<p>结果:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> &#123;</div><div class="line">  [<span class="string">"2"</span>] = <span class="number">2</span>, </div><div class="line">  [<span class="string">"3a"</span>] = <span class="number">3</span>, </div><div class="line">  [<span class="string">"4"</span>] = &#123;</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  &#125;, </div><div class="line">  [<span class="string">"a"</span>] = <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-更加-lua-化"><a href="#3-更加-lua-化" class="headerlink" title="3. 更加 lua 化"></a>3. 更加 lua 化</h2><p>上面生成的 <code>test.lua</code> 其实很不 Lua, 大家不会写出 <code>[&quot;a&quot;] = 1</code> 这种类型的语句, 而是直接 <code>a = 1</code>. </p>
+<p>这个问题发生在了上面的第三步上, 我们偷懒直接写出了这样的代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">yield</span> <span class="string">'['</span> + _encoder(key) + <span class="string">']'</span></div></pre></td></tr></table></figure>
+<p>大家不妨看看 <code>_encoder</code> 这个函数, 它会把任意类型转化为字符串, 两端加上 <code>&quot;</code>. 那么 Lua 在什么情况下才会 <code>[&quot;x&quot;]</code> 这种类型的 key 呢?</p>
+<ol>
+<li>关键字, 如: <code>require</code>, <code>false</code> 等, 我们可以在<a href="https://www.lua.org/manual/5.1/manual.html#2.1" target="_blank" rel="external">这里</a>找到所有的关键字.</li>
+<li>以数字开头的字符串.</li>
+<li>数字, 包括 <code>int</code>, <code>lang</code>, <code>float</code>.</li>
+<li>含有奇怪字符的字符串, 如: <code>-</code>, <code>*</code> 等, 非奇怪字符只有: <code>[a-zA-Z_0-9]</code>.</li>
+</ol>
+<p>知道了规则, 我们就很好办了, 写一个解析函数就好了嘛:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">key_filter = re.compile(<span class="string">"[^a-zA-Z_0-9]"</span>)</div><div class="line">key_filter_equal = &#123;<span class="string">"require"</span>,<span class="string">"false"</span>,<span class="string">"for"</span>,<span class="string">"function"</span>,<span class="string">"if"</span>,<span class="string">"nil"</span>,<span class="string">"not"</span>,<span class="string">"or"</span>,<span class="string">"while"</span>,<span class="string">"then"</span>,<span class="string">"true"</span>,<span class="string">"until"</span>,<span class="string">"end"</span>,<span class="string">"in"</span>,<span class="string">"local"</span>,<span class="string">"repeat"</span>,<span class="string">"return"</span>,<span class="string">"break"</span>,<span class="string">"do"</span>,<span class="string">"else"</span>,<span class="string">"and"</span>,<span class="string">"elseif"</span>&#125;</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">format_key</span><span class="params">(s)</span>:</span></div><div class="line">    <span class="keyword">if</span> isinstance(s, (int, long, float)):</div><div class="line">        <span class="keyword">return</span> <span class="string">'['</span>+str(s)+<span class="string">']'</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        int(s)</div><div class="line">        <span class="keyword">return</span> <span class="string">'["'</span>+s+<span class="string">'"]'</span></div><div class="line">    <span class="keyword">except</span> Exception, e:</div><div class="line">        <span class="keyword">pass</span></div><div class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> key_filter_equal:</div><div class="line">        <span class="keyword">if</span> s == f:</div><div class="line">            <span class="keyword">return</span> <span class="string">'["'</span>+s+<span class="string">'"]'</span></div><div class="line">    <span class="keyword">if</span> (ord(s[<span class="number">0</span>]) &gt;= ord(<span class="string">"0"</span>) <span class="keyword">and</span> ord(s[<span class="number">0</span>]) &lt;= ord(<span class="string">"9"</span>)) <span class="keyword">or</span> key_filter.search(s):</div><div class="line">        <span class="keyword">return</span> <span class="string">'["'</span>+s+<span class="string">'"]'</span></div><div class="line">    <span class="keyword">return</span> s</div></pre></td></tr></table></figure>
+<p>然后把 <code>yield &#39;[&#39; + _encoder(key) + &#39;]&#39;</code> 替换为 <code>yield format_key(key)</code> 就搞定了. 我们看下生成的结果:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> &#123;</div><div class="line">  [<span class="string">"2"</span>] = <span class="number">2</span>, </div><div class="line">  [<span class="string">"3a"</span>] = <span class="number">3</span>, </div><div class="line">  [<span class="string">"4"</span>] = &#123;</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  &#125;, </div><div class="line">  a = <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>好像不太对嘛, 骗纸, 数字的 key 还是有问题的. 不要慌, 我们顺着 <code>format_key</code> 调用的地方向上找找, 发现问题了吧:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">elif</span> isinstance(key, float):</div><div class="line">    key = _floatstr(key)</div><div class="line"><span class="keyword">elif</span> key <span class="keyword">is</span> <span class="keyword">True</span>:</div><div class="line">    key = <span class="string">'true'</span></div><div class="line"><span class="keyword">elif</span> key <span class="keyword">is</span> <span class="keyword">False</span>:</div><div class="line">    key = <span class="string">'false'</span></div><div class="line"><span class="keyword">elif</span> key <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">    key = <span class="string">'null'</span></div><div class="line"><span class="keyword">elif</span> isinstance(key, (int, long)):</div><div class="line">    key = str(key)</div></pre></td></tr></table></figure>
+<p>可以看到这里已经对 <code>float</code>, <code>int</code>, <code>lang</code> 类型做过转化了, 我们把 elif 中的内容换成 <code>pass</code> 再试下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> &#123;</div><div class="line">  [<span class="number">2</span>] = <span class="number">2</span>, </div><div class="line">  [<span class="string">"3a"</span>] = <span class="number">3</span>, </div><div class="line">  [<span class="string">"4"</span>] = &#123;</div><div class="line">    <span class="number">1</span>, </div><div class="line">    <span class="number">2</span>, </div><div class="line">    <span class="string">"a"</span>, </div><div class="line">    <span class="literal">false</span></div><div class="line">  &#125;, </div><div class="line">  a = <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>哈哈, 搞定了! 我太棒了! 咦, 纳尼, Are you kidding me ? 为什么只有 <code>2</code> 是 ok 的, <code>&quot;4&quot;</code> 是怎么回事嘛 ? 仔细检查了一番代码, 有做了一个额外的修改, 还是没有发现原因.</p>
+<p>当我把目光转向我们的测试代码的时候, 我看到的答案:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">data = &#123;</div><div class="line">    <span class="string">"a"</span>: <span class="number">1</span>,</div><div class="line">    <span class="number">2</span>:<span class="number">2</span>,</div><div class="line">    <span class="string">"3a"</span>: <span class="number">3</span>,</div><div class="line">    <span class="string">"4"</span>:[</div><div class="line">        <span class="number">1</span>,<span class="number">2</span>,<span class="string">"a"</span>,<span class="keyword">False</span></div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们的 <code>&quot;4&quot;</code> 本身就是 string 类型的, 这样更加说明了我们代码的正确性.</p>
+<hr>
+<p>到此为止, 我们的魔改之旅就结束了, 我把最终版的代码放到了 <a href="https://gist.github.com/justbilt/a5cfafe761b8571e7b5a9e7c22cc7c57" target="_blank" rel="external">Gist 上</a>, 大家如果有兴趣的话可以看一下.</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录:"></a>附录:</h1><p>一个 24W 行的 json 和 Lua 读取时间:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">time1 = <span class="built_in">os</span>.<span class="built_in">clock</span>()</div><div class="line">data = <span class="built_in">require</span>(<span class="string">"filters"</span>)</div><div class="line">time2 = <span class="built_in">os</span>.<span class="built_in">clock</span>()</div><div class="line">data2 = json.decode(<span class="built_in">io</span>.readfile(cc.FileUtils:getInstance():fullPathForFilename((<span class="string">"res/filters.json"</span>))))</div><div class="line">time3 = <span class="built_in">os</span>.<span class="built_in">clock</span>()</div><div class="line"><span class="built_in">print</span>(<span class="string">"time lua:"</span>, time2 - time1)</div><div class="line"><span class="built_in">print</span>(<span class="string">"time json:"</span>, time3 - time2)</div></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time lua:   0.278526</div><div class="line">time json:  0.182085</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们团队的技术栈是: &lt;code&gt;Lua + Python&lt;/code&gt;, 前端采用 Lua 写项目, Python 做工具支持, 而后端则采用纯 Python 开发, 所以会经常遇到 Python 和 Lua 数据的转化.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Lua" scheme="http://blog.justbilt.com/tags/Lua/"/>
+    
+      <category term="Python" scheme="http://blog.justbilt.com/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>手撸一个像《乱世王者》那样的 WebView</title>
@@ -1260,10 +1358,11 @@
     <link href="http://blog.justbilt.com/2016/09/10/quickx-crash-on-phone-2/"/>
     <id>http://blog.justbilt.com/2016/09/10/quickx-crash-on-phone-2/</id>
     <published>2016-09-10T15:28:45.000Z</published>
-    <updated>2017-07-09T03:09:19.000Z</updated>
+    <updated>2017-09-03T00:34:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>大概是 8 月中旬的时候, 我们项目发生了一个很严重的线上事故. 在版本更新之后, 部分 Android 玩家反馈点击按钮开始游戏或活动按钮会闪退.</p>
 <p>开始收到这个反馈时, 并没有太在意, 心想是不是机型适配有问题 ? 加上当时有别的工作在忙, 就没有去理会. 大概一个小时后, 玩家的邮件像雪花一样纷纷而至, 我才开始意识到, 更新出问题了.</p>
+<a id="more"></a>
 <p>汇总了一下玩家的反馈:</p>
 <ol>
 <li>新注册账号没有问题, 老账号会崩溃</li>
@@ -1271,7 +1370,6 @@
 <li>删除游戏重装后就没有问题了</li>
 </ol>
 <p>看着这些条件, 有经验的老司机可能已经看出倪端了, 但当时我并没有看出. 我们平时测试的时候, 多数都会新注册一个账号, 或者将原先的老包删除掉, 所以 Q&amp;A 并没有测试出这个问题, 也没有办法复现这个我问题.</p>
-<a id="more"></a>
 <p>我们游戏是集成了两个错误统计sdk的, 一个是 Bugtags, 一个是 umeng 错误收集, 但是这两个都是没有办法收集到 native 层面的 crash 的. </p>
 <p><img src="http://ww4.sinaimg.cn/large/7f870d23jw1f7xim4h1aaj21b50ej0ul.jpg" alt=""></p>
 <p>正当我一筹莫展的时候, 运营人员发来了 umeng 的这个错误列表, 我恍然大悟:</p>
@@ -1457,43 +1555,6 @@
       <category term="neat-freak" scheme="http://blog.justbilt.com/tags/neat-freak/"/>
     
       <category term="Lua" scheme="http://blog.justbilt.com/tags/Lua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>最近搞 iOS 版遇到的一些问题和技巧 (二)</title>
-    <link href="http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/"/>
-    <id>http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/</id>
-    <published>2016-06-26T03:38:44.000Z</published>
-    <updated>2017-04-23T04:37:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一-XCode-Could-not-find-Developer-Disk-Image"><a href="#一-XCode-Could-not-find-Developer-Disk-Image" class="headerlink" title="一. XCode: Could not find Developer Disk Image"></a>一. XCode: Could not find Developer Disk Image</h2><p><img src="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg" alt="101138-1ab6ab96d37904bd.jpeg-4.5kB"><br><strong>解决方案:</strong><br><a href="http://www.jianshu.com/p/3930df903a44" target="_blank" rel="external">http://www.jianshu.com/p/3930df903a44</a><br>这个问题可能是因为你 XCode 没有下载对应 iOS 的 SDK 导致, 一般情况需要同步更新 XCode.</p>
-<h2 id="二-XCode-无法导出-Archive-的项目"><a href="#二-XCode-无法导出-Archive-的项目" class="headerlink" title="二. XCode: 无法导出 Archive 的项目"></a>二. XCode: 无法导出 Archive 的项目</h2><p>这个问题有可能是你项目 Team 选择的是一个没有开发者资格的账号导致的, 虽然可以正常开发, 真机调试, 但是是不能发布的, 所以也无法 Export .<br><strong>解决方案:</strong></p>
-<ol>
-<li>更换一个有开发者资格的账号重新 Archive 导出, 但是 Bundle ID 就得换一个了.</li>
-<li>通过命令行工具导出.<br>在 Organizer 中找到你想导出的 Archive, 右键选择在文件夹中显示, 复制路径, 打开终端:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -exportArchive -exportFormat ipa -archivePath your-archive-file-name.xcarchive -exportPath ~/Desktop/test.ipa</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="三-XCode-App-Installation-failed"><a href="#三-XCode-App-Installation-failed" class="headerlink" title="三. XCode: App Installation failed"></a>三. XCode: App Installation failed</h2><p><img src="http://static.zybuluo.com/justbilt/kl9sahl74sqfnxgjem57f390/Unknown.png" alt="Unknown.png-45.1kB"><br>很可能是之前手机已经装过一个同 Bundle ID 的应用, 但是现在换了签名.<br><strong>解决方案:</strong><br>删掉手机已经安装的那个应用就可以啦.</p>
-<h2 id="四-XCode-Failed-to-code-sign-“xxxx”"><a href="#四-XCode-Failed-to-code-sign-“xxxx”" class="headerlink" title="四. XCode: Failed to code sign “xxxx”"></a>四. XCode: Failed to code sign “xxxx”</h2><p><img src="http://static.zybuluo.com/justbilt/eb80q3re93fflmiuhygk4f1m/QQ20160626-0.png" alt="QQ20160626-0.png-437.7kB"><br>签名失败了, 这种情况一般发生在使用别人给的证书打包时. 这时候我们项目 <code>Build Setting &gt; Code Signing Identity</code> 就不能选择 <code>iOS Developer</code>, 而是要选择导入的签名文件.</p>
-<h2 id="五-内购-无法连接到-iTunes-Store"><a href="#五-内购-无法连接到-iTunes-Store" class="headerlink" title="五. 内购: 无法连接到 iTunes Store"></a>五. 内购: 无法连接到 iTunes Store</h2><p>如果没有发布应用的话, 需要用沙盒测试账号来测试. 我们需要先在 <code>设置&gt;iTunes Store 和 App Store</code>中 <strong>注销账号</strong>, 然后打开游戏, 开始购买, 这时候输入你的测试账号. 成功后如果有跳转 App Store 的话或者绑定付款方式的话, 不同理会, 再返回应用购买就可以了.</p>
-<h2 id="六-崩溃-showAlert-崩溃"><a href="#六-崩溃-showAlert-崩溃" class="headerlink" title="六. 崩溃: showAlert 崩溃"></a>六. 崩溃: showAlert 崩溃</h2><p>某一次突然, 一旦调用 Quick-cocos2d-x 提供的 <code>device.showAlert</code> 就会崩溃, 断点调试无果, 崩溃时提示的内容也不尽相同.<br><strong>解决方案:</strong><br>删除 <code>RootViewController.mm</code> 中所有和屏幕方向代码, 就解决啦.</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation</div><div class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations</div><div class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate</div><div class="line">- (<span class="keyword">void</span>)didRotateFromInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)fromInterfaceOrientation</div></pre></td></tr></table></figure>
-<h2 id="七-崩溃-iOS-9-2-播放视频崩溃"><a href="#七-崩溃-iOS-9-2-播放视频崩溃" class="headerlink" title="七. 崩溃: iOS 9.2+ 播放视频崩溃"></a>七. 崩溃: iOS 9.2+ 播放视频崩溃</h2><p>感谢 @子龙山人 大神提供的解决方案, <a href="https://github.com/cocos2d/cocos2d-x/issues/14855" target="_blank" rel="external">点击这里查看</a>.</p>
-<p>将 <code>UIVideoPlayer-ios.mm</code> 文件 <code>~VideoPlayer()</code> 函数中的 <code>dealloc</code> 修改为 <code>release</code> 即可.</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) dealloc];</div><div class="line">+        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) release];</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      万一遇上了呢?
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
-    
-      <category term="iOS-Dev-Tips" scheme="http://blog.justbilt.com/tags/iOS-Dev-Tips/"/>
     
   </entry>
   

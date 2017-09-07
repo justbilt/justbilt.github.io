@@ -139,6 +139,54 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2016/06/26/ios-dev-tips-2/">
+        最近搞 iOS 版遇到的一些问题和技巧 (二)
+      </a>
+    </h2>
+    
+    <time>
+      6月 26, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <h2 id="一-XCode-Could-not-find-Developer-Disk-Image"><a href="#一-XCode-Could-not-find-Developer-Disk-Image" class="headerlink" title="一. XCode: Could not find Developer Disk Image"></a>一. XCode: Could not find Developer Disk Image</h2><p><img src="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg" alt="101138-1ab6ab96d37904bd.jpeg-4.5kB"><br><strong>解决方案:</strong><br><a href="http://www.jianshu.com/p/3930df903a44" target="_blank" rel="external">http://www.jianshu.com/p/3930df903a44</a><br>这个问题可能是因为你 XCode 没有下载对应 iOS 的 SDK 导致, 一般情况需要同步更新 XCode.</p>
+<h2 id="二-XCode-无法导出-Archive-的项目"><a href="#二-XCode-无法导出-Archive-的项目" class="headerlink" title="二. XCode: 无法导出 Archive 的项目"></a>二. XCode: 无法导出 Archive 的项目</h2><p>这个问题有可能是你项目 Team 选择的是一个没有开发者资格的账号导致的, 虽然可以正常开发, 真机调试, 但是是不能发布的, 所以也无法 Export .<br><strong>解决方案:</strong></p>
+<ol>
+<li>更换一个有开发者资格的账号重新 Archive 导出, 但是 Bundle ID 就得换一个了.</li>
+<li>通过命令行工具导出.<br>在 Organizer 中找到你想导出的 Archive, 右键选择在文件夹中显示, 复制路径, 打开终端:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -exportArchive -exportFormat ipa -archivePath your-archive-file-name.xcarchive -exportPath ~/Desktop/test.ipa</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="三-XCode-App-Installation-failed"><a href="#三-XCode-App-Installation-failed" class="headerlink" title="三. XCode: App Installation failed"></a>三. XCode: App Installation failed</h2><p><img src="http://static.zybuluo.com/justbilt/kl9sahl74sqfnxgjem57f390/Unknown.png" alt="Unknown.png-45.1kB"><br>很可能是之前手机已经装过一个同 Bundle ID 的应用, 但是现在换了签名.<br><strong>解决方案:</strong><br>删掉手机已经安装的那个应用就可以啦.</p>
+<h2 id="四-XCode-Failed-to-code-sign-“xxxx”"><a href="#四-XCode-Failed-to-code-sign-“xxxx”" class="headerlink" title="四. XCode: Failed to code sign “xxxx”"></a>四. XCode: Failed to code sign “xxxx”</h2><p><img src="http://static.zybuluo.com/justbilt/eb80q3re93fflmiuhygk4f1m/QQ20160626-0.png" alt="QQ20160626-0.png-437.7kB"><br>签名失败了, 这种情况一般发生在使用别人给的证书打包时. 这时候我们项目 <code>Build Setting &gt; Code Signing Identity</code> 就不能选择 <code>iOS Developer</code>, 而是要选择导入的签名文件.</p>
+<h2 id="五-内购-无法连接到-iTunes-Store"><a href="#五-内购-无法连接到-iTunes-Store" class="headerlink" title="五. 内购: 无法连接到 iTunes Store"></a>五. 内购: 无法连接到 iTunes Store</h2><p>如果没有发布应用的话, 需要用沙盒测试账号来测试. 我们需要先在 <code>设置&gt;iTunes Store 和 App Store</code>中 <strong>注销账号</strong>, 然后打开游戏, 开始购买, 这时候输入你的测试账号. 成功后如果有跳转 App Store 的话或者绑定付款方式的话, 不同理会, 再返回应用购买就可以了.</p>
+<h2 id="六-崩溃-showAlert-崩溃"><a href="#六-崩溃-showAlert-崩溃" class="headerlink" title="六. 崩溃: showAlert 崩溃"></a>六. 崩溃: showAlert 崩溃</h2><p>某一次突然, 一旦调用 Quick-cocos2d-x 提供的 <code>device.showAlert</code> 就会崩溃, 断点调试无果, 崩溃时提示的内容也不尽相同.<br><strong>解决方案:</strong><br>删除 <code>RootViewController.mm</code> 中所有和屏幕方向代码, 就解决啦.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation</div><div class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations</div><div class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate</div><div class="line">- (<span class="keyword">void</span>)didRotateFromInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)fromInterfaceOrientation</div></pre></td></tr></table></figure>
+<h2 id="七-崩溃-iOS-9-2-播放视频崩溃"><a href="#七-崩溃-iOS-9-2-播放视频崩溃" class="headerlink" title="七. 崩溃: iOS 9.2+ 播放视频崩溃"></a>七. 崩溃: iOS 9.2+ 播放视频崩溃</h2><p>感谢 @子龙山人 大神提供的解决方案, <a href="https://github.com/cocos2d/cocos2d-x/issues/14855" target="_blank" rel="external">点击这里查看</a>.</p>
+<p>将 <code>UIVideoPlayer-ios.mm</code> 文件 <code>~VideoPlayer()</code> 函数中的 <code>dealloc</code> 修改为 <code>release</code> 即可.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) dealloc];</div><div class="line">+        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) release];</div></pre></td></tr></table></figure>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/iOS/">iOS</a>
+      
+        <a href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2016/06/19/quickx-ipv6/">
         Quick-cocos2d-x 适配 IPV6
       </a>
@@ -154,58 +202,12 @@
 <blockquote>
 <p>他: 咱们的游戏适配那啥 VIP6 了么?<br>我: ….</p>
 </blockquote>
-<p>苹果商店在儿童节之后就不允许未适配 IPV6 的应用上架了, IPV6 是啥 ? 需要做些什么呢 ? 看完这两篇文章就明白了:</p>
-<p><a href="http://www.jianshu.com/p/a6bab07c4062" target="_blank" rel="external">iOS应用支持IPV6，就那点事儿</a><br><a href="http://www.jianshu.com/p/69ed4489762c" target="_blank" rel="external">针对苹果最新审核要求为应用兼容IPv6</a></p>
-<p>虽然这两篇文章是针对应用的, 但是从中我们也能了解大概的做法:</p>
-<ol>
-<li>不建议使用底层的网络API</li>
-<li>不要用IP地址</li>
-</ol>
-<h1 id="二-COCOS2D-X-适配-IPV6"><a href="#二-COCOS2D-X-适配-IPV6" class="headerlink" title="二. COCOS2D-X 适配 IPV6"></a>二. COCOS2D-X 适配 IPV6</h1><p>cocos 依赖的三方库涉及到 IPV6 问题的库为 <code>curl</code>, <code>websocket</code>, cocos 自己提供的模块需要适配的有: </p>
-<ol>
-<li>HttpClient</li>
-<li>AssetsManagerEx</li>
-<li>SocketIO</li>
-<li>WebSocket</li>
-<li>Console</li>
-<li>ScriptingCore</li>
-</ol>
-<p>cocos 官方也第一时间适配了 IPV6, 具体内容可以看这篇文章:<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODAxNTM2NA==&amp;mid=2659642350&amp;idx=1&amp;sn=a7db1bb86e965f8408c1687f73b23c7e&amp;scene=1&amp;srcid=0619ztJlty4HuLRBOll0Yr6V&amp;key=18e81ac7415f67c4acff47973e6979565cda32dd8f6c87dca6f733d6e6b4118817536543eb3844b8c890968fdbb06eed&amp;ascene=0&amp;uin=Mjk2MDM0NjgyMA%3D%3D&amp;devicetype=iMac+MacBookAir6%2C2+OSX+OSX+10.10.5+build(14F1021)&amp;version=11020201&amp;pass_ticket=WECSEWT6jaVZNRKNNwilauFgBa%2FhDiF9DioAiHKmly2CArsnkf%2FQbQJchxVf%2F7bk" target="_blank" rel="external">儿童节后苹果爸爸只爱IPv6 Cocos2d-x第一时间支持</a>, 里面描述的很简单:</p>
-<blockquote>
-<p>如果你需要支持纯IPv6网络，只需要更新CURL和libwebsocket网络。</p>
-</blockquote>
-<p>让我们尝试一下.</p>
-<h2 id="1-下载-cocos2d-x-3rd-party-libs-bin"><a href="#1-下载-cocos2d-x-3rd-party-libs-bin" class="headerlink" title="1. 下载 cocos2d-x-3rd-party-libs-bin"></a>1. 下载 cocos2d-x-3rd-party-libs-bin</h2><p>这一步看似很简单, 实则不然. 你不会想到从 github 上下载一个 100 多 MB 的文件是多麽困难, 为此我花费了近 2个小时的时间.</p>
-<p>我下载的是 99 版的, 解压代用.</p>
-<h2 id="2-更新-curl"><a href="#2-更新-curl" class="headerlink" title="2. 更新 curl"></a>2. 更新 curl</h2><p>拷贝解压出来的文件夹中的 <code>curl</code> 目录到 <code>quick-cocos2d-x/external</code>, 替换原来的 <code>curl</code> 目录.</p>
-<p>打开 xcode, 编译, 发现有 100 多个错误:</p>
-<p><img src="http://static.zybuluo.com/justbilt/6b752pk1bzragqhjgbl2llky/image_1alkfke1vag91ccc1p15179c1jtcm.png" alt="image_1alkfke1vag91ccc1p15179c1jtcm.png-113.9kB"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Undefined symbols for architecture i386:</div><div class="line">  &quot;_ASN1_INTEGER_get&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">  &quot;_ASN1_STRING_data&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">  &quot;_ASN1_STRING_length&quot;, referenced from:</div><div class="line">      _ossl_connect_common in libcocos2d iOS.a(libcurl_la-openssl.o)</div><div class="line">    ...</div></pre></td></tr></table></figure>
-<p>不要惊慌, 这是因为新版本 curl 多了一些静态库, 我们需要引入它们, 在 XCode 项目输找到 <code>cocos2d_lib &gt; external &gt; curl &gt; ios</code> 目录上右键, 选择 <code>Add Files to &#39;cocos2d_lib.xcodeproj&#39;</code>:</p>
-<p><img src="http://static.zybuluo.com/justbilt/1c0jehn0zxvrj7u3pf2cugam/image_1alkfv73t446cr3sc41r6r1hqj13.png" alt="image_1alkfv73t446cr3sc41r6r1hqj13.png-238.8kB"></p>
-<p>选中 <code>libcrypto.a</code> 和 <code>libssl.a</code>, targets 选择 <code>libcocos2d iOS</code>, 确定, 重新编译, 搞定.</p>
-<h2 id="3-更新-websocket"><a href="#3-更新-websocket" class="headerlink" title="3. 更新 websocket"></a>3. 更新 websocket</h2><blockquote>
-<p>注: 我们项目并没有用到 websocket , 所以这里只是搞到编译通过, 运行时有木有问题就不到知道了!</p>
-</blockquote>
-<p>和 curl 类似, 拷贝 cocos2d-x-3rd-party-libs 中的 <code>websockets</code> 目录到 <code>quick-cocos2d-x/external</code>, 替换原来的 <code>websockets</code> 目录.</p>
-<p>因为最新版的 websockets api 变化挺大, 所以我们需要使用 cocos <a href="https://github.com/cocos2d/cocos2d-x/tree/v3/cocos/network" target="_blank" rel="external">最新的</a> WebSocket.h 和 WebSocket.cpp 替换 quick-cocos2d-x/cocos/network 中的 <code>WebSocket</code> .</p>
-<p>编译, 会有一处错误发生在 <code>WebSocket::WebSocket()</code> 中, 因为 quick 中并没有 <code>Director::EVENT_RESET</code> 消息, 我们注释掉这段代码即可.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="comment">// reserve data buffer to avoid allocate memory frequently</span></div><div class="line">    _receivedData.reserve(WS_RESERVE_RECEIVE_BUFFER_SIZE);</div><div class="line">    <span class="keyword">if</span> (__websocketInstances == <span class="literal">nullptr</span>)</div><div class="line">    &#123;</div><div class="line">        __websocketInstances = <span class="keyword">new</span> (<span class="built_in">std</span>::nothrow) <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;WebSocket*&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    __websocketInstances-&gt;push_back(<span class="keyword">this</span>);</div><div class="line">    </div><div class="line"><span class="comment">//    std::shared_ptr&lt;std::atomic&lt;bool&gt;&gt; isDestroyed = _isDestroyed;</span></div><div class="line"><span class="comment">//    _resetDirectorListener = Director::getInstance()-&gt;getEventDispatcher()-&gt;addCustomEventListener(Director::EVENT_RESET, [this, isDestroyed](EventCustom*)&#123;</span></div><div class="line"><span class="comment">//        if (*isDestroyed)</span></div><div class="line"><span class="comment">//            return;</span></div><div class="line"><span class="comment">//        close();</span></div><div class="line"><span class="comment">//    &#125;);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="三-QUICK-COCOS2D-X-适配-IPV6"><a href="#三-QUICK-COCOS2D-X-适配-IPV6" class="headerlink" title="三. QUICK-COCOS2D-X 适配 IPV6"></a>三. QUICK-COCOS2D-X 适配 IPV6</h1><h2 id="1-如何适配"><a href="#1-如何适配" class="headerlink" title="1. 如何适配"></a>1. 如何适配</h2><p>Quick-Cocos2d-x 中主要是 luasocket 的适配, 适配的方法就是选择性的调用 <code>socket.tcp6()</code> 和 <code>socket.tcp()</code>, udp 也是如此.</p>
-<p>Quick-Cocos2d-x 中调创建 socket 是在 <code>SocketTCP:connect</code> 函数中, 并没有预留 ipv6 参数, 我们需要添加一下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SocketTCP:connect</span><span class="params">(__host, __port, __retryConnectWhenFailure, __ipv6)</span></span></div><div class="line">    <span class="keyword">if</span> __host <span class="keyword">then</span> self.host = __host <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> __port <span class="keyword">then</span> self.port = __port <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> __retryConnectWhenFailure ~= <span class="literal">nil</span> <span class="keyword">then</span> self.isRetryConnect = __retryConnectWhenFailure <span class="keyword">end</span></div><div class="line">    <span class="built_in">assert</span>(self.host <span class="keyword">or</span> self.port, <span class="string">"Host and port are necessary!"</span>)</div><div class="line">    <span class="comment">--printInfo("%s.connect(%s, %d)", self.name, self.host, self.port)</span></div><div class="line">    <span class="keyword">if</span> __ipv6 <span class="keyword">then</span></div><div class="line">        self.tcp = socket.tcp6()</div><div class="line">    <span class="keyword">else</span></div><div class="line">        self.tcp = socket.tcp()</div><div class="line">    <span class="keyword">end</span></div><div class="line">    </div><div class="line">    self.tcp:settimeout(<span class="number">0</span>)</div><div class="line">    ...</div></pre></td></tr></table></figure>
-<p>然后, 如果要连接 ipv6 的服务器的话, <code>__ipv6</code> 值传 <code>true</code> 即可.</p>
-<h2 id="2-如何判断一个服务器是-ipv6-还是-ipv4"><a href="#2-如何判断一个服务器是-ipv6-还是-ipv4" class="headerlink" title="2. 如何判断一个服务器是 ipv6 还是 ipv4"></a>2. 如何判断一个服务器是 ipv6 还是 ipv4</h2><p>lua 中 socket 的 dns 模块提供了一个函数 <code>getaddrinfo</code>, 可以返回一个服务器的 dns 解析结果数组, 其中一个很重要的字段就是 <code>family</code>, 有 <code>inet</code> 和 <code>inet6</code> 两个值可选.</p>
-<p>大家可以运行 <code>dump(socket.dns.getaddrinfo(&quot;ipv6-test.com&quot;))</code> 看下结果:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- <span class="string">"&lt;var&gt;"</span> = &#123;</div><div class="line">-     <span class="number">1</span> = &#123;</div><div class="line">-         <span class="string">"addr"</span>   = <span class="string">"5.135.165.173"</span></div><div class="line">-         <span class="string">"family"</span> = <span class="string">"inet"</span></div><div class="line">-     &#125;</div><div class="line">-     <span class="number">2</span> = &#123;</div><div class="line">-         <span class="string">"addr"</span>   = <span class="string">"2001:41d0:8:e8ad::1"</span></div><div class="line">-         <span class="string">"family"</span> = <span class="string">"inet6"</span></div><div class="line">-     &#125;</div><div class="line">- &#125;</div></pre></td></tr></table></figure>
-<p>我们遍历一下这个结果, 如果其中有 <code>&quot;family&quot; = &quot;inet6&quot;</code> 的解析, 就可以使用 ipv6 进行连接了, 代码实现如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">isSupportIpv6</span><span class="params">(_domain)</span></span></div><div class="line">    <span class="keyword">local</span> result = socket.dns.getaddrinfo(_domain)</div><div class="line">    <span class="keyword">local</span> ipv6 = <span class="literal">false</span></div><div class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></div><div class="line">        <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(result) <span class="keyword">do</span></div><div class="line">            <span class="keyword">if</span> v.family == <span class="string">"inet6"</span> <span class="keyword">then</span></div><div class="line">                ipv6 = <span class="literal">true</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> ipv6</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>我们将这个函数的结果作为 <code>SocketTCP:connect</code> 的最后一个参数传入即可.</p>
-<h1 id="四-还有什么要注意的"><a href="#四-还有什么要注意的" class="headerlink" title="四. 还有什么要注意的"></a>四. 还有什么要注意的</h1><h2 id="1-一定要使用使用域名"><a href="#1-一定要使用使用域名" class="headerlink" title="1. 一定要使用使用域名"></a>1. 一定要使用使用域名</h2><p>向苹果提审的服务器一定要使用域名, 所有的地方都是如此, 包括 http 请求, 热更新返回的 <code>version.md</code> 地址.</p>
-<h2 id="2-做好兼容性测试"><a href="#2-做好兼容性测试" class="headerlink" title="2. 做好兼容性测试"></a>2. 做好兼容性测试</h2><p>测试 IPV6 ONLY 的时候使用最新的 iOS 9.3 做测试, 苹果他们审核的时候也是只审核最新的系统是否正常. </p>
-<p>但是我们实现的时候要兼容的不同的系统, 网络环境(<code>IPV6 兼容</code> 和 <code>IPV6 ONLY</code>), 因为用户的网络可能是各种各样样, 这些组合都要测试到.</p>
+<p>苹果商店在儿童节之后就不允许未适配 IPV6 的应用上架了, IPV6 是啥 ? 需要做些什么呢 ? </p>
 
-
+    
+	  <div class="readmore">
+      <a href="/2016/06/19/quickx-ipv6/">Read More</a>
+    </div>
     
     
     
@@ -453,26 +455,11 @@
   <section class="article typo">
 	  <p>最近这段时间遇到了两次比较严重的真机崩溃问题, 都是之前所没有遇到过的, 特此记录一下, 希望能帮助到遇到类似问题的朋友.</p>
 <p>之所以强调真机, 是因为这些问题在 player 上或者 debug 版无法出现, 只有真正运行在手机上才可能遇到, 因为最后我们 Archive 出来的包都是 release 版的.</p>
-<h1 id="1-removeFromParent"><a href="#1-removeFromParent" class="headerlink" title="1. removeFromParent"></a>1. removeFromParent</h1><p>removeFromParent() 多次会导致崩溃并闪退, 很难以想象是吧, 在我的记忆中应该只是抛出一个 lua 错误. 事实上, debug 版确实如此, 让我们看一段测试代码:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">self._btnLogin:removeFromParent()</div><div class="line">self._btnLogin:removeFromParent()</div></pre></td></tr></table></figure>
-<p>player 上会收到如下的 lua 错误提示:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LUA ERROR: [<span class="built_in">string</span> <span class="string">"xxx.lua"</span>]:<span class="number">349</span>: invalid <span class="string">'cobj'</span> <span class="keyword">in</span> <span class="function"><span class="keyword">function</span> '<span class="title">lua_cocos2dx_Node_removeFromParentAndCleanup</span>'</span></div></pre></td></tr></table></figure>
-<p>让我们看下抛出这个错误的地方 <code>lua_cocos2dx_Node_removeFromParentAndCleanup</code> :</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">if</span> COCOS2D_DEBUG &gt;= 1</span></div><div class="line">    <span class="keyword">if</span> (!cobj)</div><div class="line">    &#123;</div><div class="line">        tolua_error(tolua_S,<span class="string">"invalid 'cobj' in function 'lua_cocos2dx_Node_removeFromParentAndCleanup'"</span>, <span class="literal">nullptr</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
-<p>第一次调用完 removeFromParent(), <code>_btnLogin</code> 的 c++ 对象就已经被释放了, 再次调用 <code>cobj</code> 就是 <code>NULL</code> 了, 所以就会进入到这个判断中, 从而抛出错误.</p>
-<p>但是这段代码却是运行在 COCOS2D_DEBUG 宏中的, 就意味着这段代码在 release 版是不生效的, 所以就会接着往下执行, 从而导致崩溃.</p>
-<p>虽然我们不太可能直接会用一个对象调用 removeFromParent 多次, 但是包含 removeFromParent 的函数被调用多次却是很有可能的, 所以我们一定要养成一个好的习惯, 在 <code>removeFromParent</code> 之前要做判空检测, 之后要立刻置空:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> xxx <span class="keyword">then</span></div><div class="line">    xxx:removeFromParent()</div><div class="line">    xxx = <span class="literal">nil</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<h1 id="2-Signal-13-was-raised-SIGPIPE"><a href="#2-Signal-13-was-raised-SIGPIPE" class="headerlink" title="2. Signal 13 was raised. SIGPIPE"></a>2. Signal 13 was raised. SIGPIPE</h1><p>当游戏在 iOS 上不切换到后台直接锁屏一段时间, 网络资源就会被系统回收掉, 这时候解锁屏幕, 游戏并不知道 tcp 连接已经断开, 发送消息就会触发这个崩溃.</p>
-<p>表现出来的效果是手机解锁不了, 得等好久才可以.</p>
-<p>关于具体技术解释, 大家可以看这篇文章, <a href="http://blog.csdn.net/jia12216/article/details/50844013" target="_blank" rel="external">Signal 13 was raised（SIGPIPE管道破裂）</a>, 我这里重点讲解决方案.</p>
-<p>网上说有两种解决方案(<a href="http://www.jianshu.com/p/1957d2b18d2c" target="_blank" rel="external">如何在 iOS 上避免 SIGPIPE 信号导致的 crash</a>):</p>
-<h2 id="1-在全局范围内忽略这个信号"><a href="#1-在全局范围内忽略这个信号" class="headerlink" title="1. 在全局范围内忽略这个信号"></a>1. 在全局范围内忽略这个信号</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">signal(SIGPIPE, SIG_IGN);</div></pre></td></tr></table></figure>
-<h2 id="2-在一开始的时候设置-socket-不要发送-SIGPIPE-信号"><a href="#2-在一开始的时候设置-socket-不要发送-SIGPIPE-信号" class="headerlink" title="2. 在一开始的时候设置 socket 不要发送 SIGPIPE 信号"></a>2. 在一开始的时候设置 socket 不要发送 SIGPIPE 信号</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> value = <span class="number">1</span>;</div><div class="line">setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &amp;value, <span class="keyword">sizeof</span>(value));</div></pre></td></tr></table></figure>
-<p>就 1 来说, cocos 早已设置了忽略, 在 <code>socket_open</code> 函数中, 并且这的执行到了. 我在 <code>tcp.c</code> 中的 <code>tcp_create</code> 中加入 2 方案, 确实解决了这个问题. 但是 <code>SO_NOSIGPIPE</code> 并不是跨平台的, 我偷懒直接用宏判断了下:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">tcp_create</span><span class="params">(lua_State *L, <span class="keyword">int</span> family)</span> </span>&#123;</div><div class="line">    t_socket sock;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *err = inet_trycreate(&amp;sock, family, SOCK_STREAM);</div><div class="line">    <span class="comment">/* try to allocate a system socket */</span></div><div class="line">    <span class="keyword">if</span> (!err) &#123;</div><div class="line">        ...</div><div class="line">        </div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CC_TARGET_OS_IPHONE</span></div><div class="line">        <span class="keyword">int</span> val = <span class="number">1</span>;</div><div class="line">        setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, (<span class="keyword">void</span> *)&amp;val, <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-
+    
+	  <div class="readmore">
+      <a href="/2016/04/10/quickx-crash-on-phone/">Read More</a>
+    </div>
     
     
     
@@ -763,68 +750,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/02/29/publish-untp-to-pypi/">
-        将 untp 发布到 Pypi 上
-      </a>
-    </h2>
-    
-    <time>
-      2月 29, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>上一篇年结的时候有提到 <a href="https://github.com/justbilt/untp" target="_blank" rel="external">untp</a> 这个小工具, 它是我在 github 收获 star 数最多的一个项目. 这个项目本是无心之举, 既然受大家欢迎, 那么一定要好好维护下去 ! 对于它后续的发展, 我打算从两个方面入手:</p>
-<ol>
-<li>更便捷的安装</li>
-<li>支持更多的格式</li>
-</ol>
-<p>之前唯一一次发布时用 PyInstaller 打包成可执行文件来发布的, 很方便, 出来的安装包也很小! 但是我时常会收到在 Mac 上崩溃的反馈:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">illegal instruction 4</div></pre></td></tr></table></figure>
-<p>在这个错误上我花费了特别大的精力, 因为在推荐给朋友的时候吹得天花乱坠, 实际却完全运行不起来, 这也太不给我面子了吧.</p>
-<p>Google 上对于这个问题也是众说纷纭, 没有一个能帮到我. 我尝试过各种解决方案, 升降级 PyInstaller, 用 Python3 重写, 用 PyQtDeploy 打包. 但却总是无功而返. PyQtDeploy 倒是可以解决问题, 但是打的包足足有 30~40MB , 想想还是算了吧.</p>
-<p>最后我仔细想了想, 在 Mac 上完全没有必要打包成一个可执行文件呀, 系统自带 python 环境, 直接通过 pip 安装一下就可以了嘛 ~</p>
-<p>关于如何制作,上传,发布自己的项目, 推荐大家阅读这篇文章 <a href="http://yejinxin.github.io/distribute-python-packages-to-pypi-server/" target="_blank" rel="external">发布python的包至pypi服务器</a> , 文章写的很好, 里面已经提到内容我在下面就不赘述了.</p>
-<h1 id="1-制作-setup-py"><a href="#1-制作-setup-py" class="headerlink" title="1. 制作 setup.py"></a>1. 制作 setup.py</h1><p>我的 setup.py 文件如下:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</div><div class="line"></div><div class="line">setup(</div><div class="line">    name = <span class="string">'untp'</span>,</div><div class="line">    version = <span class="string">'1.0.2'</span>,</div><div class="line">    keywords = (<span class="string">'untp'</span>, <span class="string">'texturepacker'</span>),</div><div class="line">    description = <span class="string">'A command line tool to split TexturePacker publish file.'</span>,</div><div class="line">    license = <span class="string">'MIT License'</span>,</div><div class="line">    install_requires = [</div><div class="line">        <span class="string">'Pillow'</span>,</div><div class="line">        <span class="string">'parse'</span></div><div class="line">    ],</div><div class="line">    url = <span class="string">'https://github.com/justbilt/untp'</span>,</div><div class="line">    author = <span class="string">'justbilt'</span>,</div><div class="line">    author_email = <span class="string">'wangbilt@gmail.com'</span>,</div><div class="line">    scripts=[<span class="string">'untp.py'</span>],</div><div class="line">    entry_points=&#123;</div><div class="line">        <span class="string">'console_scripts'</span>: [</div><div class="line">            <span class="string">'untp = untp:main'</span>,</div><div class="line">        ],</div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
-<h2 id="entry-points"><a href="#entry-points" class="headerlink" title="entry_points"></a>entry_points</h2><p>使用 entry_points 字段, 可以为项目添加可执行命令, 在我上面的配置中, 我就添加了 <code>untp</code> 这个名命令, 会执行 untp.py 的 main 函数.</p>
-<p>关于 entry_points 的更多用法, 可以参考这篇文章 <a href="https://pythonhosted.org/setuptools/setuptools.html#automatic-script-creation" target="_blank" rel="external">Automatic Script Creation</a> .</p>
-<h2 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h2><p>这里面值得一提的是 <code>scripts</code> 字段, 这个字段好多文章都没有提, 但是在我这里却引发了一个大问题. 我的目录结构如下:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">untp</div><div class="line">├── README.md</div><div class="line">├── setup.py</div><div class="line">└── untp.py</div></pre></td></tr></table></figure>
-<p>因为项目比较小, 我就直接将 untp.py 直接裸露在项目根目录, 开始没有添加 scripts 字段, 打包安装 <code>import</code> 都没有问题, 但是运行 <code>untp</code> 时却会报最经典的 <code>ImportError</code> 错误:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">wanghaitaodeMacBook-Air:untp bilt$ untp</div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"/usr/local/bin/untp"</span>, line 9, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">    load_entry_point(<span class="string">'untp==1.0.2'</span>, <span class="string">'console_scripts'</span>, <span class="string">'untp'</span>)()</div><div class="line">  ...</div><div class="line">  File <span class="string">"/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py"</span>, line 2361, <span class="keyword">in</span> resolve</div><div class="line">    module = __import__(self.module_name, fromlist=[<span class="string">'__name__'</span>], level=0)</div><div class="line">ImportError: No module named untp</div></pre></td></tr></table></figure>
-<p>然后我就要疯了, 这里什么个鬼情况 !!! 直到我看到了这个问答: <a href="http://stackoverflow.com/questions/19718813/module-not-found-during-load-entry-point-in-python" target="_blank" rel="external">module-not-found-during-load-entry-point-in-python</a> . 我才意识到, 原来我一直都没有安装对, 之所以能够 import 成功, 是因为我就在当前 (untp.py) 目录运行的 python 终端.</p>
-<p>然后去啃官方文档, 经过一番尝试, 其他人使用的 <code>packages = find_packages()</code>, 在我这里并不好使, 只有手动指定 scripts 才可以 !</p>
-<h1 id="2-测试"><a href="#2-测试" class="headerlink" title="2. 测试"></a>2. 测试</h1><p>我还是推荐大家先在 <code>testpypi.python.org</code> 上测试正确了再上传到正式的 <code>pypi.python.org</code>, 因为一但在正式服务器提交了, 就必须以版本号迭代的代价来更正上次提交. 而在测试服务器上发现问题的话, 登录删除一下有问题的版本就可以了!</p>
-<p>testpypi 也是需要注册的, 和 pypi 的注册方法一致, 注册完别忘了去邮箱验证一下.</p>
-<p>注意上传的时候不一定会成功, 说在 <code>.pypirc</code> 中找不到 testpypi 的配置, 解决方案可以看这里: <a href="https://wiki.python.org/moin/TestPyPI" target="_blank" rel="external">Test PyPI Server</a> .</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">python setup.py register -r https://testpypi.python.org/pypi</div><div class="line">python setup.py upload -r https://testpypi.python.org/pypi</div><div class="line">pip install -i https://testpypi.python.org/pypi &lt;package name&gt;</div></pre></td></tr></table></figure>
-<p>然后使用上面几条命令进行测试注册,发布,安装.</p>
-<h1 id="3-发布"><a href="#3-发布" class="headerlink" title="3. 发布"></a>3. 发布</h1><p>这边没有什么说的, 测试没有问题之后, 发布也不会出什么问题, 只是网址不一样而已. 写这篇文章的时候, 大家已经可以使用 <code>pip</code> 来安装最新版的 untp 了:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install untp</div></pre></td></tr></table></figure>
-<p>–EOF–</p>
-
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/untp/">untp</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -861,7 +786,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 14.75px; color: #707070">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 15.5px; color: #606060">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
     </div>
 </div>
 
