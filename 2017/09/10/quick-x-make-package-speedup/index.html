@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Quick-cocos2d-x 编译 Lua 代码加速 | Justbilt</title>
+  <meta name="description" content="A game developer" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Justbilt">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="quick-x 在手机上运行的时候并不是加载项目的 Lua 的源码, 而是一个名为 game.zip 的压缩包. 当项目中的 Lua 文件越来越多的时候, 生成这个 game.zip 的时间会越来越久. 我们目前的项目有 1256 个 Lua 文件, 每次执行编译操作需要耗时将近 40 秒的时间: 12345time $QUICK_V3_ROOT/quick/bin/compile_scripts">
+<meta name="keywords" content="Quick-Cocos2d-x,Lua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quick-cocos2d-x 编译 Lua 代码加速">
+<meta property="og:url" content="http://blog.justbilt.com/2017/09/10/quick-x-make-package-speedup/index.html">
+<meta property="og:site_name" content="Justbilt">
+<meta property="og:description" content="quick-x 在手机上运行的时候并不是加载项目的 Lua 的源码, 而是一个名为 game.zip 的压缩包. 当项目中的 Lua 文件越来越多的时候, 生成这个 game.zip 的时间会越来越久. 我们目前的项目有 1256 个 Lua 文件, 每次执行编译操作需要耗时将近 40 秒的时间: 12345time $QUICK_V3_ROOT/quick/bin/compile_scripts">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1fjep3wv9cjj30vz03uq3p.jpg">
+<meta property="og:updated_time" content="2017-09-10T11:48:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quick-cocos2d-x 编译 Lua 代码加速">
+<meta name="twitter:description" content="quick-x 在手机上运行的时候并不是加载项目的 Lua 的源码, 而是一个名为 game.zip 的压缩包. 当项目中的 Lua 文件越来越多的时候, 生成这个 game.zip 的时间会越来越久. 我们目前的项目有 1256 个 Lua 文件, 每次执行编译操作需要耗时将近 40 秒的时间: 12345time $QUICK_V3_ROOT/quick/bin/compile_scripts">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1fjep3wv9cjj30vz03uq3p.jpg">
+    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+</head>
+
+<body>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+
+
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Justbilt
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-links' href='/links'>
+								Links
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
+
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a href="/links" class="nav-links nav">
+				Links
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
+
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-quick-x-make-package-speedup"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2017/09/10/quick-x-make-package-speedup/">
+    	Quick-cocos2d-x 编译 Lua 代码加速
+    </a>
+  </h2>
+	<time>
+	  9月 10, 2017
+	</time>
+	
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分析-compile-scripts"><span class="toc-number">1.</span> <span class="toc-text">分析 compile_scripts</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速优化"><span class="toc-number">2.</span> <span class="toc-text">快速优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度优化"><span class="toc-number">3.</span> <span class="toc-text">深度优化</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>quick-x 在手机上运行的时候并不是加载项目的 Lua 的源码, 而是一个名为 <code>game.zip</code> 的压缩包. 当项目中的 Lua 文件越来越多的时候, 生成这个 game.zip 的时间会越来越久.</p>
+<p>我们目前的项目有 <code>1256</code> 个 Lua 文件, 每次执行编译操作需要耗时将近 40 秒的时间:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">time <span class="variable">$QUICK_V3_ROOT</span>/quick/bin/compile_scripts.sh -q -i ../src -o ../res/game.zip -e xxtea_zip -ek xxxx -es xxx</div><div class="line">---</div><div class="line">real    0m38.603s</div><div class="line">user    0m25.792s</div><div class="line">sys     0m3.369s</div></pre></td></tr></table></figure>
+<p>尤其是当需要在手机上调试 Lua 代码的时候, 每改一次代码就需要运行一次这个命令, 然后 40 秒就过去了, 你恐怕都忘记自己该关注什么改动了吧!</p>
+<a id="more"></a>
+<h1 id="分析-compile-scripts"><a href="#分析-compile-scripts" class="headerlink" title="分析 compile_scripts"></a>分析 compile_scripts</h1><p>在 <code>$QUICK_V3_ROOT/quick/bin</code> 目录我们可以找到 <code>compile_scripts.sh</code> :</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="built_in">export</span> LUA_PATH=<span class="string">"<span class="variable">$QUICK_V3_ROOT</span>/quick/bin/mac/?.lua;;"</span></div><div class="line">DIR=<span class="string">"<span class="variable">$( cd "$( dirname "$&#123;BASH_SOURCE[0]&#125;" )</span>"</span> &amp;&amp; <span class="built_in">pwd</span> )<span class="string">"</span></div><div class="line">php "<span class="variable">$DIR</span>/lib/compile_scripts.php<span class="string">" $*</span></div></pre></td></tr></table></figure>
+<p>这个脚本很简单, 只是一个入口, 真正的逻辑是在 <code>compile_scripts.php</code> 文件中, 打开这个文件后发现它主要功能是处理输入的参数, 剩余的工作是通过 <code>ScriptsCompiler</code> 这个类完成的, 它位于 ScriptsCompiler.lua 中.</p>
+<p>必须承认, 廖大他们写的代码还是很棒的, 我们只看 ScriptsCompiler 的 <code>run</code> 函数便可以猜到这个类都干了那些事情:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    $files = <span class="keyword">$this</span>-&gt;searchSourceFiles();</div><div class="line">    $modules = <span class="keyword">$this</span>-&gt;prepareForCompile($files);</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;config[<span class="string">'encrypt'</span>] == <span class="keyword">self</span>::ENCRYPT_XXTEA_CHUNK)</div><div class="line">    &#123;</div><div class="line">        $bytes = <span class="keyword">$this</span>-&gt;compileModules($modules, <span class="keyword">$this</span>-&gt;config[<span class="string">'key'</span>], <span class="keyword">$this</span>-&gt;config[<span class="string">'sign'</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        $bytes = <span class="keyword">$this</span>-&gt;compileModules($modules);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (!is_array($bytes))</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;cleanupTempFiles($modules);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">$this</span>-&gt;createOutput($modules, $bytes))</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;cleanupTempFiles($modules);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">$this</span>-&gt;cleanupTempFiles($modules);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>配合着其中调用的函数的细节, 我们可以得知该类的主要工作流程:</p>
+<ol>
+<li>找到所有的 Lua 文件.</li>
+<li>调用 <code>getScriptFileBytecodes</code> 函数获取上一步那些 Lua 文件的字节码.</li>
+<li>创建输出文件 <code>game.zip</code>.</li>
+<li>加密输出文件 <code>game.zip</code>.</li>
+</ol>
+<p>当然还有一些分支的情况, 不过我们关注的工作流程就是这个样子的.</p>
+<h1 id="快速优化"><a href="#快速优化" class="headerlink" title="快速优化"></a>快速优化</h1><p>从上一步的源码阅读过程中得知, 如果我们在调用 <code>compile_scripts.sh</code> 时, 不传入加密信息的话, 就不会第四步操作. 在我们开发过程中, 加密这一步其实是可以省略, 最终打包的时候加密一次就可以了.</p>
+<p>那么干掉第 4 步对于打包花费到底能减少多少呢 ? 我们来测试一下, 还是文章最开始的那端脚本, 我们这次删除最后面的一些加密参数试一下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">time <span class="variable">$QUICK_V3_ROOT</span>/quick/bin/compile_scripts.sh -q -i ../src -o ../res/game.zip</div><div class="line">---</div><div class="line">real    0m16.362s</div><div class="line">user    0m8.333s</div><div class="line">sys     0m2.579s</div></pre></td></tr></table></figure>
+<p>很幸运, 加密确实消耗了很多的时间, 因此我们没有花费多少精力就把编译时间减少为了当初的 <code>42%</code>. 我们可以在游戏工程中建立两个脚本, <code>pack_lua.sh</code> 和 <code>pack_lua_dev.sh</code>, 分别放入上述的两行命令, 这样我们在开发/调试期间只用调用 <code>pack_lua_dev.sh</code> 就可以了.</p>
+<p>然而这一切还不值得我们欢呼, 这是一个很取巧的方案, 或许是我们团队本身就对 <code>compile_scripts</code> 这个操作的理解不够, 导致我们一直以来就来使用的这个方案就是错误的.</p>
+<p>况且, <code>16</code> 秒还是很久.</p>
+<h1 id="深度优化"><a href="#深度优化" class="headerlink" title="深度优化"></a>深度优化</h1><p>根据上一步得出的信息, 有 16 秒的时间是消耗在了前三步, (根据多年经验)而其中第一步和第三步的消耗也非常小, 那么主要的消耗是在第二步上.</p>
+<p>经过观察, 每次我们运行 <code>compile_scripts</code> 都会把所有的 Lua 代码都编译一遍, 那么我们是不是可以把历史的结果缓存下来, 只编译新增和变化的文件呢 ?</p>
+<p>首先我们需要弄懂, 这个所谓的 <code>编译</code> 操作, 到底做了什么 ? 让我们再次把目光转向之前得知的 <code>getScriptFileBytecodes</code> 函数.</p>
+<p>该函数位于 <code>$QUICK_V3_ROOT/quick/bin/lib/quick/init.php</code> 中, 我们在函数中执行命令前加上输出:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">printf(<span class="string">"command: %s\n"</span>, $command);</div><div class="line">passthru($command);</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>再次执行 <code>compile_scripts</code>, 注意去掉 <code>-q</code> 参数, 我们可以在输出中看到:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">command</span>: /xxx/quick-cocos2d-x/quick/bin/mac/luac -o <span class="string">"xxx.bytes"</span> <span class="string">"xxx.lua"</span></div></pre></td></tr></table></figure>
+<p>看来就是调用了下 <code>luac</code> 命令嘛, 挺简单的呀!</p>
+<blockquote>
+<p>(注: 实际情况会复杂一些, 因为可能会用到 luajit 工作流程, 这里只讨论我们目前的工作流)</p>
+</blockquote>
+<p>搞懂了原理的话, 就可以开撸了, 我并不打算修改 quick 的 php 代码, 我会用我更熟悉的 Python 来写一个优化版的 Lua 编译脚本. 下面是核心的代码, 我加了一些必要的注释:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">package</span><span class="params">(_src, _dst)</span>:</span></div><div class="line">    cache_path = CACHE_ROOT</div><div class="line">    shutils.mkdir(cache_path)</div><div class="line">    hash_file = os.path.join(cache_path, <span class="string">"hash.json"</span>)</div><div class="line">    hash_data = shutils.read_json(hash_file, &#123;&#125;)</div><div class="line">    hash_data_new = &#123;&#125;</div><div class="line">    shutils.remove(_dst)</div><div class="line">    dst_zip = zipfile.ZipFile(_dst, <span class="string">"w"</span>, zipfile.ZIP_DEFLATED)</div><div class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> shutils.file_list(_src):</div><div class="line">        <span class="keyword">if</span> f.startswith(<span class="string">"."</span>) <span class="keyword">or</span> <span class="keyword">not</span> f.endswith(<span class="string">".lua"</span>):</div><div class="line">            <span class="keyword">continue</span></div><div class="line">        src_filepath = os.path.abspath(os.path.join(_src, f))</div><div class="line">        dst_filename = f.replace(<span class="string">".lua"</span>, <span class="string">""</span>).replace(<span class="string">"/"</span>, <span class="string">"."</span>)</div><div class="line">        dst_filepath = os.path.abspath(os.path.join(cache_path, dst_filename))</div><div class="line">        src_hash = shutils.file_hash(src_filepath)</div><div class="line">        dst_hash = shutils.file_hash(dst_filepath)</div><div class="line">        record_hash = hash_data.get(dst_filename, &#123;&#125;)</div><div class="line">        exists_error = <span class="keyword">False</span></div><div class="line">        <span class="comment"># 检查缓存是否有效</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> (dst_hash <span class="keyword">and</span> record_hash.get(<span class="string">"src"</span>, <span class="string">""</span>) == src_hash <span class="keyword">and</span> record_hash.get(<span class="string">"dst"</span>, <span class="string">""</span>) == dst_hash):</div><div class="line">            <span class="comment"># 这里为移除时为了感知 luac 编译失败</span></div><div class="line">            shutils.remove(dst_filepath)</div><div class="line">            <span class="keyword">print</span> <span class="string">"ADD: "</span> + f</div><div class="line">            luac_compile(src_filepath, dst_filepath)</div><div class="line">            dst_hash = shutils.file_hash(dst_filepath)</div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> dst_hash:</div><div class="line">                <span class="keyword">print</span> <span class="string">"\n---"</span></div><div class="line">                <span class="keyword">print</span> <span class="string">"ERROR: "</span> + src_filepath</div><div class="line">                exists_error = <span class="keyword">True</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">        dst_zip.write(dst_filepath, dst_filename)</div><div class="line">        hash_data_new[dst_filename] = &#123;<span class="string">"src"</span>: src_hash, <span class="string">"dst"</span>: dst_hash&#125;</div><div class="line">    shutils.save_json(hash_data_new, hash_file)</div><div class="line">    <span class="keyword">if</span> exists_error:</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">    dst_zip.close()</div><div class="line">    <span class="comment"># 删除原始文件已经不存在的缓存</span></div><div class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> shutils.file_list(cache_path):</div><div class="line">        <span class="keyword">if</span> f == <span class="string">"hash.json"</span>:</div><div class="line">            <span class="keyword">continue</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hash_data_new.get(f):</div><div class="line">            <span class="keyword">print</span> <span class="string">"REMOVE: "</span> + f</div><div class="line">            os.remove(os.path.join(cache_path, f))</div><div class="line">    <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<p>这段代码里多是逻辑的排列, 没有什么好说的. 值得一提的是是, luac 编译失败的处理, luac 失败后会输出错误日志, 不会生成对应的字节码:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ python luapack.py src res/game.zip</div><div class="line">ADD: main.lua</div><div class="line">/xxx/quick-cocos2d-x/quick/bin/mac/luac: /xxx/src/main.lua:10: <span class="string">'='</span> expected near <span class="string">'package'</span></div><div class="line"></div><div class="line">---</div><div class="line">ERROR: /Users/bilt/Documents/wanghaitao/easy_slg_client/src/main.lua</div></pre></td></tr></table></figure>
+<p>因此我们先尝试移除掉目标文件, 如果生成文件不存在则表示本次 luac 失败了. </p>
+<p>完整版的代码位于<a href="https://gist.github.com/justbilt/7c881cbdbff74f3fdd97278355d22fed" target="_blank" rel="external">我的 gist 上</a>, 这份代码只是最基本的实现, 还有很多优化的空间. 好的, 我迫不及待的想看看我们优化的成果了.</p>
+<p>让我们看看第一次运行的结果:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ time python luapack.py src res/game.zip</div><div class="line">---</div><div class="line">real    0m15.590s</div><div class="line">user    0m6.664s</div><div class="line">sys     0m2.946s</div></pre></td></tr></table></figure>
+<p><code>16</code> 秒, 接近之前无加密版的 <code>compile_scripts</code> 消耗, 让我们变更一个文件试试呢?</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ time python luapack.py src res/game.zip</div><div class="line">ADD: main.lua</div><div class="line">---</div><div class="line">real    0m1.611s</div><div class="line">user    0m1.403s</div><div class="line">sys     0m0.175s</div></pre></td></tr></table></figure>
+<p>只有不到 2 秒的耗时, 太牛逼了!</p>
+<hr>
+<p>在本次的优化过程中, 我们成功的将耗由最初的 <code>38.603s</code> 降低为最终的 <code>1.611s</code>, 接近 <code>24</code> 倍的效率提升, 这是一个质的飞跃! 感觉自己棒棒哒,晚饭申请加一个鸡腿.</p>
+<p>当然我们还做了一些其他的东西, 比如我们给日志加上了彩色的输出:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fjep3wv9cjj30vz03uq3p.jpg" alt=""></p>
+<p>是不是变的很漂亮 ?</p>
+
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+        <a href="/tags/Lua/">Lua</a>
+      
+	  </div>
+    
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: 'Quick-cocos2d-x 编译 Lua 代码加速',
+		tools: true
+	}
+</script>
+
+      </div>
+      <aside class='l_side'>
+        
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='/favicon/slogon.gif' />
+
+<div class='header'>justbilt</div>
+<div class='content'>
+<div class='desc'>"Only learning can make me happy"</div>
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.25px; color: #505050">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+    </div>
+</div>
+
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/justbilt" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://weibo.com/justbilt" class="social weibo"
+          target="_blank" rel="external">
+          <span class="icon icon-weibo"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
+    
+  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
+</footer>
+
+
+  <script>setLoadingBarProgress(80);</script>
+  
+<script>
+  var disqus_shortname = 'justbilt';
+  
+  var disqus_url = 'http://blog.justbilt.com/2017/09/10/quick-x-make-package-speedup/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
