@@ -10,6 +10,7 @@ description: "卧槽, 又崩溃了!"
 
 之所以强调真机, 是因为这些问题在 player 上或者 debug 版无法出现, 只有真正运行在手机上才可能遇到, 因为最后我们 Archive 出来的包都是 release 版的.
 
+<!--more-->
 
 # 1. removeFromParent
 
