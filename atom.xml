@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-10-02T08:15:36.000Z</updated>
+  <updated>2017-10-02T08:16:42.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.justbilt.com/2017/10/02/electron-builder-dependencies/"/>
     <id>http://blog.justbilt.com/2017/10/02/electron-builder-dependencies/</id>
     <published>2017-10-02T05:21:04.000Z</published>
-    <updated>2017-10-02T08:15:36.000Z</updated>
+    <updated>2017-10-02T08:16:42.000Z</updated>
     
     <content type="html"><![CDATA[<p>大概是三个月前, 写了 <a href="/2017/07/09/convert2fnt-electron-rewrite">使用 Electron 重写 convert2fnt</a> 这篇文章, 文章大概讲了我用 Electron 重写之前的一个 BMFont 字体生成工具的事情.</p>
 <p>开发的过程还是比较顺利的, Node.js 的生态非常给力, 加上 Chrome, VSCode 加持, 开发和调试都很爽. 但由于我没有 WEB 开发的基础, 整过过程只能摸索加网上查资料, 中间之曲折, 自不足为外人道也, 但最终磕磕绊绊的也算搞出来了.</p>
