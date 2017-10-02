@@ -4,6 +4,49 @@
   
     
     <entry>
+      <title><![CDATA[解决 electron-builder 打包依赖问题]]></title>
+      <url>http://blog.justbilt.com/2017/10/02/electron-builder-dependencies/</url>
+      <content type="html"><![CDATA[<p>大概是三个月前, 写了 <a href="/2017/07/09/convert2fnt-electron-rewrite">使用 Electron 重写 convert2fnt</a> 这篇文章, 文章大概讲了我用 Electron 重写之前的一个 BMFont 字体生成工具的事情.</p>
+<p>开发的过程还是比较顺利的, Node.js 的生态非常给力, 加上 Chrome, VSCode 加持, 开发和调试都很爽. 但由于我没有 WEB 开发的基础, 整过过程只能摸索加网上查资料, 中间之曲折, 自不足为外人道也, 但最终磕磕绊绊的也算搞出来了.</p>
+<p>呃, 其实也没有那么完美. </p>
+<blockquote>
+<p>Windows 版打包后发现运行不太正常, 但 Win 开发版以及 Mac 开发/发布版都运行正常.</p>
+</blockquote>
+<p>有些诡异, 不过我自己只在 Mac 上使用, 加上工作比较忙, 便搁置了起来. 但谁愿意在自己头上悬在一把利剑呢, 万一哪天着急用 Win 版的怎么办.</p>
+<p>趁着国庆放假还没有什么安排的时候, 赶紧搞一下.</p>
+<a id="more"></a>
+<hr>
+<p>首先要搞明白无法正常运行的原因是什么, 打开 Chrom 开发者工具后发现了错误内容. 项目的一个依赖项 <code>jimp</code> 没有加载成功, 在调用这个模块的一个函数后抛出错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const Jimp = require(&quot;jimp&quot;);</div><div class="line">Jimp.read(imagePath, function (err, lenna) &#123;&#125;</div><div class="line">---</div><div class="line">Uncaught TypeError: Jimp.read is not a function</div></pre></td></tr></table></figure>
+<p>试着断点跟踪了下 <code>require(&quot;jimp&quot;)</code> 的过程, 由于自己对 js 的细节知之甚少, 也没有发现什么异常. 各种关键字组合 Google 也没有结果, 一度陷入了毫无头绪的困境.</p>
+<p>在搜索的过程中发现 <code>electron</code> 和 <code>electron-builder</code> 都有了新的版本, 于是抱着侥幸的心态试着升级了下这两个库.</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">- "electron-builder": "^19.11.1",</span></div><div class="line"><span class="deletion">- "electron": "^1.6.11"</span></div><div class="line"><span class="addition">+ "electron-builder": "^19.33.0",</span></div><div class="line"><span class="addition">+ "electron": "^1.7.8",</span></div></pre></td></tr></table></figure>
+<p>没想到, 竟然 … … 还是没有解决这个问题. 好吧, 其实也还在预料之中. 但是也有 “好消息”, 出错的地方和之前不一样了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">module.js:472 Uncaught Error: Cannot find module &apos;bmp-js&apos;</div></pre></td></tr></table></figure>
+<p>又是一番折腾, 尝试各种解决方案, 各种猜想, 各种组合. 这些尝试多没有什么变化, 有的尝试反而将我带到沟里, 离真相越来越远. </p>
+<p>最后我坚定了一个想法:</p>
+<blockquote>
+<p>我的代码是没有任何问题的, 一定是打包的配置有问题.</p>
+</blockquote>
+<p>果然, 在仔细阅读官方文档的时候发现了这个 <a href="https://www.electron.build/tutorials/two-package-structure" target="_blank" rel="external">Two package.json Structure</a> , 原来官方已经推荐使用两个配置文件来配置各种参数, 一个配置开发时的参数, 一个配置打包时的参数. 于是便有了这样的目录结构:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">├── app</div><div class="line">│   ├── index.html</div><div class="line">│   ├── index.js</div><div class="line">│   ├── package-lock.json</div><div class="line">│   └── package.json</div><div class="line">└── package.json</div></pre></td></tr></table></figure>
+<p>同时, 官方还建议在开发的 <code>config.json</code> 中增加一个 <code>&quot;postinstall&quot;: &quot;electron-builder install-app-deps&quot;</code> 来自动触发安装 <code>app</code> 目录中的依赖.</p>
+<hr>
+<p>哈哈, 问题已经解决, 都是没有仔细看官方文档惹的祸, 但从此 Win 下同学也可以用上新版的工具啦.</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> convert2fnt </tag>
+            
+            <tag> Electron </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Quick-cocos2d-x 编译 Lua 代码加速]]></title>
       <url>http://blog.justbilt.com/2017/09/10/quick-x-make-package-speedup/</url>
       <content type="html"><![CDATA[<p>quick-x 在手机上运行的时候并不是加载项目的 Lua 的源码, 而是一个名为 <code>game.zip</code> 的压缩包. 当项目中的 Lua 文件越来越多的时候, 生成这个 game.zip 的时间会越来越久.</p>
@@ -5380,16 +5423,16 @@ a.gitment-editor-footer-tip:hover {
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://blog.justbilt.com/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>http://blog.justbilt.com/links/index.html</url>
       <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="external">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="external">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="external">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="external">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="external">http://qipa.world/</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://blog.justbilt.com/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   

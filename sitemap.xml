@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.justbilt.com/2017/10/02/electron-builder-dependencies/</loc>
+    
+    <lastmod>2017-10-02T08:15:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2016/02/11/my-2015/</loc>
     
     <lastmod>2017-09-13T14:46:36.000Z</lastmod>
@@ -93,6 +100,13 @@
   </url>
   
   <url>
+    <loc>http://blog.justbilt.com/2017/06/03/quick-x-i18n/</loc>
+    
+    <lastmod>2017-07-09T03:09:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2016/09/23/quickx-utf8-support/</loc>
     
     <lastmod>2017-07-09T03:09:19.000Z</lastmod>
@@ -100,28 +114,14 @@
   </url>
   
   <url>
+    <loc>http://blog.justbilt.com/2017/06/18/refine-game-ios-iap/</loc>
+    
+    <lastmod>2017-07-09T03:09:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2017/04/23/quick-x-user-avatar/</loc>
-    
-    <lastmod>2017-07-09T03:09:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2017/02/18/my-2016/</loc>
-    
-    <lastmod>2017-07-09T03:09:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2017/03/12/ios-dev-tips-4/</loc>
-    
-    <lastmod>2017-07-09T03:09:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2017/06/03/quick-x-i18n/</loc>
     
     <lastmod>2017-07-09T03:09:19.000Z</lastmod>
     
@@ -142,14 +142,21 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2016/12/10/quickx-playvideo/</loc>
+    <loc>http://blog.justbilt.com/2017/03/04/quick-x-oop/</loc>
     
     <lastmod>2017-07-09T03:09:19.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2017/03/04/quick-x-oop/</loc>
+    <loc>http://blog.justbilt.com/2017/03/12/ios-dev-tips-4/</loc>
+    
+    <lastmod>2017-07-09T03:09:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.justbilt.com/2016/12/10/quickx-playvideo/</loc>
     
     <lastmod>2017-07-09T03:09:19.000Z</lastmod>
     
@@ -163,7 +170,7 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2017/06/18/refine-game-ios-iap/</loc>
+    <loc>http://blog.justbilt.com/2017/02/18/my-2016/</loc>
     
     <lastmod>2017-07-09T03:09:19.000Z</lastmod>
     
@@ -205,14 +212,14 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2014/06/10/rtt_savetofile_in_player/</loc>
+    <loc>http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/</loc>
     
     <lastmod>2017-04-23T04:39:17.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2014/10/29/quickx-CCGraySprite-invisible/</loc>
+    <loc>http://blog.justbilt.com/2014/06/10/rtt_savetofile_in_player/</loc>
     
     <lastmod>2017-04-23T04:39:17.000Z</lastmod>
     
@@ -226,21 +233,7 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/</loc>
-    
-    <lastmod>2017-04-23T04:37:20.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.justbilt.com/2016/09/05/ios-dev-tips-3/</loc>
-    
-    <lastmod>2017-04-23T04:37:20.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2016/03/19/quickx-memery-leak/</loc>
     
     <lastmod>2017-04-23T04:37:20.000Z</lastmod>
     
@@ -255,6 +248,20 @@
   
   <url>
     <loc>http://blog.justbilt.com/2016/05/01/quickx-editbox-util/</loc>
+    
+    <lastmod>2017-04-23T04:37:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.justbilt.com/2016/03/19/quickx-memery-leak/</loc>
+    
+    <lastmod>2017-04-23T04:37:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/</loc>
     
     <lastmod>2017-04-23T04:37:20.000Z</lastmod>
     
@@ -289,13 +296,6 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/03/16/quickxdev-2/</loc>
-    
-    <lastmod>2017-03-12T02:22:53.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.justbilt.com/2016/01/01/quickx-hotupdate/</loc>
     
     <lastmod>2017-03-12T02:22:53.000Z</lastmod>
@@ -310,6 +310,13 @@
   </url>
   
   <url>
+    <loc>http://blog.justbilt.com/2015/03/16/quickxdev-2/</loc>
+    
+    <lastmod>2017-03-12T02:22:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2015/03/16/quickxdev-1/</loc>
     
     <lastmod>2017-03-12T02:22:53.000Z</lastmod>
@@ -317,21 +324,7 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/04/05/phone-game-AND-watchdog/</loc>
-    
-    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2016/05/08/compress-res/</loc>
-    
-    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2016/02/29/publish-untp-to-pypi/</loc>
+    <loc>http://blog.justbilt.com/2015/05/08/buy-imac-with-retina/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -339,27 +332,6 @@
   
   <url>
     <loc>http://blog.justbilt.com/2013/09/11/cocos2d-x-ccshake/</loc>
-    
-    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2015/11/28/pyqtdeploy/</loc>
-    
-    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2016/02/14/phone-game-AND-OLgame/</loc>
-    
-    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.justbilt.com/2015/10/31/mygui-2-run-on-osx/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -374,6 +346,20 @@
   
   <url>
     <loc>http://blog.justbilt.com/2015/08/23/ldoc/</loc>
+    
+    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.justbilt.com/2015/10/31/mygui-2-run-on-osx/</loc>
+    
+    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.justbilt.com/2016/02/29/publish-untp-to-pypi/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -401,14 +387,14 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/05/08/buy-imac-with-retina/</loc>
+    <loc>http://blog.justbilt.com/2015/04/19/untp/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2015/04/19/untp/</loc>
+    <loc>http://blog.justbilt.com/2015/04/05/phone-game-AND-watchdog/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -422,7 +408,21 @@
   </url>
   
   <url>
+    <loc>http://blog.justbilt.com/2016/02/14/phone-game-AND-OLgame/</loc>
+    
+    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/</loc>
+    
+    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.justbilt.com/2016/05/08/compress-res/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -443,14 +443,14 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2014/07/02/setup_python_on_mac/</loc>
+    <loc>http://blog.justbilt.com/2014/10/17/spend-money-on-network/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2014/10/17/spend-money-on-network/</loc>
+    <loc>http://blog.justbilt.com/2014/07/02/setup_python_on_mac/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     
@@ -485,6 +485,13 @@
   </url>
   
   <url>
+    <loc>http://blog.justbilt.com/2013/11/03/elbow/</loc>
+    
+    <lastmod>2017-03-12T01:22:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.justbilt.com/2013/11/28/cocos2dx_loop_sound/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
@@ -492,7 +499,7 @@
   </url>
   
   <url>
-    <loc>http://blog.justbilt.com/2013/11/03/elbow/</loc>
+    <loc>http://blog.justbilt.com/2015/11/28/pyqtdeploy/</loc>
     
     <lastmod>2017-03-12T01:22:38.000Z</lastmod>
     

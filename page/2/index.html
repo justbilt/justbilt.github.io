@@ -139,6 +139,43 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2017/04/12/the-git-for-neat-freak/">
+        洁癖患者的 Git GUI 指南
+      </a>
+    </h2>
+    
+    <time>
+      4月 12, 2017
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>前段时间我看到了一篇文章, <a href="http://hungyuhei.github.io/2012/08/07/better-git-commit-graph-using-pull---rebase-and-merge---no-ff.html" target="_blank" rel="external">洁癖者用 Git：pull –rebase 和 merge –no-ff</a> , 发现和我们目前的工作流程很像, 区别在于我们是使用 GUI 工具来做的这些, 也做了一些新的尝试.</p>
+
+    
+	  <div class="readmore">
+      <a href="/2017/04/12/the-git-for-neat-freak/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/neat-freak/">neat-freak</a>
+      
+        <a href="/tags/git/">git</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2017/03/25/bye-duoshuo-bye-comment/">
         多说, 再见 !
       </a>
@@ -476,103 +513,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/09/05/ios-dev-tips-3/">
-        最近搞 iOS 版遇到的一些问题和技巧 (三)
-      </a>
-    </h2>
-    
-    <time>
-      9月 5, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <h1 id="一-iOS-内购返回商品无效-invalid-product"><a href="#一-iOS-内购返回商品无效-invalid-product" class="headerlink" title="一. iOS 内购返回商品无效 invalid product"></a>一. iOS 内购返回商品无效 invalid product</h1><p>我使用 Quick-cocos2d-x 内置的 store 类请求商品信息时, 收到这样的错误:</p>
-<blockquote>
-<p>nvalidProductIdentifiers [CCStore_obj]<br>[CCStore_obj] productsRequestDidReceiveResponse() invalid pid: com.xxx.xxx</p>
-</blockquote>
-<p>首先, <strong>检查你请求的商品 id 在 iTunes 后台是否创建</strong>, 是否拼写错误. 如果没有问题, 那么就不太好办了, 会有很多原因导致这个问题.</p>
-<p>ZZB_Amoy 博客的<a href="http://blog.sina.com.cn/s/blog_a6a46b330101dgju.html" target="_blank" rel="external">这篇文章</a>总结了下可能的原因, 如下:</p>
-<blockquote>
-<ul>
-<li>创建的App ID是否启用了IAP功能。</li>
-<li>商品信息是否配置到iTurn Connect，并到达“Ready to Submit”状态。</li>
-<li>在iTurn Connect中创建Test User，并收取邮件激活。之后登录到测试用手机的设置页面中（Store选项）。</li>
-<li>App的Bundle Id是否和后台配置的App Id一致。</li>
-<li>是否创建相应的provisioning profile，并用此签名App。</li>
-<li>iTurn Connect后台配置完商品信息后，是否等待若干小时生效。</li>
-<li>SKProductsRequest请求的商品Id必须和iTurn Connect中配置的一致。（如：com.test.product.xxx）</li>
-<li>iTunes Connect中配置的银行信息是否正确。</li>
-<li>是否先删除旧App，再重新编译生成新的。</li>
-<li>请不要使用越狱手机测试。</li>
-</ul>
-</blockquote>
-<p>下面说说我两次遇到这个问题的解决方案:</p>
-<ol>
-<li>如果游戏发布区域中没有手机中 App Store 当前区的话, 需要先登陆下对应区域创建的测试账号, 将商店切换到对应区域.</li>
-<li>完善苹果开发者账号所能完善的信息, 如付款信息呀什么的, 然后莫名其妙就解决了.</li>
-<li>商品 id 大小写错误, 在 chrome 搜索时是忽略大小的.</li>
-</ol>
-<blockquote>
-<p>注：在测试阶段，可以不用上传APP软件包，但必须创建测试用Apple Id，并在手机设置中（store选项）登录。</p>
-</blockquote>
-<h1 id="二-iOS-运行崩溃-unrecognized-selector-sent-to-instance"><a href="#二-iOS-运行崩溃-unrecognized-selector-sent-to-instance" class="headerlink" title="二. iOS 运行崩溃 unrecognized selector sent to instance"></a>二. iOS 运行崩溃 unrecognized selector sent to instance</h1><p>运行游戏过程中收到如下错误:</p>
-<blockquote>
-<p>[1515:710439] -[AppController window]: unrecognized selector sent to instance 0x2c85c00<br>libc++abi.dylib: terminate_handler unexpectedly threw an exception</p>
-</blockquote>
-<p>这个在接入某一个平台 sdk 时遇到的问题, 于是便问了下他们的技术, 很快解决了问题. </p>
-<h4 id="1-修改-AppController-h-中-window-变量的声明形式"><a href="#1-修改-AppController-h-中-window-变量的声明形式" class="headerlink" title="1. 修改 AppController.h 中 window 变量的声明形式"></a>1. 修改 AppController.h 中 window 变量的声明形式</h4><p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f7j62j0mfuj20dw02n3yy.jpg" alt=""></p>
-<h4 id="2-修改-AppController-mm"><a href="#2-修改-AppController-mm" class="headerlink" title="2. 修改 AppController.mm"></a>2. 修改 AppController.mm</h4><p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f7j665yyacj207901zq32.jpg" alt=""></p>
-<p>虽然问题解决了, 但是我并不明白各种缘由. Google 了下, 大概明白了, 原来如此. 从错误中我们可以看到这句 <code>[AppController window]</code> , 从语法来看, 这是要调用 AppController 的 window 函数, 但是在我们之前的写法中没有实现这个函数, 便出错了. 而使用 <code>@property</code> 这个东西, 会自动帮你实现一个 <code>window/setWindow</code> 函数, 这样就不会找不到这个函数了.</p>
-<h1 id="三-游戏在低于-ios9-的系统启动崩溃"><a href="#三-游戏在低于-ios9-的系统启动崩溃" class="headerlink" title="三. 游戏在低于 ios9 的系统启动崩溃"></a>三. 游戏在低于 ios9 的系统启动崩溃</h1><p>这个也是在接入第三方 sdk 时遇到的问题, 游戏一启动就会崩溃, 收到错误如下:</p>
-<blockquote>
-<p>dyld: Symbol not found: _OBJC<em>CLASS</em>$_SFSafariViewController<br>  Referenced from: /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision<br>  Expected in: /System/Library/Frameworks/SafariServices.framework/SafariServices<br> in /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision</p>
-</blockquote>
-<p>Google 了一下, 没有任何人遇到过这样的问题, 这就十分棘手了, 完全不知从何入手. 经过一番探索, 找到了几个有用的线索:</p>
-<ol>
-<li>SFSafariViewController 这个类是 ios 9 才引入的, 这和我们已知的信息相符.</li>
-<li>所幸的是我们的游戏有多个 Scheme , 每个 Scheme 接入不同的 sdk . 其他的 Scheme 的都可以正常运行.</li>
-</ol>
-<p>这就可以肯定是某个 sdk 中使用了 <code>SFSafariViewController</code> 这个类, 但是还是没有办法定位是那个 sdk . 我不知道是否有一个命令查找符号引用, 因此只能采用最笨的排除法了, 我将引入的 sdk 依次删除, 看是否能够运行.</p>
-<p>最终定位到了某个广告统计 sdk , 在询问其 ios 技术人员后得到了解决方案. 原来他们 sdk 需要<strong>以 <code>optional</code> 的形式引入 <code>SafariServices.framework</code></strong>.</p>
-<p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1f7kanujs5rj20ol018jrf.jpg" alt=""></p>
-<p>都怪我没有仔细阅读文档, 白白耽误了一段时间, 下次一定要注意!</p>
-<h1 id="四-Facebook-登录崩溃"><a href="#四-Facebook-登录崩溃" class="headerlink" title="四. Facebook 登录崩溃"></a>四. Facebook 登录崩溃</h1><p>集成 Facebook sdk 时, 调用登录接口游戏就会崩溃, 这个问题 Google 一下就能解决, 解决方案也很简单, 在 Info.plist 中加入下面几行代码即可:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>LSApplicationQueriesSchemes<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbapi<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fb-messenger-api<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbauth2<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbshareextension<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>Stackoverflow 上的答案可以<a href="http://stackoverflow.com/a/33489214" target="_blank" rel="external">移步这里</a>, Facebook 官网上也<a href="https://developers.facebook.com/docs/ios/ios9" target="_blank" rel="external">给了解答</a>.</p>
-<h1 id="五-ios9-状态栏无法隐藏"><a href="#五-ios9-状态栏无法隐藏" class="headerlink" title="五. ios9 状态栏无法隐藏"></a>五. ios9 状态栏无法隐藏</h1><p>隐藏状态栏在 ios9 上换了一种方式, 还是需要在 Info.plist 中进行配置:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIStatusBarHidden<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">true</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIViewControllerBasedStatusBarAppearance<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">false</span>/&gt;</span></div></pre></td></tr></table></figure>
-<p>Stackoverflow 上的答案可以<a href="http://stackoverflow.com/a/32965748" target="_blank" rel="external">移步这里</a>.</p>
-<h1 id="六-showAlert-诡异崩溃"><a href="#六-showAlert-诡异崩溃" class="headerlink" title="六. showAlert 诡异崩溃"></a>六. showAlert 诡异崩溃</h1><p>游戏内的一些弹框为了保证在游戏的最上层显示, 偷懒使用了 Quick-cocos2d-x 提供的 <code>device.showAlert</code> 接口. showAlert 内部使用 <code>UIAlertView</code> 实现, 运行一直良好, 有一天突然就不行了, 一调用就崩溃. </p>
-<p>各种办法都试过了, 网上都说是线程安全问题, 我试了一下各种处理都不行, 打断点跟踪到最底层也无济于事. 几近绝望之时, @bin 的一句话提醒了我:</p>
-<blockquote>
-<p>会不是屏幕方向的问题 ? </p>
-</blockquote>
-<p>最终一番尝试, 删除了 <code>RootViewController.mm</code> 中几个屏幕方向相关的函数:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">*/</div><div class="line"><span class="comment">// Override to allow orientations other than the default portrait orientation.</span></div><div class="line"><span class="comment">// This method is deprecated on ios6</span></div><div class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsLandscape</span>( interfaceOrientation );</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsPortrait</span>( interfaceOrientation );</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// For ios6, use supportedInterfaceOrientations &amp; shouldAutorotate instead</span></div><div class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations&#123;</div><div class="line"><span class="meta">#ifdef __IPHONE_6_0</span></div><div class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskLandscape</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskPortraitUpsideDown</span>;</div><div class="line">    &#125;</div><div class="line"><span class="meta">#endif</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate &#123;</div><div class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个 bug 出现之诡异, 解决方案之诡异, 在我遇到的 bug 中也算是很少见了.</p>
-
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/iOS/">iOS</a>
-      
-        <a href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -609,7 +549,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14px; color: #808080">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.25px; color: #505050">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 14.75px; color: #707070">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.75px; color: #707070">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.25px; color: #505050">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 14.75px; color: #707070">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.5px; color: #606060">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
     </div>
 </div>
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-09-10T11:48:00.000Z</updated>
+  <updated>2017-10-02T08:15:36.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决 electron-builder 打包依赖问题</title>
+    <link href="http://blog.justbilt.com/2017/10/02/electron-builder-dependencies/"/>
+    <id>http://blog.justbilt.com/2017/10/02/electron-builder-dependencies/</id>
+    <published>2017-10-02T05:21:04.000Z</published>
+    <updated>2017-10-02T08:15:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>大概是三个月前, 写了 <a href="/2017/07/09/convert2fnt-electron-rewrite">使用 Electron 重写 convert2fnt</a> 这篇文章, 文章大概讲了我用 Electron 重写之前的一个 BMFont 字体生成工具的事情.</p>
+<p>开发的过程还是比较顺利的, Node.js 的生态非常给力, 加上 Chrome, VSCode 加持, 开发和调试都很爽. 但由于我没有 WEB 开发的基础, 整过过程只能摸索加网上查资料, 中间之曲折, 自不足为外人道也, 但最终磕磕绊绊的也算搞出来了.</p>
+<p>呃, 其实也没有那么完美. </p>
+<blockquote>
+<p>Windows 版打包后发现运行不太正常, 但 Win 开发版以及 Mac 开发/发布版都运行正常.</p>
+</blockquote>
+<p>有些诡异, 不过我自己只在 Mac 上使用, 加上工作比较忙, 便搁置了起来. 但谁愿意在自己头上悬在一把利剑呢, 万一哪天着急用 Win 版的怎么办.</p>
+<p>趁着国庆放假还没有什么安排的时候, 赶紧搞一下.</p>
+<a id="more"></a>
+<hr>
+<p>首先要搞明白无法正常运行的原因是什么, 打开 Chrom 开发者工具后发现了错误内容. 项目的一个依赖项 <code>jimp</code> 没有加载成功, 在调用这个模块的一个函数后抛出错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const Jimp = require(&quot;jimp&quot;);</div><div class="line">Jimp.read(imagePath, function (err, lenna) &#123;&#125;</div><div class="line">---</div><div class="line">Uncaught TypeError: Jimp.read is not a function</div></pre></td></tr></table></figure>
+<p>试着断点跟踪了下 <code>require(&quot;jimp&quot;)</code> 的过程, 由于自己对 js 的细节知之甚少, 也没有发现什么异常. 各种关键字组合 Google 也没有结果, 一度陷入了毫无头绪的困境.</p>
+<p>在搜索的过程中发现 <code>electron</code> 和 <code>electron-builder</code> 都有了新的版本, 于是抱着侥幸的心态试着升级了下这两个库.</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">- "electron-builder": "^19.11.1",</span></div><div class="line"><span class="deletion">- "electron": "^1.6.11"</span></div><div class="line"><span class="addition">+ "electron-builder": "^19.33.0",</span></div><div class="line"><span class="addition">+ "electron": "^1.7.8",</span></div></pre></td></tr></table></figure>
+<p>没想到, 竟然 … … 还是没有解决这个问题. 好吧, 其实也还在预料之中. 但是也有 “好消息”, 出错的地方和之前不一样了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">module.js:472 Uncaught Error: Cannot find module &apos;bmp-js&apos;</div></pre></td></tr></table></figure>
+<p>又是一番折腾, 尝试各种解决方案, 各种猜想, 各种组合. 这些尝试多没有什么变化, 有的尝试反而将我带到沟里, 离真相越来越远. </p>
+<p>最后我坚定了一个想法:</p>
+<blockquote>
+<p>我的代码是没有任何问题的, 一定是打包的配置有问题.</p>
+</blockquote>
+<p>果然, 在仔细阅读官方文档的时候发现了这个 <a href="https://www.electron.build/tutorials/two-package-structure" target="_blank" rel="external">Two package.json Structure</a> , 原来官方已经推荐使用两个配置文件来配置各种参数, 一个配置开发时的参数, 一个配置打包时的参数. 于是便有了这样的目录结构:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">├── app</div><div class="line">│   ├── index.html</div><div class="line">│   ├── index.js</div><div class="line">│   ├── package-lock.json</div><div class="line">│   └── package.json</div><div class="line">└── package.json</div></pre></td></tr></table></figure>
+<p>同时, 官方还建议在开发的 <code>config.json</code> 中增加一个 <code>&quot;postinstall&quot;: &quot;electron-builder install-app-deps&quot;</code> 来自动触发安装 <code>app</code> 目录中的依赖.</p>
+<hr>
+<p>哈哈, 问题已经解决, 都是没有仔细看官方文档惹的祸, 但从此 Win 下同学也可以用上新版的工具啦.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;大概是三个月前, 写了 &lt;a href=&quot;/2017/07/09/convert2fnt-electron-rewrite&quot;&gt;使用 Electron 重写 convert2fnt&lt;/a&gt; 这篇文章, 文章大概讲了我用 Electron 重写之前的一个 BMFont 字体生成工具的事情.&lt;/p&gt;
+&lt;p&gt;开发的过程还是比较顺利的, Node.js 的生态非常给力, 加上 Chrome, VSCode 加持, 开发和调试都很爽. 但由于我没有 WEB 开发的基础, 整过过程只能摸索加网上查资料, 中间之曲折, 自不足为外人道也, 但最终磕磕绊绊的也算搞出来了.&lt;/p&gt;
+&lt;p&gt;呃, 其实也没有那么完美. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Windows 版打包后发现运行不太正常, 但 Win 开发版以及 Mac 开发/发布版都运行正常.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;有些诡异, 不过我自己只在 Mac 上使用, 加上工作比较忙, 便搁置了起来. 但谁愿意在自己头上悬在一把利剑呢, 万一哪天着急用 Win 版的怎么办.&lt;/p&gt;
+&lt;p&gt;趁着国庆放假还没有什么安排的时候, 赶紧搞一下.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="convert2fnt" scheme="http://blog.justbilt.com/tags/convert2fnt/"/>
+    
+      <category term="Electron" scheme="http://blog.justbilt.com/tags/Electron/"/>
+    
+  </entry>
   
   <entry>
     <title>Quick-cocos2d-x 编译 Lua 代码加速</title>
@@ -1484,92 +1540,6 @@
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
     
       <category term="crash" scheme="http://blog.justbilt.com/tags/crash/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>最近搞 iOS 版遇到的一些问题和技巧 (三)</title>
-    <link href="http://blog.justbilt.com/2016/09/05/ios-dev-tips-3/"/>
-    <id>http://blog.justbilt.com/2016/09/05/ios-dev-tips-3/</id>
-    <published>2016-09-05T15:50:12.000Z</published>
-    <updated>2017-04-23T04:37:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一-iOS-内购返回商品无效-invalid-product"><a href="#一-iOS-内购返回商品无效-invalid-product" class="headerlink" title="一. iOS 内购返回商品无效 invalid product"></a>一. iOS 内购返回商品无效 invalid product</h1><p>我使用 Quick-cocos2d-x 内置的 store 类请求商品信息时, 收到这样的错误:</p>
-<blockquote>
-<p>nvalidProductIdentifiers [CCStore_obj]<br>[CCStore_obj] productsRequestDidReceiveResponse() invalid pid: com.xxx.xxx</p>
-</blockquote>
-<p>首先, <strong>检查你请求的商品 id 在 iTunes 后台是否创建</strong>, 是否拼写错误. 如果没有问题, 那么就不太好办了, 会有很多原因导致这个问题.</p>
-<p>ZZB_Amoy 博客的<a href="http://blog.sina.com.cn/s/blog_a6a46b330101dgju.html" target="_blank" rel="external">这篇文章</a>总结了下可能的原因, 如下:</p>
-<blockquote>
-<ul>
-<li>创建的App ID是否启用了IAP功能。</li>
-<li>商品信息是否配置到iTurn Connect，并到达“Ready to Submit”状态。</li>
-<li>在iTurn Connect中创建Test User，并收取邮件激活。之后登录到测试用手机的设置页面中（Store选项）。</li>
-<li>App的Bundle Id是否和后台配置的App Id一致。</li>
-<li>是否创建相应的provisioning profile，并用此签名App。</li>
-<li>iTurn Connect后台配置完商品信息后，是否等待若干小时生效。</li>
-<li>SKProductsRequest请求的商品Id必须和iTurn Connect中配置的一致。（如：com.test.product.xxx）</li>
-<li>iTunes Connect中配置的银行信息是否正确。</li>
-<li>是否先删除旧App，再重新编译生成新的。</li>
-<li>请不要使用越狱手机测试。</li>
-</ul>
-</blockquote>
-<p>下面说说我两次遇到这个问题的解决方案:</p>
-<ol>
-<li>如果游戏发布区域中没有手机中 App Store 当前区的话, 需要先登陆下对应区域创建的测试账号, 将商店切换到对应区域.</li>
-<li>完善苹果开发者账号所能完善的信息, 如付款信息呀什么的, 然后莫名其妙就解决了.</li>
-<li>商品 id 大小写错误, 在 chrome 搜索时是忽略大小的.</li>
-</ol>
-<blockquote>
-<p>注：在测试阶段，可以不用上传APP软件包，但必须创建测试用Apple Id，并在手机设置中（store选项）登录。</p>
-</blockquote>
-<h1 id="二-iOS-运行崩溃-unrecognized-selector-sent-to-instance"><a href="#二-iOS-运行崩溃-unrecognized-selector-sent-to-instance" class="headerlink" title="二. iOS 运行崩溃 unrecognized selector sent to instance"></a>二. iOS 运行崩溃 unrecognized selector sent to instance</h1><p>运行游戏过程中收到如下错误:</p>
-<blockquote>
-<p>[1515:710439] -[AppController window]: unrecognized selector sent to instance 0x2c85c00<br>libc++abi.dylib: terminate_handler unexpectedly threw an exception</p>
-</blockquote>
-<p>这个在接入某一个平台 sdk 时遇到的问题, 于是便问了下他们的技术, 很快解决了问题. </p>
-<h4 id="1-修改-AppController-h-中-window-变量的声明形式"><a href="#1-修改-AppController-h-中-window-变量的声明形式" class="headerlink" title="1. 修改 AppController.h 中 window 变量的声明形式"></a>1. 修改 AppController.h 中 window 变量的声明形式</h4><p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f7j62j0mfuj20dw02n3yy.jpg" alt=""></p>
-<h4 id="2-修改-AppController-mm"><a href="#2-修改-AppController-mm" class="headerlink" title="2. 修改 AppController.mm"></a>2. 修改 AppController.mm</h4><p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f7j665yyacj207901zq32.jpg" alt=""></p>
-<p>虽然问题解决了, 但是我并不明白各种缘由. Google 了下, 大概明白了, 原来如此. 从错误中我们可以看到这句 <code>[AppController window]</code> , 从语法来看, 这是要调用 AppController 的 window 函数, 但是在我们之前的写法中没有实现这个函数, 便出错了. 而使用 <code>@property</code> 这个东西, 会自动帮你实现一个 <code>window/setWindow</code> 函数, 这样就不会找不到这个函数了.</p>
-<h1 id="三-游戏在低于-ios9-的系统启动崩溃"><a href="#三-游戏在低于-ios9-的系统启动崩溃" class="headerlink" title="三. 游戏在低于 ios9 的系统启动崩溃"></a>三. 游戏在低于 ios9 的系统启动崩溃</h1><p>这个也是在接入第三方 sdk 时遇到的问题, 游戏一启动就会崩溃, 收到错误如下:</p>
-<blockquote>
-<p>dyld: Symbol not found: _OBJC<em>CLASS</em>$_SFSafariViewController<br>  Referenced from: /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision<br>  Expected in: /System/Library/Frameworks/SafariServices.framework/SafariServices<br> in /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision</p>
-</blockquote>
-<p>Google 了一下, 没有任何人遇到过这样的问题, 这就十分棘手了, 完全不知从何入手. 经过一番探索, 找到了几个有用的线索:</p>
-<ol>
-<li>SFSafariViewController 这个类是 ios 9 才引入的, 这和我们已知的信息相符.</li>
-<li>所幸的是我们的游戏有多个 Scheme , 每个 Scheme 接入不同的 sdk . 其他的 Scheme 的都可以正常运行.</li>
-</ol>
-<p>这就可以肯定是某个 sdk 中使用了 <code>SFSafariViewController</code> 这个类, 但是还是没有办法定位是那个 sdk . 我不知道是否有一个命令查找符号引用, 因此只能采用最笨的排除法了, 我将引入的 sdk 依次删除, 看是否能够运行.</p>
-<p>最终定位到了某个广告统计 sdk , 在询问其 ios 技术人员后得到了解决方案. 原来他们 sdk 需要<strong>以 <code>optional</code> 的形式引入 <code>SafariServices.framework</code></strong>.</p>
-<p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1f7kanujs5rj20ol018jrf.jpg" alt=""></p>
-<p>都怪我没有仔细阅读文档, 白白耽误了一段时间, 下次一定要注意!</p>
-<h1 id="四-Facebook-登录崩溃"><a href="#四-Facebook-登录崩溃" class="headerlink" title="四. Facebook 登录崩溃"></a>四. Facebook 登录崩溃</h1><p>集成 Facebook sdk 时, 调用登录接口游戏就会崩溃, 这个问题 Google 一下就能解决, 解决方案也很简单, 在 Info.plist 中加入下面几行代码即可:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>LSApplicationQueriesSchemes<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbapi<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fb-messenger-api<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbauth2<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbshareextension<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>Stackoverflow 上的答案可以<a href="http://stackoverflow.com/a/33489214" target="_blank" rel="external">移步这里</a>, Facebook 官网上也<a href="https://developers.facebook.com/docs/ios/ios9" target="_blank" rel="external">给了解答</a>.</p>
-<h1 id="五-ios9-状态栏无法隐藏"><a href="#五-ios9-状态栏无法隐藏" class="headerlink" title="五. ios9 状态栏无法隐藏"></a>五. ios9 状态栏无法隐藏</h1><p>隐藏状态栏在 ios9 上换了一种方式, 还是需要在 Info.plist 中进行配置:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIStatusBarHidden<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">true</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIViewControllerBasedStatusBarAppearance<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">false</span>/&gt;</span></div></pre></td></tr></table></figure>
-<p>Stackoverflow 上的答案可以<a href="http://stackoverflow.com/a/32965748" target="_blank" rel="external">移步这里</a>.</p>
-<h1 id="六-showAlert-诡异崩溃"><a href="#六-showAlert-诡异崩溃" class="headerlink" title="六. showAlert 诡异崩溃"></a>六. showAlert 诡异崩溃</h1><p>游戏内的一些弹框为了保证在游戏的最上层显示, 偷懒使用了 Quick-cocos2d-x 提供的 <code>device.showAlert</code> 接口. showAlert 内部使用 <code>UIAlertView</code> 实现, 运行一直良好, 有一天突然就不行了, 一调用就崩溃. </p>
-<p>各种办法都试过了, 网上都说是线程安全问题, 我试了一下各种处理都不行, 打断点跟踪到最底层也无济于事. 几近绝望之时, @bin 的一句话提醒了我:</p>
-<blockquote>
-<p>会不是屏幕方向的问题 ? </p>
-</blockquote>
-<p>最终一番尝试, 删除了 <code>RootViewController.mm</code> 中几个屏幕方向相关的函数:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">*/</div><div class="line"><span class="comment">// Override to allow orientations other than the default portrait orientation.</span></div><div class="line"><span class="comment">// This method is deprecated on ios6</span></div><div class="line">- (<span class="built_in">BOOL</span>)shouldAutorotateToInterfaceOrientation:(<span class="built_in">UIInterfaceOrientation</span>)interfaceOrientation &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsLandscape</span>( interfaceOrientation );</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsPortrait</span>( interfaceOrientation );</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// For ios6, use supportedInterfaceOrientations &amp; shouldAutorotate instead</span></div><div class="line">- (<span class="built_in">NSUInteger</span>) supportedInterfaceOrientations&#123;</div><div class="line"><span class="meta">#ifdef __IPHONE_6_0</span></div><div class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskLandscape</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskPortraitUpsideDown</span>;</div><div class="line">    &#125;</div><div class="line"><span class="meta">#endif</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>) shouldAutorotate &#123;</div><div class="line">    <span class="keyword">if</span> (ConfigParser::getInstance()-&gt;isLanscape()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个 bug 出现之诡异, 解决方案之诡异, 在我遇到的 bug 中也算是很少见了.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      万一遇上了呢?
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://blog.justbilt.com/tags/iOS/"/>
-    
-      <category term="iOS-Dev-Tips" scheme="http://blog.justbilt.com/tags/iOS-Dev-Tips/"/>
     
   </entry>
   
