@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-10-02T08:16:42.000Z</updated>
+  <updated>2017-10-10T13:17:09.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>订阅 Hexo 的主题页</title>
+    <link href="http://blog.justbilt.com/2017/10/09/feed-hexo-themes-page/"/>
+    <id>http://blog.justbilt.com/2017/10/09/feed-hexo-themes-page/</id>
+    <published>2017-10-09T13:08:54.000Z</published>
+    <updated>2017-10-10T13:17:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>作为一个经常换博客主题的人, 时不时的就会去 <a href="https://hexo.io/themes/" target="_blank" rel="external">Hexo 的主题页</a> 逛逛, 看看有什么新的主题, 膜拜下大触们的作品.</p>
+<p>比较麻烦的是这个页面并不是按照更新时间排序的, 也没有提供按时间排序的功能, 所以只能靠记忆力了. 这样很容易错过新的主题, 而且每次都是从头找起, 效率极低.</p>
+<p>我自己是一个 Feed 的重度用户, 几乎是我扩展学习的唯一途径. 那么能不能将这个界面做成一个订阅源呢? </p>
+<a id="more"></a>
+<h1 id="1-Feed43"><a href="#1-Feed43" class="headerlink" title="1. Feed43"></a>1. Feed43</h1><p>刚好看到我订阅的 <a href="https://aoxuis.me/" target="_blank" rel="external">@XA技术不宅</a> 兄更新了一篇文章 <a href="https://aoxuis.me/post/bo-ke/li-yong-feed43-zhi-zuo-shi-yao-zhi-de-mai-zhong-ce-chan-pin-de-rssding-yue-lian-jie" target="_blank" rel="external">利用 Feed43 制作什么值得买众测产品的RSS订阅链接</a>, 感觉挺不错的, 我也试试吧.</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fkcbou91p9j30j70izq89.jpg" alt=""></p>
+<p>网站看起来十分简洁, 我们点击 <code>Create your own feed</code> 开始制作订阅源, 同意一大堆看不懂的条款后, 我们会来到这样的一个界面:</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fkcbu7z8lbj30ix0ah75z.jpg" alt=""></p>
+<p>我们在 <code>Address</code> 填入 Hexo 主题页的网址, 点击 <code>Reload</code> 就可以加载网页了, 成功后我们在下面填入提取规则, 主要就是 <code>Item (repeatable) Search Pattern</code> 这一栏, 其他都可以空着.</p>
+<p>经过观察及一番思考后, 我填写的规则如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;li class=&quot;plugin on&quot;&gt;</div><div class="line">&#123;*&#125;&lt;div class=&quot;plugin-screenshot&quot;&gt;</div><div class="line">&#123;*&#125;&lt;noscript&gt;</div><div class="line">&#123;*&#125;&lt;img data-src=&quot;&#123;%&#125;&quot; &#123;*&#125;&gt;</div><div class="line">&#123;*&#125;&lt;a href=&quot;&#123;%&#125;&quot; class=&quot;plugin-preview-link&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;&lt;/a&gt;</div><div class="line">&#123;*&#125;&lt;a href=&quot;&#123;%&#125;&quot;&#123;*&#125; class=&quot;plugin-name&quot; target=&quot;_blank&quot;&gt;&#123;%&#125;&lt;/a&gt;</div><div class="line">&#123;*&#125;&lt;p class=&quot;plugin-desc&quot;&gt;&#123;%&#125;&lt;/p&gt;</div><div class="line">&#123;*&#125;</div><div class="line">&lt;/li&gt;</div></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;%1&#125; = https://hexo.io/build/screenshots/Ada-139a3754c7.jpg</div><div class="line">&#123;%2&#125; = https://shuirong.github.io/</div><div class="line">&#123;%3&#125; = https://github.com/shuiRong/hexo-theme-Ada</div><div class="line">&#123;%4&#125; = Ada</div><div class="line">&#123;%5&#125; = Ada is an concise theme for Hexo.</div></pre></td></tr></table></figure>
+<p>这里面提取了每一个主题的 <code>预览图片</code>, <code>预览地址</code>, <code>Github 项目地址</code>, <code>主题名称</code>, <code>主题简介</code>. 下面就是填写渲染规则了, 也很简单, 薛微有一点 html 基础就可以搞定. 最后的成果如下:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fkcc1se8wrj30iw0rlq5q.jpg" alt=""></p>
+<p>还不错哈, 有模有样的, 大家感兴趣的话 <a href="https://feed43.com/8308348441438115.xml" target="_blank" rel="external">点击这里</a> 可以跳转查看. 仔细查看的话会发现一个问题:</p>
+<blockquote>
+<p>数量比官网少了很多, 这里大概只有不到 20 个主题, 而官网上则有数 154 个主题.</p>
+</blockquote>
+<p>在字体在后台看了下, 发现了这句话:</p>
+<blockquote>
+<p>Page too big. First 102400 bytes loaded.</p>
+</blockquote>
+<p>Feed43 为了加快速度, 只节选了原始网页的一部分内容, 这下完蛋了, 这个订阅源没有任何作用, 权当练手了, 反正也没有花费太多的时间.</p>
+<h1 id="2-hexojs-site"><a href="#2-hexojs-site" class="headerlink" title="2. hexojs/site"></a>2. hexojs/site</h1><p><a href="https://github.com/hexojs/site" target="_blank" rel="external">hexojs/site</a> 这个 Github 仓库是 hexo.io 这个网站的原始代码, 其中 <a href="https://github.com/hexojs/site/blob/master/source/_data/themes.yml" target="_blank" rel="external">source/_data/themes.yml</a> 这个文件是主题页的原始数据文件.</p>
+<p>我们可以通过观察这个文件的<a href="https://github.com/hexojs/site/commits/master/source/_data/themes.yml" target="_blank" rel="external">历史记录</a>来得知主题的变化情况:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1fkdgeh5qyrj30sw0w3n1j.jpg" alt=""></p>
+<p>那么如何订阅这个文件的变化呢? stackoverflow 上的<a href="https://stackoverflow.com/a/7353586/3003184" target="_blank" rel="external">这个答案</a>可以解吾辈疑惑. </p>
+<blockquote>
+<p>在文件 url 后面加上 <code>.atom</code> 就可以生成这个 url 的 feed 源</p>
+</blockquote>
+<p>大家可以点<a href="https://github.com/hexojs/site/commits/master/source/_data/themes.yml.atom" target="_blank" rel="external">这里查看</a>, 复制 url 订阅, 效果很给力:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fkdgm3o20zj30v90rc431.jpg" alt=""></p>
+<hr>
+<p>经过这次折腾, 收获颇丰呀:</p>
+<ol>
+<li>会使用 Feed43 生成自己喜欢网页的订阅源</li>
+<li>知道了 Github 在任意 url 后面加 .atom 可以生成订阅源</li>
+</ol>
+<p>生命不息, 折腾不止.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;作为一个经常换博客主题的人, 时不时的就会去 &lt;a href=&quot;https://hexo.io/themes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo 的主题页&lt;/a&gt; 逛逛, 看看有什么新的主题, 膜拜下大触们的作品.&lt;/p&gt;
+&lt;p&gt;比较麻烦的是这个页面并不是按照更新时间排序的, 也没有提供按时间排序的功能, 所以只能靠记忆力了. 这样很容易错过新的主题, 而且每次都是从头找起, 效率极低.&lt;/p&gt;
+&lt;p&gt;我自己是一个 Feed 的重度用户, 几乎是我扩展学习的唯一途径. 那么能不能将这个界面做成一个订阅源呢? &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="blog" scheme="http://blog.justbilt.com/tags/blog/"/>
+    
+      <category term="hexo" scheme="http://blog.justbilt.com/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>解决 electron-builder 打包依赖问题</title>
@@ -1482,64 +1546,6 @@
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
     
       <category term="utf8" scheme="http://blog.justbilt.com/tags/utf8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>最近遇到的几个 Quick-cocos2d-x 真机崩溃(二)</title>
-    <link href="http://blog.justbilt.com/2016/09/10/quickx-crash-on-phone-2/"/>
-    <id>http://blog.justbilt.com/2016/09/10/quickx-crash-on-phone-2/</id>
-    <published>2016-09-10T15:28:45.000Z</published>
-    <updated>2017-09-03T00:34:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>大概是 8 月中旬的时候, 我们项目发生了一个很严重的线上事故. 在版本更新之后, 部分 Android 玩家反馈点击按钮开始游戏或活动按钮会闪退.</p>
-<p>开始收到这个反馈时, 并没有太在意, 心想是不是机型适配有问题 ? 加上当时有别的工作在忙, 就没有去理会. 大概一个小时后, 玩家的邮件像雪花一样纷纷而至, 我才开始意识到, 更新出问题了.</p>
-<a id="more"></a>
-<p>汇总了一下玩家的反馈:</p>
-<ol>
-<li>新注册账号没有问题, 老账号会崩溃</li>
-<li>新服务器没有问题, 老服务器崩溃</li>
-<li>删除游戏重装后就没有问题了</li>
-</ol>
-<p>看着这些条件, 有经验的老司机可能已经看出倪端了, 但当时我并没有看出. 我们平时测试的时候, 多数都会新注册一个账号, 或者将原先的老包删除掉, 所以 Q&amp;A 并没有测试出这个问题, 也没有办法复现这个我问题.</p>
-<p>我们游戏是集成了两个错误统计sdk的, 一个是 Bugtags, 一个是 umeng 错误收集, 但是这两个都是没有办法收集到 native 层面的 crash 的. </p>
-<p><img src="http://ww4.sinaimg.cn/large/7f870d23jw1f7xim4h1aaj21b50ej0ul.jpg" alt=""></p>
-<p>正当我一筹莫展的时候, 运营人员发来了 umeng 的这个错误列表, 我恍然大悟:</p>
-<blockquote>
-<p>本地存档出问题了</p>
-</blockquote>
-<p>因为我们的玩家存档是以 <code>服务器id+玩家id</code> 形式存入的, 所以上面列举的问题一下子就解释的通了.</p>
-<h1 id="一-用-getStringForKey-去获取一个-bool-型的存档"><a href="#一-用-getStringForKey-去获取一个-bool-型的存档" class="headerlink" title="一. 用 getStringForKey 去获取一个 bool 型的存档"></a>一. 用 getStringForKey 去获取一个 bool 型的存档</h1><p>后台看到的错误日志是这个样子的:</p>
-<blockquote>
-<p>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Boolean</p>
-</blockquote>
-<p><img src="/face/yilianmengbi.jpg" alt=""></p>
-<p>这也可以? 这个错误闻所未闻, 只能说 Android 那边类型检测太严格了, 同时 cococ 读取存档时没有做异常处理.</p>
-<p>有了方向就好办了, 我搜索了代码中所有用到 <code>getStringForKey</code> 的地方, 加上崩溃出现的时机, 很快定位了这个错误发生的原因.</p>
-<p>团队的中的一位成员, 这次更新时更换过存档的类型, 之前的某一个数据是以 <code>setBoolForKey/getBoolForKey</code>, 现在更换成了 <code>setStringForKey/getStringForKey</code>, 这个问题不能怪他, 若是我也会遇到这个问题.</p>
-<p>修改也很简单, 我换了一个新 key 去 存取/读取 这个存档.</p>
-<h1 id="二-setSpriteFrame-“a-png”-传入不存在的-Sprite-Frmae-Name-就会崩溃"><a href="#二-setSpriteFrame-“a-png”-传入不存在的-Sprite-Frmae-Name-就会崩溃" class="headerlink" title="二. setSpriteFrame(“a.png”) 传入不存在的 Sprite Frmae Name 就会崩溃"></a>二. setSpriteFrame(“a.png”) 传入不存在的 Sprite Frmae Name 就会崩溃</h1><p>这个问题以前我没有遇到过, 我甚至都不知道 setSpriteFrame 可以传入 Sprite Frmae Name, 我每次都是 从 SpriteFrameCache 中获取一个 <code>SpriteFrame</code> 对象传入的.</p>
-<p>导致这个问题发生原因是我们变化了图片打包策略, 之前用的是纹理图集, 现在改为碎片纹理了. 原理这些图片都在一个纹理图集上, 在游戏开始时已经 loading 过了, 所以不会有问题. 但是改为碎图就会找不到了.</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">newSpriteFrame</span><span class="params">(_name)</span></span></div><div class="line">    <span class="built_in">assert</span>(_name <span class="keyword">and</span> _name ~= <span class="string">""</span>)</div><div class="line">    <span class="comment">-- 尝试在大图中找</span></div><div class="line">    <span class="keyword">local</span> frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(_name)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> frame <span class="keyword">then</span></div><div class="line">        <span class="keyword">local</span> texture = cc.Director:getInstance():getTextureCache():addImage(_name)</div><div class="line">        <span class="keyword">if</span> texture <span class="keyword">then</span></div><div class="line">            frame = cc.SpriteFrame:createWithTexture(texture, cc.rect(<span class="number">0</span>, <span class="number">0</span>, texture:getContentSize().width, texture:getContentSize().height))</div><div class="line">            cc.SpriteFrameCache:getInstance():addSpriteFrame(frame, _name)</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"[ERROR]no such file:"</span>, _name)</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span> </div><div class="line"></div><div class="line">    <span class="keyword">return</span> frame</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>我们封装了这个函数来兼容这个 <code>纹理图集/碎片纹理</code>, 这样这个问题就解决了.</p>
-<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><p>每经历一次事故, 总要有所收获, 除了下次同样的问题不再发生, 流程上是否还有什么值得优化的地方 ?</p>
-<h2 id="1-重视线上错误"><a href="#1-重视线上错误" class="headerlink" title="1. 重视线上错误"></a>1. 重视线上错误</h2><p>由于我一开对这个错误的轻视, 导致问题没有在第一时间控制住, 损失的不只是收入, 更是玩家对我们信心, 如果一个游戏经常出事故, 你还会去玩吗?</p>
-<p>错误率对我们而言只是一个数字, 是一个概率, 但是具体到某一个发生故障的玩家, 对他而言就是 100% , 就是焦急, 愤怒.</p>
-<h2 id="2-真实的线上环境测试"><a href="#2-真实的线上环境测试" class="headerlink" title="2. 真实的线上环境测试"></a>2. 真实的线上环境测试</h2><p>这个问题发生, 有很大一部分原因是我们的测试没有在一个真实的环境中去测试, 应该保证一个手机只安装线上包, 模拟真实玩家, 每天去玩一段时间.</p>
-<h2 id="3-错误收集系统的选择"><a href="#3-错误收集系统的选择" class="headerlink" title="3. 错误收集系统的选择"></a>3. 错误收集系统的选择</h2><p>我们采用的 bugtags 不具有完全完整的错误收集能力, 对错误的检索也很弱, 甚至不如免费 bugly . 为此我要付一定责任, 当初选择的时候, 没有完整的调研对比过, 只是看到这个还不错就选择了.</p>
-<p>做出判断前一定要慎重思考.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      卧槽, 又崩溃了!
-    
-    </summary>
-    
-    
-      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
-    
-      <category term="crash" scheme="http://blog.justbilt.com/tags/crash/"/>
     
   </entry>
   
