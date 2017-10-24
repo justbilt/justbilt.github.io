@@ -132,312 +132,96 @@
     <div class='container clearfix'>
       <div class='l_main'>
         
-  <script>
-    window.subData= { title:'Tag : Tool'}
-  </script>
-
-<section class="post-list">
-	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/10/29/untp-2/">
-        一个命令行的 TexturePacker 拆解工具  (二)
-      </a>
-    </h2>
-    
-    <time>
-      10月 29, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>距离第一版的 <code>untp</code> 发布已经有一年半的时间了, 在这个项目上我收获了很多的第一次:</p>
-<blockquote>
-<p>第一次有一个项目的 star 数超过 50<br>第一次往 pypi 上上传项目<br>第一次如此认真的维护一个项目<br>…</p>
-</blockquote>
-<p>这篇文章已经是关于 untp 的第三篇文章了, 所有的文章列表可以<a href="/tags/untp">查看这里</a>. 下面我来讲讲 untp 最近的几次更新以及后续的一个维护计划.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2016/10/29/untp-2/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+  <article id="archive-page" class="post article white-box">
+    <section class='meta'>
+      <h2 class="title">
+        <a href="javascript:void(0)">
+          
+          Tag: Tool
+          
+        </a>
+      </h2>
+    </section>
+    <section class="archive">
       
-        <a href="/tags/Tool/">Tool</a>
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2016" href='/archives/2016/' >
+                2016
+              </a>
+            </div>
       
-        <a href="/tags/untp/">untp</a>
+          <div class="archive-item archive-post mark">
+            <a href="/2016/10/29/untp-2/">
+              <time>10-29</time>
+              <span class="title"><span>一个命令行的 TexturePacker 拆解工具  (二)</span></span>
+            </a>
+          </div>
       
-	  </div>
-    
-  </section>
-</article>
-    </div>
+          <div class="archive-item archive-post mark">
+            <a href="/2016/02/29/publish-untp-to-pypi/">
+              <time>02-29</time>
+              <span class="title"><span>将 untp 发布到 Pypi 上</span></span>
+            </a>
+          </div>
+      
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2015" href='/archives/2015/' >
+                2015
+              </a>
+            </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2015/11/15/falign/">
+              <time>11-15</time>
+              <span class="title"><span>FAlign 代码洁癖患者的福音</span></span>
+            </a>
+          </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2015/04/19/untp/">
+              <time>04-19</time>
+              <span class="title"><span>一个命令行的 TexturePacker 拆解工具 (一)</span></span>
+            </a>
+          </div>
+      
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2014" href='/archives/2014/' >
+                2014
+              </a>
+            </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2014/03/19/umeng_apk_tools/">
+              <time>03-19</time>
+              <span class="title"><span>友盟渠道包工具</span></span>
+            </a>
+          </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2014/02/01/images_to_bmfont/">
+              <time>02-01</time>
+              <span class="title"><span>convert2fnt: 将一堆图片转化为BMFont工具</span></span>
+            </a>
+          </div>
+      
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2013" href='/archives/2013/' >
+                2013
+              </a>
+            </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2013/12/12/use_tp_on_command_line/">
+              <time>12-12</time>
+              <span class="title"><span>在Command Line中使用TexturePacker</span></span>
+            </a>
+          </div>
+      
+    </section>
+  </article>
+  <!--
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/02/29/publish-untp-to-pypi/">
-        将 untp 发布到 Pypi 上
-      </a>
-    </h2>
-    
-    <time>
-      2月 29, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>上一篇年结的时候有提到 <a href="https://github.com/justbilt/untp" target="_blank" rel="external">untp</a> 这个小工具, 它是我在 github 收获 star 数最多的一个项目. 这个项目本是无心之举, 既然受大家欢迎, 那么一定要好好维护下去 ! 对于它后续的发展, 我打算从两个方面入手:</p>
-<ol>
-<li>更便捷的安装</li>
-<li>支持更多的格式</li>
-</ol>
-<p>之前唯一一次发布时用 PyInstaller 打包成可执行文件来发布的, 很方便, 出来的安装包也很小! 但是我时常会收到在 Mac 上崩溃的反馈:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">illegal instruction 4</div></pre></td></tr></table></figure>
-<p>在这个错误上我花费了特别大的精力, 因为在推荐给朋友的时候吹得天花乱坠, 实际却完全运行不起来, 这也太不给我面子了吧.</p>
-<p>Google 上对于这个问题也是众说纷纭, 没有一个能帮到我. 我尝试过各种解决方案, 升降级 PyInstaller, 用 Python3 重写, 用 PyQtDeploy 打包. 但却总是无功而返. PyQtDeploy 倒是可以解决问题, 但是打的包足足有 30~40MB , 想想还是算了吧.</p>
-<p>最后我仔细想了想, 在 Mac 上完全没有必要打包成一个可执行文件呀, 系统自带 python 环境, 直接通过 pip 安装一下就可以了嘛 ~</p>
-<p>关于如何制作,上传,发布自己的项目, 推荐大家阅读这篇文章 <a href="http://yejinxin.github.io/distribute-python-packages-to-pypi-server/" target="_blank" rel="external">发布python的包至pypi服务器</a> , 文章写的很好, 里面已经提到内容我在下面就不赘述了.</p>
-<h1 id="1-制作-setup-py"><a href="#1-制作-setup-py" class="headerlink" title="1. 制作 setup.py"></a>1. 制作 setup.py</h1><p>我的 setup.py 文件如下:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</div><div class="line"></div><div class="line">setup(</div><div class="line">    name = <span class="string">'untp'</span>,</div><div class="line">    version = <span class="string">'1.0.2'</span>,</div><div class="line">    keywords = (<span class="string">'untp'</span>, <span class="string">'texturepacker'</span>),</div><div class="line">    description = <span class="string">'A command line tool to split TexturePacker publish file.'</span>,</div><div class="line">    license = <span class="string">'MIT License'</span>,</div><div class="line">    install_requires = [</div><div class="line">        <span class="string">'Pillow'</span>,</div><div class="line">        <span class="string">'parse'</span></div><div class="line">    ],</div><div class="line">    url = <span class="string">'https://github.com/justbilt/untp'</span>,</div><div class="line">    author = <span class="string">'justbilt'</span>,</div><div class="line">    author_email = <span class="string">'wangbilt@gmail.com'</span>,</div><div class="line">    scripts=[<span class="string">'untp.py'</span>],</div><div class="line">    entry_points=&#123;</div><div class="line">        <span class="string">'console_scripts'</span>: [</div><div class="line">            <span class="string">'untp = untp:main'</span>,</div><div class="line">        ],</div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
-<h2 id="entry-points"><a href="#entry-points" class="headerlink" title="entry_points"></a>entry_points</h2><p>使用 entry_points 字段, 可以为项目添加可执行命令, 在我上面的配置中, 我就添加了 <code>untp</code> 这个名命令, 会执行 untp.py 的 main 函数.</p>
-<p>关于 entry_points 的更多用法, 可以参考这篇文章 <a href="https://pythonhosted.org/setuptools/setuptools.html#automatic-script-creation" target="_blank" rel="external">Automatic Script Creation</a> .</p>
-<h2 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h2><p>这里面值得一提的是 <code>scripts</code> 字段, 这个字段好多文章都没有提, 但是在我这里却引发了一个大问题. 我的目录结构如下:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">untp</div><div class="line">├── README.md</div><div class="line">├── setup.py</div><div class="line">└── untp.py</div></pre></td></tr></table></figure>
-<p>因为项目比较小, 我就直接将 untp.py 直接裸露在项目根目录, 开始没有添加 scripts 字段, 打包安装 <code>import</code> 都没有问题, 但是运行 <code>untp</code> 时却会报最经典的 <code>ImportError</code> 错误:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">wanghaitaodeMacBook-Air:untp bilt$ untp</div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"/usr/local/bin/untp"</span>, line 9, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">    load_entry_point(<span class="string">'untp==1.0.2'</span>, <span class="string">'console_scripts'</span>, <span class="string">'untp'</span>)()</div><div class="line">  ...</div><div class="line">  File <span class="string">"/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py"</span>, line 2361, <span class="keyword">in</span> resolve</div><div class="line">    module = __import__(self.module_name, fromlist=[<span class="string">'__name__'</span>], level=0)</div><div class="line">ImportError: No module named untp</div></pre></td></tr></table></figure>
-<p>然后我就要疯了, 这里什么个鬼情况 !!! 直到我看到了这个问答: <a href="http://stackoverflow.com/questions/19718813/module-not-found-during-load-entry-point-in-python" target="_blank" rel="external">module-not-found-during-load-entry-point-in-python</a> . 我才意识到, 原来我一直都没有安装对, 之所以能够 import 成功, 是因为我就在当前 (untp.py) 目录运行的 python 终端.</p>
-<p>然后去啃官方文档, 经过一番尝试, 其他人使用的 <code>packages = find_packages()</code>, 在我这里并不好使, 只有手动指定 scripts 才可以 !</p>
-<h1 id="2-测试"><a href="#2-测试" class="headerlink" title="2. 测试"></a>2. 测试</h1><p>我还是推荐大家先在 <code>testpypi.python.org</code> 上测试正确了再上传到正式的 <code>pypi.python.org</code>, 因为一但在正式服务器提交了, 就必须以版本号迭代的代价来更正上次提交. 而在测试服务器上发现问题的话, 登录删除一下有问题的版本就可以了!</p>
-<p>testpypi 也是需要注册的, 和 pypi 的注册方法一致, 注册完别忘了去邮箱验证一下.</p>
-<p>注意上传的时候不一定会成功, 说在 <code>.pypirc</code> 中找不到 testpypi 的配置, 解决方案可以看这里: <a href="https://wiki.python.org/moin/TestPyPI" target="_blank" rel="external">Test PyPI Server</a> .</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">python setup.py register -r https://testpypi.python.org/pypi</div><div class="line">python setup.py upload -r https://testpypi.python.org/pypi</div><div class="line">pip install -i https://testpypi.python.org/pypi &lt;package name&gt;</div></pre></td></tr></table></figure>
-<p>然后使用上面几条命令进行测试注册,发布,安装.</p>
-<h1 id="3-发布"><a href="#3-发布" class="headerlink" title="3. 发布"></a>3. 发布</h1><p>这边没有什么说的, 测试没有问题之后, 发布也不会出什么问题, 只是网址不一样而已. 写这篇文章的时候, 大家已经可以使用 <code>pip</code> 来安装最新版的 untp 了:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install untp</div></pre></td></tr></table></figure>
-<p>–EOF–</p>
-
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/untp/">untp</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2015/11/15/falign/">
-        FAlign 代码洁癖患者的福音
-      </a>
-    </h2>
-    
-    <time>
-      11月 15, 2015
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>对于一个重度代码洁癖患者, 看到下面这样的代码, 心中难免奇痒难耐, 想要给它对齐了去!</p>
-
-    
-	  <div class="readmore">
-      <a href="/2015/11/15/falign/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/code-style/">code-style</a>
-      
-        <a href="/tags/neat-freak/">neat-freak</a>
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/FAlign/">FAlign</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2015/04/19/untp/">
-        一个命令行的 TexturePacker 拆解工具 (一)
-      </a>
-    </h2>
-    
-    <time>
-      4月 19, 2015
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <h2 id="一-起源"><a href="#一-起源" class="headerlink" title="一. 起源"></a>一. 起源</h2><p>为什么想着做这样的一个工具呢? </p>
-<p>事情是这样的, 在游戏后期的优化过程中, 发现特效在资源的总量中占比很大, 所以打算压缩下特效的尺寸. 我们特效是由策划用 TexturePacker 打成 <code>plist + png</code>的形式, 因为项目经手了好多人, 所以好多特效的源文件<strong>都已丢失</strong>. 因此想到做一个这样的脚本来实现这个功能.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2015/04/19/untp/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/untp/">untp</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2014/03/19/umeng_apk_tools/">
-        友盟渠道包工具
-      </a>
-    </h2>
-    
-    <time>
-      3月 19, 2014
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>游戏做完了,在国内发android包是一件很痛苦的事情,应用市场多达100多家,不说都上吧,就是上10来个也够咱们喝一壶的了,而且每次更新版本都得这么做:(,想想还是应该有个批量打包的工具!</p>
-
-    
-	  <div class="readmore">
-      <a href="/2014/03/19/umeng_apk_tools/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/批量打包/">批量打包</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2014/02/01/images_to_bmfont/">
-        convert2fnt: 将一堆图片转化为BMFont工具
-      </a>
-    </h2>
-    
-    <time>
-      2月 1, 2014
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>学习了Python也有一段时间了,一直在看书啊什么的,没有写些东西,感觉这样不太好,刚好项目中需要一个CCLabrlTTF但美术妹纸只给了一堆散图,自己写一个小工具吧!<br>
-
-    
-	  <div class="readmore">
-      <a href="/2014/02/01/images_to_bmfont/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/convert2fnt/">convert2fnt</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2013/12/12/use_tp_on_command_line/">
-        在Command Line中使用TexturePacker
-      </a>
-    </h2>
-    
-    <time>
-      12月 12, 2013
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>TexturePacker是一个非常好用的小图合并工具,介绍它的文章非常多,多数都是使用GUI工具的,但是:</p>
-<ol>
-<li>如果原始图片发生了改变,我们就需要重新手动拼接一下,麻烦.</li>
-<li>使用GUI界面<strong>非常不高端</strong>,我高大猿族绝对首选使用Command Line啊.</li>
-</ol>
-<p>安装TexturePacker会附带一个command line工具,让我们一起学习一下如何使用吧.<br>
-
-    
-	  <div class="readmore">
-      <a href="/2013/12/12/use_tp_on_command_line/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/TexturePacker/">TexturePacker</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-</section>
-
+    -->
 
       </div>
       <aside class='l_side'>

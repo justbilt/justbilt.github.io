@@ -132,7 +132,7 @@
     <div class='container clearfix'>
       <div class='l_main'>
         
-	
+  
   <script>
     window.subData= { title:"Year : 2016"}
   </script>
@@ -1103,32 +1103,11 @@
 <li>更便捷的安装</li>
 <li>支持更多的格式</li>
 </ol>
-<p>之前唯一一次发布时用 PyInstaller 打包成可执行文件来发布的, 很方便, 出来的安装包也很小! 但是我时常会收到在 Mac 上崩溃的反馈:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">illegal instruction 4</div></pre></td></tr></table></figure>
-<p>在这个错误上我花费了特别大的精力, 因为在推荐给朋友的时候吹得天花乱坠, 实际却完全运行不起来, 这也太不给我面子了吧.</p>
-<p>Google 上对于这个问题也是众说纷纭, 没有一个能帮到我. 我尝试过各种解决方案, 升降级 PyInstaller, 用 Python3 重写, 用 PyQtDeploy 打包. 但却总是无功而返. PyQtDeploy 倒是可以解决问题, 但是打的包足足有 30~40MB , 想想还是算了吧.</p>
-<p>最后我仔细想了想, 在 Mac 上完全没有必要打包成一个可执行文件呀, 系统自带 python 环境, 直接通过 pip 安装一下就可以了嘛 ~</p>
-<p>关于如何制作,上传,发布自己的项目, 推荐大家阅读这篇文章 <a href="http://yejinxin.github.io/distribute-python-packages-to-pypi-server/" target="_blank" rel="external">发布python的包至pypi服务器</a> , 文章写的很好, 里面已经提到内容我在下面就不赘述了.</p>
-<h1 id="1-制作-setup-py"><a href="#1-制作-setup-py" class="headerlink" title="1. 制作 setup.py"></a>1. 制作 setup.py</h1><p>我的 setup.py 文件如下:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</div><div class="line"></div><div class="line">setup(</div><div class="line">    name = <span class="string">'untp'</span>,</div><div class="line">    version = <span class="string">'1.0.2'</span>,</div><div class="line">    keywords = (<span class="string">'untp'</span>, <span class="string">'texturepacker'</span>),</div><div class="line">    description = <span class="string">'A command line tool to split TexturePacker publish file.'</span>,</div><div class="line">    license = <span class="string">'MIT License'</span>,</div><div class="line">    install_requires = [</div><div class="line">        <span class="string">'Pillow'</span>,</div><div class="line">        <span class="string">'parse'</span></div><div class="line">    ],</div><div class="line">    url = <span class="string">'https://github.com/justbilt/untp'</span>,</div><div class="line">    author = <span class="string">'justbilt'</span>,</div><div class="line">    author_email = <span class="string">'wangbilt@gmail.com'</span>,</div><div class="line">    scripts=[<span class="string">'untp.py'</span>],</div><div class="line">    entry_points=&#123;</div><div class="line">        <span class="string">'console_scripts'</span>: [</div><div class="line">            <span class="string">'untp = untp:main'</span>,</div><div class="line">        ],</div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
-<h2 id="entry-points"><a href="#entry-points" class="headerlink" title="entry_points"></a>entry_points</h2><p>使用 entry_points 字段, 可以为项目添加可执行命令, 在我上面的配置中, 我就添加了 <code>untp</code> 这个名命令, 会执行 untp.py 的 main 函数.</p>
-<p>关于 entry_points 的更多用法, 可以参考这篇文章 <a href="https://pythonhosted.org/setuptools/setuptools.html#automatic-script-creation" target="_blank" rel="external">Automatic Script Creation</a> .</p>
-<h2 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h2><p>这里面值得一提的是 <code>scripts</code> 字段, 这个字段好多文章都没有提, 但是在我这里却引发了一个大问题. 我的目录结构如下:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">untp</div><div class="line">├── README.md</div><div class="line">├── setup.py</div><div class="line">└── untp.py</div></pre></td></tr></table></figure>
-<p>因为项目比较小, 我就直接将 untp.py 直接裸露在项目根目录, 开始没有添加 scripts 字段, 打包安装 <code>import</code> 都没有问题, 但是运行 <code>untp</code> 时却会报最经典的 <code>ImportError</code> 错误:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">wanghaitaodeMacBook-Air:untp bilt$ untp</div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"/usr/local/bin/untp"</span>, line 9, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">    load_entry_point(<span class="string">'untp==1.0.2'</span>, <span class="string">'console_scripts'</span>, <span class="string">'untp'</span>)()</div><div class="line">  ...</div><div class="line">  File <span class="string">"/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py"</span>, line 2361, <span class="keyword">in</span> resolve</div><div class="line">    module = __import__(self.module_name, fromlist=[<span class="string">'__name__'</span>], level=0)</div><div class="line">ImportError: No module named untp</div></pre></td></tr></table></figure>
-<p>然后我就要疯了, 这里什么个鬼情况 !!! 直到我看到了这个问答: <a href="http://stackoverflow.com/questions/19718813/module-not-found-during-load-entry-point-in-python" target="_blank" rel="external">module-not-found-during-load-entry-point-in-python</a> . 我才意识到, 原来我一直都没有安装对, 之所以能够 import 成功, 是因为我就在当前 (untp.py) 目录运行的 python 终端.</p>
-<p>然后去啃官方文档, 经过一番尝试, 其他人使用的 <code>packages = find_packages()</code>, 在我这里并不好使, 只有手动指定 scripts 才可以 !</p>
-<h1 id="2-测试"><a href="#2-测试" class="headerlink" title="2. 测试"></a>2. 测试</h1><p>我还是推荐大家先在 <code>testpypi.python.org</code> 上测试正确了再上传到正式的 <code>pypi.python.org</code>, 因为一但在正式服务器提交了, 就必须以版本号迭代的代价来更正上次提交. 而在测试服务器上发现问题的话, 登录删除一下有问题的版本就可以了!</p>
-<p>testpypi 也是需要注册的, 和 pypi 的注册方法一致, 注册完别忘了去邮箱验证一下.</p>
-<p>注意上传的时候不一定会成功, 说在 <code>.pypirc</code> 中找不到 testpypi 的配置, 解决方案可以看这里: <a href="https://wiki.python.org/moin/TestPyPI" target="_blank" rel="external">Test PyPI Server</a> .</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">python setup.py register -r https://testpypi.python.org/pypi</div><div class="line">python setup.py upload -r https://testpypi.python.org/pypi</div><div class="line">pip install -i https://testpypi.python.org/pypi &lt;package name&gt;</div></pre></td></tr></table></figure>
-<p>然后使用上面几条命令进行测试注册,发布,安装.</p>
-<h1 id="3-发布"><a href="#3-发布" class="headerlink" title="3. 发布"></a>3. 发布</h1><p>这边没有什么说的, 测试没有问题之后, 发布也不会出什么问题, 只是网址不一样而已. 写这篇文章的时候, 大家已经可以使用 <code>pip</code> 来安装最新版的 untp 了:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install untp</div></pre></td></tr></table></figure>
-<p>–EOF–</p>
 
-
+    
+	  <div class="readmore">
+      <a href="/2016/02/29/publish-untp-to-pypi/">Read More</a>
+    </div>
     
     
     

@@ -887,7 +887,7 @@
 <p>原来这种 http 请求我们是封装了一层的, 这个 <code>POST</code> 和 <code>GET</code> 是通过参数传入的, 外部传入的其实是一个枚举. 然而在我之前的重构中, 修改了这个枚举的名字, 导致传入的值是 nil, 这就导致没有调用 createHTTPRequest 时没有传入 methed 参数, 默认就是 GET 类型的, 因为平台的 http 实现不同, 导致有些平台正常, 有些平台会出错.</p>
 <p>上传头像的内容就是这些.</p>
 <h1 id="三-下载头像"><a href="#三-下载头像" class="headerlink" title="三. 下载头像"></a>三. 下载头像</h1><p>对于这个问题, 我们开始还打算在 c++ 端用 curl 实现, 然后到处到 Lua 这边使用, 直到发现了 HttpClient 的 <code>saveResponseData</code> 接口. 调用了这个接口可以直接把 Response 中的数据保存在本地, 这样下载单个文件就搞定了. 下载代码如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- http下载</span></div><div class="line"><span class="comment">--[[</span></div><div class="line">	@param string _url _url地址</div><div class="line">	@param string _savepath 指定的存储路径</div><div class="line">	@param function _callfunc 下载完成回调方法</div><div class="line">]]</div><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> _download<span class="params">(_url, _savepath, _callfunc)</span></span></div><div class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</div><div class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></div><div class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></div><div class="line"></div><div class="line">                <span class="comment">--判断是否下载成功</span></div><div class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></div><div class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</div><div class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></div><div class="line">                	success = <span class="literal">true</span></div><div class="line">                <span class="keyword">end</span></div><div class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></div><div class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</div><div class="line">    req:setTimeout(<span class="number">60</span>)</div><div class="line">    req:start()</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- http下载</span></div><div class="line"><span class="comment">--[[</span></div><div class="line">	@param string _url _url地址</div><div class="line">	@param string _savepath 指定的存储路径</div><div class="line">	@param function _callfunc 下载完成回调方法</div><div class="line">]]</div><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">_download</span><span class="params">(_url, _savepath, _callfunc)</span></span></div><div class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</div><div class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></div><div class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></div><div class="line"></div><div class="line">                <span class="comment">--判断是否下载成功</span></div><div class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></div><div class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</div><div class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></div><div class="line">                	success = <span class="literal">true</span></div><div class="line">                <span class="keyword">end</span></div><div class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></div><div class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</div><div class="line">    req:setTimeout(<span class="number">60</span>)</div><div class="line">    req:start()</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p>但是整个下载功能呢并没有这么简单, 我们应该考虑到 <code>本地缓存</code>, <code>去重</code>, <code>队列限制</code>等情况, 这样我们可以实现一个通用的下载模块, 不仅仅是为自定义头像功能, 其他的模块也可以使用.</p>
 <h1 id="四-显示头像"><a href="#四-显示头像" class="headerlink" title="四. 显示头像"></a>四. 显示头像</h1><p>这个功能其实很简单了, 为了什么要单独拿出来说呢? 就是我们要实现的很优雅. 自定义头像这个功能可能不是一开始就提出的, 因为改了 Native 层的代码, 所以需要线上换包, 这就比较麻烦了, 所以我们这个模块要和之前的头像保持兼容. </p>
 <p>我们游戏中的显示头像的地方有很多, 我们不能把下载的调用写的到处都是, 比较优雅的做法是实现一个头像控件, 在这个控件内部处理普通头像和自定义头像的逻辑. 为了提高用户体验, 下载的过程中我们可以显示一张替代图或者之前的普通头像.</p>
@@ -1377,7 +1377,7 @@
     <link href="http://blog.justbilt.com/2016/10/29/untp-2/"/>
     <id>http://blog.justbilt.com/2016/10/29/untp-2/</id>
     <published>2016-10-29T15:39:18.000Z</published>
-    <updated>2017-07-24T23:00:24.000Z</updated>
+    <updated>2017-10-24T15:07:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>距离第一版的 <code>untp</code> 发布已经有一年半的时间了, 在这个项目上我收获了很多的第一次:</p>
 <blockquote>
@@ -1385,11 +1385,27 @@
 </blockquote>
 <p>这篇文章已经是关于 untp 的第三篇文章了, 所有的文章列表可以<a href="/tags/untp">查看这里</a>. 下面我来讲讲 untp 最近的几次更新以及后续的一个维护计划.</p>
 <a id="more"></a>
-<h1 id="一-更新"><a href="#一-更新" class="headerlink" title="一. 更新"></a>一. 更新</h1><h2 id="1-0-9"><a href="#1-0-9" class="headerlink" title="1.0.9"></a>1.0.9</h2><ol>
+<h1 id="一-更新"><a href="#一-更新" class="headerlink" title="一. 更新"></a>一. 更新</h1><h2 id="1-1-3"><a href="#1-1-3" class="headerlink" title="1.1.3"></a>1.1.3</h2><ol>
+<li>新增: 支持 CocoStudio v0 导出的动画格式</li>
+</ol>
+<h2 id="1-1-2"><a href="#1-1-2" class="headerlink" title="1.1.2"></a>1.1.2</h2><ol>
+<li>新增: 拆解文件夹也支持指定输出目录了</li>
+<li>新增: 单元测试, 以后发版本会稳很多</li>
+</ol>
+<h2 id="1-1-1"><a href="#1-1-1" class="headerlink" title="1.1.1"></a>1.1.1</h2><ol>
+<li>修复: <code>plist + jpg</code> 会拆解失败的 bug</li>
+</ol>
+<h2 id="1-1-0"><a href="#1-1-0" class="headerlink" title="1.1.0"></a>1.1.0</h2><ol>
+<li>添加了简易 GUI 界面的支持, 已经不能说是 <em>A command line tool</em> 了</li>
+<li>同时兼容了 Python2 和 Python3</li>
+</ol>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1fktqhfw5m8j30eo07c0t6.jpg" alt=""></p>
+<p>安装最新版本后, 输入 <code>untp</code> 不加任何参数就会打开 GUI 界面, 一个按钮拆解单个文件, 一个按钮拆解文件夹, 下方是日志窗口.</p>
+<h2 id="1-0-9"><a href="#1-0-9" class="headerlink" title="1.0.9"></a>1.0.9</h2><ol>
 <li>修复: 解析 plist 时因为数据中含有空白符号导致解析失败的 bug</li>
 </ol>
 <h2 id="1-0-8"><a href="#1-0-8" class="headerlink" title="1.0.8"></a>1.0.8</h2><ol>
-<li>新增: 支持 cocos2d-0.99.4 格式支持</li>
+<li>新增: 支持 cocos2d-0.99.4 v1 格式支持</li>
 </ol>
 <h2 id="1-0-7"><a href="#1-0-7" class="headerlink" title="1.0.7"></a>1.0.7</h2><ol>
 <li>修复: 解析文件返回值错误导致解析失败</li>
@@ -1424,16 +1440,17 @@
 <p>之前的发展策略我一直都是按着更便捷安装, 更方便使用方向上走的, 从一开始的 PyInstaller 打包到后面的上传到 pypi , 从开始只支持单一文件到支持目录, 都是按照这个思路搞的.至于后面如何发展我也没有很好的想法, 或许让它停留在这一版也很好. 今天看到张小龙的一篇内部分享, 一个好的工具就应该只是一个工具, 想到就用, 用完就走, 不要想着把用户黏住.</p>
 <p>所以, untp 就只是一个拆解大图的工具, 绝对不做其他的功能. 在这个原则的基础上, 有这么几个方向去搞:</p>
 <ol>
-<li>GUI 界面的支持</li>
+<li><del>GUI 界面的支持</del> supported since version 1.1.0</li>
 <li>支持更多的格式</li>
 </ol>
 <p>我想使用这个工具的人可能不一定是程序员, 他们不一定懂 pip , 不一定会打开终端. 所以一个 GUI 的界面就很重要了. 第二个是可以让更多引擎的开发者来使用, 现在只支持 cocos 是有些狭隘了, 对自己也是一个很好地的锻炼.</p>
 <p>如果你还有更好的建议, 欢迎在评论里或者 <a href="https://github.com/justbilt/untp/issues" target="_blank" rel="external">issue</a> 中提出.</p>
 <h1 id="三-中文使用说明-持续更新"><a href="#三-中文使用说明-持续更新" class="headerlink" title="三. 中文使用说明(持续更新)"></a>三. 中文使用说明(持续更新)</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>现在可以采用两种方式安装, 在终端中键入 <code>pip install untp</code> 或者 clone 代码到本地, 在根目录 <code>python setup install</code> .</p>
 <h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h2><p>当我们在终端中键入 <code>untp -h</code> 后, 会得到下面这段输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">usage:</div><div class="line">untp ../btn.plist</div><div class="line">untp ../btn.plist -i ../btn.png</div><div class="line">untp ../data</div><div class="line">untp ../data -r</div><div class="line"></div><div class="line">positional arguments:</div><div class="line">  path                  plist file name or directory</div><div class="line"></div><div class="line">optional arguments:</div><div class="line">  -h, --help            show this help message and exit</div><div class="line"></div><div class="line">For file:</div><div class="line">  -i image_file, --image_file image_file</div><div class="line">                        specified image file for plist</div><div class="line">  -o output, --output output</div><div class="line">                        specified output directory</div><div class="line"></div><div class="line">For directory:</div><div class="line">  -r, --recursive</div></pre></td></tr></table></figure>
-<p>对于单个 plist 文件, 可以 <code>untp xxx.plist</code> 来拆解它, 会读取 plist 中配置的图片输出到同名的目录中, 可以使用 <code>-i</code> 指定图片, <code>-o</code> 指定输出目录.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">usage:</div><div class="line">untp ../btn.plist</div><div class="line">untp ../btn.plist -i ../btn.png</div><div class="line">untp ../data</div><div class="line">untp ../data -r</div><div class="line">positional arguments:</div><div class="line">  path                  plist/fnt file name or directory</div><div class="line">optional arguments:</div><div class="line">  -h, --help            show this help message and exit</div><div class="line">  -o output, --output output</div><div class="line">                        specified output directory</div><div class="line">For file:</div><div class="line">  -i image_file, --image_file image_file</div><div class="line">                        specified image file for plist</div><div class="line">For directory:</div><div class="line">  -r, --recursive</div></pre></td></tr></table></figure>
+<p>对于单个 plist 文件, 可以 <code>untp xxx.plist</code> 来拆解它, 会读取 plist 中配置的图片输出到同名的目录中, 可以使用 <code>-i</code> 指定图片.</p>
 <p>对于目录, 使用 <code>untp path</code> path 是包含 <code>plist</code> 文件的目录, 可以使用 <code>-r</code> 参数指定遍历子目录.</p>
+<p>以上两种都可以使用 <code>-o/--output</code> 指定输出目录.</p>
 <p>(以上)</p>
 ]]></content>
     

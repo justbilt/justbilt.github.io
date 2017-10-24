@@ -132,164 +132,62 @@
     <div class='container clearfix'>
       <div class='l_main'>
         
-  <script>
-    window.subData= { title:'Tag : neat-freak'}
-  </script>
-
-<section class="post-list">
-	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/04/12/the-git-for-neat-freak/">
-        洁癖患者的 Git GUI 指南
-      </a>
-    </h2>
-    
-    <time>
-      4月 12, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>前段时间我看到了一篇文章, <a href="http://hungyuhei.github.io/2012/08/07/better-git-commit-graph-using-pull---rebase-and-merge---no-ff.html" target="_blank" rel="external">洁癖者用 Git：pull –rebase 和 merge –no-ff</a> , 发现和我们目前的工作流程很像, 区别在于我们是使用 GUI 工具来做的这些, 也做了一些新的尝试.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/04/12/the-git-for-neat-freak/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+  <article id="archive-page" class="post article white-box">
+    <section class='meta'>
+      <h2 class="title">
+        <a href="javascript:void(0)">
+          
+          Tag: neat-freak
+          
+        </a>
+      </h2>
+    </section>
+    <section class="archive">
       
-        <a href="/tags/neat-freak/">neat-freak</a>
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2017" href='/archives/2017/' >
+                2017
+              </a>
+            </div>
       
-        <a href="/tags/git/">git</a>
+          <div class="archive-item archive-post mark">
+            <a href="/2017/04/12/the-git-for-neat-freak/">
+              <time>04-12</time>
+              <span class="title"><span>洁癖患者的 Git GUI 指南</span></span>
+            </a>
+          </div>
       
-	  </div>
-    
-  </section>
-</article>
-    </div>
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2016" href='/archives/2016/' >
+                2016
+              </a>
+            </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2016/06/26/terse-lua-code/">
+              <time>06-26</time>
+              <span class="title"><span>更简洁的 lua 逻辑代码</span></span>
+            </a>
+          </div>
+      
+            <div class="archive-item archive-year mark">
+              <a id="archive-year-2015" href='/archives/2015/' >
+                2015
+              </a>
+            </div>
+      
+          <div class="archive-item archive-post mark">
+            <a href="/2015/11/15/falign/">
+              <time>11-15</time>
+              <span class="title"><span>FAlign 代码洁癖患者的福音</span></span>
+            </a>
+          </div>
+      
+    </section>
+  </article>
+  <!--
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/06/26/terse-lua-code/">
-        更简洁的 lua 逻辑代码
-      </a>
-    </h2>
-    
-    <time>
-      6月 26, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>爱因斯坦的质能方程 <code>E=MC^2</code>, 用在编程界同样适用 <code>Error = More Code ^ 2</code>. 代码越多, 出错的可能性就更大, 这个结论很正确呀. 那么我们如何使用更少的代码实现同样的需求呢 ?</p>
-<p>一. 普通技</p>
-<h2 id="1-bool-值与-if-语句的择决"><a href="#1-bool-值与-if-语句的择决" class="headerlink" title="1. bool 值与 if 语句的择决"></a>1. bool 值与 if 语句的择决</h2><p>让我们来看一段代码:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</div><div class="line"><span class="keyword">if</span> monthly_is_taken == <span class="literal">true</span> <span class="keyword">then</span></div><div class="line">    self._monthly_take:setButtonEnabled(<span class="literal">false</span>)</div><div class="line"><span class="keyword">else</span></div><div class="line">    self._monthly_take:setButtonEnabled(<span class="literal">true</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>显然这个 if 语句是没有必要的, 我们可以直接使用 bool 进行函数参数传递:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</div><div class="line">self._monthly_take:setButtonEnabled(monthly_is_taken)</div></pre></td></tr></table></figure>
-<p>我们可以看到减少了 %60 的代码, 逻辑反而变得更清晰了.</p>
-<h2 id="2-减少非必须的中间变量"><a href="#2-减少非必须的中间变量" class="headerlink" title="2. 减少非必须的中间变量"></a>2. 减少非必须的中间变量</h2><p>我们都明白了中间变量的意义, 主要是为提高代码的可读性. 但是有时候中间变量的太多, 在增加码量的同时, 也会打断我们的我们的思路.</p>
-<p>比如我们要算一个等差数列的和, 我们都知道使用公式 <code>(首项+末项)*项数/2</code>, 我们看一下这个实现:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</div><div class="line"><span class="keyword">local</span> array_len = #array</div><div class="line"><span class="keyword">local</span> first_element = array[<span class="number">1</span>]</div><div class="line"><span class="keyword">local</span> last_element = array[array_len]</div><div class="line"><span class="keyword">local</span> sum = (first_element+last_element)*array_len/<span class="number">2</span></div></pre></td></tr></table></figure>
-<p>就不如下面这个实现:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</div><div class="line"><span class="keyword">local</span> sum = (array[<span class="number">1</span>]+array[#array])*#array/<span class="number">2</span></div></pre></td></tr></table></figure>
-<p>这样的话, 我们上一个示例的代码可以进一步精简:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self._monthly_take:setButtonEnabled(app.player:getAttribute(<span class="string">"monthly_is_taken"</span>))</div></pre></td></tr></table></figure>
-<h2 id="3-使用-elseif-优化-if-语句"><a href="#3-使用-elseif-优化-if-语句" class="headerlink" title="3. 使用 elseif 优化 if 语句"></a>3. 使用 elseif 优化 if 语句</h2><p>如果是逻辑相悖的判断条件, 我们可以使用 elseif 语句连接, 而不用多个 if 语句. </p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>我们可以修改为:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- do some thing</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>这样修改后, 对逻辑的执行时间也优化哟, 因为一但有一个 if 语句命中, 后面的 elseif 都不会再去判断了.</p>
-<h2 id="4-使用-config-优化-if-elseif-语句"><a href="#4-使用-config-优化-if-elseif-语句" class="headerlink" title="4. 使用 config 优化 if-elseif 语句"></a>4. 使用 config 优化 if-elseif 语句</h2><p>如果一个逻辑中有大量的 if-elseif 语句, 我么就可以使用 config 的形式替换掉它, 使得逻辑更加简洁.</p>
-<p>让我们看一个示例:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_SYSTEM <span class="keyword">then</span></div><div class="line">    self._title:setString(_data.content.content.subtype)</div><div class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</div><div class="line">    self.title = TextEnum.CNReset.SYSTEM_INFORMATION</div><div class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK <span class="keyword">then</span></div><div class="line">    self._title:setString(TextEnum.CNReset.KICK)</div><div class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</div><div class="line">    self.title = TextEnum.CNReset.KICK</div><div class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN <span class="keyword">then</span></div><div class="line">    self._title:setString(TextEnum.CNReset.JOIN_IN)</div><div class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</div><div class="line">    self.title = TextEnum.CNReset.JOIN_IN</div><div class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT <span class="keyword">then</span></div><div class="line">    ...</div></pre></td></tr></table></figure>
-<p>这是一段关于邮件标题的逻辑, 这里只节选出了 1/4 的代码, 真的是又臭又长. 我们可以这样子去优化它:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> CONFIG = &#123;</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_SYSTEM] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT] = &#123;title = XXX, name = XXX&#125;,</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">local</span> <span class="built_in">config</span> = CONFIG[_data.<span class="built_in">type</span>]</div><div class="line"><span class="keyword">if</span> <span class="built_in">config</span> <span class="keyword">then</span></div><div class="line">    self._title:setString(<span class="built_in">config</span>.title)</div><div class="line">    self._name:setString(<span class="built_in">config</span>.name)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>因为只是代码节选, 所以上面修改是一段伪代码, 但是看起来超级清爽的有木有! 对于一开始无法确定的数据如何配置呢? 我们可以配置一个 <code>function</code>, 用的时候取出来调用就可以啦.</p>
-<h1 id="二-黑科技"><a href="#二-黑科技" class="headerlink" title="二. 黑科技"></a>二. 黑科技</h1><h2 id="1-数据默认值的设定"><a href="#1-数据默认值的设定" class="headerlink" title="1. 数据默认值的设定"></a>1. 数据默认值的设定</h2><p>当我们拿到一段数据后, 总是要先预处理数据, 后面才是使用数据. 预处理阶段很重要的一步就是某些数据的默认值.</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num1 <span class="keyword">then</span></div><div class="line">        _num1 = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span> </div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num2 <span class="keyword">then</span></div><div class="line">        _num2 = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num3 <span class="keyword">then</span></div><div class="line">        _num3 = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>很繁琐是不是, 这时候我们可以使用 and 和 or 来优化默认值的设置:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></div><div class="line">    _num1 = _num1 <span class="keyword">or</span> <span class="number">0</span></div><div class="line">    _num2 = _num2 <span class="keyword">or</span> <span class="number">0</span></div><div class="line">    _num3 = _num3 <span class="keyword">or</span> <span class="number">0</span></div><div class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>当 <code>or</code> 的前面部分是 <code>nil</code> 或者 <code>false</code> 的情况下, 返回这个表达式的值后面部分. 下面我列举一下常用类型的默认值用法:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- number</span></div><div class="line">a = a <span class="keyword">or</span> <span class="number">0</span></div><div class="line"><span class="comment">-- string</span></div><div class="line">a = a <span class="keyword">or</span> <span class="string">""</span> </div><div class="line"><span class="comment">-- function</span></div><div class="line">a = a <span class="keyword">or</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span><span class="keyword">end</span></div><div class="line"><span class="comment">-- table</span></div><div class="line">a = a <span class="keyword">or</span> &#123;&#125;</div><div class="line"><span class="comment">-- boolean</span></div><div class="line">a = a == <span class="literal">nil</span> <span class="keyword">and</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
-<p>这里值得一提的是 <code>boolean</code> 类型, 如果希望默认值是 false 话, 就不需要默认值, 因为 nil 和 false 对于判断来说以意义一致. 而如果希望默认值是 true 的话, 并不是 <code>a = a or true</code>, 而是 <code>a == nil and true</code>, 大家可以细想一下其中的含义.</p>
-<h2 id="2-table-中元素的初始化"><a href="#2-table-中元素的初始化" class="headerlink" title="2. table 中元素的初始化"></a>2. table 中元素的初始化</h2><p>比如我们要统计一个列表中, 每个元素出现的次数:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</div><div class="line"><span class="keyword">local</span> counter = &#123;&#125;</div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> counter[v] <span class="keyword">then</span></div><div class="line">        counter[v] = <span class="number">0</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    counter[v] = counter[v] + <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>因为 <code>counter</code> 不可能提前初始化好, 所以总是要判断存不存在这个元素, 我们也可以利用上面提到的技巧做这个事情:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</div><div class="line"><span class="keyword">local</span> counter = &#123;&#125;</div><div class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></div><div class="line">    counter[v] = (counter[v] <span class="keyword">or</span> <span class="number">0</span>) + <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>是不是变得很简洁 ?</p>
-
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/code-style/">code-style</a>
-      
-        <a href="/tags/neat-freak/">neat-freak</a>
-      
-        <a href="/tags/Lua/">Lua</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2015/11/15/falign/">
-        FAlign 代码洁癖患者的福音
-      </a>
-    </h2>
-    
-    <time>
-      11月 15, 2015
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>对于一个重度代码洁癖患者, 看到下面这样的代码, 心中难免奇痒难耐, 想要给它对齐了去!</p>
-
-    
-	  <div class="readmore">
-      <a href="/2015/11/15/falign/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/code-style/">code-style</a>
-      
-        <a href="/tags/neat-freak/">neat-freak</a>
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/FAlign/">FAlign</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-</section>
-
+    -->
 
       </div>
       <aside class='l_side'>
