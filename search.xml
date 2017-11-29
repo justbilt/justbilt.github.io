@@ -4,6 +4,97 @@
   
     
     <entry>
+      <title><![CDATA[更新 spine 的 cocos2d-x runtimes (二)]]></title>
+      <url>http://blog.justbilt.com/2017/11/19/upgrad-spine-runtime-2/</url>
+      <content type="html"><![CDATA[<p>前段时间一个朋友向我咨询播放 spine 动画时遇到的问题:</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1flngumf7luj30ht04mq41.jpg" alt=""></p>
+<p>这个问题我们在很久之前也遇到过, 当时是另个一小伙伴负责的. 当时猜测可能是 <code>spine runtimes</code> 需要升级, 但是升级时遇到了技术问题, 恰好项目比较紧, 便让美术同学重新用老版的 Spine 编辑器重新做了一遍.</p>
+<a id="more"></a>
+<p>无独有偶, 上周另一个小伙伴在播放 spine 动画时遇到了 <code>崩溃</code> 的问题, 而放到 creator 中测试是没有问题的, 看来又是运行库太过陈旧的原因.</p>
+<p>趁着周末有点时间, 我也来尝试更新下 <code>spine runtimes</code>. 15 年的时候就更新过一次, 当时还写了一篇很水的文章 <a href="/2015/08/16/upgrad-spine-runtime/">&lt;&lt;更新 spine 的 cocos2d-x runtimes&gt;&gt;</a>, 时隔两年, 这次是否也会依然顺利呢 ?</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1flnh9m7zekj307w04x746.jpg" alt=""></p>
+<p>我这次并没有选择从 spine 的<a href="https://github.com/EsotericSoftware/spine-runtimes" target="_blank" rel="external">官方仓库</a> 更新 runtimes, 既然 creator 中是没有问题的, 为什么不选择直接从 creator 附带的 <a href="https://github.com/cocos-creator/cocos2d-x-lite/subscription" target="_blank" rel="external">cocos2d-lite</a> 中复制过来呢 ?</p>
+<h2 id="1-替换最新的-spine-runtimes"><a href="#1-替换最新的-spine-runtimes" class="headerlink" title="1. 替换最新的 spine runtimes"></a>1. 替换最新的 spine runtimes</h2><p>简单浏览了下, 目录结构没有发生变化, 看来是一个好的开端. 我们先从用 cocos2d-lite 中的 <code>cocos/editor-support/spine</code> 替换掉 quick-cocos2d-x 中的同名目录.</p>
+<p>用 XCode 打开 <code>quick/player/proj.mac/player3.xcodeproj</code> 模拟器工程, 我们用 quick-cocos2d-x 的 Mac 版来完成后续的工作. 在 <code>Project Navigator</code> 找到 <code>spine</code> 文件夹, 删除掉红色的缺失文件, 右键 <code>Add files to &#39;cocos2d_libs.xcodepro&#39;</code> 添加上新增的文件, 编译一下.</p>
+<h2 id="2-修复-lua-binding-错误"><a href="#2-修复-lua-binding-错误" class="headerlink" title="2. 修复 lua binding 错误"></a>2. 修复 lua binding 错误</h2><p>发现有 <code>lua_cocos2dx_spine_auto.cpp</code> 有报错, 错误内容:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...lua_cocos2dx_spine_auto.cpp:701:32: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:758:43: No viable conversion from 'function&lt;void (int, spEvent *)&gt;' to 'const function&lt;void (spTrackEntry *, spEvent *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:815:46: No viable conversion from 'function&lt;void (int, int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:872:43: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:925:35: No viable conversion from 'function&lt;void (int, int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:982:41: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:1035:32: No viable conversion from 'function&lt;void (int, spEvent *)&gt;' to 'const function&lt;void (spTrackEntry *, spEvent *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:1143:30: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div></pre></td></tr></table></figure>
+<p>看到这个文件名就应该联想到没有重新生成 lua 绑定的代码. 打开终端进入 <code>tools/tolua</code>, 运行:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python genbindings.py</div></pre></td></tr></table></figure>
+<p>如果之前没有运行过这个脚本的话, 可以<a href="https://github.com/dualface/v3quick/blob/v3/tools/tolua/README.mdown" target="_blank" rel="external">参照这份官方文档</a>需要搭建环境. 等待运行结束后, 再次编译.</p>
+<h2 id="3-修复-API-变动导致的编译错误"><a href="#3-修复-API-变动导致的编译错误" class="headerlink" title="3. 修复 API 变动导致的编译错误"></a>3. 修复 API 变动导致的编译错误</h2><h3 id="1-Listener-回调函数参数变化"><a href="#1-Listener-回调函数参数变化" class="headerlink" title="1. *Listener 回调函数参数变化"></a>1. *Listener 回调函数参数变化</h3><p>这次改为 <code>lua_cocos2dx_spine_manual.cpp</code> 出错了:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...lua_cocos2dx_spine_manual.cpp:233:48: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:233:48)' to 'const StartListener' (aka 'const function&lt;void (spTrackEntry *)&gt;')</div><div class="line">...lua_cocos2dx_spine_manual.cpp:241:46: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:241:46)' to 'const EndListener' (aka 'const function&lt;void (spTrackEntry *)&gt;')</div><div class="line">...lua_cocos2dx_spine_manual.cpp:249:51: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:249:51)' to 'const CompleteListener' (aka 'const function&lt;void (spTrackEntry *)&gt;')</div><div class="line">...lua_cocos2dx_spine_manual.cpp:257:48: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:257:48)' to 'const EventListener' (aka 'const function&lt;void (spTrackEntry *, spEvent *)&gt;')</div></pre></td></tr></table></figure>
+<p>这个文件中放的是手动导出 lua 接口的代码, 我们需要推测一下这些错误发生的原因. 让我们看下出错的具体代码:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self-&gt;setStartListener([=](<span class="keyword">int</span> trackIndex)&#123;</div><div class="line">    executeSpineEvent(self, handler, eventType, trackIndex);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><code>StartListener</code> 是声明在 <code>SkeletonAnimation.h</code> 中的, 相关代码的 git diff 如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex)&gt; StartListener;</div><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex)&gt; EndListener;</div><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex, <span class="keyword">int</span> loopCount)&gt; CompleteListener;</div><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex, spEvent* event)&gt; EventListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; StartListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; InterruptListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; EndListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; DisposeListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; CompleteListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry, spEvent* event)&gt; EventListener;</div></pre></td></tr></table></figure>
+<p>显而易见, 函数的参数发生了变化, 我们修改下 lambda 函数参数即可, 同时还需要考虑 <code>executeSpineEvent</code> 函数的变化. 我的修改如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">executeSpineEvent</span><span class="params">(LuaSkeletonAnimation* skeletonAnimation, <span class="keyword">int</span> handler, spEventType eventType,  spTrackEntry * entry, <span class="keyword">int</span> loopCount = <span class="number">0</span>, spEvent* event = <span class="literal">nullptr</span> )</span></span></div></pre></td></tr></table></figure>
+<p>改变了这个函数的参数, 调用的地方也要改变, 这个就不贴代码了.</p>
+<h3 id="spEventType-变化"><a href="#spEventType-变化" class="headerlink" title="spEventType 变化"></a>spEventType 变化</h3><p>还需要注意到的一个变化是:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</div><div class="line">    SP_ANIMATION_START, SP_ANIMATION_INTERRUPT, SP_ANIMATION_END, SP_ANIMATION_COMPLETE, SP_ANIMATION_DISPOSE, SP_ANIMATION_EVENT</div><div class="line">&#125; spEventType;</div></pre></td></tr></table></figure></p>
+<p>想必之前多了 <code>SP_ANIMATION_INTERRUPT</code> 和 <code>SP_ANIMATION_DISPOSE</code> 事件, 我们要更新所有用到 <code>spEventType</code> 的地方.</p>
+<p>SpineConstants.lua :</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sp.EventType =</div><div class="line">&#123;</div><div class="line">    ANIMATION_START = <span class="number">0</span>, </div><div class="line">    ANIMATION_INTERRUPT = <span class="number">1</span>, </div><div class="line">    ANIMATION_END = <span class="number">2</span>, </div><div class="line">    ANIMATION_COMPLETE = <span class="number">3</span>, </div><div class="line">    ANIMATION_DISPOSE = <span class="number">4</span>, </div><div class="line">    ANIMATION_EVENT = <span class="number">5</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以及 <code>LuaScriptHandlerMgr.h</code> 和 <code>lua_cocos2dx_spine_manual.cpp</code> 中共计五处变化.</p>
+<h3 id="TrianglesCommand-参数错误"><a href="#TrianglesCommand-参数错误" class="headerlink" title="TrianglesCommand 参数错误"></a>TrianglesCommand 参数错误</h3><p>解决了这个问题, 编译后发现还有一个错误:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SkeletonBatch.cpp:95:37: No matching member function for call to 'init'</div></pre></td></tr></table></figure>
+<p>是调用 <code>TrianglesCommand:init</code> 时多传入了一个参数, 可能是新版 cocos 的 api 改动吧, 我们直接删掉最后一个参数:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-        _command-&gt;trianglesCommand-&gt;init(globalZOrder, textureID, glProgramState, blendFunc, *_command-&gt;triangles, transform, transformFlags);</div><div class="line">+        _command-&gt;trianglesCommand-&gt;init(globalZOrder, textureID, glProgramState, blendFunc, *_command-&gt;triangles, transform);</div></pre></td></tr></table></figure>
+<hr>
+<p>到此搞定了所有的编译问题, 尝试了下 Android 和 iOS 的编译, 也没有什么问题. 让我们运行下看下效果:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1flnr7bq9vtg306v08skah.gif" alt=""></p>
+<p>后记:</p>
+<h1 id="1-Spine-Error-Unknown-attachment-type-skinnedmesh"><a href="#1-Spine-Error-Unknown-attachment-type-skinnedmesh" class="headerlink" title="1. Spine Error:Unknown attachment type: skinnedmesh"></a>1. Spine Error:Unknown attachment type: skinnedmesh</h1><p>跟新完后有的 Spine 文件会报这个错误, <a href="http://forum.cocos.com/t/1-3-1-spine-c-spine-skinnedmesh/41180/2" target="_blank" rel="external">论坛里有解决方案</a>, 虽然不报错了, 但是也不动了, 可能需要美术重新做一遍.</p>
+<h1 id="2-真的有必要从-cocos2d-x-lite-中更新吗"><a href="#2-真的有必要从-cocos2d-x-lite-中更新吗" class="headerlink" title="2. 真的有必要从 cocos2d-x-lite 中更新吗?"></a>2. 真的有必要从 cocos2d-x-lite 中更新吗?</h1><p>经过好友 @郭彬 的提醒, 确实没有必要, 他就是从官方仓库更新的, 是我画蛇添足了.</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> cocos2d-x </tag>
+            
+            <tag> spine </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Quick-cocos2d-x 小米 Mix 全面屏适配]]></title>
+      <url>http://blog.justbilt.com/2017/11/17/quick-x-mi-mix-support/</url>
+      <content type="html"><![CDATA[<p>有玩家反馈我们的游戏在 Mix 上面无法全屏显示, 上下会有黑边. 搜索了下, 网上还没有绍如何适配的相关文章, 这里介绍下我们是如何做的.</p>
+<p>我们可以在看看小米官方<a href="https://dev.mi.com/doc/p=10083/index.html" target="_blank" rel="external">对全面屏适配工作的介绍</a>:</p>
+<blockquote>
+<p>这些变化也影响了手机软件的设计，最值得开发者关注的，是以下两点：</p>
+<ol>
+<li>更大的屏幕高宽比</li>
+<li>虚拟导航键</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<p>好的, 我们先按照官方的方法修改下 <code>max_aspect</code> 的值为 <code>2</code> 以上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">"android.max_aspect"</span> <span class="attr">android:value</span>=<span class="string">"2.1"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<p>运行下, 发现顶部的黑条不见了, 但是底部的虚拟导航键还在. 我们接着看官方的文档:</p>
+<p><img src="https://dev.mi.com/doc/wp-content/uploads/2017/06/%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9A%84%E6%A0%B7%E5%BC%8F.png" alt=""></p>
+<p>然而这几种效果都不是我们想要的, 我们想要是隐藏<code>虚拟导航键</code>. Google 一下, 很容易搜索到这段代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 隐藏虚拟按键，并且全屏</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">hideBottomUIMenu</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="comment">//隐藏虚拟按键，并且全屏</span></div><div class="line">       <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt; <span class="number">11</span> &amp;&amp; Build.VERSION.SDK_INT &lt; <span class="number">19</span>) &#123; <span class="comment">// lower api</span></div><div class="line">           View v = <span class="keyword">this</span>.getWindow().getDecorView();</div><div class="line">           v.setSystemUiVisibility(View.GONE);</div><div class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">19</span>) &#123;</div><div class="line">           <span class="comment">//for new api versions.</span></div><div class="line">           View decorView = getWindow().getDecorView();</div><div class="line">           <span class="keyword">int</span> uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION</div><div class="line">                           | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;</div><div class="line">           decorView.setSystemUiVisibility(uiOptions);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>加上之后发现导航键真的没有了, 但是当你点击屏幕时, 它又出现了. 继续搜索发现了<a href="https://segmentfault.com/a/1190000002936799" target="_blank" rel="external">这篇文章</a>, 按照文章中的提示进行修改你的 AppActivity :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">private</span> Cocos2dxGLSurfaceView glSurfaceView;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState, SplashEnum splash, <span class="keyword">long</span> duration, <span class="keyword">boolean</span> debug)</span> </span>&#123;</div><div class="line">        ...</div><div class="line">        View decorView = getWindow().getDecorView();</div><div class="line"><span class="comment">// Hide both the navigation bar and the status bar.</span></div><div class="line"><span class="comment">// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as</span></div><div class="line"><span class="comment">// a general rule, you should design your app to hide the status bar whenever you</span></div><div class="line"><span class="comment">// hide the navigation bar.</span></div><div class="line">        <span class="keyword">int</span> uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION</div><div class="line">                | View.SYSTEM_UI_FLAG_FULLSCREEN;</div><div class="line">        decorView.setSystemUiVisibility(uiOptions);</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Cocos2dxGLSurfaceView <span class="title">onCreateView</span><span class="params">()</span> </span>&#123;</div><div class="line">        glSurfaceView = <span class="keyword">super</span>.onCreateView();</div><div class="line">        <span class="keyword">this</span>.hideSystemUI();</div><div class="line">        <span class="keyword">return</span> glSurfaceView;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</div><div class="line">        <span class="keyword">if</span> (hasFocus)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">this</span>.hideSystemUI();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hideSystemUI</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// Set the IMMERSIVE flag.</span></div><div class="line">        <span class="comment">// Set the content to appear under the system bars so that the content</span></div><div class="line">        <span class="comment">// doesn't resize when the system bars hide and show.</span></div><div class="line">        glSurfaceView.setSystemUiVisibility(</div><div class="line">                Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION</div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_HIDE_NAVIGATION <span class="comment">// hide nav bar</span></div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_FULLSCREEN <span class="comment">// hide status bar</span></div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>搞定. 看下最终的效果:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1flncnl0u3tj30ku11278w.jpg" alt=""></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Quick-Cocos2d-x </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[订阅 Hexo 的主题页]]></title>
       <url>http://blog.justbilt.com/2017/10/09/feed-hexo-themes-page/</url>
       <content type="html"><![CDATA[<p>作为一个经常换博客主题的人, 时不时的就会去 <a href="https://hexo.io/themes/" target="_blank" rel="external">Hexo 的主题页</a> 逛逛, 看看有什么新的主题, 膜拜下大触们的作品.</p>
@@ -4338,6 +4429,13 @@
     
     <entry>
       <title></title>
+      <url>http://blog.justbilt.com/links/index.html</url>
+      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="external">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="external">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="external">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="external">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="external">http://qipa.world/</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
       <url>http://blog.justbilt.com/assets/comment.css</url>
       <content type="html"><![CDATA[.gitment-container {
   font-family: sans-serif;
@@ -5500,13 +5598,6 @@ a.gitment-editor-footer-tip:hover {
       <title><![CDATA[tags]]></title>
       <url>http://blog.justbilt.com/tags/index.html</url>
       <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>http://blog.justbilt.com/links/index.html</url>
-      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="external">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="external">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="external">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="external">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="external">http://qipa.world/</a></p>
-]]></content>
     </entry>
     
   

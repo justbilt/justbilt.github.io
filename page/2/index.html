@@ -139,6 +139,85 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2017/06/18/refine-game-ios-iap/">
+        优化游戏在 iOS 上的内购
+      </a>
+    </h2>
+    
+    <time>
+      6月 18, 2017
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>首先我们看下 iOS 内购的流程, 让我们看下官方的的流程图:</p>
+<p><img src="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Art/remote_store_fetch_2x.png" alt=""></p>
+
+    
+	  <div class="readmore">
+      <a href="/2017/06/18/refine-game-ios-iap/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+        <a href="/tags/iOS/">iOS</a>
+      
+        <a href="/tags/IAP/">IAP</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2017/06/03/quick-x-i18n/">
+        Quick-cocos2d-x 中的多语言
+      </a>
+    </h2>
+    
+    <time>
+      6月 3, 2017
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>其实本来我的标题是 “Quick-cocos2d-x 中的国际化与本地化”, 多语言虽然是其中的主要内容, 但还有很多额外的工作.</p>
+<p>比如: 在韩国上线的游戏必须在游戏第一次启动时弹出一个内容十分长的用户协议, 用户同意后方可继续游戏; 比如很多赌博性质的活动(抽奖, 拉霸, 转盘)都需要修改为其他表现形式. 还有一些技术方面的要求比如游戏用户的数据不能存在 cache 目录下等等.</p>
+<p>每个国家和地区的要求都不尽相同, 有的是硬性的法律法规要求, 有的则是照顾到当地风俗习惯以提高用户体验. 当然, 这些并不在我们这次讨论范畴之内, 等我们的经历足够丰富之后可以再次和大家分享一下.</p>
+
+    
+	  <div class="readmore">
+      <a href="/2017/06/03/quick-x-i18n/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+        <a href="/tags/i18n/">i18n</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2017/04/23/quick-x-user-avatar/">
         Quick-cocos2d-x 自定义头像
       </a>
@@ -436,88 +515,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/10/29/untp-2/">
-        一个命令行的 TexturePacker 拆解工具  (二)
-      </a>
-    </h2>
-    
-    <time>
-      10月 29, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>距离第一版的 <code>untp</code> 发布已经有一年半的时间了, 在这个项目上我收获了很多的第一次:</p>
-<blockquote>
-<p>第一次有一个项目的 star 数超过 50<br>第一次往 pypi 上上传项目<br>第一次如此认真的维护一个项目<br>…</p>
-</blockquote>
-<p>这篇文章已经是关于 untp 的第三篇文章了, 所有的文章列表可以<a href="/tags/untp">查看这里</a>. 下面我来讲讲 untp 最近的几次更新以及后续的一个维护计划.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2016/10/29/untp-2/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Tool/">Tool</a>
-      
-        <a href="/tags/untp/">untp</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/09/23/quickx-utf8-support/">
-        Quick-cocos2d-x utf8 支持
-      </a>
-    </h2>
-    
-    <time>
-      9月 23, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <h1 id="一-需求"><a href="#一-需求" class="headerlink" title="一. 需求"></a>一. 需求</h1><h2 id="1-计算玩家名字字符数"><a href="#1-计算玩家名字字符数" class="headerlink" title="1. 计算玩家名字字符数"></a>1. 计算玩家名字字符数</h2><p>对于这个需求一般情况下 <code>string.len</code> 或 quick 自带的 <code>string.utf8len</code> 就能满足, 但是如果需求是:</p>
-<blockquote>
-<p>对于像 中文/日文/韩文 这样的方块字一个占 2 个长度, 其他字符占 1 个长度.</p>
-</blockquote>
-<p>该如何满足呢 ? </p>
-
-    
-	  <div class="readmore">
-      <a href="/2016/09/23/quickx-utf8-support/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/utf8/">utf8</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -554,7 +551,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.75px; color: #707070">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.25px; color: #505050">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.75px; color: #707070">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.75px; color: #707070">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.75px; color: #707070">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.5px; color: #202020">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.5px; color: #606060">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 17.75px; color: #303030">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.75px; color: #707070">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.5px; color: #606060">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.75px; color: #707070">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.75px; color: #707070">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.25px; color: #101010">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17px; color: #404040">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.5px; color: #606060">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14px; color: #808080">spine</a> <a href="/tags/untp/" style="font-size: 15.5px; color: #606060">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.75px; color: #707070">优化</a> <a href="/tags/年结/" style="font-size: 16.25px; color: #505050">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.5px; color: #606060">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.5px; color: #202020">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.75px; color: #707070">生活</a> <a href="/tags/音效/" style="font-size: 14.75px; color: #707070">音效</a>
+        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
     </div>
 </div>
 

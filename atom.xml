@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-10-10T13:17:09.000Z</updated>
+  <updated>2017-11-29T13:25:22.000Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,119 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>更新 spine 的 cocos2d-x runtimes (二)</title>
+    <link href="http://blog.justbilt.com/2017/11/19/upgrad-spine-runtime-2/"/>
+    <id>http://blog.justbilt.com/2017/11/19/upgrad-spine-runtime-2/</id>
+    <published>2017-11-19T08:10:54.000Z</published>
+    <updated>2017-11-29T13:25:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间一个朋友向我咨询播放 spine 动画时遇到的问题:</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1flngumf7luj30ht04mq41.jpg" alt=""></p>
+<p>这个问题我们在很久之前也遇到过, 当时是另个一小伙伴负责的. 当时猜测可能是 <code>spine runtimes</code> 需要升级, 但是升级时遇到了技术问题, 恰好项目比较紧, 便让美术同学重新用老版的 Spine 编辑器重新做了一遍.</p>
+<a id="more"></a>
+<p>无独有偶, 上周另一个小伙伴在播放 spine 动画时遇到了 <code>崩溃</code> 的问题, 而放到 creator 中测试是没有问题的, 看来又是运行库太过陈旧的原因.</p>
+<p>趁着周末有点时间, 我也来尝试更新下 <code>spine runtimes</code>. 15 年的时候就更新过一次, 当时还写了一篇很水的文章 <a href="/2015/08/16/upgrad-spine-runtime/">&lt;&lt;更新 spine 的 cocos2d-x runtimes&gt;&gt;</a>, 时隔两年, 这次是否也会依然顺利呢 ?</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1flnh9m7zekj307w04x746.jpg" alt=""></p>
+<p>我这次并没有选择从 spine 的<a href="https://github.com/EsotericSoftware/spine-runtimes" target="_blank" rel="external">官方仓库</a> 更新 runtimes, 既然 creator 中是没有问题的, 为什么不选择直接从 creator 附带的 <a href="https://github.com/cocos-creator/cocos2d-x-lite/subscription" target="_blank" rel="external">cocos2d-lite</a> 中复制过来呢 ?</p>
+<h2 id="1-替换最新的-spine-runtimes"><a href="#1-替换最新的-spine-runtimes" class="headerlink" title="1. 替换最新的 spine runtimes"></a>1. 替换最新的 spine runtimes</h2><p>简单浏览了下, 目录结构没有发生变化, 看来是一个好的开端. 我们先从用 cocos2d-lite 中的 <code>cocos/editor-support/spine</code> 替换掉 quick-cocos2d-x 中的同名目录.</p>
+<p>用 XCode 打开 <code>quick/player/proj.mac/player3.xcodeproj</code> 模拟器工程, 我们用 quick-cocos2d-x 的 Mac 版来完成后续的工作. 在 <code>Project Navigator</code> 找到 <code>spine</code> 文件夹, 删除掉红色的缺失文件, 右键 <code>Add files to &#39;cocos2d_libs.xcodepro&#39;</code> 添加上新增的文件, 编译一下.</p>
+<h2 id="2-修复-lua-binding-错误"><a href="#2-修复-lua-binding-错误" class="headerlink" title="2. 修复 lua binding 错误"></a>2. 修复 lua binding 错误</h2><p>发现有 <code>lua_cocos2dx_spine_auto.cpp</code> 有报错, 错误内容:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...lua_cocos2dx_spine_auto.cpp:701:32: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:758:43: No viable conversion from 'function&lt;void (int, spEvent *)&gt;' to 'const function&lt;void (spTrackEntry *, spEvent *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:815:46: No viable conversion from 'function&lt;void (int, int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:872:43: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:925:35: No viable conversion from 'function&lt;void (int, int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:982:41: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:1035:32: No viable conversion from 'function&lt;void (int, spEvent *)&gt;' to 'const function&lt;void (spTrackEntry *, spEvent *)&gt;'</div><div class="line">...lua_cocos2dx_spine_auto.cpp:1143:30: No viable conversion from 'function&lt;void (int)&gt;' to 'const function&lt;void (spTrackEntry *)&gt;'</div></pre></td></tr></table></figure>
+<p>看到这个文件名就应该联想到没有重新生成 lua 绑定的代码. 打开终端进入 <code>tools/tolua</code>, 运行:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python genbindings.py</div></pre></td></tr></table></figure>
+<p>如果之前没有运行过这个脚本的话, 可以<a href="https://github.com/dualface/v3quick/blob/v3/tools/tolua/README.mdown" target="_blank" rel="external">参照这份官方文档</a>需要搭建环境. 等待运行结束后, 再次编译.</p>
+<h2 id="3-修复-API-变动导致的编译错误"><a href="#3-修复-API-变动导致的编译错误" class="headerlink" title="3. 修复 API 变动导致的编译错误"></a>3. 修复 API 变动导致的编译错误</h2><h3 id="1-Listener-回调函数参数变化"><a href="#1-Listener-回调函数参数变化" class="headerlink" title="1. *Listener 回调函数参数变化"></a>1. *Listener 回调函数参数变化</h3><p>这次改为 <code>lua_cocos2dx_spine_manual.cpp</code> 出错了:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...lua_cocos2dx_spine_manual.cpp:233:48: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:233:48)' to 'const StartListener' (aka 'const function&lt;void (spTrackEntry *)&gt;')</div><div class="line">...lua_cocos2dx_spine_manual.cpp:241:46: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:241:46)' to 'const EndListener' (aka 'const function&lt;void (spTrackEntry *)&gt;')</div><div class="line">...lua_cocos2dx_spine_manual.cpp:249:51: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:249:51)' to 'const CompleteListener' (aka 'const function&lt;void (spTrackEntry *)&gt;')</div><div class="line">...lua_cocos2dx_spine_manual.cpp:257:48: No viable conversion from '(lambda at ...lua_cocos2dx_spine_manual.cpp:257:48)' to 'const EventListener' (aka 'const function&lt;void (spTrackEntry *, spEvent *)&gt;')</div></pre></td></tr></table></figure>
+<p>这个文件中放的是手动导出 lua 接口的代码, 我们需要推测一下这些错误发生的原因. 让我们看下出错的具体代码:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self-&gt;setStartListener([=](<span class="keyword">int</span> trackIndex)&#123;</div><div class="line">    executeSpineEvent(self, handler, eventType, trackIndex);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><code>StartListener</code> 是声明在 <code>SkeletonAnimation.h</code> 中的, 相关代码的 git diff 如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex)&gt; StartListener;</div><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex)&gt; EndListener;</div><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex, <span class="keyword">int</span> loopCount)&gt; CompleteListener;</div><div class="line">-<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">int</span> trackIndex, spEvent* event)&gt; EventListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; StartListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; InterruptListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; EndListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; DisposeListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry)&gt; CompleteListener;</div><div class="line">+<span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(spTrackEntry* entry, spEvent* event)&gt; EventListener;</div></pre></td></tr></table></figure>
+<p>显而易见, 函数的参数发生了变化, 我们修改下 lambda 函数参数即可, 同时还需要考虑 <code>executeSpineEvent</code> 函数的变化. 我的修改如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">executeSpineEvent</span><span class="params">(LuaSkeletonAnimation* skeletonAnimation, <span class="keyword">int</span> handler, spEventType eventType,  spTrackEntry * entry, <span class="keyword">int</span> loopCount = <span class="number">0</span>, spEvent* event = <span class="literal">nullptr</span> )</span></span></div></pre></td></tr></table></figure>
+<p>改变了这个函数的参数, 调用的地方也要改变, 这个就不贴代码了.</p>
+<h3 id="spEventType-变化"><a href="#spEventType-变化" class="headerlink" title="spEventType 变化"></a>spEventType 变化</h3><p>还需要注意到的一个变化是:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</div><div class="line">    SP_ANIMATION_START, SP_ANIMATION_INTERRUPT, SP_ANIMATION_END, SP_ANIMATION_COMPLETE, SP_ANIMATION_DISPOSE, SP_ANIMATION_EVENT</div><div class="line">&#125; spEventType;</div></pre></td></tr></table></figure></p>
+<p>想必之前多了 <code>SP_ANIMATION_INTERRUPT</code> 和 <code>SP_ANIMATION_DISPOSE</code> 事件, 我们要更新所有用到 <code>spEventType</code> 的地方.</p>
+<p>SpineConstants.lua :</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sp.EventType =</div><div class="line">&#123;</div><div class="line">    ANIMATION_START = <span class="number">0</span>, </div><div class="line">    ANIMATION_INTERRUPT = <span class="number">1</span>, </div><div class="line">    ANIMATION_END = <span class="number">2</span>, </div><div class="line">    ANIMATION_COMPLETE = <span class="number">3</span>, </div><div class="line">    ANIMATION_DISPOSE = <span class="number">4</span>, </div><div class="line">    ANIMATION_EVENT = <span class="number">5</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以及 <code>LuaScriptHandlerMgr.h</code> 和 <code>lua_cocos2dx_spine_manual.cpp</code> 中共计五处变化.</p>
+<h3 id="TrianglesCommand-参数错误"><a href="#TrianglesCommand-参数错误" class="headerlink" title="TrianglesCommand 参数错误"></a>TrianglesCommand 参数错误</h3><p>解决了这个问题, 编译后发现还有一个错误:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SkeletonBatch.cpp:95:37: No matching member function for call to 'init'</div></pre></td></tr></table></figure>
+<p>是调用 <code>TrianglesCommand:init</code> 时多传入了一个参数, 可能是新版 cocos 的 api 改动吧, 我们直接删掉最后一个参数:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-        _command-&gt;trianglesCommand-&gt;init(globalZOrder, textureID, glProgramState, blendFunc, *_command-&gt;triangles, transform, transformFlags);</div><div class="line">+        _command-&gt;trianglesCommand-&gt;init(globalZOrder, textureID, glProgramState, blendFunc, *_command-&gt;triangles, transform);</div></pre></td></tr></table></figure>
+<hr>
+<p>到此搞定了所有的编译问题, 尝试了下 Android 和 iOS 的编译, 也没有什么问题. 让我们运行下看下效果:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1flnr7bq9vtg306v08skah.gif" alt=""></p>
+<p>后记:</p>
+<h1 id="1-Spine-Error-Unknown-attachment-type-skinnedmesh"><a href="#1-Spine-Error-Unknown-attachment-type-skinnedmesh" class="headerlink" title="1. Spine Error:Unknown attachment type: skinnedmesh"></a>1. Spine Error:Unknown attachment type: skinnedmesh</h1><p>跟新完后有的 Spine 文件会报这个错误, <a href="http://forum.cocos.com/t/1-3-1-spine-c-spine-skinnedmesh/41180/2" target="_blank" rel="external">论坛里有解决方案</a>, 虽然不报错了, 但是也不动了, 可能需要美术重新做一遍.</p>
+<h1 id="2-真的有必要从-cocos2d-x-lite-中更新吗"><a href="#2-真的有必要从-cocos2d-x-lite-中更新吗" class="headerlink" title="2. 真的有必要从 cocos2d-x-lite 中更新吗?"></a>2. 真的有必要从 cocos2d-x-lite 中更新吗?</h1><p>经过好友 @郭彬 的提醒, 确实没有必要, 他就是从官方仓库更新的, 是我画蛇添足了.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间一个朋友向我咨询播放 spine 动画时遇到的问题:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ws3.sinaimg.cn/large/006tNc79ly1flngumf7luj30ht04mq41.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这个问题我们在很久之前也遇到过, 当时是另个一小伙伴负责的. 当时猜测可能是 &lt;code&gt;spine runtimes&lt;/code&gt; 需要升级, 但是升级时遇到了技术问题, 恰好项目比较紧, 便让美术同学重新用老版的 Spine 编辑器重新做了一遍.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="cocos2d-x" scheme="http://blog.justbilt.com/tags/cocos2d-x/"/>
+    
+      <category term="spine" scheme="http://blog.justbilt.com/tags/spine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quick-cocos2d-x 小米 Mix 全面屏适配</title>
+    <link href="http://blog.justbilt.com/2017/11/17/quick-x-mi-mix-support/"/>
+    <id>http://blog.justbilt.com/2017/11/17/quick-x-mi-mix-support/</id>
+    <published>2017-11-17T03:58:46.000Z</published>
+    <updated>2017-11-19T05:58:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>有玩家反馈我们的游戏在 Mix 上面无法全屏显示, 上下会有黑边. 搜索了下, 网上还没有绍如何适配的相关文章, 这里介绍下我们是如何做的.</p>
+<p>我们可以在看看小米官方<a href="https://dev.mi.com/doc/p=10083/index.html" target="_blank" rel="external">对全面屏适配工作的介绍</a>:</p>
+<blockquote>
+<p>这些变化也影响了手机软件的设计，最值得开发者关注的，是以下两点：</p>
+<ol>
+<li>更大的屏幕高宽比</li>
+<li>虚拟导航键</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<p>好的, 我们先按照官方的方法修改下 <code>max_aspect</code> 的值为 <code>2</code> 以上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">"android.max_aspect"</span> <span class="attr">android:value</span>=<span class="string">"2.1"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<p>运行下, 发现顶部的黑条不见了, 但是底部的虚拟导航键还在. 我们接着看官方的文档:</p>
+<p><img src="https://dev.mi.com/doc/wp-content/uploads/2017/06/%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9A%84%E6%A0%B7%E5%BC%8F.png" alt=""></p>
+<p>然而这几种效果都不是我们想要的, 我们想要是隐藏<code>虚拟导航键</code>. Google 一下, 很容易搜索到这段代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    * 隐藏虚拟按键，并且全屏</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">hideBottomUIMenu</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="comment">//隐藏虚拟按键，并且全屏</span></div><div class="line">       <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt; <span class="number">11</span> &amp;&amp; Build.VERSION.SDK_INT &lt; <span class="number">19</span>) &#123; <span class="comment">// lower api</span></div><div class="line">           View v = <span class="keyword">this</span>.getWindow().getDecorView();</div><div class="line">           v.setSystemUiVisibility(View.GONE);</div><div class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">19</span>) &#123;</div><div class="line">           <span class="comment">//for new api versions.</span></div><div class="line">           View decorView = getWindow().getDecorView();</div><div class="line">           <span class="keyword">int</span> uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION</div><div class="line">                           | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;</div><div class="line">           decorView.setSystemUiVisibility(uiOptions);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>加上之后发现导航键真的没有了, 但是当你点击屏幕时, 它又出现了. 继续搜索发现了<a href="https://segmentfault.com/a/1190000002936799" target="_blank" rel="external">这篇文章</a>, 按照文章中的提示进行修改你的 AppActivity :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">private</span> Cocos2dxGLSurfaceView glSurfaceView;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState, SplashEnum splash, <span class="keyword">long</span> duration, <span class="keyword">boolean</span> debug)</span> </span>&#123;</div><div class="line">        ...</div><div class="line">        View decorView = getWindow().getDecorView();</div><div class="line"><span class="comment">// Hide both the navigation bar and the status bar.</span></div><div class="line"><span class="comment">// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as</span></div><div class="line"><span class="comment">// a general rule, you should design your app to hide the status bar whenever you</span></div><div class="line"><span class="comment">// hide the navigation bar.</span></div><div class="line">        <span class="keyword">int</span> uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION</div><div class="line">                | View.SYSTEM_UI_FLAG_FULLSCREEN;</div><div class="line">        decorView.setSystemUiVisibility(uiOptions);</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Cocos2dxGLSurfaceView <span class="title">onCreateView</span><span class="params">()</span> </span>&#123;</div><div class="line">        glSurfaceView = <span class="keyword">super</span>.onCreateView();</div><div class="line">        <span class="keyword">this</span>.hideSystemUI();</div><div class="line">        <span class="keyword">return</span> glSurfaceView;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</div><div class="line">        <span class="keyword">if</span> (hasFocus)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">this</span>.hideSystemUI();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hideSystemUI</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// Set the IMMERSIVE flag.</span></div><div class="line">        <span class="comment">// Set the content to appear under the system bars so that the content</span></div><div class="line">        <span class="comment">// doesn't resize when the system bars hide and show.</span></div><div class="line">        glSurfaceView.setSystemUiVisibility(</div><div class="line">                Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION</div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_HIDE_NAVIGATION <span class="comment">// hide nav bar</span></div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_FULLSCREEN <span class="comment">// hide status bar</span></div><div class="line">                        | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>搞定. 看下最终的效果:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1flncnl0u3tj30ku11278w.jpg" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有玩家反馈我们的游戏在 Mix 上面无法全屏显示, 上下会有黑边. 搜索了下, 网上还没有绍如何适配的相关文章, 这里介绍下我们是如何做的.&lt;/p&gt;
+&lt;p&gt;我们可以在看看小米官方&lt;a href=&quot;https://dev.mi.com/doc/p=10083/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;对全面屏适配工作的介绍&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这些变化也影响了手机软件的设计，最值得开发者关注的，是以下两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;更大的屏幕高宽比&lt;/li&gt;
+&lt;li&gt;虚拟导航键&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
+    
+      <category term="Android" scheme="http://blog.justbilt.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>订阅 Hexo 的主题页</title>
@@ -1369,200 +1482,6 @@
       <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
     
       <category term="videoplayer" scheme="http://blog.justbilt.com/tags/videoplayer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一个命令行的 TexturePacker 拆解工具  (二)</title>
-    <link href="http://blog.justbilt.com/2016/10/29/untp-2/"/>
-    <id>http://blog.justbilt.com/2016/10/29/untp-2/</id>
-    <published>2016-10-29T15:39:18.000Z</published>
-    <updated>2017-10-24T15:07:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>距离第一版的 <code>untp</code> 发布已经有一年半的时间了, 在这个项目上我收获了很多的第一次:</p>
-<blockquote>
-<p>第一次有一个项目的 star 数超过 50<br>第一次往 pypi 上上传项目<br>第一次如此认真的维护一个项目<br>…</p>
-</blockquote>
-<p>这篇文章已经是关于 untp 的第三篇文章了, 所有的文章列表可以<a href="/tags/untp">查看这里</a>. 下面我来讲讲 untp 最近的几次更新以及后续的一个维护计划.</p>
-<a id="more"></a>
-<h1 id="一-更新"><a href="#一-更新" class="headerlink" title="一. 更新"></a>一. 更新</h1><h2 id="1-1-3"><a href="#1-1-3" class="headerlink" title="1.1.3"></a>1.1.3</h2><ol>
-<li>新增: 支持 CocoStudio v0 导出的动画格式</li>
-</ol>
-<h2 id="1-1-2"><a href="#1-1-2" class="headerlink" title="1.1.2"></a>1.1.2</h2><ol>
-<li>新增: 拆解文件夹也支持指定输出目录了</li>
-<li>新增: 单元测试, 以后发版本会稳很多</li>
-</ol>
-<h2 id="1-1-1"><a href="#1-1-1" class="headerlink" title="1.1.1"></a>1.1.1</h2><ol>
-<li>修复: <code>plist + jpg</code> 会拆解失败的 bug</li>
-</ol>
-<h2 id="1-1-0"><a href="#1-1-0" class="headerlink" title="1.1.0"></a>1.1.0</h2><ol>
-<li>添加了简易 GUI 界面的支持, 已经不能说是 <em>A command line tool</em> 了</li>
-<li>同时兼容了 Python2 和 Python3</li>
-</ol>
-<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1fktqhfw5m8j30eo07c0t6.jpg" alt=""></p>
-<p>安装最新版本后, 输入 <code>untp</code> 不加任何参数就会打开 GUI 界面, 一个按钮拆解单个文件, 一个按钮拆解文件夹, 下方是日志窗口.</p>
-<h2 id="1-0-9"><a href="#1-0-9" class="headerlink" title="1.0.9"></a>1.0.9</h2><ol>
-<li>修复: 解析 plist 时因为数据中含有空白符号导致解析失败的 bug</li>
-</ol>
-<h2 id="1-0-8"><a href="#1-0-8" class="headerlink" title="1.0.8"></a>1.0.8</h2><ol>
-<li>新增: 支持 cocos2d-0.99.4 v1 格式支持</li>
-</ol>
-<h2 id="1-0-7"><a href="#1-0-7" class="headerlink" title="1.0.7"></a>1.0.7</h2><ol>
-<li>修复: 解析文件返回值错误导致解析失败</li>
-</ol>
-<h2 id="1-0-6"><a href="#1-0-6" class="headerlink" title="1.0.6"></a>1.0.6</h2><ol>
-<li>新增: 可以将 fnt 转化为图片</li>
-<li>修复: 将 pvr 转化为 png 时会污染原始目录</li>
-<li>修复: 当 plist 中的图片含有路径时无法正确生成图片</li>
-<li>修复: 当 offset 为 float 值时解析 plist 出错</li>
-</ol>
-<h2 id="1-0-5"><a href="#1-0-5" class="headerlink" title="1.0.5"></a>1.0.5</h2><ol>
-<li>拆解单个文件时支持 <code>-o</code> 参数指定输出目录</li>
-<li>可以在 <code>python</code> 中 <code>import</code></li>
-<li>支持 cocos2d/cocos2d-x v3 格式</li>
-</ol>
-<h2 id="1-0-4"><a href="#1-0-4" class="headerlink" title="1.0.4"></a>1.0.4</h2><ol>
-<li>使用 argparse 解析调用参数, 支持更多选项</li>
-<li>捕获图片打开异常, 程序更加健壮</li>
-<li>支持文件夹递归查找所有 plist 拆解</li>
-</ol>
-<h2 id="1-0-3"><a href="#1-0-3" class="headerlink" title="1.0.3"></a>1.0.3</h2><ol>
-<li>修复依赖 Pillow 模块版本大于 3.0 时图片输出错误</li>
-</ol>
-<h2 id="1-0-2"><a href="#1-0-2" class="headerlink" title="1.0.2"></a>1.0.2</h2><ol>
-<li>兼容 python3</li>
-<li>放弃之前的打包发布, 改为 pypi 发布</li>
-<li>修复一处路径错误</li>
-<li>根据 python code style 优化代码</li>
-<li>pvr,pvr.czz 格式支持 (需要安装 <code>TexturePacker</code> 命令行工具)</li>
-</ol>
-<h1 id="二-后续计划"><a href="#二-后续计划" class="headerlink" title="二. 后续计划"></a>二. 后续计划</h1><p>untp 这个项目最初来源于项目中的一个需求, 所以开始只是为了自用, 开源之后发现有能帮助一些人, 顺便实现一下他们的一些小需求, 自我更新动力并不是很足, 因此更新的频率不是很高.</p>
-<p>之前的发展策略我一直都是按着更便捷安装, 更方便使用方向上走的, 从一开始的 PyInstaller 打包到后面的上传到 pypi , 从开始只支持单一文件到支持目录, 都是按照这个思路搞的.至于后面如何发展我也没有很好的想法, 或许让它停留在这一版也很好. 今天看到张小龙的一篇内部分享, 一个好的工具就应该只是一个工具, 想到就用, 用完就走, 不要想着把用户黏住.</p>
-<p>所以, untp 就只是一个拆解大图的工具, 绝对不做其他的功能. 在这个原则的基础上, 有这么几个方向去搞:</p>
-<ol>
-<li><del>GUI 界面的支持</del> supported since version 1.1.0</li>
-<li>支持更多的格式</li>
-</ol>
-<p>我想使用这个工具的人可能不一定是程序员, 他们不一定懂 pip , 不一定会打开终端. 所以一个 GUI 的界面就很重要了. 第二个是可以让更多引擎的开发者来使用, 现在只支持 cocos 是有些狭隘了, 对自己也是一个很好地的锻炼.</p>
-<p>如果你还有更好的建议, 欢迎在评论里或者 <a href="https://github.com/justbilt/untp/issues" target="_blank" rel="external">issue</a> 中提出.</p>
-<h1 id="三-中文使用说明-持续更新"><a href="#三-中文使用说明-持续更新" class="headerlink" title="三. 中文使用说明(持续更新)"></a>三. 中文使用说明(持续更新)</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>现在可以采用两种方式安装, 在终端中键入 <code>pip install untp</code> 或者 clone 代码到本地, 在根目录 <code>python setup install</code> .</p>
-<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h2><p>当我们在终端中键入 <code>untp -h</code> 后, 会得到下面这段输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">usage:</div><div class="line">untp ../btn.plist</div><div class="line">untp ../btn.plist -i ../btn.png</div><div class="line">untp ../data</div><div class="line">untp ../data -r</div><div class="line">positional arguments:</div><div class="line">  path                  plist/fnt file name or directory</div><div class="line">optional arguments:</div><div class="line">  -h, --help            show this help message and exit</div><div class="line">  -o output, --output output</div><div class="line">                        specified output directory</div><div class="line">For file:</div><div class="line">  -i image_file, --image_file image_file</div><div class="line">                        specified image file for plist</div><div class="line">For directory:</div><div class="line">  -r, --recursive</div></pre></td></tr></table></figure>
-<p>对于单个 plist 文件, 可以 <code>untp xxx.plist</code> 来拆解它, 会读取 plist 中配置的图片输出到同名的目录中, 可以使用 <code>-i</code> 指定图片.</p>
-<p>对于目录, 使用 <code>untp path</code> path 是包含 <code>plist</code> 文件的目录, 可以使用 <code>-r</code> 参数指定遍历子目录.</p>
-<p>以上两种都可以使用 <code>-o/--output</code> 指定输出目录.</p>
-<p>(以上)</p>
-]]></content>
-    
-    <summary type="html">
-    
-      中文使用说明
-    
-    </summary>
-    
-    
-      <category term="Tool" scheme="http://blog.justbilt.com/tags/Tool/"/>
-    
-      <category term="untp" scheme="http://blog.justbilt.com/tags/untp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Quick-cocos2d-x utf8 支持</title>
-    <link href="http://blog.justbilt.com/2016/09/23/quickx-utf8-support/"/>
-    <id>http://blog.justbilt.com/2016/09/23/quickx-utf8-support/</id>
-    <published>2016-09-22T22:58:40.000Z</published>
-    <updated>2017-07-09T03:09:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一-需求"><a href="#一-需求" class="headerlink" title="一. 需求"></a>一. 需求</h1><h2 id="1-计算玩家名字字符数"><a href="#1-计算玩家名字字符数" class="headerlink" title="1. 计算玩家名字字符数"></a>1. 计算玩家名字字符数</h2><p>对于这个需求一般情况下 <code>string.len</code> 或 quick 自带的 <code>string.utf8len</code> 就能满足, 但是如果需求是:</p>
-<blockquote>
-<p>对于像 中文/日文/韩文 这样的方块字一个占 2 个长度, 其他字符占 1 个长度.</p>
-</blockquote>
-<p>该如何满足呢 ? </p>
-<a id="more"></a>
-<h2 id="2-屏蔽-emoji-表情"><a href="#2-屏蔽-emoji-表情" class="headerlink" title="2. 屏蔽 emoji 表情"></a>2. 屏蔽 emoji 表情</h2><p>我们游戏的聊天/起名都是不允许输入 emoji 表情的, 那么该如何判断玩家输入的文字中包含 emoji 表情呢 ? </p>
-<p>在我之前的文章(<a href="/2016/05/01/quickx-editbox-util/#u4E8C-__u5C4F_u853D_Emoji__u8F93_u5165">Quick-Cocos2d-x EditBox 几个小技巧</a>)中有提到过这个需求, 当时分析了下有两个解决方案:</p>
-<ol>
-<li>无法输入, 弹出键盘点击表情没有反应</li>
-<li>输入完成后, 游戏内点击提交时提示非法</li>
-</ol>
-<p>本来打算是使用<strong>方法2</strong>的, 苦于无法在 lua 这边识别出 emoji , 所以只能曲线救国的使用的<strong>方法1</strong>, 每个平台得单独实现不说, 还容易出 bug, 出了 bug 亦无法热更新修复.</p>
-<p>最近还真是遇到了 bug , 会导致在 ios 上无法使用<strong>九宫格</strong>输入法.</p>
-<hr>
-<p>以上两个问题, 如果支持 utf8 的话, 我们可以遍历整个字符串, 判断每个字符的 <code>codepoint</code> 是否在某个码区中. 所以我们需要实现这么几个接口:</p>
-<ol>
-<li>utf8 长度计算</li>
-<li>遍历 utf8</li>
-<li>utf8 char/byte 实现</li>
-</ol>
-<h1 id="二-实现"><a href="#二-实现" class="headerlink" title="二. 实现"></a>二. 实现</h1><h2 id="1-使用-clib-实现"><a href="#1-使用-clib-实现" class="headerlink" title="1. 使用 clib 实现"></a>1. 使用 clib 实现</h2><p>Google 搜索 <code>lua utf8</code> 很快发现了 <a href="/2016/05/01/quickx-editbox-util/#u4E8C-__u5C4F_u853D_Emoji__u8F93_u5165">luautf8</a> 这个项目, 100 多个 star , 对于一个 lua 项目, 已经算很多了. 实现也很简单, 就 <code>unidata.h</code> 和 <code>lutf8lib.c</code> 两个文件.</p>
-<p>下面我们在 quick 中集成这个项目, 我们在 <code>quick-cocos2d-x/external/lua</code> 目录先新建一个 <code>utf8</code> 目录, 将上面提到的那两个文件下载下来放进去, 修改 <code>lutf8lib.c:1303</code> 行:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  lua_createtable(L, 0, sizeof(libs)/sizeof(libs[0]));</span></div><div class="line"><span class="comment">//  luaL_register(L, NULL, libs);</span></div><div class="line">  luaL_openlib(L, <span class="string">"utf8"</span>, libs, <span class="number">0</span>);</div></pre></td></tr></table></figure>
-<p>为了在别的文件中能够访问到 <code>luaopen_utf8</code> 函数, 我们还需要新建一个 <code>utf8lib.h</code> 头文件:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LUAUTF8_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> LUAUTF8_H</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"lua.h"</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LUALIB_API</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> LUALIB_API extern</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line"><span class="comment">/*-------------------------------------------------------------------------*\</span></div><div class="line">* Initializes the library.</div><div class="line">\*-------------------------------------------------------------------------*/</div><div class="line"><span class="function">LUALIB_API <span class="keyword">int</span> <span class="title">luaopen_utf8</span><span class="params">(lua_State *L)</span></span>;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* LUAUTF8_H */</span></span></div></pre></td></tr></table></figure>
-<p>下面我们就可以注册这个库了, 修改 <code>cocos/scripting/lua-bindings/manual/network/lua_extensions.c</code> :</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"utf8/lutf8lib.h"</span></span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">luaopen_lua_extensions</span><span class="params">(lua_State *L)</span></span></div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    luaopen_utf8(L);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>同时我们还需要修改编译脚本, 使得在不同平台上能够编译通过, Android 需要修改</p>
-<p> <code>cocos/scripting/lua-bindings/proj.android/Android.mk</code> 文件:</p>
-<figure class="highlight mk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LOCAL_SRC_FILES += ../manual/network/lua_cocos2dx_network_manual.cpp \</div><div class="line">                   ../../../../external/lua/luasocket/usocket.c \</div><div class="line">                   ../../../../external/lua/utf8/lutf8lib.c</div></pre></td></tr></table></figure>
-<p>在 <code>LOCAL_SRC_FILES</code> 末尾加上 <code>lutf8lib.c</code> .</p>
-<p>iOS/Mac 的话, 在 XCode 中将整个 <code>utf8</code> 目录加入进来就可以呀, 如下图所示:</p>
-<p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f838r4uoz1j207e03u74f.jpg" alt=""></p>
-<h2 id="2-纯-lua-实现"><a href="#2-纯-lua-实现" class="headerlink" title="2. 纯 lua 实现"></a>2. 纯 lua 实现</h2><p>如果一切按计划走的话, 是不会有这么一步的, 然而天意难测, 说好的冷更新变成了变成了热更新. 若是还想保留这个功能的话, 只能寻找纯 lua 的解决方案了. 虽然走了不少弯路, 浪费了大量的时间, 最终还是让我找到了: </p>
-<p><a href="https://github.com/Stepets/utf8.lua" target="_blank" rel="external">https://github.com/Stepets/utf8.lua</a></p>
-<p>将项目中的 <code>utf8.lua</code> 下载下来放到你工程中就可以啦, 就是这么简单.</p>
-<h2 id="3-兼容"><a href="#3-兼容" class="headerlink" title="3. 兼容"></a>3. 兼容</h2><p>按说有了纯 lua 的实现后, 我们就可以放弃 c 代码的实现了, 但是想起做 python 的时候, 有好多库的实现为了提高效率, 都会有一份 c/c++ 的实现优先使用. 我们是不是也可以这样子搞, 优先使用 clib 的实现, 若是没有再考虑 lua 的实现 ? 首先, 我们要对比一下这两个库的效率对比.</p>
-<p>设计了一个简单的测试案例, 遍历一个 utf8 的字符串, 计算耗时, 得出了这样一份数据:</p>
-<table>
-<thead>
-<tr>
-<th>字符数</th>
-<th>耗时clib</th>
-<th>耗时lua</th>
-<th>倍数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>2.0999999999938e-05</td>
-<td>6.8000000000068e-05</td>
-<td>3.2380952381081</td>
-</tr>
-<tr>
-<td>138</td>
-<td>0.00018899999999999</td>
-<td>0.00095199999999995</td>
-<td>5.0370370370369</td>
-</tr>
-<tr>
-<td>2919</td>
-<td>0.001868</td>
-<td>0.01553</td>
-<td>8.3137044967881</td>
-</tr>
-</tbody>
-</table>
-<p>可以看到至少也有 3 倍的速度提升, 而且随着字符数越来越多, 速度差距会更大. </p>
-<p>这个方案是可行的, 我们可用如下代码做兼容:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="built_in">type</span>(utf8) ~= <span class="string">"table"</span> <span class="keyword">then</span></div><div class="line">    utf8 = <span class="built_in">require</span>(<span class="string">"your/path/of.utf8"</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>但是两种实现遍历字符串的 api 略有不同, 需要包装兼容一下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">utf8.<span class="built_in">foreach</span> = <span class="function"><span class="keyword">function</span><span class="params">(_str, _func)</span></span></div><div class="line">    <span class="keyword">local</span> index = <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> utf8.<span class="built_in">next</span> <span class="keyword">then</span></div><div class="line">        <span class="keyword">for</span> pos, code <span class="keyword">in</span> utf8.<span class="built_in">next</span>, _str <span class="keyword">do</span></div><div class="line">            <span class="keyword">if</span> _func(index, utf8.<span class="built_in">char</span>(code), code, pos) <span class="keyword">then</span></div><div class="line">                <span class="keyword">return</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">            index = index + <span class="number">1</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">elseif</span> utf8.gensub <span class="keyword">then</span></div><div class="line">        <span class="keyword">for</span> <span class="built_in">char</span>,pos <span class="keyword">in</span> utf8.gensub(_str) <span class="keyword">do</span></div><div class="line">            <span class="keyword">if</span> _func(index, <span class="built_in">char</span>, utf8.<span class="built_in">byte</span>(<span class="built_in">char</span>), pos) <span class="keyword">then</span></div><div class="line">                <span class="keyword">return</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">            index = index + <span class="number">1</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">assert</span>(<span class="literal">false</span>, <span class="string">"no utf8 supports!"</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录:"></a>附录:</h1><p>附上我们判断玩家姓名和 emoji 的代码, 比较简单, 若有不对之处, 欢迎指正.</p>
-<h2 id="玩家姓名长度判断"><a href="#玩家姓名长度判断" class="headerlink" title="玩家姓名长度判断"></a>玩家姓名长度判断</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> length = <span class="number">0</span></div><div class="line"></div><div class="line">utf8.<span class="built_in">foreach</span>(text, <span class="function"><span class="keyword">function</span><span class="params">(index, char, code, pos)</span></span></div><div class="line">    <span class="comment">-- 中日韩文字一个字符算两个长度</span></div><div class="line">    <span class="keyword">if</span> code &gt;= <span class="number">0x3040</span> <span class="keyword">and</span> code &lt;= <span class="number">0x9fff</span> <span class="keyword">then</span></div><div class="line">        length = length + <span class="number">2</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        length = length + <span class="number">1</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span>)</div></pre></td></tr></table></figure>
-<h2 id="emoji-表情判断"><a href="#emoji-表情判断" class="headerlink" title="emoji 表情判断"></a>emoji 表情判断</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">checkContainsEomji</span><span class="params">(text)</span></span></div><div class="line">    <span class="keyword">local</span> contain = <span class="literal">false</span></div><div class="line">    utf8.<span class="built_in">foreach</span>(text, <span class="function"><span class="keyword">function</span><span class="params">(index, char, code, pos)</span></span></div><div class="line">        <span class="comment">-- [^\u0000-\u25ff\u27c0-\uD7FF\uE000-\uFFFF]</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ((code &gt;= <span class="number">0x0000</span> <span class="keyword">and</span> code &lt;= <span class="number">0x25ff</span>) <span class="keyword">or</span> (code &gt;= <span class="number">0x27c0</span> <span class="keyword">and</span> code &lt;= <span class="number">0xD7FF</span>) <span class="keyword">or</span> (code &gt;= <span class="number">0xE000</span> <span class="keyword">and</span> code &lt;= <span class="number">0xFFFF</span>)) <span class="keyword">then</span></div><div class="line">            contain = <span class="literal">true</span></div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span>)</div><div class="line">    <span class="keyword">return</span> contain</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      唉, 什么都得自己搞.
-    
-    </summary>
-    
-    
-      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
-    
-      <category term="utf8" scheme="http://blog.justbilt.com/tags/utf8/"/>
     
   </entry>
   
