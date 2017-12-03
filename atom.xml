@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-11-29T13:25:22.000Z</updated>
+  <updated>2017-12-03T11:44:43.994Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS 打包工具在 XCode9 下的改动</title>
+    <link href="http://blog.justbilt.com/2017/12/02/xcode9-package-tools/"/>
+    <id>http://blog.justbilt.com/2017/12/02/xcode9-package-tools/</id>
+    <published>2017-12-02T05:26:04.000Z</published>
+    <updated>2017-12-03T11:44:43.994Z</updated>
+    
+    <content type="html"><![CDATA[<p>相信大家都会用到 iOS 的自动打包工具, 而不是每次都是通过 XCode 的 Archive 后手动导出的, 那样效率低下不说还增加出错的可能.</p>
+<p>我们团队也是如此, 用 Python 搞了一套打包工具, 这套工具的核心是 XCode 附带的命令行工具 <code>xcodebuild</code>, 网上其他开源的打包工具也都大同小异. 这套工具自诞生以来一直运行的很稳定, 累计为我们打了数百个包, 为团队节省的时间估计也在数千分钟了.</p>
+<a id="more"></a>
+<h1 id="一-无法导出-ipa"><a href="#一-无法导出-ipa" class="headerlink" title="一. 无法导出 ipa"></a>一. 无法导出 ipa</h1><p>但是在更新 XCode9 之后, 工具挂掉了, 在导出包的时候会提示:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">error: exportArchive: <span class="string">"wobwopr.app"</span> requires a provisioning profile with the Push Notifications feature.</div><div class="line">Error Domain=IDEProvisioningErrorDomain Code=9 <span class="string">""</span>wobwopr.app<span class="string">" requires a provisioning profile with the Push Notifications feature."</span> UserInfo=&#123;NSLocalizedDescription=<span class="string">"wobwopr.app"</span> requires a provisioning profile with the Push Notifications feature., NSLocalizedRecoverySuggestion=Add a profile to the <span class="string">"provisioningProfiles"</span> dictionary <span class="keyword">in</span> your Export Options property list.&#125;</div></pre></td></tr></table></figure>
+<p>简单 Google 了下, 也有其他打包工具也遇到了类似的错误:</p>
+<p><a href="https://github.com/fastlane/fastlane/issues/9589" target="_blank" rel="external">fastlane: https://github.com/fastlane/fastlane/issues/9589</a></p>
+<p>还有这些文章:</p>
+<p><a href="https://blog.bitrise.io/new-export-options-plist-in-xcode-9" target="_blank" rel="external">New export options Plist in Xcode 9</a><br><a href="https://htge.github.io/osx/ios/2017/09/21/xcode9-export-ipa/" target="_blank" rel="external">Xcode9命令行新打包方法</a></p>
+<p>总结了下, 错误的原因是这个样子的, 通过 <code>xcodebuild</code> 导出 ipa 包时需要传入参数 <code>exportOptionsPlist</code> 指定导出配置, XCode9 之前这个最简单的配置是这个样子的:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>method<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>&#123;method&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>method 可选的值有: </p>
+<ul>
+<li>app-store</li>
+<li>ad-hoc</li>
+<li>package</li>
+<li>enterprise</li>
+<li>development</li>
+<li>developer-id</li>
+<li>mac-application</li>
+</ul>
+<p>而 XCode9 之后最小化的配置变成了:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>method<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>&#123;method&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>provisioningProfiles<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>&#123;bundleid&#125;<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>&#123;provision&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>新增了 <code>provisioningProfiles</code> 字段, 它是一个由 <code>包名:配置文件名字或udid</code> 组成的字典. 那么我们改如何获取这些参数呢 ?</p>
+<h2 id="1-使用-XCode-导出后保存"><a href="#1-使用-XCode-导出后保存" class="headerlink" title="1. 使用 XCode 导出后保存"></a>1. 使用 XCode 导出后保存</h2><p>这个是目前网上提供的最多的解决方案, 具体步骤如下:</p>
+<ol>
+<li>使用 XCode 打开你的项目, <code>Projuct/Archive</code> 归档工程. 或者直接用 XCode 打开你的 <code>xcarchive</code> 文件.</li>
+<li>点击 <code>Export</code> 选择 <code>App Store/Development</code> 后下一步, 选择证书和配置文件后导出.</li>
+<li>在导出文件夹中找到 <code>ExportOptions.plist</code>, 这个里面的有你想要的参数.</li>
+</ol>
+<p>这个方法相对简单, 却不是完美的解决方案, 它存在这么两个缺点:</p>
+<ol>
+<li>没法自动来做这件事情, 测试/发布得搞两次, 每个新的项目都要做一遍.</li>
+<li>项目证书发生变化后又得重新来一遍.</li>
+</ol>
+<p>想到以后每个项目都要手动来搞, 那打包工具的意义有何在呢 ?</p>
+<h2 id="2-从-xcodeproj-中读取"><a href="#2-从-xcodeproj-中读取" class="headerlink" title="2. 从 xcodeproj 中读取"></a>2. 从 xcodeproj 中读取</h2><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fm3foq44n2j30jh0a2my7.jpg" alt=""></p>
+<p>既然我们已经在 XCode 中配置过了这些参数, 那我们能否从 XCode 工程文件中读取到这写参数呢 ? 让我们先打开一个工程寻找一下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PRODUCT_BUNDLE_IDENTIFIER = com.xxx.xxx;</div><div class="line">PROVISIONING_PROFILE = &quot;74c78746-9aa9-4a37-9533-a991f42b7f58&quot;;</div><div class="line">PROVISIONING_PROFILE_SPECIFIER = &quot;xxx-dev&quot;;</div></pre></td></tr></table></figure>
+<p>哈哈, 不费吹灰之力便找到了. 下一步就是如何在代码中读取这些参数了? 我们的打包脚本是使用 python 写的, 因此我选择 <a href="https://github.com/kronenthaler/mod-pbxproj" target="_blank" rel="external">pbxproj</a> 这个库来解析 pbxproj 文件:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pbxproj <span class="keyword">import</span> XcodeProject</div><div class="line">project = XcodeProject.load(<span class="string">"path/of/your/pbxproj"</span>)</div><div class="line"><span class="keyword">for</span> configuration <span class="keyword">in</span> project.objects.get_configurations_on_targets(<span class="string">"&#123;target&#125;"</span>, <span class="string">"&#123;configuration&#125;"</span>):</div><div class="line">    bundleid = configuration.buildSettings.PRODUCT_BUNDLE_IDENTIFIER</div><div class="line">    specifier = configuration.buildSettings.PROVISIONING_PROFILE_SPECIFIER</div><div class="line">    <span class="keyword">break</span></div></pre></td></tr></table></figure>
+<p><code>target</code> 是 XCode 中 target 列表中的名字, <code>configuration</code> 值可选 <code>Debug/Release</code> . 我们很轻易的便获取到了包名和配置文件的名字, 对打包脚本稍作修改便导出成功了.</p>
+<p>在使用 <code>pbxproj</code> 库的过程中我还遇到了一个小问题, 在给作者<a href="https://github.com/kronenthaler/mod-pbxproj/issues/185" target="_blank" rel="external">提出 Issue </a>后很快便收到了解决方案, 原来是我的测试文件 <code>test.py</code> 触发了一个 py3 兼容库的 bug. </p>
+<h1 id="二-XCode9-不再生成-xcscheme-文件"><a href="#二-XCode9-不再生成-xcscheme-文件" class="headerlink" title="二. XCode9 不再生成 .xcscheme 文件"></a>二. XCode9 不再生成 .xcscheme 文件</h1><p>使用 <code>xcodebuild</code> 生成 xcarchive 文件时需要指定 <code>-scheme</code> 参数, 而不是 <code>-target</code>, 不然会提示:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild: error: The flag -scheme is required when specifying -archivePath but not -exportArchive.</div></pre></td></tr></table></figure>
+<p><code>scheme</code> 和 <code>target</code> 从名字上有一定的联系, 第一次打开一个 XCode 工程时, 会在 <code>.xcodeproj</code> 文件夹下生成多个和 target 一一对应的 <code>xcscheme</code> 文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcuserdata/*.xcuserdatad/xcschemes/xxx.xcscheme</div></pre></td></tr></table></figure>
+<p>在 XCode9 前如果没有这个文件是无法生成 <code>xcarchive</code> 文件的, 为了能够做到持续集成, 我们的做法是: </p>
+<blockquote>
+<p>如果检测到这个文件不存在的话, 就用 <code>open xxx.xcodeproj</code> 命令打开这个工程, 这样就会自动生成这个文件了</p>
+</blockquote>
+<p>而在 XCode9 中, 已经不再生成 <code>xcscheme</code> 文件了, 取而代之的是一个 <code>xcschememanagement.plist</code> 文件了. <strong>而且重要的是即时这个文件不存在, 也是能够正常生成 xcarchive 文件的</strong>.</p>
+<p>那么在 XCode9 中我们之前检测 xcscheme 文件是否存在并生成的逻辑就不需要了, 我们判断一下 XCode 版本就行啦.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> distutils.version <span class="keyword">import</span> LooseVersion</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_xcode9</span><span class="params">()</span>:</span></div><div class="line">    out, err = subprocess.Popen(<span class="string">"xcodebuild -version"</span>, shell=<span class="keyword">True</span>, stdout=subprocess.PIPE).communicate()</div><div class="line">    verison = out.strip().replace(<span class="string">"\n"</span>, <span class="string">" "</span>).split(<span class="string">" "</span>)[<span class="number">1</span>]</div><div class="line">    <span class="keyword">return</span> LooseVersion(verison) &gt;= LooseVersion(<span class="string">"9.0.0"</span>)</div></pre></td></tr></table></figure>
+<h1 id="三-allowProvisioningUpdates-自动更新配置文件"><a href="#三-allowProvisioningUpdates-自动更新配置文件" class="headerlink" title="三. allowProvisioningUpdates 自动更新配置文件"></a>三. allowProvisioningUpdates 自动更新配置文件</h1><p>让我们先来看看它的描述:</p>
+<blockquote>
+<p>Allow xcodebuild to communicate with the Apple Developer website. For automatically signed targets, xcodebuild will create and update profiles, app IDs, and certificates. For manually signed targets, xcodebuild will download missing or updated provisioning profiles. Requires a developer account to have been added in Xcode’s Accounts preference pane.</p>
+</blockquote>
+<p>XCode 管理证书和配置文件有两中方式: <code>automatically</code> 和 <code>manually</code>, 如过在 XCode 中勾选了 <code>Automatically manager signing</code> 的话, 归档出来的包就是 automatically 的, 反之则是 manually 的.</p>
+<p>只有 automatically 类型的配置指定 <code>allowProvisioningUpdates</code> 才有用. 这个参数在归档和导出阶段都可以用到, 前提是你得在 XCode 的账号设置中登录开发者账号.</p>
+<p>在归档阶段, 比较可能是缺少 <code>Development</code> 证书, 如果没有这个参数, 你会收到这个错误:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Code Signing Error: No signing certificate &quot;iOS Development&quot; found:  No &quot;iOS Development&quot; signing certificate matching team ID &quot;G76Y748JJ2&quot; with a private key was found.</div><div class="line">Code Signing Error: Code signing is required for product type &apos;Application&apos; in SDK &apos;iOS 11.1&apos;</div><div class="line">** ARCHIVE FAILED **</div></pre></td></tr></table></figure>
+<p>而指定后, 理想情况下是会自动帮你创建或下载证书, <strong>但现在可能不够完善, 没能做到这点</strong>, 现在会遇到如下错误:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">2017-12-03 16:08:22.837 xcodebuild[20785:1078389]  DVTAssertions: Warning <span class="keyword">in</span> /Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-13532/IDEFoundation/Provisioning/Logging/IDEProvisioningLedger.m:167</div><div class="line">Details:  Unable to close provisioning ledger entry because not all of its subentries are closed</div><div class="line">Object:   &lt;IDEProvisioningLedgerEntry: 0x7fa9540a4a90&gt;</div><div class="line">Method:   -closeWithError:</div><div class="line">Thread:   &lt;NSThread: 0x7fa9540b8740&gt;&#123;number = 15, name = (null)&#125;</div><div class="line">Please file a bug at http://bugreport.apple.com with this warning message and any useful information you can provide.</div><div class="line">=== BUILD TARGET wobwopr OF PROJECT newship_wobwopr WITH CONFIGURATION Release ===</div><div class="line">Code Signing Error: Revoke certificate:  Your account already has a signing certificate <span class="keyword">for</span> this machine but it is not present <span class="keyword">in</span> your keychain. To create a new one, you must first revoke the existing certificate.</div><div class="line">Code Signing Error: No signing certificate <span class="string">"iOS Development"</span> found:  No <span class="string">"iOS Development"</span> signing certificate matching team ID <span class="string">"G76Y748JJ2"</span> with a private key was found.</div><div class="line">Code Signing Error: Code signing is required <span class="keyword">for</span> product <span class="built_in">type</span> <span class="string">'Application'</span> <span class="keyword">in</span> SDK <span class="string">'iOS 11.1'</span></div><div class="line">** ARCHIVE FAILED **</div></pre></td></tr></table></figure>
+<p>如果是在导出阶段, 签名阶段的, 最有可能的是缺少 <code>Distribution</code> 配置文件, 一般情况下这个文件是需要手动在开发者后台创建并下载的. 但是如果指定了这个参数的话 xcodebuild 会帮你自动创建一个, 很神奇的是这个 Profile 在开发者后台是看不到的, 也不会影响到你之前手动创建的配置文件.</p>
+<p>总之, 这是一个很棒的特性, 期待苹果继续完善它.</p>
+<hr>
+<p>以上就是我们目前为止遇到的 XCode9 的 xcodebuild 问题, 如果大家也遇到了其他的问题, 欢迎一起讨论.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;相信大家都会用到 iOS 的自动打包工具, 而不是每次都是通过 XCode 的 Archive 后手动导出的, 那样效率低下不说还增加出错的可能.&lt;/p&gt;
+&lt;p&gt;我们团队也是如此, 用 Python 搞了一套打包工具, 这套工具的核心是 XCode 附带的命令行工具 &lt;code&gt;xcodebuild&lt;/code&gt;, 网上其他开源的打包工具也都大同小异. 这套工具自诞生以来一直运行的很稳定, 累计为我们打了数百个包, 为团队节省的时间估计也在数千分钟了.&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>更新 spine 的 cocos2d-x runtimes (二)</title>
@@ -1419,69 +1506,6 @@
     
     
       <category term="年结" scheme="http://blog.justbilt.com/tags/%E5%B9%B4%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Quick-cocos2d-x 视频播放</title>
-    <link href="http://blog.justbilt.com/2016/12/10/quickx-playvideo/"/>
-    <id>http://blog.justbilt.com/2016/12/10/quickx-playvideo/</id>
-    <published>2016-12-10T14:00:28.000Z</published>
-    <updated>2017-07-09T03:09:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天我们来聊聊 Quick-Cocos2d-x 中播放视频的那些事. </p>
-<p>这篇文章来自于日常的笔记, 年代可能会有些久远, 加上当时最开始视频播放不是我来做的, 所以有些地方我的理解也不是很深刻. 若是有什么不对的地方, 还望大家不吝赐教.</p>
-<a id="more"></a>
-<h1 id="一-基本用法"><a href="#一-基本用法" class="headerlink" title="一. 基本用法"></a>一. 基本用法</h1><p>播放一段视频:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> video = ccexp.VideoPlayer:<span class="built_in">create</span>()</div><div class="line">video:setPosition(cc.p(display.cx, display.cy))</div><div class="line">video:setAnchorPoint(cc.p(<span class="number">0.5</span>, <span class="number">0.5</span>))</div><div class="line">video:setContentSize(cc.size(display.width, display.height))</div><div class="line">video:setFileName(<span class="string">"res/start_video.mp4"</span>)</div><div class="line">video:setKeepAspectRatioEnabled(<span class="literal">true</span>)</div><div class="line">video:setFullScreenEnabled(<span class="literal">true</span>)</div><div class="line"></div><div class="line">self:addChild(video)</div></pre></td></tr></table></figure>
-<p>监听视屏播放事件:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onVideoEventCallback</span><span class="params">(sender, eventType)</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"onVideoEventCallback:"</span>, eventType)</div><div class="line">    <span class="keyword">if</span> eventType == ccexp.VideoPlayerEvent.PLAYING <span class="keyword">then</span></div><div class="line">    <span class="keyword">elseif</span> eventType == ccexp.VideoPlayerEvent.PAUSED <span class="keyword">then</span></div><div class="line">    <span class="keyword">elseif</span> eventType == ccexp.VideoPlayerEvent.STOPPED <span class="keyword">then</span></div><div class="line">    <span class="keyword">elseif</span> eventType == ccexp.VideoPlayerEvent.COMPLETED <span class="keyword">then</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">video:addEventListener(onVideoEventCallback)</div><div class="line">video:play()</div></pre></td></tr></table></figure>
-<blockquote>
-<p>然而你做完这一切还是可能会播放不出来视频, 没有关系, 多播放几次就出来啦.</p>
-</blockquote>
-<h1 id="二-遇到的问题"><a href="#二-遇到的问题" class="headerlink" title="二. 遇到的问题"></a>二. 遇到的问题</h1><h2 id="问题-1-iOS-播放视频完后黑屏"><a href="#问题-1-iOS-播放视频完后黑屏" class="headerlink" title="问题 1: iOS 播放视频完后黑屏"></a>问题 1: iOS 播放视频完后黑屏</h2><p>cocos2dx 3.3 iOS端播放视频完后黑屏, 控制台中提示日志: OpenGL error 0x0506 in -[CCEAGLView swapBuffers] 324</p>
-<p>解决方案:</p>
-<p><a href="http://www.cnblogs.com/cc4coco/p/4188347.html" target="_blank" rel="external">http://www.cnblogs.com/cc4coco/p/4188347.html</a></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>) viewDidAppear:(<span class="built_in">BOOL</span>)animated&#123;</div><div class="line"></div><div class="line">    cocos2d::Director::getInstance()-&gt;resume();</div><div class="line">    cocos2d::Director::getInstance()-&gt;startAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated&#123;</div><div class="line"></div><div class="line">    cocos2d::Director::getInstance()-&gt;pause();</div><div class="line">    cocos2d::Director::getInstance()-&gt;stopAnimation();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="问题-2-在-iOS-9-2-以上会崩溃"><a href="#问题-2-在-iOS-9-2-以上会崩溃" class="headerlink" title="问题 2: 在 iOS 9.2 以上会崩溃"></a>问题 2: 在 iOS 9.2 以上会崩溃</h2><p>解决方案:</p>
-<p><a href="https://github.com/cocos2d/cocos2d-x/issues/14855" target="_blank" rel="external">https://github.com/cocos2d/cocos2d-x/issues/14855</a></p>
-<p>修改 VideoPlayer 类的析构函数, 将 <code>dealloc</code> 改为 <code>release</code>.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">VideoPlayer::~VideoPlayer()</div><div class="line">&#123;</div><div class="line">     <span class="keyword">if</span>(_videoView)</div><div class="line">     &#123;</div><div class="line">-        [((UIVideoViewWrapperIos*)_videoView) dealloc];</div><div class="line">+        [((UIVideoViewWrapperIos*)_videoView) release];</div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="问题-3-iOS-上播放视频有进度条-双击可以放大缩小-Android-点击可以暂停"><a href="#问题-3-iOS-上播放视频有进度条-双击可以放大缩小-Android-点击可以暂停" class="headerlink" title="问题 3: iOS 上播放视频有进度条, 双击可以放大缩小, Android 点击可以暂停"></a>问题 3: iOS 上播放视频有进度条, 双击可以放大缩小, Android 点击可以暂停</h2><p>解决方案:</p>
-<p>这个问题挺让人啼笑皆非的, 不知道当时设计这个类的人是如何考虑的, 至少也应该提供一个关闭的接口吧. 好, 让我们看下如何解决它.</p>
-<p><img src="http://ww3.sinaimg.cn/large/006y8lVajw1fam4s9vv7ij30dj0m9q3f.jpg" alt=""></p>
-<h3 id="1-隐藏-iOS-播放进度条"><a href="#1-隐藏-iOS-播放进度条" class="headerlink" title="1. 隐藏 iOS 播放进度条"></a>1. 隐藏 iOS 播放进度条</h3><p>在 UIVideoPlayer-ios.mm 的 <code>-(void) setURL:(int)videoSource :(std::string &amp;)videoUrl</code> 函数中, 修改 <code>MPMovieControlStyleEmbedded</code> 为 <code>MPMovieControlStyleNone</code>:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-    <span class="keyword">self</span>.moviePlayer.controlStyle = <span class="built_in">MPMovieControlStyleEmbedded</span>;</div><div class="line">+    <span class="keyword">self</span>.moviePlayer.controlStyle = <span class="built_in">MPMovieControlStyleNone</span>;</div></pre></td></tr></table></figure>
-<p>进度条隐藏了, 但是视频播放时双击缩放的问题却无法解决.</p>
-<h3 id="2-禁用-Android-点击暂停"><a href="#2-禁用-Android-点击暂停" class="headerlink" title="2. 禁用 Android 点击暂停"></a>2. 禁用 Android 点击暂停</h3><p>修改 <code>Cocos2dxWebView.java</code> 中的 <code>onTouchEvent</code> 函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line"><span class="comment">//        if((event.getAction() &amp; MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)</span></div><div class="line"><span class="comment">//        &#123;</span></div><div class="line"><span class="comment">//            if (isPlaying()) &#123;</span></div><div class="line"><span class="comment">//                pause();</span></div><div class="line"><span class="comment">//            &#125; else if(mCurrentState == STATE_PAUSED)&#123;</span></div><div class="line"><span class="comment">//                resume();</span></div><div class="line"><span class="comment">//            &#125;</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h2 id="问题-4-vivo手机无法播放视频的bug"><a href="#问题-4-vivo手机无法播放视频的bug" class="headerlink" title="问题 4: vivo手机无法播放视频的bug"></a>问题 4: vivo手机无法播放视频的bug</h2><p>解决方案:</p>
-<p>经过断点跟踪, 定位到了原因, 视频的尺寸获取的有问题, 我尝试修改了 <code>setVideoRect</code> 函数中的两行代码:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-        mViewWidth = maxWidth;</div><div class="line">-        mViewHeight = maxHeight;</div><div class="line">+        mViewWidth = <span class="number">1</span>;</div><div class="line">+        mViewHeight = <span class="number">1</span>;</div></pre></td></tr></table></figure>
-<p>很神奇的解决了这个问题.</p>
-<h2 id="问题-5-多次调用可能会遮挡-SDK-的弹出界面"><a href="#问题-5-多次调用可能会遮挡-SDK-的弹出界面" class="headerlink" title="问题 5: 多次调用可能会遮挡 SDK 的弹出界面"></a>问题 5: 多次调用可能会遮挡 SDK 的弹出界面</h2><p>我们游戏中有一个重启的功能, 每次重启都会播放一个视频, 这样某些渠道的登录界面就看不到了, 另一个不播放视屏的项目就没有问题, 好像是每次播放都会提高游戏的层级.</p>
-<p>解决方案:</p>
-<p>遍历所有 window , 找到 SDK 的那个 window, 将它的 windowLevel 提高一级.</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="built_in">UIWindow</span> * w <span class="keyword">in</span> [[<span class="built_in">UIApplication</span> sharedApplication]windows])&#123;</div><div class="line">    <span class="keyword">if</span> ([w isKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"XSDKOriginalWindow"</span>)]) &#123;</div><div class="line">        [w setWindowLevel:[[[<span class="built_in">UIApplication</span> sharedApplication]keyWindow]windowLevel]+<span class="number">1</span>];</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="问题-6-还有什么问题-都说了吧"><a href="#问题-6-还有什么问题-都说了吧" class="headerlink" title="问题 6: 还有什么问题, 都说了吧"></a>问题 6: 还有什么问题, 都说了吧</h2><p>如果播放时候是黑屏，把游戏切到后台，再进入游戏就能从头播放！<br>如果播放时候正常，切到后台再切回来就变成黑屏</p>
-<p><a href="http://www.cocoachina.com/bbs/read.php?tid-306892.html" target="_blank" rel="external">http://www.cocoachina.com/bbs/read.php?tid-306892.html</a></p>
-<p>Cocos2d-x V3.10版本中的videoplayer问题<br><a href="http://www.voidcn.com/blog/sh15285118586/article/p-5989468.html" target="_blank" rel="external">http://www.voidcn.com/blog/sh15285118586/article/p-5989468.html</a></p>
-<p>关于cocos2dx 3.x VideoPlayer的问题<br><a href="http://blog.sina.com.cn/s/blog_93add5520102w6n9.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_93add5520102w6n9.html</a></p>
-<p>cocos2d-x视频控件VideoPlayer的用户操作栏进度条去除<br><a href="http://blog.csdn.net/pklll000pp44/article/details/51337577" target="_blank" rel="external">http://blog.csdn.net/pklll000pp44/article/details/51337577</a></p>
-<hr>
-<p>还真的是问题一大堆呢! 大家最好还是回去和策划大大商量下, 别播放视频了.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      半成品, 别用!
-    
-    </summary>
-    
-    
-      <category term="Quick-Cocos2d-x" scheme="http://blog.justbilt.com/tags/Quick-Cocos2d-x/"/>
-    
-      <category term="videoplayer" scheme="http://blog.justbilt.com/tags/videoplayer/"/>
     
   </entry>
   

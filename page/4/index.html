@@ -139,6 +139,79 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2016/05/01/quickx-editbox-util/">
+        Quick-cocos2d-x EditBox 几个小技巧
+      </a>
+    </h2>
+    
+    <time>
+      5月 1, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>我们项目中的输入框使用的都是 EditBox , 但是 EditBox 还存在一些问题, 这里给大家分享一下我们的解决方案.</p>
+<h1 id="一-字体过大"><a href="#一-字体过大" class="headerlink" title="一. 字体过大"></a>一. 字体过大</h1><p>用过 EditBox 的同学都知道这样一个情况, EditBox 在创建时是无法传入字体大小的, 字体大小默认和 EditBox 的 size 一致. 如果要修改字体大小的话, 就必须有程序的参与, 十分讨厌.</p>
+<p>而我们聪明的设计师 @大勇同学 则想到了一个非常棒的办法, 使用一张透明的9图来创建 EditBox, 后面再放置一个真实效果的 Scale9Sprite , 这样就可以实现字体比边框小很多的输入框了.</p>
+<h1 id="二-多行输入"><a href="#二-多行输入" class="headerlink" title="二. 多行输入"></a>二. 多行输入</h1><p>多行输入是一个很有必要的事情, 我们在写邮件, 军团公告等界面都有类似的需求, 然而 EditBox 并不能很好的支持多行输入, 不同平台间也存在差异, 一直很头疼这件事情. </p>
+<p>然而团队中另外一位成员 @小齐同学 却用另一种十分脑洞的方案解决了这个问题, 着实让人佩服. 他的思路是这样子的:</p>
+<blockquote>
+<p>创建一个和需求大小一致的 EditBox, 同时创建一个 LalbelTTF , 将 dimensions 属性设置为需求大小. 处理 EditBox 使之看不见, 但又能正常输入, 同时监听输入文字变化事件, 在事件中修改 LalbelTTF 的文字.</p>
+</blockquote>
+<p>核心就是让 EditBox 承担只文字输入的功能, 而让另外一个 LalbelTTF 来承担文字显示的功能. 实现的代码如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">EditBoxUtil.multiline</span><span class="params">(_editbox, _label, _params)</span></span></div><div class="line">    _params = _params <span class="keyword">or</span> &#123;&#125;</div><div class="line"></div><div class="line">    <span class="comment">-- 本来这个应该只是Android上的设置, 但是为了避免平台的差异性, 因此统一处理</span></div><div class="line">    _editbox:setCascadeOpacityEnabled(<span class="literal">true</span>)</div><div class="line">    _editbox:setOpacity(<span class="number">0</span>)</div><div class="line">    <span class="keyword">if</span> device.platform == <span class="string">"android"</span> <span class="keyword">then</span></div><div class="line">        <span class="comment">-- 避免文字过大导致Android系统崩溃</span></div><div class="line">        _editbox:setFont(<span class="string">"Helvetica"</span>,<span class="number">2</span>)</div><div class="line">    <span class="keyword">elseif</span> device.platform == <span class="string">"ios"</span> <span class="keyword">or</span> device.platform == <span class="string">"mac"</span> <span class="keyword">then</span></div><div class="line">        _editbox:setFont(<span class="string">"Helvetica"</span>,<span class="number">0</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    _editbox:registerScriptEditBoxHandler(<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span>  </div><div class="line">        <span class="keyword">if</span> event == <span class="string">"began"</span> <span class="keyword">then</span>  </div><div class="line">            _editbox:setText(_label:getString())</div><div class="line">        <span class="keyword">elseif</span> event == <span class="string">"changed"</span> <span class="keyword">then</span></div><div class="line">            _label:setString(_editbox:getText())</div><div class="line">        <span class="keyword">elseif</span> event == <span class="string">"return"</span> <span class="keyword">then</span></div><div class="line">            _label:setString(_editbox:getText())</div><div class="line">        <span class="keyword">end</span></div><div class="line">        <span class="keyword">if</span> _params.listener <span class="keyword">then</span></div><div class="line">            _params.listener(event, _editbox)</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>这段代码和简单, 但背后所遇到的坑却不少, 且听我来道一道:</p>
+<h2 id="1-为什么要调用-setFont"><a href="#1-为什么要调用-setFont" class="headerlink" title="1. 为什么要调用 setFont"></a>1. 为什么要调用 setFont</h2><p>如果只是想设置字体大小, EditBox 明明有提供 <code>setFontSize</code> 接口, 为什么要调用 <code>setFont</code> ? 请看 setFontSize 实现:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> EditBox::setFontSize(<span class="keyword">int</span> fontSize)</div><div class="line">&#123;</div><div class="line">    _fontSize = fontSize;</div><div class="line">    <span class="keyword">if</span> (_editBoxImpl != <span class="literal">nullptr</span> &amp;&amp; _fontName.length() &gt; <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        _editBoxImpl-&gt;setFont(_fontName.c_str(), _fontSize);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到 setFontSize 在没有设置字体名称 <code>_fontName</code> 时是没有作用的.</p>
+<h2 id="2-为什么要分平台来实现"><a href="#2-为什么要分平台来实现" class="headerlink" title="2. 为什么要分平台来实现"></a>2. 为什么要分平台来实现</h2><p>在接入 android 前,我们是没有分平台实现的, 只是 <code>setFont(&quot;Helvetica&quot;,0)</code> , 在 iOS 上没有任何问题, 但是在 Android 上会 catch 到 <code>divide by zero</code> 崩溃, 估计是某一个地方用 fontsize 做被除数了吧 , 于是 Android 上改为设置透明度.</p>
+<h2 id="3-Android-输入过多文字后会崩溃-OOM"><a href="#3-Android-输入过多文字后会崩溃-OOM" class="headerlink" title="3. Android 输入过多文字后会崩溃(OOM)"></a>3. Android 输入过多文字后会崩溃(OOM)</h2><p>崩溃在 <code>Cocos2dxBitmap.java</code> 的 <code>getPixels</code> 函数中:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getPixels(<span class="keyword">final</span> Bitmap bitmap) &#123;</div><div class="line">    <span class="keyword">if</span> (bitmap != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] pixels = <span class="keyword">new</span> <span class="keyword">byte</span>[bitmap.getWidth() * bitmap.getHeight() * <span class="number">4</span>];</div><div class="line">        <span class="keyword">final</span> ByteBuffer buf = ByteBuffer.wrap(pixels);</div><div class="line">        buf.order(ByteOrder.nativeOrder());</div><div class="line">        bitmap.copyPixelsToBuffer(buf);</div><div class="line">        <span class="keyword">return</span> pixels;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在 <code>new byte</code> 这里触发了报错的原因是 <code>Out Of Memory</code> 异常 ! 调试发现 <code>bitmap</code> 的宽高惊人的达到了 <code>12000x600</code> ! </p>
+<p>经过 @bin 的提醒, 发现这里可能是因为 EditBox 字体过大的原因, 因为 EditBox 会默认设置字体字体大小和 Scale9Sprite 的 PreferredSize 一直, 就可能设置字体大小为 100+ , 文字一多尺寸当然就上去了! 所以便有了这么一行:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> device.platform == <span class="string">"android"</span> <span class="keyword">then</span></div><div class="line">    <span class="comment">-- 避免文字过大导致Android系统崩溃</span></div><div class="line">    _editbox:setFont(<span class="string">"Helvetica"</span>,<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<h1 id="二-屏蔽-Emoji-输入"><a href="#二-屏蔽-Emoji-输入" class="headerlink" title="二. 屏蔽 Emoji 输入"></a>二. 屏蔽 Emoji 输入</h1><p>按照要求游戏中玩家可以输入文字的地方都是不能够输入 Emoji 表情的, 原因有两点:</p>
+<ol>
+<li>不同系统间表现存在差异</li>
+<li>EditBox Android 版输入确认后会变乱码</li>
+<li>后台搜索玩家时不太方便</li>
+</ol>
+<p>因此, 我们需要屏蔽 Emoji 表情的输入, 我们有两种做法:</p>
+<ol>
+<li>无法输入, 弹出键盘点击表情没有反应</li>
+<li>输入完成后, 游戏内点击提交时提示非法</li>
+</ol>
+<p>我们采用的是第二种方案, 这个无法通过纯 lua 代码实现, 需要分平台去做.</p>
+<h2 id="1-iOS"><a href="#1-iOS" class="headerlink" title="1. iOS"></a>1. iOS</h2><p>修改 <code>UIEditBoxImpl-ios.mm</code> 文件的 <code>shouldChangeCharactersInRange</code> 函数:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)textField:(<span class="built_in">UITextField</span> *) textField shouldChangeCharactersInRange:(<span class="built_in">NSRange</span>)range replacementString:(<span class="built_in">NSString</span> *)string</div><div class="line">&#123;</div><div class="line">    __block <span class="built_in">BOOL</span> returnValue = <span class="literal">NO</span>;</div><div class="line">    [string enumerateSubstringsInRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, [string length]) options:<span class="built_in">NSStringEnumerationByComposedCharacterSequences</span> usingBlock:</div><div class="line">     ^(<span class="built_in">NSString</span> *substring, <span class="built_in">NSRange</span> substringRange, <span class="built_in">NSRange</span> enclosingRange, <span class="built_in">BOOL</span> *stop) &#123;</div><div class="line">         </div><div class="line">         <span class="keyword">if</span> ([substring rangeOfCharacterFromSet: [<span class="built_in">NSCharacterSet</span> characterSetWithRange:<span class="built_in">NSMakeRange</span>(<span class="number">0xFE00</span>, <span class="number">16</span>)]].location != <span class="built_in">NSNotFound</span>) &#123;</div><div class="line">             returnValue = <span class="literal">YES</span>;</div><div class="line">         &#125;</div><div class="line">         </div><div class="line">         <span class="keyword">const</span> <span class="keyword">unichar</span> high = [substring characterAtIndex: <span class="number">0</span>];</div><div class="line">         </div><div class="line">         <span class="comment">// Surrogate pair (U+1D000-1F9FF)</span></div><div class="line">         <span class="keyword">if</span> (<span class="number">0xD800</span> &lt;= high &amp;&amp; high &lt;= <span class="number">0xDBFF</span>) &#123;</div><div class="line">             <span class="keyword">const</span> <span class="keyword">unichar</span> low = [substring characterAtIndex: <span class="number">1</span>];</div><div class="line">             <span class="keyword">const</span> <span class="keyword">int</span> codepoint = ((high - <span class="number">0xD800</span>) * <span class="number">0x400</span>) + (low - <span class="number">0xDC00</span>) + <span class="number">0x10000</span>;</div><div class="line">             </div><div class="line">             returnValue = (<span class="number">0x1D000</span> &lt;= codepoint &amp;&amp; codepoint &lt;= <span class="number">0x1F9FF</span>);</div><div class="line">             </div><div class="line">             <span class="comment">// Not surrogate pair (U+2100-27BF)</span></div><div class="line">         &#125; <span class="keyword">else</span> &#123;</div><div class="line">             returnValue = (<span class="number">0x2100</span> &lt;= high &amp;&amp; high &lt;= <span class="number">0x27BF</span>);</div><div class="line">         &#125;</div><div class="line">     &#125;];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (returnValue) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (getEditBoxImplIOS()-&gt;getMaxLength() &lt; <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="built_in">NSUInteger</span> oldLength = [textField.text length];</div><div class="line">    <span class="built_in">NSUInteger</span> replacementLength = [string length];</div><div class="line">    <span class="built_in">NSUInteger</span> rangeLength = range.length;</div><div class="line">    </div><div class="line">    <span class="built_in">NSUInteger</span> newLength = oldLength - rangeLength + replacementLength;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> newLength &lt;= getEditBoxImplIOS()-&gt;getMaxLength();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码是我从 <a href="https://github.com/woxtu/NSString-RemoveEmoji" target="_blank" rel="external">https://github.com/woxtu/NSString-RemoveEmoji</a> 中提取出来的.</p>
+<h2 id="2-Android"><a href="#2-Android" class="headerlink" title="2. Android"></a>2. Android</h2><p>Android 上的实现也很简单, 主要是需要创建一个新的 <code>InputFilter</code> 用来过滤 Emoji 表情. 需要修改 <code>Cocos2dxEditBoxDialog.java</code> 文件成员变量添加:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> InputFilter EMOJI_FILTER = <span class="keyword">new</span> InputFilter() &#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> CharSequence <span class="title">filter</span><span class="params">(CharSequence source, <span class="keyword">int</span> start, <span class="keyword">int</span> end, Spanned dest, <span class="keyword">int</span> dstart, <span class="keyword">int</span> dend)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = start; index &lt; end; index++) &#123;</div><div class="line">            <span class="keyword">int</span> type = Character.getType(source.charAt(index));</div><div class="line">            <span class="keyword">if</span> (type == Character.SURROGATE || type == Character.OTHER_SYMBOL || type == Character.PRIVATE_USE) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>修改 <code>onCreate</code> 函数 <code>setFilters</code> 处逻辑:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.mMaxLength &gt; <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">this</span>.mInputEditText.setFilters(<span class="keyword">new</span> InputFilter[] &#123; <span class="keyword">new</span> InputFilter.LengthFilter(<span class="keyword">this</span>.mMaxLength), EMOJI_FILTER &#125;);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="keyword">this</span>.mInputEditText.setFilters(<span class="keyword">new</span> InputFilter[] &#123; EMOJI_FILTER &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>关于 Emoji 的相关修改都已经推送到了 github 上, <a href="https://github.com/mafiagame/quick-cocos2d-x/commit/8a7c27aedb919e0ae5d178d688b704e620c2c1bb" target="_blank" rel="external">点击这里</a>查看.</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
+      
+        <a href="/tags/EditBox/">EditBox</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2016/04/10/quickx-crash-on-phone/">
         最近遇到的几个 Quick-cocos2d-x  真机崩溃
       </a>
@@ -624,43 +697,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2015/11/28/pyqtdeploy/">
-        使用 Pyqtdeploy 发布你的 Pyqt 程序
-      </a>
-    </h2>
-    
-    <time>
-      11月 28, 2015
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>在不久前我的另一篇博文<a href="/2015/10/17/setup-pyqt5-on-mac">Pyqt5 MacOS 环境搭建</a>中介绍了如何在 Mac 上搭建 PyQt 的环境, 如果你恰巧看过那篇文章, 并且照做了, 那么非常不幸, 如果你打算使用 pyqtdeploy 发布的你的程序的话, 你可能得重新来一遍了!</p>
-
-    
-	  <div class="readmore">
-      <a href="/2015/11/28/pyqtdeploy/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/PyQt/">PyQt</a>
-      
-        <a href="/tags/pyqtdeploy/">pyqtdeploy</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -702,13 +738,6 @@
 </div>
 
 
-
-  <div class="m_widget tagcloud">
-    <div class="header">ClustrMaps</div>
-    <div class='content'>
-        <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?d=dSWdlz0iR1jslrRHI_tfyNu8VkEkEmq1ziau7vlLxEA&cl=ffffff&w=a"></script>
-    </div>
-</div>
 
       </aside>
       <script>setLoadingBarProgress(60);</script>
