@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>更新 spine 的 cocos2d-x runtimes | Justbilt</title>
+  <title>Justbilt</title>
   <meta name="description" content="A game developer" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,17 +12,16 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Justbilt">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="又是2个多月没有更新博客了, 真是不应该, 惭愧啊！其实手上已经攒了一些素材了, 只是一直没有一个很强的动力去写出来, 今天总算是有一些想法了, 先用一篇没有什么养分的文章来 “探探路”,  唤醒下自己写作的欲望吧！">
-<meta name="keywords" content="cocos2d-x,spine">
-<meta property="og:type" content="article">
-<meta property="og:title" content="更新 spine 的 cocos2d-x runtimes">
-<meta property="og:url" content="http://blog.justbilt.com/2015/08/16/upgrad-spine-runtime/index.html">
+  <meta name="description" content="google-site-verification: googlef3029a61316e334f.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Justbilt">
+<meta property="og:url" content="http://blog.justbilt.com/googlef3029a61316e334f.html">
 <meta property="og:site_name" content="Justbilt">
-<meta property="og:description" content="又是2个多月没有更新博客了, 真是不应该, 惭愧啊！其实手上已经攒了一些素材了, 只是一直没有一个很强的动力去写出来, 今天总算是有一些想法了, 先用一篇没有什么养分的文章来 “探探路”,  唤醒下自己写作的欲望吧！">
-<meta property="og:updated_time" content="2017-12-04T12:42:29.328Z">
+<meta property="og:description" content="google-site-verification: googlef3029a61316e334f.html">
+<meta property="og:updated_time" content="2017-12-04T12:42:29.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="更新 spine 的 cocos2d-x runtimes">
-<meta name="twitter:description" content="又是2个多月没有更新博客了, 真是不应该, 惭愧啊！其实手上已经攒了一些素材了, 只是一直没有一个很强的动力去写出来, 今天总算是有一些想法了, 先用一篇没有什么养分的文章来 “探探路”,  唤醒下自己写作的欲望吧！">
+<meta name="twitter:title" content="Justbilt">
+<meta name="twitter:description" content="google-site-verification: googlef3029a61316e334f.html">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -133,49 +132,28 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        <article id="post-upgrad-spine-runtime"
-  class="post white-box article-type-post"
+        <article id="page-undefined"
+  class="post white-box article-type-page"
   itemscope itemprop="blogPost">
 	<section class='meta'>
 	<h2 class="title">
-  	<a href="/2015/08/16/upgrad-spine-runtime/">
-    	更新 spine 的 cocos2d-x runtimes
+  	<a href="/googlef3029a61316e334f.html">
+    	
     </a>
   </h2>
 	<time>
-	  8月 16, 2015
+	  12月 4, 2017
 	</time>
 	
 	</section>
 	
-		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-why"><span class="toc-number">1.</span> <span class="toc-text">1. why ?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-How"><span class="toc-number">2.</span> <span class="toc-text">2. How ?</span></a></li></ol></section>
+		<section class="toc-wrapper"></section>
 	
 	<section class="article typo">
   	<div class="article-entry" itemprop="articleBody">
-    	<p>又是2个多月没有更新博客了, 真是不应该, 惭愧啊！其实手上已经攒了一些素材了, 只是一直没有一个很强的动力去写出来, 今天总算是有一些想法了, 先用一篇没有什么养分的文章来 “探探路”,  唤醒下自己写作的欲望吧！</p>
-<a id="more"></a>
-<h1 id="1-why"><a href="#1-why" class="headerlink" title="1. why ?"></a>1. why ?</h1><p>最近的项目中用到 spine, 但是美术在spine中做的效果却与程序中得效果有些出入。比如在spine中设置翻转, 在程序中却是没有的。看了下导出的json文件, 里面是有 <code>flipX</code> 字段的, 于是猜想是没有解析的原因.</p>
-<p>在spine的解析代码中搜索了一下, 果然是没有找到解析<code>flip</code>字段的代码的, 看来是需要更新下解析的代码了! spine 的解析库是放在 github 上的, 地址在这里 <a href="https://github.com/EsotericSoftware/spine-runtimes" target="_blank" rel="external">https://github.com/EsotericSoftware/spine-runtimes</a>.</p>
-<h1 id="2-How"><a href="#2-How" class="headerlink" title="2. How ?"></a>2. How ?</h1><ol>
-<li>首先我们 clone <code>spine-runtimes</code> 到本地的一个目录.</li>
-<li>复制 <code>spine-runtimes/spine-c/include/spine/</code> 目录下所有文件到 <code>cocos2d-x/cocos/editor-support/spine/</code></li>
-<li>复制 <code>spine-runtimes/spine-c/src/spine/</code> 目录下所有文件到 <code>cocos2d-x/cocos/editor-support/spine/</code></li>
-<li>复制 <code>spine-runtimes/spine-cocos2dx/3/src/spine/</code> 目录下所有文件到 <code>cocos2d-x/cocos/editor-support/spine/</code></li>
-<li>编译, 运行, 然后就没有然后了!</li>
-</ol>
-<hr>
-<p>好吧, 这个升级远我想象的简单好多, 没有编译错误, 没有运行崩溃, 还真是令人有些不习惯, 只能说 spine 他们还是蛮认真的!</p>
-
+    	google-site-verification: googlef3029a61316e334f.html
   	</div>
 	  
-	  <div class="article-tags tags">
-      
-        <a href="/tags/cocos2d-x/">cocos2d-x</a>
-      
-        <a href="/tags/spine/">spine</a>
-      
-	  </div>
-    
 	</section>
 	
 		<section id="comments">
@@ -185,7 +163,7 @@
 </article>
 <script>
 	window.subData = {
-		title: '更新 spine 的 cocos2d-x runtimes',
+		title: '',
 		tools: true
 	}
 </script>
@@ -250,7 +228,7 @@
 <script>
   var disqus_shortname = 'justbilt';
   
-  var disqus_url = 'http://blog.justbilt.com/2015/08/16/upgrad-spine-runtime/';
+  var disqus_url = 'http://blog.justbilt.com/googlef3029a61316e334f.html';
   
   (function(){
     var dsq = document.createElement('script');
