@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Archives: 2017/12 | Justbilt</title>
+  <title>如何为 Creator 添加 js/ts 第三方库支持 | Justbilt</title>
   <meta name="description" content="A game developer" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,15 +12,19 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Justbilt">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="A game developer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Justbilt">
-<meta property="og:url" content="http://blog.justbilt.com/archives/2017/12/index.html">
+  <meta name="description" content="正如知乎我的这个回答中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章. 我们在项目开发的过程中, 肯定会遇到一些项目间通用的需求, 比如 压缩/加密 之类的, 我们当然可以自己实现一个, 但更好的做法是找找网上有没有别人实现好的库直接拿来用, 今天我们就来看看如何为 Creator 添加添加 js/ts 第三方库支持.">
+<meta name="keywords" content="CocosCreaor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何为 Creator 添加 js&#x2F;ts 第三方库支持">
+<meta property="og:url" content="http://blog.justbilt.com/2017/12/10/creator-add-package/index.html">
 <meta property="og:site_name" content="Justbilt">
-<meta property="og:description" content="A game developer">
+<meta property="og:description" content="正如知乎我的这个回答中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章. 我们在项目开发的过程中, 肯定会遇到一些项目间通用的需求, 比如 压缩/加密 之类的, 我们当然可以自己实现一个, 但更好的做法是找找网上有没有别人实现好的库直接拿来用, 今天我们就来看看如何为 Creator 添加添加 js/ts 第三方库支持.">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1fmc08dgaohj30gc07zq3j.jpg">
+<meta property="og:updated_time" content="2017-12-10T13:56:02.845Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Justbilt">
-<meta name="twitter:description" content="A game developer">
+<meta name="twitter:title" content="如何为 Creator 添加 js&#x2F;ts 第三方库支持">
+<meta name="twitter:description" content="正如知乎我的这个回答中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章. 我们在项目开发的过程中, 肯定会遇到一些项目间通用的需求, 比如 压缩/加密 之类的, 我们当然可以自己实现一个, 但更好的做法是找找网上有没有别人实现好的库直接拿来用, 今天我们就来看看如何为 Creator 添加添加 js/ts 第三方库支持.">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1fmc08dgaohj30gc07zq3j.jpg">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -131,31 +135,26 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        
-  
-  <script>
-    window.subData= { title:"Year : 2017.12"}
-  </script>
-
-<section class="post-list">
+        <article id="post-creator-add-package"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2017/12/10/creator-add-package/">
+    	如何为 Creator 添加 js/ts 第三方库支持
+    </a>
+  </h2>
+	<time>
+	  12月 10, 2017
+	</time>
 	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/12/10/creator-add-package/">
-        如何为 Creator 添加 js/ts 第三方库支持
-      </a>
-    </h2>
-    
-    <time>
-      12月 10, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>正如知乎<a href="https://www.zhihu.com/question/66819338/answer/259901965" target="_blank" rel="external">我的这个回答</a>中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章.</p>
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-下载源文件"><span class="toc-number">1.</span> <span class="toc-text">一. 下载源文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-使用-npm"><span class="toc-number">2.</span> <span class="toc-text">二. 使用 npm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三-在-TypeScript-中使用-npm-安装的三方库"><span class="toc-number">3.</span> <span class="toc-text">三. 在 TypeScript 中使用 npm 安装的三方库</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>正如知乎<a href="https://www.zhihu.com/question/66819338/answer/259901965" target="_blank" rel="external">我的这个回答</a>中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章.</p>
 <p>我们在项目开发的过程中, 肯定会遇到一些项目间通用的需求, 比如 <code>压缩/加密</code> 之类的, 我们当然可以自己实现一个, 但更好的做法是找找网上有没有别人实现好的库直接拿来用, 今天我们就来看看如何为 Creator 添加添加 js/ts 第三方库支持.</p>
 <h1 id="一-下载源文件"><a href="#一-下载源文件" class="headerlink" title="一. 下载源文件"></a>一. 下载源文件</h1><p>以 <a href="https://github.com/jakesgordon/javascript-state-machine" target="_blank" rel="external">javascript-state-machine</a> 为例, 我们可以在 <code>Clone or Download</code> 中选择 <code>Download Zip</code> 下载源文件压缩包, 解压后在将 <code>dist/state-machine.js</code> 复制到我们项目中的 <code>assets/Script</code> 目录中.</p>
 <p>然后在我们的代码中:</p>
@@ -185,53 +184,27 @@
 <hr>
 <p>以上就是我们安装第三方库的经验, 希望能够帮助到大家. 我们也是才开始使用 Creator, 如果遇到问题, 希望可以和大家多多交流.</p>
 
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+  	</div>
+	  
+	  <div class="article-tags tags">
       
         <a href="/tags/CocosCreaor/">CocosCreaor</a>
       
 	  </div>
     
-  </section>
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
 </article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/12/02/xcode9-package-tools/">
-        iOS 打包工具在 XCode9 下的改动
-      </a>
-    </h2>
-    
-    <time>
-      12月 2, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>相信大家都会用到 iOS 的自动打包工具, 而不是每次都是通过 XCode 的 Archive 后手动导出的, 那样效率低下不说还增加出错的可能.</p>
-<p>我们团队也是如此, 用 Python 搞了一套打包工具, 这套工具的核心是 XCode 附带的命令行工具 <code>xcodebuild</code>, 网上其他开源的打包工具也都大同小异. 这套工具自诞生以来一直运行的很稳定, 累计为我们打了数百个包, 为团队节省的时间估计也在数千分钟了.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/12/02/xcode9-package-tools/">Read More</a>
-    </div>
-    
-    
-    
-  </section>
-</article>
-    </div>
-  
-</section>
-
-
+<script>
+	window.subData = {
+		title: '如何为 Creator 添加 js/ts 第三方库支持',
+		tools: true
+	}
+</script>
 
       </div>
       <aside class='l_side'>
@@ -293,11 +266,13 @@
 <script>
   var disqus_shortname = 'justbilt';
   
+  var disqus_url = 'http://blog.justbilt.com/2017/12/10/creator-add-package/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

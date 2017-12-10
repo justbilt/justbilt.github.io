@@ -139,6 +139,76 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2016/05/08/compress-res/">
+        cocos2d-x 优化游戏资源体积
+      </a>
+    </h2>
+    
+    <time>
+      5月 8, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <h1 id="一-删除无用资源"><a href="#一-删除无用资源" class="headerlink" title="一. 删除无用资源"></a>一. 删除无用资源</h1><p>在我们版本迭代的过程中, 总有一些图片被废弃掉, 如果当时忘记删除的话, 久而久之也就忘记了. 如果在上线前不做一次整理的话, 它们就会残存在你的资源中, 浪费包的体积.</p>
+<p>为避免这种情况, 我们可以做的是:</p>
+<h2 id="1-废弃的图片一定要及时删除"><a href="#1-废弃的图片一定要及时删除" class="headerlink" title="1. 废弃的图片一定要及时删除"></a>1. 废弃的图片一定要及时删除</h2><h2 id="2-编写废弃资源查找工具"><a href="#2-编写废弃资源查找工具" class="headerlink" title="2. 编写废弃资源查找工具"></a>2. 编写废弃资源查找工具</h2><p>可以用到的系统命令是 <code>ack</code>, 我们可以通过 <code>brew install ack</code> 安装, 使用的效果:</p>
+<p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f3upxy29uej20iy083gna.jpg" alt=""></p>
+<p>关于 ack 的更多用法请<a href="http://beyondgrep.com/documentation/" target="_blank" rel="external">移步这里</a>.</p>
+<h1 id="二-使用替代对象"><a href="#二-使用替代对象" class="headerlink" title="二. 使用替代对象"></a>二. 使用替代对象</h1><h2 id="1-使用9图"><a href="#1-使用9图" class="headerlink" title="1. 使用9图"></a>1. 使用9图</h2><p>大家都知道图片在拉伸的过程中会失真, 那么如何避免这个情况呢? 使用9图. </p>
+<p><img src="http://ww2.sinaimg.cn/large/7f870d23gw1f3uqafyaevj206t04mjrj.jpg" alt=""></p>
+<p>注: 配图来自<a href="http://mux.baidu.com/?p=1506" target="_blank" rel="external">http://mux.baidu.com/?p=1506</a></p>
+<p>这样我们就可以将一张很大的图缩小到很小, 然后使用9图拉伸, 起到节省资源的目的. 9图在 cocos 中的对象是 <code>Scale9Sprite</code>, 具体用法可以参考<a href="http://shahdza.blog.51cto.com/2410787/1543284" target="_blank" rel="external">这篇文章</a>.</p>
+<h2 id="2-通过修改色调实现资源复用"><a href="#2-通过修改色调实现资源复用" class="headerlink" title="2. 通过修改色调实现资源复用"></a>2. 通过修改色调实现资源复用</h2><p>知乎上有一篇问题讲的就是这个:<br><a href="https://www.zhihu.com/question/31133351" target="_blank" rel="external">拳皇中的人物变色是如何实现的？</a><br><a href="http://daily.zhihu.com/story/4797855" target="_blank" rel="external">知乎日报上的这篇</a></p>
+<p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f3uqjn3tz0j20ig08at9r.jpg" alt=""></p>
+<p>cocos2d-x 版由 <a href="https://fusijie.github.io/2015/05/27/sprite-with-hue/" target="_blank" rel="external">@偶尔e网事</a> 大神实现, 对应的对象是 <code>SpriteWithHue</code>, 目前已经默认集成到了 cocos2d-x 中.</p>
+<p>这样我们就可以将原来只是色调差异的图片用程序来实现啦~</p>
+<h2 id="3-使用平铺"><a href="#3-使用平铺" class="headerlink" title="3. 使用平铺"></a>3. 使用平铺</h2><p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f3ur1pd7j5j20m8069tbd.jpg" alt=""></p>
+<p>注: 配图来自<a href="http://bullteacher.com/7-textures.html" target="_blank" rel="external">http://bullteacher.com/7-textures.html</a></p>
+<p>游戏中的有些图片完全可以通过平铺实现, 这样的话我们就可以让美术只出一个平铺单元的图片,在程序中去实现平铺.</p>
+<p>首先, 平铺的这个功能是 opengl 层面就支持的, 详情大家可以<a href="http://bullteacher.com/7-textures.html" target="_blank" rel="external">移步这里</a>, cocos2d-x 中实现平铺很简单:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 首先, 使用平铺单元图片创建一个精灵</span></div><div class="line"><span class="keyword">local</span> sprite = cc.Sprite:<span class="built_in">create</span>(<span class="string">"your_repeat_image.png"</span>)</div><div class="line"><span class="comment">-- 然后, 设置纹理参数</span></div><div class="line">sprite:getTexture():setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.REPEAT)</div><div class="line"><span class="comment">-- 最后, 将这个精灵的纹理矩形设置为我们想要的大小</span></div><div class="line">sprite:setTextureRect(cc.rect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1024</span>,<span class="number">1024</span>))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意:　平铺单元图片的尺寸只能是2的幂</p>
+</blockquote>
+<h1 id="三-压缩"><a href="#三-压缩" class="headerlink" title="三. 压缩"></a>三. 压缩</h1><h2 id="1-无损压缩"><a href="#1-无损压缩" class="headerlink" title="1. 无损压缩"></a>1. 无损压缩</h2><p>无损压缩还是十分值得推荐的, 它的原理知乎上<a href="https://www.zhihu.com/question/23752454" target="_blank" rel="external">这个答案</a>讲的很清晰, 我节选其中的关键文字:</p>
+<blockquote>
+<p>1.核心原理很简单，通俗的解释一下，就是由于PNG格式的灵活性，他可以有很多种方式表示同一张图片，不同方式有时就会导致文件大小不一样…<br>2.还有一点是PNG采用的是deflate算法，也非常的灵活，他的压缩率和encoder的实现有关，不同的encoder使用的时间，压缩出来的大小都不一样…<br>3.当然除了上面这两点是真正的无损压缩以外，还有减小PNG文件大小的方式就是去除一些对图片本身没有任何影响的metadata…</p>
+</blockquote>
+<p>所以无损压缩纯粹是单方面的受益, <strong>是一定要做的</strong>.</p>
+<p>我们无损压缩主要用到的工具: <a href="https://imageoptim.com/mac" target="_blank" rel="external">ImageOptim</a></p>
+<h2 id="2-有损压缩"><a href="#2-有损压缩" class="headerlink" title="2. 有损压缩"></a>2. 有损压缩</h2><p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1f3uvav83k9j20g707fabp.jpg" alt=""></p>
+<p>有损压缩会损失一部分的图片质量, 但带来的受益还是十分可观的. 这是一个抉择的过程, 以最小的代价获取最大的受益, 甚至不能批量处理, 可能需要一张一张的人肉对比压缩.</p>
+<p>我们有损压缩主要用到的工具: <a href="http://ppduck.com/" target="_blank" rel="external">PP鸭</a></p>
+<h1 id="四-选择正确的图片格式"><a href="#四-选择正确的图片格式" class="headerlink" title="四. 选择正确的图片格式"></a>四. 选择正确的图片格式</h1><h2 id="1-将无-alpha-通道的-png-图片存储为-jpg"><a href="#1-将无-alpha-通道的-png-图片存储为-jpg" class="headerlink" title="1. 将无 alpha 通道的 png 图片存储为 jpg"></a>1. 将无 alpha 通道的 png 图片存储为 jpg</h2><h2 id="2-选用压缩率更高的图片格式"><a href="#2-选用压缩率更高的图片格式" class="headerlink" title="2. 选用压缩率更高的图片格式"></a>2. 选用压缩率更高的图片格式</h2><h1 id="五-其他"><a href="#五-其他" class="headerlink" title="五. 其他"></a>五. 其他</h1><h2 id="1-圆形图片只使用-1-4"><a href="#1-圆形图片只使用-1-4" class="headerlink" title="1. 圆形图片只使用 1/4"></a>1. 圆形图片只使用 1/4</h2><p>然后在程序中翻转3次,得到其他角度的图片. 一般会用在图片尺寸特别大的场景. </p>
+<p><img src="http://ww4.sinaimg.cn/large/7f870d23gw1f3uvnfb31aj20hd09v74p.jpg" alt=""></p>
+<p>如上图, 我们游戏中一个全屏幕的雷达就是通过这个方案减少图片体积的.</p>
+<h2 id="2-缩小图片"><a href="#2-缩小图片" class="headerlink" title="2. 缩小图片"></a>2. 缩小图片</h2><p>将展示精度不强的图片(比如: 游戏背景上的小装饰, 爆炸的序列帧)缩小, 在程序中放大. </p>
+<h2 id="3-特殊方案分离png的透明通道"><a href="#3-特殊方案分离png的透明通道" class="headerlink" title="3. 特殊方案分离png的透明通道"></a>3. 特殊方案分离png的透明通道</h2><p><a href="http://www.cocoachina.com/bbs/read.php?tid-201144.html" target="_blank" rel="external">用jpg和黑白色png作为遮罩实现透明</a><br><a href="http://blog.csdn.net/dawn_moon/article/details/8631783" target="_blank" rel="external">用shader使图片背景透明</a><br><a href="http://www.cnblogs.com/elang/p/4104452.html" target="_blank" rel="external">cocos2dx中使用JPG图和只带Alpha的PNG图合成渲染</a></p>
+<p>我们之前曾经采取过其中的一个方案, 将一张 png 图片拆分为 jpg+alpha.png 的形式, 整体的包体小了近 25% , 不过也带来的其他的一些副作用.</p>
+<p>建议大家使用这类黑科技前一定要做好调研和测试用例, 评估一下实际的收益.</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/游戏心得/">游戏心得</a>
+      
+        <a href="/tags/优化/">优化</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2016/05/01/quickx-editbox-util/">
         Quick-cocos2d-x EditBox 几个小技巧
       </a>
@@ -660,43 +730,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/01/01/quickx-hotupdate/">
-        quickx-3.3 热更新若干心得
-      </a>
-    </h2>
-    
-    <time>
-      1月 1, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>关于热更新, 虽然这已经是第三次实现了, 但每一次都会有新的收获, 都会比上次更加完善一下.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2016/01/01/quickx-hotupdate/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/hotupdate/">hotupdate</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -733,7 +766,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
+        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosCreaor/" style="font-size: 14px; color: #808080">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14px; color: #808080">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
     </div>
 </div>
 

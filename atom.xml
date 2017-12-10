@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.justbilt.com/"/>
-  <updated>2017-12-04T12:42:29.330Z</updated>
+  <updated>2017-12-10T13:56:02.845Z</updated>
   <id>http://blog.justbilt.com/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何为 Creator 添加 js/ts 第三方库支持</title>
+    <link href="http://blog.justbilt.com/2017/12/10/creator-add-package/"/>
+    <id>http://blog.justbilt.com/2017/12/10/creator-add-package/</id>
+    <published>2017-12-10T11:57:39.000Z</published>
+    <updated>2017-12-10T13:56:02.845Z</updated>
+    
+    <content type="html"><![CDATA[<p>正如知乎<a href="https://www.zhihu.com/question/66819338/answer/259901965" target="_blank" rel="external">我的这个回答</a>中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章.</p>
+<p>我们在项目开发的过程中, 肯定会遇到一些项目间通用的需求, 比如 <code>压缩/加密</code> 之类的, 我们当然可以自己实现一个, 但更好的做法是找找网上有没有别人实现好的库直接拿来用, 今天我们就来看看如何为 Creator 添加添加 js/ts 第三方库支持.</p>
+<h1 id="一-下载源文件"><a href="#一-下载源文件" class="headerlink" title="一. 下载源文件"></a>一. 下载源文件</h1><p>以 <a href="https://github.com/jakesgordon/javascript-state-machine" target="_blank" rel="external">javascript-state-machine</a> 为例, 我们可以在 <code>Clone or Download</code> 中选择 <code>Download Zip</code> 下载源文件压缩包, 解压后在将 <code>dist/state-machine.js</code> 复制到我们项目中的 <code>assets/Script</code> 目录中.</p>
+<p>然后在我们的代码中:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> StateMachine <span class="keyword">from</span> <span class="string">"state-machine"</span>;</div><div class="line">cc.Class(&#123;</div><div class="line">    <span class="attr">extends</span>: cc.Component,</div><div class="line">    <span class="attr">properties</span>: &#123;</div><div class="line">        <span class="attr">label</span>: &#123;</div><div class="line">            <span class="attr">default</span>: <span class="literal">null</span>,</div><div class="line">            <span class="attr">type</span>: cc.Label</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">text</span>: <span class="string">'Hello, World!'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">onLoad</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.label.string = <span class="keyword">this</span>.text;</div><div class="line">        <span class="keyword">var</span> fsm = <span class="keyword">new</span> StateMachine(&#123;</div><div class="line">            <span class="attr">init</span>: <span class="string">'solid'</span>,</div><div class="line">            <span class="attr">transitions</span>: [</div><div class="line">              &#123; <span class="attr">name</span>: <span class="string">'melt'</span>,     <span class="attr">from</span>: <span class="string">'solid'</span>,  <span class="attr">to</span>: <span class="string">'liquid'</span> &#125;,</div><div class="line">              &#123; <span class="attr">name</span>: <span class="string">'freeze'</span>,   <span class="attr">from</span>: <span class="string">'liquid'</span>, <span class="attr">to</span>: <span class="string">'solid'</span>  &#125;,</div><div class="line">              &#123; <span class="attr">name</span>: <span class="string">'vaporize'</span>, <span class="attr">from</span>: <span class="string">'liquid'</span>, <span class="attr">to</span>: <span class="string">'gas'</span>    &#125;,</div><div class="line">              &#123; <span class="attr">name</span>: <span class="string">'condense'</span>, <span class="attr">from</span>: <span class="string">'gas'</span>,    <span class="attr">to</span>: <span class="string">'liquid'</span> &#125;</div><div class="line">            ],</div><div class="line">            <span class="attr">methods</span>: &#123;</div><div class="line">              <span class="attr">onMelt</span>:     <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'I melted'</span>)    &#125;,</div><div class="line">              <span class="attr">onFreeze</span>:   <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'I froze'</span>)     &#125;,</div><div class="line">              <span class="attr">onVaporize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'I vaporized'</span>) &#125;,</div><div class="line">              <span class="attr">onCondense</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'I condensed'</span>) &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        fsm.melt();       </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在控制台中可以看到输出:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">I melted</div></pre></td></tr></table></figure>
+<h1 id="二-使用-npm"><a href="#二-使用-npm" class="headerlink" title="二. 使用 npm"></a>二. 使用 npm</h1><p>搞 js 的同学都会知道 <a href="https://www.npmjs.com/" target="_blank" rel="external">npm</a> 这个 js 最大的轮子集中营, 它可以很方便的帮你安装/管理所需的第三方依赖库. 如果你觉得上面下载代码的形式太过繁琐的话, 就可以考虑使用 npm 来安装. </p>
+<p>npm 会在你安装 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">nodejs</a> 时自动拥有, 可以使用 <code>npm -v</code> 命令检查 npm 状态. 下面我们要观察下你的项目有没有 <code>package.json</code> 这个文件, 如果没有的话我们要先使用:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure>
+<p>初始化项目, 需要填一堆信息, 基本上一路回车就可以. 完成之后我们可以去 npm 的网站上搜索下是否存在我们需要的库, 然后用 <code>npm instal xxx --save</code> 命令安装.</p>
+<p>我们还是以 <code>javascript-state-machine</code> 距离, 我们可以找到它在 npm 上的<a href="https://www.npmjs.com/package/javascript-state-machine" target="_blank" rel="external">这个页面</a>, 然后安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install javascript-state-machine --save</div></pre></td></tr></table></figure>
+<p>安装完成后, 我们有了一个新的问题, 如何去 require 这个文件呢 ? 之前源码直接 require 的方式肯定是不行的了, 最终在论坛中找到了<a href="http://forum.cocos.com/t/npm/37930/2?u=justbilt" target="_blank" rel="external">解决方案</a>, 我们需要这样:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> StateMachine <span class="keyword">from</span> <span class="string">"javascript-state-machine"</span>;</div></pre></td></tr></table></figure>
+<h1 id="三-在-TypeScript-中使用-npm-安装的三方库"><a href="#三-在-TypeScript-中使用-npm-安装的三方库" class="headerlink" title="三. 在 TypeScript 中使用 npm 安装的三方库"></a>三. 在 TypeScript 中使用 npm 安装的三方库</h1><p>上面讲的都是 js 的项目, 那么 ts 的项目又该如何搞呢 ? 我们除了 js 中的那些操作外还需要安装一个 ts 的标注库. </p>
+<p>我们先去 <a href="https://microsoft.github.io/TypeSearch/" target="_blank" rel="external">TypeSearch</a> 搜索下是否有我们需要的库的标注库:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fmc08dgaohj30gc07zq3j.jpg" alt=""></p>
+<p>点击后会跳转的 npm 对应的页面, 我们要根据提示安装这个库:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save @types/javascript-state-machine</div></pre></td></tr></table></figure>
+<p>这样我们就可以在 TypeScript 中使用下面代码去 import :</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> StateMachine <span class="keyword">from</span> <span class="string">"javascript-state-machine"</span>;</div></pre></td></tr></table></figure>
+<p>值得一提的是, 这些 @types 的库很多都是大家自己制作后贡献给社区的, 集合在 <a href="https://github.com/DefinitelyTyped/DefinitelyTyped" target="_blank" rel="external">DefinitelyTyped</a> 这个仓库中, 省去了我么自己标注的工作, 感谢这些贡献者们. </p>
+<p>还有一个问题, 这些标注库更新可能落后于原始项目, 因此我们要安装对应版本的原始库才能够正确提示, 对应版本可以在 <code>node_modules/@types/javascript-state-machine/index.d.ts</code> 找到:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// Type definitions <span class="keyword">for</span> Finite State Machine 2.4</div></pre></td></tr></table></figure>
+<p>因此, 我们要安装 <code>javascript-state-machine</code> 需要指定版本:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install javascript-state-machine@2.4 --save</div></pre></td></tr></table></figure>
+<hr>
+<p>以上就是我们安装第三方库的经验, 希望能够帮助到大家. 我们也是才开始使用 Creator, 如果遇到问题, 希望可以和大家多多交流.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;正如知乎&lt;a href=&quot;https://www.zhihu.com/question/66819338/answer/259901965&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;我的这个回答&lt;/a&gt;中所说, 我们开始使用 Cocos Creaor 
+    
+    </summary>
+    
+    
+      <category term="CocosCreaor" scheme="http://blog.justbilt.com/tags/CocosCreaor/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS 打包工具在 XCode9 下的改动</title>
@@ -1431,81 +1480,6 @@
     
     
       <category term="blog" scheme="http://blog.justbilt.com/tags/blog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>充实而又愉快的 2016</title>
-    <link href="http://blog.justbilt.com/2017/02/18/my-2016/"/>
-    <id>http://blog.justbilt.com/2017/02/18/my-2016/</id>
-    <published>2017-02-18T01:39:54.000Z</published>
-    <updated>2017-07-09T03:09:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>以往的年结大家感兴趣的话可以看这里: <a href="http://blog.justbilt.com/categories/%E5%B9%B4%E7%BB%93/">我的年结</a>, 这篇是第四篇了. 我大约是 2012 年正式开始写博客的, 时光荏苒, 已经过去5年了, 期间经历过一次大的迁移, 觉得最开始的博客太没有技术含量, 所以就都丢弃了. </p>
-<p>值得肯定的是, 这次的年结是写的最早的一次 ! (此处应有掌声👏) 拖延病患者的一小步, 社会的一大步 !</p>
-<a id="more"></a>
-<hr>
-<h1 id="一-工作"><a href="#一-工作" class="headerlink" title="一. 工作"></a>一. 工作</h1><h2 id="C-公司-2015-7-今"><a href="#C-公司-2015-7-今" class="headerlink" title="C 公司 (2015.7 ~ 今)"></a>C 公司 (2015.7 ~ 今)</h2><p>算下来, 我在 C 已经呆了一年半多的时间了, 如果要用一个字来形容我的感受, 那就是 <code>爽</code> . 去年我对 C 的介绍并不多, 当时的体验并不久, 今年终于可以来说一说了, 仔细想来 C 这样的团队才是我心目中理想的团队:</p>
-<blockquote>
-<p>不计考勤, 周末双休<br>有一顿免费晚饭, 两大包 3M 口罩, 三个空气净化器<br>技术驱动, 效率优先<br>老板很牛逼, 团队无弱者</p>
-</blockquote>
-<p>这里面最重要的是 <em>老板很牛逼, 团队无弱者</em>, 在 C 你经常可以看到策划同学在改后端战斗逻辑, 测试同学在用按键精灵写自动测试脚本, UE 妹子听得懂程序逻辑还兼着客服+运营, UI 设计师和前端讨论这个界面拼的合理性. 两位老板 (@bin, @jinbo) 更是牛逼, 他们就是我心目中的两尊神, 我就不夸他们了, 免得被认为在吹牛逼.</p>
-<p><img src="https://ww4.sinaimg.cn/large/006tNc79ly1fcufng11glj30zk0qdact.jpg" alt="年中去轰趴"></p>
-<p><img src="https://ww3.sinaimg.cn/large/006tNc79ly1fcufg12hhjj30zk0qo0xq.jpg" alt="年夜饭"></p>
-<p>这一年间, 公司来了一些人, 也走了一些人, 对于有些人还是十分不舍的, 但是每个人都有自己的选择, 强扭的瓜不甜. </p>
-<p>公司年夜饭这一天, 我喝的酩酊大醉, 为现在的这些人, 也为离开那些人 !</p>
-<h1 id="二-技术"><a href="#二-技术" class="headerlink" title="二. 技术"></a>二. 技术</h1><p>关于技术, 这一年没有往广度去发展了, 更多对之前技术的巩固和项目后期的一些理解. 这一年语言的技术栈主要还是 <code>lua + python + shell</code>, lua 用来做项目, python 和 shell 用来写支持.</p>
-<h2 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h2><p>2016 年最大收获之一就是它了, 接触它是一个很机缘巧合事情, 我们打算接入一个崩溃统计的 SDK , 但是这个 SDK 只支持 Android Studio (以后简称 AS) 接入, 我们会为了一个 sdk 改变整个 Android 项目的结构吗 ? 会 . 现在还依稀记得当时十分没底气的很 @bin 说: </p>
-<blockquote>
-<p>“我们能不能换一个 Android 的 ide ?”</p>
-</blockquote>
-<p>当时 Android 端的项目还不是很复杂，在 bin 的支持下，很快便迁移到了 AS ，直到后面我们团队在一周之内接完 30+ 个渠道的 sdk ，才意识到了当初的选择是多么的明智.</p>
-<p>当然这一路并不是顺风顺水，也遇到了很多坑，幸好 Google 在大力推 as ，遇到的坑在 Stack Overflow 上也都有答案。</p>
-<p>感谢 Bugtags ，感谢 Android studio 。关于崩溃统计的问题，我有空会单独开一篇文章来写。</p>
-<h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>就项目来说，也可谓是 “活久见”，我工作了这么多年，第一次走到项目的大后期。之前的项目多数倒在了上线前或上线后不久，没有想到上线后竟然也有这么多的问题。</p>
-<p>也遇到了几次重大的线上事故，可谓是心惊肉跳，我们都开玩笑说公司应该常备速效救心丸。</p>
-<p>优化包体积，优化内存，优化性能 这些之前纸上谈兵的方案也得到了新的诠释。</p>
-<p>而且随着项目的不断推进，之前好多技术方案都不能满足需求，比如热更新，打包，国际化与本地化等等。</p>
-<h2 id="团队"><a href="#团队" class="headerlink" title="团队"></a>团队</h2><p>从 16 年初，我之前和另一人负责的哪个项目遇到挫折，因为收费太过后期，加上模型产品太过强盛，没有发行公司敢于正面怼，所以就搁置了。另一个同事离职，我加入到了公司的另一个项目组内，这是一个非常年轻且有激情的团队，但是大家经验略有不足，便由我这个“老人”来带领这个团队。</p>
-<p>工作了这么久，几乎是第一次正是的带领团队，心中难免戚戚焉。如何快速融入团队并获得大家的认可呢？和 @zengrong 大神的选择类似，</p>
-<blockquote>
-<p>解决一个大家开发过程中的痛点</p>
-</blockquote>
-<p>在负责一个小模块的时候， 我发现项目中有很多相似的控件，每个都得单独做，逻辑冗余且散落的到处都是，为什么不实现一个通用的控件去做呢？细节不赘述，最终这个控件成功的替换了所有的老控件，带来了极大的效率提升。</p>
-<h1 id="三-生活"><a href="#三-生活" class="headerlink" title="三. 生活"></a>三. 生活</h1><h2 id="旅行"><a href="#旅行" class="headerlink" title="旅行"></a>旅行</h2><p>在 16 年春节前，我和媳妇开始我们的 上海-杭州-苏州 之旅，为期 2 周，这个也是我和冰子出去游玩时间最长的一次。</p>
-<p><img src="https://ww2.sinaimg.cn/large/006tNc79ly1fcuzylbg29j30qd0zkjt3.jpg" alt=""></p>
-<p>上海东方明珠外的玻璃栈道, 杭州的汽车真的是会主动让行人的, 苏州街边的点心真的很精致. 世界这么大, 出去走走真是好.</p>
-<h2 id="学车"><a href="#学车" class="headerlink" title="学车"></a>学车</h2><p>很早之前就报名了，一直没有狠下心来去学，还一直拿工作忙没时间来搪塞冰子。</p>
-<p>直到冰子一气之下直接给我报了名，我才开始拿起手机背题，这里真的要感谢《驾考宝典》这个 APP ，它上面的易错题非常牛逼，考试的时候几乎都碰上了，就这样轻松通过科目一。</p>
-<p><img src="https://ww2.sinaimg.cn/large/006tNc79ly1fcuzlkei9nj30zk0qon0u.jpg" alt=""></p>
-<p>科目二的时候十分艰苦，我们报的周末上午班，每天5点就要起床，有一个多月的时间的周末早晨都是在班车上度过的。科目二考试的时候因为车型的原因差点没有过，好险！</p>
-<p>科目三很简单，过不过很多时候不是由自己决定的，只要科目二学的够扎实，下面就可以交给命运了，我很幸运，一次就过了。</p>
-<p>科目四同样很简单，满分难，通过却很容易。</p>
-<p>就这样，历时两个月，我成功拿到之前根本没有想到的驾照。而冰子，她还挂在科目二呢，哈哈哈，嘲笑她一把。</p>
-<h2 id="背单词"><a href="#背单词" class="headerlink" title="背单词"></a>背单词</h2><p>我大概是在 16 年初突然决定背单词的，原因我已经记不清楚了。从此，早晨公交车上，公司厕所内，晚上等车时，你都会看到一个在背单词的身影。</p>
-<p>作为一个花了好多钱学英语报班都没有坚持下来的愿望，这次真的能够成功吗？</p>
-<p><img src="https://ww1.sinaimg.cn/large/006tNc79ly1fcuzpmd3y5j30k00zkgnl.jpg" alt=""></p>
-<p>这次能坚持，完全归功于《百词斩》，宏爷很早之前就给我安利过这款产品，当时功能还很简陋，没有坚持下来。</p>
-<p>背单词对我的帮助十分大，现在我已经可以很简单的浏览 Stack Overflow 了，能看懂每一个答案在说什么，甚至已经可以自己去回答帮助别人了。</p>
-<h2 id="生日"><a href="#生日" class="headerlink" title="生日"></a>生日</h2><p>这一年最大惊喜就是冰子为我准备的生日派对, 我从小都没有这样过过生日. </p>
-<p><img src="https://ww2.sinaimg.cn/large/006tNc79ly1fcv02ph5dzj30zk0qowgn.jpg" alt=""></p>
-<p>虽然很朴素, 但可以看到用了很多心, 听说冰子吹气球吹的腮帮疼, 哈哈 , 好傻 ! 谢谢你, 老婆, 永远爱你 !</p>
-<h1 id="四-剁手"><a href="#四-剁手" class="headerlink" title="四. 剁手"></a>四. 剁手</h1><h2 id="小米圈铁耳机"><a href="#小米圈铁耳机" class="headerlink" title="小米圈铁耳机"></a>小米圈铁耳机</h2><p><img src="https://ww2.sinaimg.cn/large/006tNc79ly1fcuxwqotzcj30qd0zkq4e.jpg" alt=""></p>
-<p>上一个耳机 KOSS PORTAPRO 挂掉之后, 就不打算买头戴式的了, 麻烦不说还容易坏. 在微博上看到谁说这个耳机还不错, 便入手了. 总体来说, 算不上惊艳, 但还算好用, 毕竟 <code>99</code> 的价位也不会对它有什么过分的要求.</p>
-<h2 id="小米max"><a href="#小米max" class="headerlink" title="小米max"></a>小米max</h2><p><img src="https://ww4.sinaimg.cn/large/006tNc79ly1fcuzds4awbj30zk0qota8.jpg" alt=""></p>
-<p>买的时候想的很好, 大屏可以用来看书, 实际却很少看书. 总而言之, 质量没的说, 我对小米的手机就没有失望过, 但是大屏单手操作还是有所不便, 买的时候还是要慎重一些.</p>
-<hr>
-<p>总而言之, 这是充实而又愉快的 2016 年, 工作和家庭都很顺心, 希望 17 年能继续保持下去. </p>
-]]></content>
-    
-    <summary type="html">
-    
-      又到了一年树新风(tree new bee)的时候啦
-    
-    </summary>
-    
-    
-      <category term="年结" scheme="http://blog.justbilt.com/tags/%E5%B9%B4%E7%BB%93/"/>
     
   </entry>
   
