@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Archives: 2017 | Justbilt</title>
+  <title>用 python 撸一个 ccbwriter | Justbilt</title>
   <meta name="description" content="A game developer" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,16 +12,18 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Justbilt">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="A game developer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Justbilt">
-<meta property="og:url" content="http://blog.justbilt.com/archives/2017/index.html">
+  <meta name="description" content="之前可能和大家说过我们项目的 UI 编辑器是上古神器 CocosBuilder, 这个编辑器的诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 确实是 cocos 发展史上重要的转折点, 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线. 尽管在今天, CocosBuilder 想比于已经死掉的 CocosStudio, 甚">
+<meta name="keywords" content="Python,CocosBuilder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 python 撸一个 ccbwriter">
+<meta property="og:url" content="http://blog.justbilt.com/2017/12/17/python-ccbwriter/index.html">
 <meta property="og:site_name" content="Justbilt">
-<meta property="og:description" content="A game developer">
+<meta property="og:description" content="之前可能和大家说过我们项目的 UI 编辑器是上古神器 CocosBuilder, 这个编辑器的诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 确实是 cocos 发展史上重要的转折点, 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线. 尽管在今天, CocosBuilder 想比于已经死掉的 CocosStudio, 甚">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-18T15:02:18.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Justbilt">
-<meta name="twitter:description" content="A game developer">
+<meta name="twitter:title" content="用 python 撸一个 ccbwriter">
+<meta name="twitter:description" content="之前可能和大家说过我们项目的 UI 编辑器是上古神器 CocosBuilder, 这个编辑器的诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 确实是 cocos 发展史上重要的转折点, 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线. 尽管在今天, CocosBuilder 想比于已经死掉的 CocosStudio, 甚">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -132,31 +134,26 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        
-  
-  <script>
-    window.subData= { title:"Year : 2017"}
-  </script>
-
-<section class="post-list">
+        <article id="post-python-ccbwriter"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2017/12/17/python-ccbwriter/">
+    	用 python 撸一个 ccbwriter
+    </a>
+  </h2>
+	<time>
+	  12月 17, 2017
+	</time>
 	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/12/17/python-ccbwriter/">
-        用 python 撸一个 ccbwriter
-      </a>
-    </h2>
-    
-    <time>
-      12月 17, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>之前可能和大家说过我们项目的 UI 编辑器是上古神器 <a href="https://github.com/cocos2d/CocosBuilder" target="_blank" rel="noopener">CocosBuilder</a>, 这个编辑器的诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 确实是 cocos 发展史上重要的转折点, 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线.</p>
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-使用-python-plistlib-库解析"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x4E00;-&#x4F7F;&#x7528;-python-plistlib-&#x5E93;&#x89E3;&#x6790;" class="headerlink" title="&#x4E00;. &#x4F7F;&#x7528; python plistlib &#x5E93;&#x89E3;&#x6790;"></a>&#x4E00;. &#x4F7F;&#x7528; python plistlib &#x5E93;&#x89E3;&#x6790;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-浮点数精度问题"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#1-&#x6D6E;&#x70B9;&#x6570;&#x7CBE;&#x5EA6;&#x95EE;&#x9898;" class="headerlink" title="1. &#x6D6E;&#x70B9;&#x6570;&#x7CBE;&#x5EA6;&#x95EE;&#x9898;"></a>1. &#x6D6E;&#x70B9;&#x6570;&#x7CBE;&#x5EA6;&#x95EE;&#x9898;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-空的-array-和-dict"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#2-&#x7A7A;&#x7684;-array-&#x548C;-dict" class="headerlink" title="2. &#x7A7A;&#x7684; array &#x548C; dict"></a>2. &#x7A7A;&#x7684; array &#x548C; dict</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-改造-plistlib"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x4E8C;-&#x6539;&#x9020;-plistlib" class="headerlink" title="&#x4E8C;. &#x6539;&#x9020; plistlib"></a>&#x4E8C;. &#x6539;&#x9020; plistlib</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>之前可能和大家说过我们项目的 UI 编辑器是上古神器 <a href="https://github.com/cocos2d/CocosBuilder" target="_blank" rel="noopener">CocosBuilder</a>, 这个编辑器的诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 确实是 cocos 发展史上重要的转折点, 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线.</p>
 <p>尽管在今天, CocosBuilder 想比于已经死掉的 CocosStudio, 甚至于 Cocos 现在大力推广的 CocosCreator 都有一些难以替代的理由, 尤其是在开源和稳定性方面. 我们也不例外, 现在仍有多款项目在使用这个编辑器, 单个项目 CocosBuilder 的界面 ccb 文件数量最高在 500+, 这对于维护这些界面的美术同学是一个很大的挑战. 为了不让可爱的美术妹子疲于奔命, 我们程序组自然要贡献我们的一份力量, 写一些批处理的脚本, 解决那些无脑但是会大量重复的工作, 拯救妹子们与水火之中.</p>
 <p>在写脚本的过程中, 不免要和 ccb 文件打交道, 这种文件的典型格式是这样的:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>CocosBuilder<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>fileVersion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">integer</span>&gt;</span>4<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>guides<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">key</span>&gt;</span>position<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">real</span>&gt;</span>-2346<span class="tag">&lt;/<span class="name">real</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>jsControlled<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>nodeGraph<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>baseClass<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>CCNode<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>children<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>customClass<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span><span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>displayName<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>CCNode<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -190,11 +187,9 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plist = readPlist(<span class="string">"/path/of/you/ccb"</span>)</span><br><span class="line"><span class="keyword">print</span> plist.guides[<span class="number">0</span>].position</span><br><span class="line"><span class="keyword">print</span> plist.guides[<span class="number">0</span>].position.float()</span><br><span class="line">plist.guides[<span class="number">0</span>].position = <span class="number">5.5</span></span><br><span class="line"><span class="keyword">print</span> plist.guides[<span class="number">0</span>].position</span><br><span class="line">writePlist(plist, ccb)</span><br></pre></td></tr></table></figure>
 <p>测试代码当然少不了啦, 感觉自己棒棒哒, 晚饭申请加个🍗. </p>
 
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+  	</div>
+	  
+	  <div class="article-tags tags">
       
         <a href="/tags/Python/">Python</a>
       
@@ -202,824 +197,19 @@
       
 	  </div>
     
-  </section>
+	</section>
+	
+		<section id="comments">
+			<div id="disqus_thread"></div>
+		</section>
+	
 </article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/12/10/creator-add-package/">
-        如何为 Creator 添加 js/ts 第三方库支持
-      </a>
-    </h2>
-    
-    <time>
-      12月 10, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>正如知乎<a href="https://www.zhihu.com/question/66819338/answer/259901965" target="_blank" rel="noopener">我的这个回答</a>中所说, 我们开始使用 Cocos Creaor 开发新的项目, 所以以后这个博客会陆续开始更新一些 Creator 相关的文章.</p>
-<p>我们在项目开发的过程中, 肯定会遇到一些项目间通用的需求, 比如 <code>压缩/加密</code> 之类的, 我们当然可以自己实现一个, 但更好的做法是找找网上有没有别人实现好的库直接拿来用, 今天我们就来看看如何为 Creator 添加添加 js/ts 第三方库支持.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/12/10/creator-add-package/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/CocosCreaor/">CocosCreaor</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/12/02/xcode9-package-tools/">
-        iOS 打包工具在 XCode9 下的改动
-      </a>
-    </h2>
-    
-    <time>
-      12月 2, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>相信大家都会用到 iOS 的自动打包工具, 而不是每次都是通过 XCode 的 Archive 后手动导出的, 那样效率低下不说还增加出错的可能.</p>
-<p>我们团队也是如此, 用 Python 搞了一套打包工具, 这套工具的核心是 XCode 附带的命令行工具 <code>xcodebuild</code>, 网上其他开源的打包工具也都大同小异. 这套工具自诞生以来一直运行的很稳定, 累计为我们打了数百个包, 为团队节省的时间估计也在数千分钟了.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/12/02/xcode9-package-tools/">Read More</a>
-    </div>
-    
-    
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/11/19/upgrad-spine-runtime-2/">
-        更新 spine 的 cocos2d-x runtimes (二)
-      </a>
-    </h2>
-    
-    <time>
-      11月 19, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>前段时间一个朋友向我咨询播放 spine 动画时遇到的问题:</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1flngumf7luj30ht04mq41.jpg" alt=""></p>
-<p>这个问题我们在很久之前也遇到过, 当时是另个一小伙伴负责的. 当时猜测可能是 <code>spine runtimes</code> 需要升级, 但是升级时遇到了技术问题, 恰好项目比较紧, 便让美术同学重新用老版的 Spine 编辑器重新做了一遍.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/11/19/upgrad-spine-runtime-2/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/cocos2d-x/">cocos2d-x</a>
-      
-        <a href="/tags/spine/">spine</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/11/17/quick-x-mi-mix-support/">
-        Quick-cocos2d-x 小米 Mix 全面屏适配
-      </a>
-    </h2>
-    
-    <time>
-      11月 17, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>有玩家反馈我们的游戏在 Mix 上面无法全屏显示, 上下会有黑边. 搜索了下, 网上还没有绍如何适配的相关文章, 这里介绍下我们是如何做的.</p>
-<p>我们可以在看看小米官方<a href="https://dev.mi.com/doc/p=10083/index.html" target="_blank" rel="noopener">对全面屏适配工作的介绍</a>:</p>
-<blockquote>
-<p>这些变化也影响了手机软件的设计，最值得开发者关注的，是以下两点：</p>
-<ol>
-<li>更大的屏幕高宽比</li>
-<li>虚拟导航键</li>
-</ol>
-</blockquote>
-
-    
-	  <div class="readmore">
-      <a href="/2017/11/17/quick-x-mi-mix-support/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/Android/">Android</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/10/09/feed-hexo-themes-page/">
-        订阅 Hexo 的主题页
-      </a>
-    </h2>
-    
-    <time>
-      10月 9, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>作为一个经常换博客主题的人, 时不时的就会去 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">Hexo 的主题页</a> 逛逛, 看看有什么新的主题, 膜拜下大触们的作品.</p>
-<p>比较麻烦的是这个页面并不是按照更新时间排序的, 也没有提供按时间排序的功能, 所以只能靠记忆力了. 这样很容易错过新的主题, 而且每次都是从头找起, 效率极低.</p>
-<p>我自己是一个 Feed 的重度用户, 几乎是我扩展学习的唯一途径. 那么能不能将这个界面做成一个订阅源呢? </p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/10/09/feed-hexo-themes-page/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/blog/">blog</a>
-      
-        <a href="/tags/hexo/">hexo</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/10/02/electron-builder-dependencies/">
-        解决 electron-builder 打包依赖问题
-      </a>
-    </h2>
-    
-    <time>
-      10月 2, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>大概是三个月前, 写了 <a href="/2017/07/09/convert2fnt-electron-rewrite">使用 Electron 重写 convert2fnt</a> 这篇文章, 文章大概讲了我用 Electron 重写之前的一个 BMFont 字体生成工具的事情.</p>
-<p>开发的过程还是比较顺利的, Node.js 的生态非常给力, 加上 Chrome, VSCode 加持, 开发和调试都很爽. 但由于我没有 WEB 开发的基础, 整过过程只能摸索加网上查资料, 中间之曲折, 自不足为外人道也, 但最终磕磕绊绊的也算搞出来了.</p>
-<p>呃, 其实也没有那么完美. </p>
-<blockquote>
-<p>Windows 版打包后发现运行不太正常, 但 Win 开发版以及 Mac 开发/发布版都运行正常.</p>
-</blockquote>
-<p>有些诡异, 不过我自己只在 Mac 上使用, 加上工作比较忙, 便搁置了起来. 但谁愿意在自己头上悬在一把利剑呢, 万一哪天着急用 Win 版的怎么办.</p>
-<p>趁着国庆放假还没有什么安排的时候, 赶紧搞一下.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/10/02/electron-builder-dependencies/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/convert2fnt/">convert2fnt</a>
-      
-        <a href="/tags/Electron/">Electron</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/09/10/quick-x-make-package-speedup/">
-        Quick-cocos2d-x 编译 Lua 代码加速
-      </a>
-    </h2>
-    
-    <time>
-      9月 10, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>quick-x 在手机上运行的时候并不是加载项目的 Lua 的源码, 而是一个名为 <code>game.zip</code> 的压缩包. 当项目中的 Lua 文件越来越多的时候, 生成这个 game.zip 的时间会越来越久.</p>
-<p>我们目前的项目有 <code>1256</code> 个 Lua 文件, 每次执行编译操作需要耗时将近 40 秒的时间:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time <span class="variable">$QUICK_V3_ROOT</span>/quick/bin/compile_scripts.sh -q -i ../src -o ../res/game.zip -e xxtea_zip -ek xxxx -es xxx</span><br><span class="line">---</span><br><span class="line">real    0m38.603s</span><br><span class="line">user    0m25.792s</span><br><span class="line">sys     0m3.369s</span><br></pre></td></tr></table></figure>
-<p>尤其是当需要在手机上调试 Lua 代码的时候, 每改一次代码就需要运行一次这个命令, 然后 40 秒就过去了, 你恐怕都忘记自己该关注什么改动了吧!</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/09/10/quick-x-make-package-speedup/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/Lua/">Lua</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/09/03/serialize-lua-in-pyhton/">
-        将 python 数据转化为 lua 格式
-      </a>
-    </h2>
-    
-    <time>
-      9月 3, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>我们团队的技术栈是: <code>Lua + Python</code>, 前端采用 Lua 写项目, Python 做工具支持, 而后端则采用纯 Python 开发, 所以会经常遇到 Python 和 Lua 数据的转化.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/09/03/serialize-lua-in-pyhton/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Lua/">Lua</a>
-      
-        <a href="/tags/Python/">Python</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/08/25/webview-like-lswz/">
-        手撸一个像《乱世王者》那样的 WebView
-      </a>
-    </h2>
-    
-    <time>
-      8月 25, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. </p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fj3pcpg3k8j31kw0xw4qp.jpg" alt=""></p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/08/25/webview-like-lswz/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/WebView/">WebView</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/07/23/integrate-google-iab/">
-        聊聊 Google 支付的那些事
-      </a>
-    </h2>
-    
-    <time>
-      7月 23, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>在之前的文章中, 有很多篇都是很 Apple IAP 相关的, 而 Google IAB 的却一篇都没有, 这对于占了半壁江山的 Android 很不公平.</p>
-<p>就作为一个开发者而言, IAB 的体验是比 IAP 要好的. 它体现在这么几个方面:</p>
-<ol>
-<li>测试账号就是 Goolge 账号, 不像苹果那样是沙盒账号. 这样不同账号下的应用可以设置同一个测试账号, 避免来回切换账号.</li>
-<li>支持退款查询. 在苹果上, 只能吃了这个哑巴亏.</li>
-</ol>
-<p>但是 IAB 也有一些不太便利的地方, 后面我们会讨论它.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/07/23/integrate-google-iab/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Android/">Android</a>
-      
-        <a href="/tags/IAB/">IAB</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/07/16/ios-dev-tips-5/">
-        最近搞 iOS 版遇到的一些问题和技巧 (五)
-      </a>
-    </h2>
-    
-    <time>
-      7月 16, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>这段时间又积攒下了不少的技巧和解决方案, 感觉 XCode 越来越牛逼了, 尤其是在应用的账号设置方面, 之前遇到的一些低级问题可能已经不复存在了.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/07/16/ios-dev-tips-5/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/iOS/">iOS</a>
-      
-        <a href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/07/09/convert2fnt-electron-rewrite/">
-        使用 Electron 重写 convert2fnt
-      </a>
-    </h2>
-    
-    <time>
-      7月 9, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>大概是 14 年 2 月份的时候, 我使用刚学会 Python 写了一个小工具: <a href="https://github.com/justbilt/convert2fnt" target="_blank" rel="noopener">convert2fnt</a>, 为此还写了一篇文章 <a href="/2014/02/01/images_to_bmfont/">将一堆图片转化为BMFont工具</a> 介绍这个工具. 它的主要应用场景是这个样子的:</p>
-<blockquote>
-<p>美术妹子出了一堆图片字, 但是在程序中使用 BMFont 是更加方便的, 这个时候你可以强硬的要求美术妹子重新用 Glyphdesigner 制作一份字体. 但是也可以很温柔的告诉她: “你先去忙吧, 剩下的交给我了.”, 然后在妹子崇拜的目光下, 转身离去, 深藏功与名. </p>
-</blockquote>
-
-    
-	  <div class="readmore">
-      <a href="/2017/07/09/convert2fnt-electron-rewrite/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/convert2fnt/">convert2fnt</a>
-      
-        <a href="/tags/Electron/">Electron</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/06/18/refine-game-ios-iap/">
-        优化游戏在 iOS 上的内购
-      </a>
-    </h2>
-    
-    <time>
-      6月 18, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>首先我们看下 iOS 内购的流程, 让我们看下官方的的流程图:</p>
-<p><img src="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Art/remote_store_fetch_2x.png" alt=""></p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/06/18/refine-game-ios-iap/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/iOS/">iOS</a>
-      
-        <a href="/tags/IAP/">IAP</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/06/03/quick-x-i18n/">
-        Quick-cocos2d-x 中的多语言
-      </a>
-    </h2>
-    
-    <time>
-      6月 3, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>其实本来我的标题是 “Quick-cocos2d-x 中的国际化与本地化”, 多语言虽然是其中的主要内容, 但还有很多额外的工作.</p>
-<p>比如: 在韩国上线的游戏必须在游戏第一次启动时弹出一个内容十分长的用户协议, 用户同意后方可继续游戏; 比如很多赌博性质的活动(抽奖, 拉霸, 转盘)都需要修改为其他表现形式. 还有一些技术方面的要求比如游戏用户的数据不能存在 cache 目录下等等.</p>
-<p>每个国家和地区的要求都不尽相同, 有的是硬性的法律法规要求, 有的则是照顾到当地风俗习惯以提高用户体验. 当然, 这些并不在我们这次讨论范畴之内, 等我们的经历足够丰富之后可以再次和大家分享一下.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/06/03/quick-x-i18n/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/i18n/">i18n</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/04/23/quick-x-user-avatar/">
-        Quick-cocos2d-x 自定义头像
-      </a>
-    </h2>
-    
-    <time>
-      4月 23, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>前段时间我们团队实现了游戏中自定义头像模块, 这是一个比较有意思的功能, 加上网上这方面的资料也不多, 所以给大家分享下我们的做法. </p>
-<p>自定义头像这个功能牵扯到的内容还是比较多的, 一个人做的话需要技术储备比较大, 因此我们将这个任务做了如下的拆分:</p>
-<ol>
-<li>选择头像</li>
-<li>上传头像</li>
-<li>下载头像</li>
-<li>显示头像</li>
-</ol>
-<p>每个人负责其中的一小部分内容, 再把这些小模块组合起来就完成了任务. </p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/04/23/quick-x-user-avatar/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/04/12/the-git-for-neat-freak/">
-        洁癖患者的 Git GUI 指南
-      </a>
-    </h2>
-    
-    <time>
-      4月 12, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>前段时间我看到了一篇文章, <a href="http://hungyuhei.github.io/2012/08/07/better-git-commit-graph-using-pull---rebase-and-merge---no-ff.html" target="_blank" rel="noopener">洁癖者用 Git：pull –rebase 和 merge –no-ff</a> , 发现和我们目前的工作流程很像, 区别在于我们是使用 GUI 工具来做的这些, 也做了一些新的尝试.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/04/12/the-git-for-neat-freak/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/neat-freak/">neat-freak</a>
-      
-        <a href="/tags/git/">git</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/03/25/bye-duoshuo-bye-comment/">
-        多说, 再见 !
-      </a>
-    </h2>
-    
-    <time>
-      3月 25, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>大约是在前几天刷微博的时候看到有人说多说要关站了, 赶紧去备份评论 balabala … , 难以置信, 赶紧去我的邮箱找了下, 果然找到了这封邮件:</p>
-<p><img src="https://ww3.sinaimg.cn/large/006tNbRwly1fdyu57rth7j30pi08bab4.jpg" alt=""></p>
-<p>震惊 !!! 依然难以置信 !!!</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/03/25/bye-duoshuo-bye-comment/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/blog/">blog</a>
-      
-        <a href="/tags/duoshuo/">duoshuo</a>
-      
-        <a href="/tags/comment/">comment</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/03/12/ios-dev-tips-4/">
-        最近搞 iOS 版遇到的一些问题和技巧 (四)
-      </a>
-    </h2>
-    
-    <time>
-      3月 12, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>这是这半年搞 iOS 时遇到的一些问题, 写下来, 希望会帮到大家. 因为时间精力有限, 有些问题, 并没有解决方案, 只是饶了过去.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/03/12/ios-dev-tips-4/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/iOS/">iOS</a>
-      
-        <a href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/03/04/quick-x-oop/">
-        Quick-Cocos2d-x 中的面向对象
-      </a>
-    </h2>
-    
-    <time>
-      3月 4, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>虽说现在一直提倡组合优于继承, 但是我们这帮深受 c++ 毒害的大好青年还是对继承有着深深的感情. Lua 这门语言本身并没有提供面向对象的机制, 不过我们可以很容易的通过 Lua 的 metatable 来实现一套面向对象的机制.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/03/04/quick-x-oop/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/02/24/some-change-for-blog/">
-        最近博客的一些变化
-      </a>
-    </h2>
-    
-    <time>
-      2月 24, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>虽然最近博客的产量不高, 但是折腾的比较多. 而且每次折腾完都会有一些新的素材, 这样又可以对付一篇博客出来啦. 逃)</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/02/24/some-change-for-blog/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/blog/">blog</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/02/18/my-2016/">
-        充实而又愉快的 2016
-      </a>
-    </h2>
-    
-    <time>
-      2月 18, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>以往的年结大家感兴趣的话可以看这里: <a href="http://blog.justbilt.com/categories/%E5%B9%B4%E7%BB%93/">我的年结</a>, 这篇是第四篇了. 我大约是 2012 年正式开始写博客的, 时光荏苒, 已经过去5年了, 期间经历过一次大的迁移, 觉得最开始的博客太没有技术含量, 所以就都丢弃了. </p>
-<p>值得肯定的是, 这次的年结是写的最早的一次 ! (此处应有掌声👏) 拖延病患者的一小步, 社会的一大步 !</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/02/18/my-2016/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/年结/">年结</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-</section>
-
-
+<script>
+	window.subData = {
+		title: '用 python 撸一个 ccbwriter',
+		tools: true
+	}
+</script>
 
       </div>
       <aside class='l_side'>
@@ -1081,11 +271,13 @@
 <script>
   var disqus_shortname = 'justbilt';
   
+  var disqus_url = 'http://blog.justbilt.com/2017/12/17/python-ccbwriter/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
