@@ -71,6 +71,7 @@ category_generator:
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: material-flow
+# theme: inside
 
 search:
   path: search.xml
