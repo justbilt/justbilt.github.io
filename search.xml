@@ -4,9 +4,12 @@
   
     
     <entry>
-      <title><![CDATA[中搞 CocosCreaor 遇到的问题及解决方案]]></title>
+      <title><![CDATA[最近使用 CocosCreaor 遇到的问题及解决方案]]></title>
       <url>http://blog.justbilt.com/2018/02/03/creator-tips/</url>
-      <content type="html"><![CDATA[<h1 id="Web-篇"><a href="#Web-篇" class="headerlink" title="Web 篇"></a>Web 篇</h1><blockquote>
+      <content type="html"><![CDATA[<p>最近两个月, 我们一直在用 CocosCreator 做一个休闲游戏, 在享受 Creator 高效的过程中我们也遇到了这样那样的问题. 有些问题是我们的用法不正确, 有些则是引擎和编辑器的 bug, 好在这些问题基本上都解决了. </p>
+<p>今天我和大家分享下我们团队在使用 CocosCreaor 遇到的问题及解决方案.</p>
+<a id="more"></a>
+<h1 id="Web-篇"><a href="#Web-篇" class="headerlink" title="Web 篇"></a>Web 篇</h1><blockquote>
 <p>Failed to load resource: net::ERR_BLOCKED_BY_CLIENT</p>
 </blockquote>
 <p>解决方案:<br>如果你的浏览器装了广告过滤插件的话, 可能是某个文件拦截了, 在这个页面上停用广告拦截插件就行了.</p>
@@ -4603,6 +4606,12 @@
     
     <entry>
       <title></title>
+      <url>http://blog.justbilt.com/googlef3029a61316e334f.html</url>
+      <content type="html"><![CDATA[google-site-verification: googlef3029a61316e334f.html]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
       <url>http://blog.justbilt.com/404.html</url>
       <content type="html"><![CDATA[<!DOCTYPE html>
 <html lang="en">
@@ -4730,12 +4739,6 @@
     </div>
 </body>
 </html>]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>http://blog.justbilt.com/googlef3029a61316e334f.html</url>
-      <content type="html"><![CDATA[google-site-verification: googlef3029a61316e334f.html]]></content>
     </entry>
     
     <entry>
