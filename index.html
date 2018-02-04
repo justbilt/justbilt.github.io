@@ -140,6 +140,165 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2018/02/03/creator-tips/">
+        中搞 CocosCreaor 遇到的问题及解决方案
+      </a>
+    </h2>
+    
+    <time>
+      2月 3, 2018
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <h1 id="Web-篇"><a href="#Web-篇" class="headerlink" title="Web 篇"></a>Web 篇</h1><blockquote>
+<p>Failed to load resource: net::ERR_BLOCKED_BY_CLIENT</p>
+</blockquote>
+<p>解决方案:<br>如果你的浏览器装了广告过滤插件的话, 可能是某个文件拦截了, 在这个页面上停用广告拦截插件就行了.</p>
+<blockquote>
+<p>No ‘Access-Control-Allow-Origin’ header is present on the requested </p>
+</blockquote>
+<p>解决方案:<br>跨域问题, 如果是在开发阶段遇到的话, 我们可以先尝试绕过这个问题. 常用的方案有两个:</p>
+<ol>
+<li>使用 Chrome 插件</li>
+<li>启动 Chrome 时加入允许跨域的参数</li>
+</ol>
+<p>可以参考<a href="https://hectorguo.com/zh/cross-origin-solve/" target="_blank" rel="noopener">这篇</a>进行配置, 第一个方案有时候会失效, 还是第二个方案最稳妥.</p>
+<blockquote>
+<p>Can not find deps [xxx] for path : preview-scripts/assets/Script/xxx.js</p>
+</blockquote>
+<p>解决方案:<br>浏览器提示找不到某个文件, 其实是有两个重名的文件放在不同的目录, 改成不一样的文件名就好了.</p>
+<h1 id="Native-篇"><a href="#Native-篇" class="headerlink" title="Native 篇"></a>Native 篇</h1><blockquote>
+<p>调用 Objc 函数失败, 提示找不到函数</p>
+</blockquote>
+<p>解决方案:<br>Objc 函数如果有任何参数的话, 函数名称最后都要加 <code>:</code>, quick 之前是自动补了这个. Objc 函数不支持 NSObject 类型, 只支持基本类型, 之前 quick 都是通过 NSDictory 进行传参的.</p>
+<blockquote>
+<p>iOS 运行无日志输出</p>
+</blockquote>
+<p>解决方案:<br>binary 模板生成的 iOS 工程出错后没有堆栈信息, 换成了 link/default 模板就解决了, 推测可能是 <code>binary</code> 模板使用的是 Reaease 版的配置编译出的 <code>.a</code>, 因此没有日志.</p>
+<blockquote>
+<p>Android Studio 调试启动很慢</p>
+</blockquote>
+<p>将下图这里改成 <code>Java</code> 就好了, 只是不能 debug c++ 代码了.</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo332dei7nj31kw12178h.jpg" alt=""></p>
+<blockquote>
+<p>error: undefined reference to ‘bsd_signal’</p>
+</blockquote>
+<p>解决方案：<br>修改 gradle.properties:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROP_TARGET_SDK_VERSION=<span class="number">10</span> <span class="comment">//21 就会报上面的错误</span></span><br></pre></td></tr></table></figure>
+<h1 id="Web-和-Native-API-适配篇"><a href="#Web-和-Native-API-适配篇" class="headerlink" title="Web 和 Native API 适配篇"></a>Web 和 Native API 适配篇</h1><blockquote>
+<p>atob 和 btoa</p>
+</blockquote>
+<p>这两个 API 只有 web 上有, Native 上没有, 只能自己实现, 我是使用 cryto.js 实现的:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">base64Encode</span>(<span class="params">str: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(str));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">base64Decode</span>(<span class="params">str: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> CryptoJS.enc.Base64.parse(str).toString(CryptoJS.enc.Utf8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>cc.log </p>
+</blockquote>
+<p>在 Native 上无法输出 Object 类型的变量, 可以利用 Json 自己实现:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _log = cc.log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cc.sys.isNative) &#123;</span><br><span class="line">    <span class="comment">// tslint:disable-next-line:only-arrow-functions</span></span><br><span class="line">    cc.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> arg = [];</span><br><span class="line">        <span class="comment">// tslint:disable-next-line:prefer-for-of</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> index = <span class="number">0</span>; index &lt; <span class="built_in">arguments</span>.length; index++) &#123;</span><br><span class="line">            <span class="keyword">const</span> element = <span class="built_in">arguments</span>[index];</span><br><span class="line">            <span class="keyword">switch</span> (<span class="keyword">typeof</span> element) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"object"</span>:</span><br><span class="line">                    arg.push(<span class="built_in">JSON</span>.stringify(element));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    arg.push(element);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        _log(arg.join(<span class="string">" "</span>));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>WebSocket/XMLHttpRequest</p>
+</blockquote>
+<p>OPEN/CONNECTING/CLOSING/CLOSED 属性在 Native 无定义, 自己实现:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">enum</span> SocketStatus &#123;</span><br><span class="line">    OPEN =  <span class="number">1</span>,</span><br><span class="line">    CONNECTING =  <span class="number">2</span>,</span><br><span class="line">    CLOSING =  <span class="number">3</span>,</span><br><span class="line">    CLOSED =  <span class="number">4</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理, XMLHttpRequest.DONE(4) 也是没有定义的, 得自己定义或者直接写数字.</p>
+<blockquote>
+<p>unschedule</p>
+</blockquote>
+<p>unschedule 在 Native 时会额外判断 <code>__callbackId</code>, 这个id是在调用 schedule 时赋值的, 所以以下做法会出错:</p>
+<ol>
+<li>schedule 时传入 <code>this.xxx.bind(this)</code></li>
+<li>unschedule 先于 schedule 执行</li>
+</ol>
+<p>schedule 函数没有返回 handle, 因此没有办法判断是否 schedule 过, 所以还是用 update 来做计时器.</p>
+<blockquote>
+<p>JS Exception: null is not a function, file: <no filename="">, lineno: 0</no></p>
+</blockquote>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.director.getScheduler().scheduleUpdate(this, 1, false, this.onTimer);</span><br></pre></td></tr></table></figure>
+<p>如果 this 不是继承自 <code>cc.Component</code> 的话就会持续的触发这个错误.</p>
+<h1 id="诡异现象篇"><a href="#诡异现象篇" class="headerlink" title="诡异现象篇"></a>诡异现象篇</h1><blockquote>
+<p>工程怎么同步都不是最新的代码, 控制台看到了 <code>会话过期</code> 字样</p>
+</blockquote>
+<p>解决方案：<br>重启 Creator , 猜测是在 git pull 的同时打开了 creator 的原因</p>
+<blockquote>
+<p>启动后游戏背景是蓝色的</p>
+</blockquote>
+<p>解决方案：<br>之前从测试用例工程拷贝过来的 <code>cases-settings.js</code> 中设置了清屏颜色, </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.director.setClearColor( cc.hexToColor(<span class="string">'#2f69d2'</span>) );</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Creator 打开项目卡死</p>
+</blockquote>
+<p>解决方案：<br>把整个 assets 目录清空, 能够打开了. 随后通过 git 还原 assets 目录, 就可以正常打开了. 详细过程可以看我在论坛中发的<a href="http://forum.cocos.com/t/1-6-2-mac/54449" target="_blank" rel="noopener">这篇帖子</a>.</p>
+<blockquote>
+<p>preloadScene 调用后 http 请求收不到 response</p>
+</blockquote>
+<p>解决方案：<br>c++ 侧断点跟踪后, 确实是收到 Response 了, 但是没有调用到 js 这边, 将 <code>onreadystatechange</code> 事件由匿名函数改为成员函数后解决.</p>
+<blockquote>
+<p>localStorage 无法保存存档</p>
+</blockquote>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.sys.localStorage.setItem(“storage&quot;, &quot;world&quot;);</span><br></pre></td></tr></table></figure>
+<p>经过排查, 是某些特殊关键字无法存储成功成功, 设置后本次回话有效, 关闭标签后再打开就没有了, 换一个 key 就好了.</p>
+<h1 id="认知篇"><a href="#认知篇" class="headerlink" title="认知篇"></a>认知篇</h1><ol>
+<li>Event 不能持有对象, 因为 EventPool, 你持有的对象属性会发生变化.</li>
+<li>在 onLoad 之前 active 置为 false 将导致不会触发 onLoad 事件, 直到下次 avtive 为 true 时才会触发.</li>
+<li>动画时间轴, 并不是不等分, 而是前面是秒数, 后面是帧数, 30 就是 1 秒的一半.</li>
+</ol>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/CocosCreaor/">CocosCreaor</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2017/12/24/serialize-typescript-in-pyhton/">
+        将 python 数据转化为 TypeScript 格式
+      </a>
+    </h2>
+    
+    <time>
+      12月 24, 2017
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>前段时间写过这篇文章<a href="/2017/09/03/serialize-lua-in-pyhton/">将 python 数据转化为 lua 格式</a>, 这段时间因为新项目改用 <code>Creator + TypeScript</code> 的原因, 需要导出 ts 格式的数据.</p>
+<p>当然我们可以选择使用 json/yaml 等格式作为数据文件, 这会简单很多, 但是有两个原因, 使得我们一致认为 ts 格式的数据是更好的选择:</p>
+<ol>
+<li>访问数据时 VSCode 会根据数据内容给出提示</li>
+<li>打包时会被编译加密, 省去自己加密数据文件的工作</li>
+</ol>
+
+    
+	  <div class="readmore">
+      <a href="/2017/12/24/serialize-typescript-in-pyhton/">Read More</a>
+    </div>
+    
+    
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2017/12/17/python-ccbwriter/">
         用 python 撸一个 ccbwriter
       </a>
@@ -445,81 +604,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/09/03/serialize-lua-in-pyhton/">
-        将 python 数据转化为 lua 格式
-      </a>
-    </h2>
-    
-    <time>
-      9月 3, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>我们团队的技术栈是: <code>Lua + Python</code>, 前端采用 Lua 写项目, Python 做工具支持, 而后端则采用纯 Python 开发, 所以会经常遇到 Python 和 Lua 数据的转化.</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/09/03/serialize-lua-in-pyhton/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Lua/">Lua</a>
-      
-        <a href="/tags/Python/">Python</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/08/25/webview-like-lswz/">
-        手撸一个像《乱世王者》那样的 WebView
-      </a>
-    </h2>
-    
-    <time>
-      8月 25, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. </p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fj3pcpg3k8j31kw0xw4qp.jpg" alt=""></p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/08/25/webview-like-lswz/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a>
-      
-        <a href="/tags/WebView/">WebView</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -551,7 +635,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14px; color: #808080">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
+        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14.86px; color: #6e6e6e">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
     </div>
 </div>
 

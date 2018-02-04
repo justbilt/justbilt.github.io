@@ -4,6 +4,149 @@
   
     
     <entry>
+      <title><![CDATA[中搞 CocosCreaor 遇到的问题及解决方案]]></title>
+      <url>http://blog.justbilt.com/2018/02/03/creator-tips/</url>
+      <content type="html"><![CDATA[<h1 id="Web-篇"><a href="#Web-篇" class="headerlink" title="Web 篇"></a>Web 篇</h1><blockquote>
+<p>Failed to load resource: net::ERR_BLOCKED_BY_CLIENT</p>
+</blockquote>
+<p>解决方案:<br>如果你的浏览器装了广告过滤插件的话, 可能是某个文件拦截了, 在这个页面上停用广告拦截插件就行了.</p>
+<blockquote>
+<p>No ‘Access-Control-Allow-Origin’ header is present on the requested </p>
+</blockquote>
+<p>解决方案:<br>跨域问题, 如果是在开发阶段遇到的话, 我们可以先尝试绕过这个问题. 常用的方案有两个:</p>
+<ol>
+<li>使用 Chrome 插件</li>
+<li>启动 Chrome 时加入允许跨域的参数</li>
+</ol>
+<p>可以参考<a href="https://hectorguo.com/zh/cross-origin-solve/" target="_blank" rel="noopener">这篇</a>进行配置, 第一个方案有时候会失效, 还是第二个方案最稳妥.</p>
+<blockquote>
+<p>Can not find deps [xxx] for path : preview-scripts/assets/Script/xxx.js</p>
+</blockquote>
+<p>解决方案:<br>浏览器提示找不到某个文件, 其实是有两个重名的文件放在不同的目录, 改成不一样的文件名就好了.</p>
+<h1 id="Native-篇"><a href="#Native-篇" class="headerlink" title="Native 篇"></a>Native 篇</h1><blockquote>
+<p>调用 Objc 函数失败, 提示找不到函数</p>
+</blockquote>
+<p>解决方案:<br>Objc 函数如果有任何参数的话, 函数名称最后都要加 <code>:</code>, quick 之前是自动补了这个. Objc 函数不支持 NSObject 类型, 只支持基本类型, 之前 quick 都是通过 NSDictory 进行传参的.</p>
+<blockquote>
+<p>iOS 运行无日志输出</p>
+</blockquote>
+<p>解决方案:<br>binary 模板生成的 iOS 工程出错后没有堆栈信息, 换成了 link/default 模板就解决了, 推测可能是 <code>binary</code> 模板使用的是 Reaease 版的配置编译出的 <code>.a</code>, 因此没有日志.</p>
+<blockquote>
+<p>Android Studio 调试启动很慢</p>
+</blockquote>
+<p>将下图这里改成 <code>Java</code> 就好了, 只是不能 debug c++ 代码了.</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo332dei7nj31kw12178h.jpg" alt=""></p>
+<blockquote>
+<p>error: undefined reference to ‘bsd_signal’</p>
+</blockquote>
+<p>解决方案：<br>修改 gradle.properties:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROP_TARGET_SDK_VERSION=<span class="number">10</span> <span class="comment">//21 就会报上面的错误</span></span><br></pre></td></tr></table></figure>
+<h1 id="Web-和-Native-API-适配篇"><a href="#Web-和-Native-API-适配篇" class="headerlink" title="Web 和 Native API 适配篇"></a>Web 和 Native API 适配篇</h1><blockquote>
+<p>atob 和 btoa</p>
+</blockquote>
+<p>这两个 API 只有 web 上有, Native 上没有, 只能自己实现, 我是使用 cryto.js 实现的:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">base64Encode</span>(<span class="params">str: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(str));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">base64Decode</span>(<span class="params">str: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> CryptoJS.enc.Base64.parse(str).toString(CryptoJS.enc.Utf8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>cc.log </p>
+</blockquote>
+<p>在 Native 上无法输出 Object 类型的变量, 可以利用 Json 自己实现:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _log = cc.log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cc.sys.isNative) &#123;</span><br><span class="line">    <span class="comment">// tslint:disable-next-line:only-arrow-functions</span></span><br><span class="line">    cc.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> arg = [];</span><br><span class="line">        <span class="comment">// tslint:disable-next-line:prefer-for-of</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> index = <span class="number">0</span>; index &lt; <span class="built_in">arguments</span>.length; index++) &#123;</span><br><span class="line">            <span class="keyword">const</span> element = <span class="built_in">arguments</span>[index];</span><br><span class="line">            <span class="keyword">switch</span> (<span class="keyword">typeof</span> element) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"object"</span>:</span><br><span class="line">                    arg.push(<span class="built_in">JSON</span>.stringify(element));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    arg.push(element);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        _log(arg.join(<span class="string">" "</span>));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>WebSocket/XMLHttpRequest</p>
+</blockquote>
+<p>OPEN/CONNECTING/CLOSING/CLOSED 属性在 Native 无定义, 自己实现:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">enum</span> SocketStatus &#123;</span><br><span class="line">    OPEN =  <span class="number">1</span>,</span><br><span class="line">    CONNECTING =  <span class="number">2</span>,</span><br><span class="line">    CLOSING =  <span class="number">3</span>,</span><br><span class="line">    CLOSED =  <span class="number">4</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理, XMLHttpRequest.DONE(4) 也是没有定义的, 得自己定义或者直接写数字.</p>
+<blockquote>
+<p>unschedule</p>
+</blockquote>
+<p>unschedule 在 Native 时会额外判断 <code>__callbackId</code>, 这个id是在调用 schedule 时赋值的, 所以以下做法会出错:</p>
+<ol>
+<li>schedule 时传入 <code>this.xxx.bind(this)</code></li>
+<li>unschedule 先于 schedule 执行</li>
+</ol>
+<p>schedule 函数没有返回 handle, 因此没有办法判断是否 schedule 过, 所以还是用 update 来做计时器.</p>
+<blockquote>
+<p>JS Exception: null is not a function, file: <no filename="">, lineno: 0</no></p>
+</blockquote>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.director.getScheduler().scheduleUpdate(this, 1, false, this.onTimer);</span><br></pre></td></tr></table></figure>
+<p>如果 this 不是继承自 <code>cc.Component</code> 的话就会持续的触发这个错误.</p>
+<h1 id="诡异现象篇"><a href="#诡异现象篇" class="headerlink" title="诡异现象篇"></a>诡异现象篇</h1><blockquote>
+<p>工程怎么同步都不是最新的代码, 控制台看到了 <code>会话过期</code> 字样</p>
+</blockquote>
+<p>解决方案：<br>重启 Creator , 猜测是在 git pull 的同时打开了 creator 的原因</p>
+<blockquote>
+<p>启动后游戏背景是蓝色的</p>
+</blockquote>
+<p>解决方案：<br>之前从测试用例工程拷贝过来的 <code>cases-settings.js</code> 中设置了清屏颜色, </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.director.setClearColor( cc.hexToColor(<span class="string">'#2f69d2'</span>) );</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Creator 打开项目卡死</p>
+</blockquote>
+<p>解决方案：<br>把整个 assets 目录清空, 能够打开了. 随后通过 git 还原 assets 目录, 就可以正常打开了. 详细过程可以看我在论坛中发的<a href="http://forum.cocos.com/t/1-6-2-mac/54449" target="_blank" rel="noopener">这篇帖子</a>.</p>
+<blockquote>
+<p>preloadScene 调用后 http 请求收不到 response</p>
+</blockquote>
+<p>解决方案：<br>c++ 侧断点跟踪后, 确实是收到 Response 了, 但是没有调用到 js 这边, 将 <code>onreadystatechange</code> 事件由匿名函数改为成员函数后解决.</p>
+<blockquote>
+<p>localStorage 无法保存存档</p>
+</blockquote>
+<p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.sys.localStorage.setItem(“storage&quot;, &quot;world&quot;);</span><br></pre></td></tr></table></figure>
+<p>经过排查, 是某些特殊关键字无法存储成功成功, 设置后本次回话有效, 关闭标签后再打开就没有了, 换一个 key 就好了.</p>
+<h1 id="认知篇"><a href="#认知篇" class="headerlink" title="认知篇"></a>认知篇</h1><ol>
+<li>Event 不能持有对象, 因为 EventPool, 你持有的对象属性会发生变化.</li>
+<li>在 onLoad 之前 active 置为 false 将导致不会触发 onLoad 事件, 直到下次 avtive 为 true 时才会触发.</li>
+<li>动画时间轴, 并不是不等分, 而是前面是秒数, 后面是帧数, 30 就是 1 秒的一半.</li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> CocosCreaor </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[将 python 数据转化为 TypeScript 格式]]></title>
+      <url>http://blog.justbilt.com/2017/12/24/serialize-typescript-in-pyhton/</url>
+      <content type="html"><![CDATA[<p>前段时间写过这篇文章<a href="/2017/09/03/serialize-lua-in-pyhton/">将 python 数据转化为 lua 格式</a>, 这段时间因为新项目改用 <code>Creator + TypeScript</code> 的原因, 需要导出 ts 格式的数据.</p>
+<p>当然我们可以选择使用 json/yaml 等格式作为数据文件, 这会简单很多, 但是有两个原因, 使得我们一致认为 ts 格式的数据是更好的选择:</p>
+<ol>
+<li>访问数据时 VSCode 会根据数据内容给出提示</li>
+<li>打包时会被编译加密, 省去自己加密数据文件的工作</li>
+</ol>
+<a id="more"></a>
+<p>其中第一点是最为重要的, 这也是我们立项之初就选择 <code>TypeScript</code> 的重要原因:</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fms8s40359j30fx021q32.jpg" alt=""></p>
+<p>这太棒了, 下面就让我们看看这个文件是如何生成的吧.</p>
+<h1 id="魔改-lua-py"><a href="#魔改-lua-py" class="headerlink" title="魔改 lua.py"></a>魔改 lua.py</h1><p>我们直接在前一篇文章的 <a href="https://gist.github.com/justbilt/a5cfafe761b8571e7b5a9e7c22cc7c57" target="_blank" rel="noopener">lua.py</a> 的基础上改, 这样会节省一些准备工作. 首先我们来对比一下 lua 和 ts 语法的区别:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line">    name = <span class="string">"Nick"</span>, </span><br><span class="line">    condition_VIP_level = <span class="number">0</span>, </span><br><span class="line">    item = &#123;</span><br><span class="line">        [<span class="number">1</span>] = <span class="number">5</span>, </span><br><span class="line">        [<span class="number">2</span>] = <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line">    name: <span class="string">"Nick"</span>, </span><br><span class="line">    condition_VIP_level: <span class="number">0</span>, </span><br><span class="line">    item: [</span><br><span class="line">        <span class="number">5</span>, </span><br><span class="line">        <span class="number">10</span>,</span><br><span class="line">    ], </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的示例可以看出, 这两个语言还是蛮像的, 只是有一些细微的区别.</p>
+<h2 id="Dict"><a href="#Dict" class="headerlink" title="Dict"></a>Dict</h2><p>lua 使用 <code>=</code>, 而 ts 使用 <code>:</code>, 我们直接修改:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key_separator = <span class="string">': '</span></span><br></pre></td></tr></table></figure>
+<p>另有一个小细节, tslint 推荐最后一个元素后面也加上 <code>,</code>, 猜测这样做的好处是方便移动, 新增新的条目, 这样只用改动一行就行. 我们修改:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yield '\n' + (' ' * (_indent * _current_indent_level))</span></span><br><span class="line"><span class="keyword">yield</span> _item_separator + <span class="string">'\n'</span> + (<span class="string">' '</span> * (_indent * _current_indent_level))</span><br></pre></td></tr></table></figure>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>lua 中创建 Array 也是用的 <code>{}</code>, 而 ts 是 <code>[]</code>, 这个很好改, 将 <code>_iterencode_list</code> 中的标签改一下就行. </p>
+<p>Array 和 Dict 一样, 最后一个元素要加逗号, 和 Dict 的修改方法一致.</p>
+<p>另我们的原始数据有一个 bug, List 类型的数据也会创建 Dict 来处理, 下标还是从 1 开始的. 于是我写了一个小函数来将这种类型转换为 List 格式:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dict_to_array</span><span class="params">(dct)</span>:</span></span><br><span class="line">	array = [<span class="keyword">None</span>] * len(dct)</span><br><span class="line">	<span class="keyword">for</span> key, value <span class="keyword">in</span> dct.iteritems():</span><br><span class="line">		<span class="keyword">if</span> type(key) == int:</span><br><span class="line">			<span class="keyword">try</span>:</span><br><span class="line">				array[key<span class="number">-1</span>] = value</span><br><span class="line">			<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> item <span class="keyword">in</span> array:</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> item:</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">	<span class="keyword">return</span> array</span><br></pre></td></tr></table></figure>
+<p>然后在渲染 Dict 的时候判断下, 如果可以转化为 List 的话就用 List 去渲染.</p>
+<h2 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h2><p>之前 lua 的导出用的是 <code>return xxx;</code> 的形式, 在 ts 中修改为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return &quot;export default &quot; + cls(...) + &quot;;\n&quot;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>以上就是修改的全部内容, 技术含量不高, 以后也不会再写类似的文章了. 从这两次的修改中, 可以看到 Python json 库设计的非常棒, 只需要做少量修改就可以变成其他数据格式. 其中对 <code>yield</code> 用法堪称典范, 十分值得我们学习, 有机会我们应该就这点进行赏析.</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[用 python 撸一个 ccbwriter]]></title>
       <url>http://blog.justbilt.com/2017/12/17/python-ccbwriter/</url>
       <content type="html"><![CDATA[<p>之前可能和大家说过我们项目的 UI 编辑器是上古神器 <a href="https://github.com/cocos2d/CocosBuilder" target="_blank" rel="noopener">CocosBuilder</a>, 这个编辑器诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 是 cocos 发展史上一个重要转折点. 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线.</p>
