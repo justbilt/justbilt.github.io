@@ -140,6 +140,78 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2016/06/26/terse-lua-code/">
+        更简洁的 lua 逻辑代码
+      </a>
+    </h2>
+    
+    <time>
+      6月 26, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>爱因斯坦的质能方程 <code>E=MC^2</code>, 用在编程界同样适用 <code>Error = More Code ^ 2</code>. 代码越多, 出错的可能性就更大, 这个结论很正确呀. 那么我们如何使用更少的代码实现同样的需求呢 ?</p>
+<p>一. 普通技</p>
+<h2 id="1-bool-值与-if-语句的择决"><a href="#1-bool-值与-if-语句的择决" class="headerlink" title="1. bool 值与 if 语句的择决"></a>1. bool 值与 if 语句的择决</h2><p>让我们来看一段代码:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</span><br><span class="line"><span class="keyword">if</span> monthly_is_taken == <span class="literal">true</span> <span class="keyword">then</span></span><br><span class="line">    self._monthly_take:setButtonEnabled(<span class="literal">false</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    self._monthly_take:setButtonEnabled(<span class="literal">true</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>显然这个 if 语句是没有必要的, 我们可以直接使用 bool 进行函数参数传递:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> monthly_is_taken = app.player:getAttribute(<span class="string">"monthly_is_taken"</span>)</span><br><span class="line">self._monthly_take:setButtonEnabled(monthly_is_taken)</span><br></pre></td></tr></table></figure>
+<p>我们可以看到减少了 %60 的代码, 逻辑反而变得更清晰了.</p>
+<h2 id="2-减少非必须的中间变量"><a href="#2-减少非必须的中间变量" class="headerlink" title="2. 减少非必须的中间变量"></a>2. 减少非必须的中间变量</h2><p>我们都明白了中间变量的意义, 主要是为提高代码的可读性. 但是有时候中间变量的太多, 在增加码量的同时, 也会打断我们的我们的思路.</p>
+<p>比如我们要算一个等差数列的和, 我们都知道使用公式 <code>(首项+末项)*项数/2</code>, 我们看一下这个实现:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">local</span> array_len = #array</span><br><span class="line"><span class="keyword">local</span> first_element = array[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">local</span> last_element = array[array_len]</span><br><span class="line"><span class="keyword">local</span> sum = (first_element+last_element)*array_len/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>就不如下面这个实现:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> array = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">local</span> sum = (array[<span class="number">1</span>]+array[#array])*#array/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>这样的话, 我们上一个示例的代码可以进一步精简:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self._monthly_take:setButtonEnabled(app.player:getAttribute(<span class="string">"monthly_is_taken"</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="3-使用-elseif-优化-if-语句"><a href="#3-使用-elseif-优化-if-语句" class="headerlink" title="3. 使用 elseif 优化 if 语句"></a>3. 使用 elseif 优化 if 语句</h2><p>如果是逻辑相悖的判断条件, 我们可以使用 elseif 语句连接, 而不用多个 if 语句. </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>我们可以修改为:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.item_id == <span class="string">"43"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"69"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">elseif</span> self.item_id == <span class="string">"75"</span> <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- do some thing</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这样修改后, 对逻辑的执行时间也优化哟, 因为一但有一个 if 语句命中, 后面的 elseif 都不会再去判断了.</p>
+<h2 id="4-使用-config-优化-if-elseif-语句"><a href="#4-使用-config-优化-if-elseif-语句" class="headerlink" title="4. 使用 config 优化 if-elseif 语句"></a>4. 使用 config 优化 if-elseif 语句</h2><p>如果一个逻辑中有大量的 if-elseif 语句, 我么就可以使用 config 的形式替换掉它, 使得逻辑更加简洁.</p>
+<p>让我们看一个示例:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_SYSTEM <span class="keyword">then</span></span><br><span class="line">    self._title:setString(_data.content.content.subtype)</span><br><span class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</span><br><span class="line">    self.title = TextEnum.CNReset.SYSTEM_INFORMATION</span><br><span class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK <span class="keyword">then</span></span><br><span class="line">    self._title:setString(TextEnum.CNReset.KICK)</span><br><span class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</span><br><span class="line">    self.title = TextEnum.CNReset.KICK</span><br><span class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN <span class="keyword">then</span></span><br><span class="line">    self._title:setString(TextEnum.CNReset.JOIN_IN)</span><br><span class="line">    self._name:setString(TextEnum.CNReset.SYSTEM)</span><br><span class="line">    self.title = TextEnum.CNReset.JOIN_IN</span><br><span class="line"><span class="keyword">elseif</span> _data.<span class="built_in">type</span> == GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT <span class="keyword">then</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>这是一段关于邮件标题的逻辑, 这里只节选出了 1/4 的代码, 真的是又臭又长. 我们可以这样子去优化它:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> CONFIG = &#123;</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_SYSTEM] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_KICK] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_JOIN] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    [GameEnum.MailType.MAIL_TYPE_ALLIANCE_REJECT] = &#123;title = XXX, name = XXX&#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">config</span> = CONFIG[_data.<span class="built_in">type</span>]</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">config</span> <span class="keyword">then</span></span><br><span class="line">    self._title:setString(<span class="built_in">config</span>.title)</span><br><span class="line">    self._name:setString(<span class="built_in">config</span>.name)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>因为只是代码节选, 所以上面修改是一段伪代码, 但是看起来超级清爽的有木有! 对于一开始无法确定的数据如何配置呢? 我们可以配置一个 <code>function</code>, 用的时候取出来调用就可以啦.</p>
+<h1 id="二-黑科技"><a href="#二-黑科技" class="headerlink" title="二. 黑科技"></a>二. 黑科技</h1><h2 id="1-数据默认值的设定"><a href="#1-数据默认值的设定" class="headerlink" title="1. 数据默认值的设定"></a>1. 数据默认值的设定</h2><p>当我们拿到一段数据后, 总是要先预处理数据, 后面才是使用数据. 预处理阶段很重要的一步就是某些数据的默认值.</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num1 <span class="keyword">then</span></span><br><span class="line">        _num1 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num2 <span class="keyword">then</span></span><br><span class="line">        _num2 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _num3 <span class="keyword">then</span></span><br><span class="line">        _num3 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>很繁琐是不是, 这时候我们可以使用 and 和 or 来优化默认值的设置:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum3</span><span class="params">(_num1, _num2, _num3)</span></span></span><br><span class="line">    _num1 = _num1 <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    _num2 = _num2 <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    _num3 = _num3 <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> _num1 +　_num2 + _num3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>当 <code>or</code> 的前面部分是 <code>nil</code> 或者 <code>false</code> 的情况下, 返回这个表达式的值后面部分. 下面我列举一下常用类型的默认值用法:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- number</span></span><br><span class="line">a = a <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line"><span class="comment">-- string</span></span><br><span class="line">a = a <span class="keyword">or</span> <span class="string">""</span> </span><br><span class="line"><span class="comment">-- function</span></span><br><span class="line">a = a <span class="keyword">or</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- table</span></span><br><span class="line">a = a <span class="keyword">or</span> &#123;&#125;</span><br><span class="line"><span class="comment">-- boolean</span></span><br><span class="line">a = a == <span class="literal">nil</span> <span class="keyword">and</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>这里值得一提的是 <code>boolean</code> 类型, 如果希望默认值是 false 话, 就不需要默认值, 因为 nil 和 false 对于判断来说以意义一致. 而如果希望默认值是 true 的话, 并不是 <code>a = a or true</code>, 而是 <code>a == nil and true</code>, 大家可以细想一下其中的含义.</p>
+<h2 id="2-table-中元素的初始化"><a href="#2-table-中元素的初始化" class="headerlink" title="2. table 中元素的初始化"></a>2. table 中元素的初始化</h2><p>比如我们要统计一个列表中, 每个元素出现的次数:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">local</span> counter = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> counter[v] <span class="keyword">then</span></span><br><span class="line">        counter[v] = <span class="number">0</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    counter[v] = counter[v] + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>因为 <code>counter</code> 不可能提前初始化好, 所以总是要判断存不存在这个元素, 我们也可以利用上面提到的技巧做这个事情:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> list = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">local</span> counter = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">ipairs</span>(list) <span class="keyword">do</span></span><br><span class="line">    counter[v] = (counter[v] <span class="keyword">or</span> <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>是不是变得很简洁 ?</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/code-style/">code-style</a>
+      
+        <a href="/tags/neat-freak/">neat-freak</a>
+      
+        <a href="/tags/Lua/">Lua</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2016/06/26/ios-dev-tips-2/">
         最近搞 iOS 版遇到的一些问题和技巧 (二)
       </a>
@@ -685,72 +757,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2016/03/06/game-optimize/">
-        游戏性能优化 - 界面篇
-      </a>
-    </h2>
-    
-    <time>
-      3月 6, 2016
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>最近几天都在做性能优化方面的事情, 关于优化, 之前的经验也都是泛泛而谈, 知道有几条路线可以走, 但一直没有去实践过. 所以刚开始搞的时候, 也是两眼一抹黑, 走了不少弯路, 最后也是受益匪浅, 这里记录一下我们的思路, 也是为下次优化提供一个可行的方案.</p>
-<p>在测试的时候, 不少界面界面卡顿十分严重, 主要分为三个方面, 分别是 <strong>打开界面卡顿</strong>, <strong>操作界面卡顿</strong>, <strong>关闭界面卡顿</strong> . 不开玩笑, 确实如此 ! </p>
-<p>经过分析, 这些界面多有许多共同的特征:</p>
-<ol>
-<li>界面包含多个页签</li>
-<li>界面含有 ScrollView</li>
-</ol>
-<p>在看具体业务逻辑的时候, 发现了很多的问题. 下面就和大家细说一下优化方案.</p>
-<h1 id="打开界面"><a href="#打开界面" class="headerlink" title="打开界面"></a>打开界面</h1><p>总结一下, 打开界面卡顿的主要原因是:</p>
-<blockquote>
-<p>界面创建时做了太多的事情.</p>
-</blockquote>
-<p>对于多页签界面, 为了不在点击切换标签时有卡顿的感觉, 打开界面时创建了所有标签页的内容. 如下图:</p>
-<p><img src="http://static.zybuluo.com/justbilt/4ngqmwbvcjwltqrq94ra65o4/QQ20160219-0@2x.png" alt=""></p>
-<p>这个其实没有必要, 不这样做的话可以将加载时间分摊到每次点击标签的时候, 再优化下每个标签页的创建速度, 切换标签时就几乎感觉不到卡顿的. 然后我们缓存注这些界面, 下次切换就会更流畅了.</p>
-<p>对于 ScrollView , 如果子节点数量很多的话, 就会奇卡无比, 因为会在初始化时创建所有的子节点! 对于这个我们做了两点优化:</p>
-<h2 id="1-优化子节点-node-数量"><a href="#1-优化子节点-node-数量" class="headerlink" title="1. 优化子节点 node 数量"></a>1. 优化子节点 node 数量</h2><p>我们一个子节点可能有多个互斥的状态, 美术拼界面时会把所有的状态都拼在界面里, 程序再根据具体状态 setVisible , 这样就非常的浪费. 为此我们实现了在 ccb 中标记节点状态的功能, 所有不属于基本 ui 状态的节点树都不会被创建, 用到时候手动 init , 这个实现对性能的提升非常显著.</p>
-<h2 id="2-针对性选择使用-TableView"><a href="#2-针对性选择使用-TableView" class="headerlink" title="2. 针对性选择使用 TableView"></a>2. 针对性选择使用 TableView</h2><p>我一般情况下不建议使用 TableView, 因为它的创建方式十分复杂, 使用起来也诸多不便, 更重要的是会破坏串行的ui创建逻辑. 但不得不承认, 某些情况下它对性能的提升非常有帮助, 尤其是在子节点的数量达到 20 个以上的时候, 简直是质的飞跃.</p>
-<p>但是基于 TableView 十分难用, 加上 lua 这边逻辑出错后并不会抛出, debug 十分痛苦. 为此我们修改了一些 TableView 的源码, 同时在 lua 这边有封装了一层, 做到了数据和界面的分离.</p>
-<p>当然 quick-3.3 的 TableView 坑不止这些, 感觉不做些修改基本没法使用. 具体细节, 我会在下一篇文章中和大家细说.</p>
-<hr>
-<p>对于其他情况, 若是界面需要加载的东西特别多, 点击后会有几近卡死的状态, 同时因为顶点数量居多, 若是同时渲染背景场景和该界面, 会进一步加剧卡顿效果. </p>
-<blockquote>
-<p>顶点数量巨多的界面加 loading 动画</p>
-</blockquote>
-<p>这个 loading 不同于切换场景的 loading, 可以做的非常轻, 非常简单, 用来避免同时渲染两个界面导致帧率剧降的情况. 可以是一个门, 门关上时, 前一个界面就不渲染了, 这时在门的后面加载显示新的界面, 隐藏(自动剔除)旧的界面, 门打开, 这时只有新的界面会被渲染出来了.</p>
-<p>可能同时渲染两个界面感觉不到这么明显的变化, 但是我们的前一个界面是大基地, 有将近 4000 个顶点, 150 多渲染批次, 这样就会十分明显了.</p>
-<h1 id="操作界面"><a href="#操作界面" class="headerlink" title="操作界面"></a>操作界面</h1><p>操作界面卡顿主要发生在含有 ScrollView 的界面, 我看了下逻辑, 在数据发生变化时, 会将 ScrollView 的所有节点都移除掉, 重新创建. 这样完全就是一个偷懒的做法, 应当是哪里有数据变化就刷新哪里, 那些数据删除了, 就删除掉对应的子节点, 那些数据是新增的, 就创建一些新的节点加入进去.</p>
-<p>这个问题高端机可能觉察不到, 一到 Android 渣机就卡成狗, 完全没法玩. 这里得出的经验就是, 平时测试的时候一定要找一个渣机.</p>
-<h1 id="关闭界面"><a href="#关闭界面" class="headerlink" title="关闭界面"></a>关闭界面</h1><p>关闭界面时的主要问题是动画不流畅, 代码并没有太大的问题. 我们的关闭界面有一个动画, 整个层淡出并向下移动. 这样就会在动画的过程中露出下面的基地界面, 导致同时渲染顶点数剧增, 帧率骤降, 表现出来的现象就是 “三帧-咔咔咔”.</p>
-<p>解决方案也很简单, 去掉这个动画就, 改成直接移除. 如果大家观察一下其他游戏, 在关闭界面时也多是没有动画的.</p>
-<hr>
-<p>以上就是我们针对界面做的优化, 没有上代码, 多是理论思路和操作方法. 同时我针对内部小伙伴也写了一篇文章, 内容多是类似, 但是会有一些具体代码上讲解. 大家若是有兴趣的话, 也可以<a href="https://www.zybuluo.com/justbilt/note/289485" target="_blank" rel="noopener">点击这里</a>阅读, 若是有什么疑问及见解, 欢迎指出.</p>
-
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/游戏心得/">游戏心得</a>
-      
-        <a href="/tags/优化/">优化</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -787,7 +793,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14.86px; color: #6e6e6e">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
+        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14.86px; color: #6e6e6e">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 17.43px; color: #373737">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
     </div>
 </div>
 

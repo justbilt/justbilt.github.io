@@ -140,6 +140,72 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2016/03/06/game-optimize/">
+        游戏性能优化 - 界面篇
+      </a>
+    </h2>
+    
+    <time>
+      3月 6, 2016
+    </time>
+		
+  </section>
+  <section class="article typo">
+	  <p>最近几天都在做性能优化方面的事情, 关于优化, 之前的经验也都是泛泛而谈, 知道有几条路线可以走, 但一直没有去实践过. 所以刚开始搞的时候, 也是两眼一抹黑, 走了不少弯路, 最后也是受益匪浅, 这里记录一下我们的思路, 也是为下次优化提供一个可行的方案.</p>
+<p>在测试的时候, 不少界面界面卡顿十分严重, 主要分为三个方面, 分别是 <strong>打开界面卡顿</strong>, <strong>操作界面卡顿</strong>, <strong>关闭界面卡顿</strong> . 不开玩笑, 确实如此 ! </p>
+<p>经过分析, 这些界面多有许多共同的特征:</p>
+<ol>
+<li>界面包含多个页签</li>
+<li>界面含有 ScrollView</li>
+</ol>
+<p>在看具体业务逻辑的时候, 发现了很多的问题. 下面就和大家细说一下优化方案.</p>
+<h1 id="打开界面"><a href="#打开界面" class="headerlink" title="打开界面"></a>打开界面</h1><p>总结一下, 打开界面卡顿的主要原因是:</p>
+<blockquote>
+<p>界面创建时做了太多的事情.</p>
+</blockquote>
+<p>对于多页签界面, 为了不在点击切换标签时有卡顿的感觉, 打开界面时创建了所有标签页的内容. 如下图:</p>
+<p><img src="http://static.zybuluo.com/justbilt/4ngqmwbvcjwltqrq94ra65o4/QQ20160219-0@2x.png" alt=""></p>
+<p>这个其实没有必要, 不这样做的话可以将加载时间分摊到每次点击标签的时候, 再优化下每个标签页的创建速度, 切换标签时就几乎感觉不到卡顿的. 然后我们缓存注这些界面, 下次切换就会更流畅了.</p>
+<p>对于 ScrollView , 如果子节点数量很多的话, 就会奇卡无比, 因为会在初始化时创建所有的子节点! 对于这个我们做了两点优化:</p>
+<h2 id="1-优化子节点-node-数量"><a href="#1-优化子节点-node-数量" class="headerlink" title="1. 优化子节点 node 数量"></a>1. 优化子节点 node 数量</h2><p>我们一个子节点可能有多个互斥的状态, 美术拼界面时会把所有的状态都拼在界面里, 程序再根据具体状态 setVisible , 这样就非常的浪费. 为此我们实现了在 ccb 中标记节点状态的功能, 所有不属于基本 ui 状态的节点树都不会被创建, 用到时候手动 init , 这个实现对性能的提升非常显著.</p>
+<h2 id="2-针对性选择使用-TableView"><a href="#2-针对性选择使用-TableView" class="headerlink" title="2. 针对性选择使用 TableView"></a>2. 针对性选择使用 TableView</h2><p>我一般情况下不建议使用 TableView, 因为它的创建方式十分复杂, 使用起来也诸多不便, 更重要的是会破坏串行的ui创建逻辑. 但不得不承认, 某些情况下它对性能的提升非常有帮助, 尤其是在子节点的数量达到 20 个以上的时候, 简直是质的飞跃.</p>
+<p>但是基于 TableView 十分难用, 加上 lua 这边逻辑出错后并不会抛出, debug 十分痛苦. 为此我们修改了一些 TableView 的源码, 同时在 lua 这边有封装了一层, 做到了数据和界面的分离.</p>
+<p>当然 quick-3.3 的 TableView 坑不止这些, 感觉不做些修改基本没法使用. 具体细节, 我会在下一篇文章中和大家细说.</p>
+<hr>
+<p>对于其他情况, 若是界面需要加载的东西特别多, 点击后会有几近卡死的状态, 同时因为顶点数量居多, 若是同时渲染背景场景和该界面, 会进一步加剧卡顿效果. </p>
+<blockquote>
+<p>顶点数量巨多的界面加 loading 动画</p>
+</blockquote>
+<p>这个 loading 不同于切换场景的 loading, 可以做的非常轻, 非常简单, 用来避免同时渲染两个界面导致帧率剧降的情况. 可以是一个门, 门关上时, 前一个界面就不渲染了, 这时在门的后面加载显示新的界面, 隐藏(自动剔除)旧的界面, 门打开, 这时只有新的界面会被渲染出来了.</p>
+<p>可能同时渲染两个界面感觉不到这么明显的变化, 但是我们的前一个界面是大基地, 有将近 4000 个顶点, 150 多渲染批次, 这样就会十分明显了.</p>
+<h1 id="操作界面"><a href="#操作界面" class="headerlink" title="操作界面"></a>操作界面</h1><p>操作界面卡顿主要发生在含有 ScrollView 的界面, 我看了下逻辑, 在数据发生变化时, 会将 ScrollView 的所有节点都移除掉, 重新创建. 这样完全就是一个偷懒的做法, 应当是哪里有数据变化就刷新哪里, 那些数据删除了, 就删除掉对应的子节点, 那些数据是新增的, 就创建一些新的节点加入进去.</p>
+<p>这个问题高端机可能觉察不到, 一到 Android 渣机就卡成狗, 完全没法玩. 这里得出的经验就是, 平时测试的时候一定要找一个渣机.</p>
+<h1 id="关闭界面"><a href="#关闭界面" class="headerlink" title="关闭界面"></a>关闭界面</h1><p>关闭界面时的主要问题是动画不流畅, 代码并没有太大的问题. 我们的关闭界面有一个动画, 整个层淡出并向下移动. 这样就会在动画的过程中露出下面的基地界面, 导致同时渲染顶点数剧增, 帧率骤降, 表现出来的现象就是 “三帧-咔咔咔”.</p>
+<p>解决方案也很简单, 去掉这个动画就, 改成直接移除. 如果大家观察一下其他游戏, 在关闭界面时也多是没有动画的.</p>
+<hr>
+<p>以上就是我们针对界面做的优化, 没有上代码, 多是理论思路和操作方法. 同时我针对内部小伙伴也写了一篇文章, 内容多是类似, 但是会有一些具体代码上讲解. 大家若是有兴趣的话, 也可以<a href="https://www.zybuluo.com/justbilt/note/289485" target="_blank" rel="noopener">点击这里</a>阅读, 若是有什么疑问及见解, 欢迎指出.</p>
+
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/游戏心得/">游戏心得</a>
+      
+        <a href="/tags/优化/">优化</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2016/02/29/publish-untp-to-pypi/">
         将 untp 发布到 Pypi 上
       </a>
@@ -497,43 +563,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2015/08/16/upgrad-spine-runtime/">
-        更新 spine 的 cocos2d-x runtimes
-      </a>
-    </h2>
-    
-    <time>
-      8月 16, 2015
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>又是2个多月没有更新博客了, 真是不应该, 惭愧啊！其实手上已经攒了一些素材了, 只是一直没有一个很强的动力去写出来, 今天总算是有一些想法了, 先用一篇没有什么养分的文章来 “探探路”,  唤醒下自己写作的欲望吧！</p>
-
-    
-	  <div class="readmore">
-      <a href="/2015/08/16/upgrad-spine-runtime/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/cocos2d-x/">cocos2d-x</a>
-      
-        <a href="/tags/spine/">spine</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -570,7 +599,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14.86px; color: #6e6e6e">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 16.57px; color: #494949">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
+        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14.86px; color: #6e6e6e">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 17.43px; color: #373737">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
     </div>
 </div>
 
