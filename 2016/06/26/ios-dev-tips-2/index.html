@@ -1,163 +1,167 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  <title>最近搞 iOS 版遇到的一些问题和技巧 (二) | Justbilt</title>
-  <meta name="description" content="A game developer" />
-  <meta name="keywords" content="" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="shortcut icon" href="/">
-  <link rel="alternate" href="/atom.xml" title="Justbilt">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="万一遇上了呢?">
-<meta name="keywords" content="iOS,iOS-Dev-Tips">
-<meta property="og:type" content="article">
-<meta property="og:title" content="最近搞 iOS 版遇到的一些问题和技巧 (二)">
-<meta property="og:url" content="http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/index.html">
-<meta property="og:site_name" content="Justbilt">
-<meta property="og:description" content="万一遇上了呢?">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg">
-<meta property="og:image" content="http://static.zybuluo.com/justbilt/kl9sahl74sqfnxgjem57f390/Unknown.png">
-<meta property="og:image" content="http://static.zybuluo.com/justbilt/eb80q3re93fflmiuhygk4f1m/QQ20160626-0.png">
-<meta property="og:updated_time" content="2017-04-23T04:37:20.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="最近搞 iOS 版遇到的一些问题和技巧 (二)">
-<meta name="twitter:description" content="万一遇上了呢?">
-<meta name="twitter:image" content="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg">
-    
-  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="/style.css">
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
-</head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
 
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="apple-mobile-web-app-title" content="Justbilt">
+
+<meta name="format-detection" content="telephone=no,email=no,address=no">
+
+<meta name="screen-orientation" content="portrait">
+
+<meta name="full-screen" content="yes">
+
+<meta name="browsermode" content="application">
+
+<meta name="x5-orientation" content="portrait">
+
+<meta name="x5-fullscreen" content="true">
+
+<meta name="x5-page-mode" content="app">
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="author" content="justbilt">
+
+
+  <meta name="keywords" content="">
+
+
+
+  <meta name="description" content="万一遇上了呢?">
+
+
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+<link rel="stylesheet" href="/css/style.css">
+
+  <title> 最近搞 iOS 版遇到的一些问题和技巧 (二) || Justbilt </title>
+</head>
 <body>
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
+  <div class="mobile-navbar" id="mobileNavbar">
+  <div class="mobile-navbar-logo">
+    <a href="/." class="logo">Justbilt</a>
+  </div>
+  
+  <div class="mobile-navbar-menu" id="menuBar">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </div>
 
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-list">
+  
+    <li class="mobile-menu-item">
+      
+      <a href="/">
+        
+          Home
+        
+      </a>
+    </li>
+  
+    <li class="mobile-menu-item">
+      
+      <a href="/archives">
+        
+          Archive
+        
+      </a>
+    </li>
+  
+    <li class="mobile-menu-item">
+      
+      <a href="/tags">
+        
+          Tags
+        
+      </a>
+    </li>
+  
+    <li class="mobile-menu-item">
+      
+      <a href="/about">
+        
+          About
+        
+      </a>
+    </li>
+  
+  </ul>
+</div>
 
-  <script>setLoadingBarProgress(20)</script> 
-  <header class="l_header">
-	<div class='wrapper'>
-		<div class="nav-main container container--flex">
-			<a class="logo flat-box" href='/' >
-				Justbilt
-			</a>
-			<div class='menu'>
-				<ul class='h-list'>
-					
-						<li>
-							<a class='flat-box nav-home' href='/'>
-								Home
-							</a>
-						</li>
-					
-						<li>
-							<a class='flat-box nav-archives' href='/archives'>
-								Archives
-							</a>
-						</li>
-					
-						<li>
-							<a class='flat-box nav-links' href='/links'>
-								Links
-							</a>
-						</li>
-					
-						<li>
-							<a class='flat-box nav-about' href='/about'>
-								About
-							</a>
-						</li>
-					
-				</ul>
-				<div class='underline'></div>
-			</div>
-			
-				<div class="m_search">
-					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="Search" />
-						<span class="icon icon-search"></span>
-					</form>
-				</div>
-			
-			<ul class='switcher h-list'>
-				
-					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
-				
-				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
-			</ul>
-		</div>
-		
-		<div class='nav-sub container container--flex'>
-			<a class="logo" class="flat-box" href='javascript:void(0)'>
-				Word of Forks
-			</a>
+  <div class="container" id="main">
+    <div class="layout">
+      <ul class="menu">
+  
+  
+    <li class="menu-item">
+      <a href="/" class="iconfont icon-home"></a>
+      
+      
+        <span>Home</span>
+      
+    </li>
+  
+    <li class="menu-item">
+      <a href="/archives" class="iconfont icon-archive"></a>
+      
+      
+        <span>Archive</span>
+      
+    </li>
+  
+    <li class="menu-item">
+      <a href="/tags" class="iconfont icon-tags"></a>
+      
+      
+        <span>Tags</span>
+      
+    </li>
+  
+    <li class="menu-item">
+      <a href="/about" class="iconfont icon-about"></a>
+      
+      
+        <span>About</span>
+      
+    </li>
+  
+</ul>
 
-			<ul class='switcher h-list'>
-				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
-				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
-				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
-			</ul>
-		</div>
-	</div>
-</header>
-<aside class="menu-phone">
-	<nav>
-		
-			<a href="/" class="nav-home nav">
-				Home
-			</a>
-		
-			<a href="/archives" class="nav-archives nav">
-				Archives
-			</a>
-		
-			<a href="/links" class="nav-links nav">
-				Links
-			</a>
-		
-			<a href="/about" class="nav-about nav">
-				About
-			</a>
-		
-	</nav>
-</aside>
+      
+  
+  <article class="post">
+    <h1 class="post-title">
+      
+        最近搞 iOS 版遇到的一些问题和技巧 (二)
+      
+    </h1>
+    <div class="post-pub">
+      <div class="post-date">
+        <i class="iconfont">&#xe64d;</i>
+        <span>2016-06-26</span>
+      </div>
+      <div class="post-cat">
+        
+      </div>
+    </div>
 
-    <script>setLoadingBarProgress(40);</script>
-  <div class="l_body">
-    <div class='container clearfix'>
-      <div class='l_main'>
-        <article id="post-ios-dev-tips-2"
-  class="post white-box article-type-post"
-  itemscope itemprop="blogPost">
-	<section class='meta'>
-	<h2 class="title">
-  	<a href="/2016/06/26/ios-dev-tips-2/">
-    	最近搞 iOS 版遇到的一些问题和技巧 (二)
-    </a>
-  </h2>
-	<time>
-	  6月 26, 2016
-	</time>
-	
-	</section>
-	
-		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-XCode-Could-not-find-Developer-Disk-Image"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x4E00;-XCode-Could-not-find-Developer-Disk-Image" class="headerlink" title="&#x4E00;. XCode: Could not find Developer Disk Image"></a>&#x4E00;. XCode: Could not find Developer Disk Image</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-XCode-无法导出-Archive-的项目"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x4E8C;-XCode-&#x65E0;&#x6CD5;&#x5BFC;&#x51FA;-Archive-&#x7684;&#x9879;&#x76EE;" class="headerlink" title="&#x4E8C;. XCode: &#x65E0;&#x6CD5;&#x5BFC;&#x51FA; Archive &#x7684;&#x9879;&#x76EE;"></a>&#x4E8C;. XCode: &#x65E0;&#x6CD5;&#x5BFC;&#x51FA; Archive &#x7684;&#x9879;&#x76EE;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-XCode-App-Installation-failed"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x4E09;-XCode-App-Installation-failed" class="headerlink" title="&#x4E09;. XCode: App Installation failed"></a>&#x4E09;. XCode: App Installation failed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-XCode-Failed-to-code-sign-“xxxx”"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x56DB;-XCode-Failed-to-code-sign-&#x201C;xxxx&#x201D;" class="headerlink" title="&#x56DB;. XCode: Failed to code sign &#x201C;xxxx&#x201D;"></a>&#x56DB;. XCode: Failed to code sign &#x201C;xxxx&#x201D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-内购-无法连接到-iTunes-Store"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x4E94;-&#x5185;&#x8D2D;-&#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x5230;-iTunes-Store" class="headerlink" title="&#x4E94;. &#x5185;&#x8D2D;: &#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x5230; iTunes Store"></a>&#x4E94;. &#x5185;&#x8D2D;: &#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x5230; iTunes Store</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-崩溃-showAlert-崩溃"><span class="toc-number">6.</span> <span class="toc-text"><a href="#&#x516D;-&#x5D29;&#x6E83;-showAlert-&#x5D29;&#x6E83;" class="headerlink" title="&#x516D;. &#x5D29;&#x6E83;: showAlert &#x5D29;&#x6E83;"></a>&#x516D;. &#x5D29;&#x6E83;: showAlert &#x5D29;&#x6E83;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七-崩溃-iOS-9-2-播放视频崩溃"><span class="toc-number">7.</span> <span class="toc-text"><a href="#&#x4E03;-&#x5D29;&#x6E83;-iOS-9-2-&#x64AD;&#x653E;&#x89C6;&#x9891;&#x5D29;&#x6E83;" class="headerlink" title="&#x4E03;. &#x5D29;&#x6E83;: iOS 9.2+ &#x64AD;&#x653E;&#x89C6;&#x9891;&#x5D29;&#x6E83;"></a>&#x4E03;. &#x5D29;&#x6E83;: iOS 9.2+ &#x64AD;&#x653E;&#x89C6;&#x9891;&#x5D29;&#x6E83;</span></a></li></ol></section>
-	
-	<section class="article typo">
-  	<div class="article-entry" itemprop="articleBody">
-    	<h2 id="一-XCode-Could-not-find-Developer-Disk-Image"><a href="#一-XCode-Could-not-find-Developer-Disk-Image" class="headerlink" title="一. XCode: Could not find Developer Disk Image"></a>一. XCode: Could not find Developer Disk Image</h2><p><img src="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg" alt="101138-1ab6ab96d37904bd.jpeg-4.5kB"><br><strong>解决方案:</strong><br><a href="http://www.jianshu.com/p/3930df903a44" target="_blank" rel="noopener">http://www.jianshu.com/p/3930df903a44</a><br>这个问题可能是因为你 XCode 没有下载对应 iOS 的 SDK 导致, 一般情况需要同步更新 XCode.</p>
+    <div class="post-content">
+      
+
+      
+        <h2 id="一-XCode-Could-not-find-Developer-Disk-Image"><a href="#一-XCode-Could-not-find-Developer-Disk-Image" class="headerlink" title="一. XCode: Could not find Developer Disk Image"></a>一. XCode: Could not find Developer Disk Image</h2><p><img src="http://static.zybuluo.com/justbilt/84lvyg8n11lmtefi02pirqup/101138-1ab6ab96d37904bd.jpeg" alt="101138-1ab6ab96d37904bd.jpeg-4.5kB"><br><strong>解决方案:</strong><br><a href="http://www.jianshu.com/p/3930df903a44" target="_blank" rel="noopener">http://www.jianshu.com/p/3930df903a44</a><br>这个问题可能是因为你 XCode 没有下载对应 iOS 的 SDK 导致, 一般情况需要同步更新 XCode.</p>
 <h2 id="二-XCode-无法导出-Archive-的项目"><a href="#二-XCode-无法导出-Archive-的项目" class="headerlink" title="二. XCode: 无法导出 Archive 的项目"></a>二. XCode: 无法导出 Archive 的项目</h2><p>这个问题有可能是你项目 Team 选择的是一个没有开发者资格的账号导致的, 虽然可以正常开发, 真机调试, 但是是不能发布的, 所以也无法 Export .<br><strong>解决方案:</strong></p>
 <ol>
 <li>更换一个有开发者资格的账号重新 Archive 导出, 但是 Bundle ID 就得换一个了.</li>
@@ -173,124 +177,82 @@
 <p>将 <code>UIVideoPlayer-ios.mm</code> 文件 <code>~VideoPlayer()</code> 函数中的 <code>dealloc</code> 修改为 <code>release</code> 即可.</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) dealloc];</span><br><span class="line">+        [((<span class="built_in">UIVideoViewWrapperIos</span>*)_videoView) release];</span><br></pre></td></tr></table></figure>
 
-  	</div>
-	  
-	  <div class="article-tags tags">
       
-        <a href="/tags/iOS/">iOS</a>
-      
-        <a href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a>
-      
-	  </div>
-    
-	</section>
-	
-		<section id="comments">
-			<div id="disqus_thread"></div>
-		</section>
-	
-</article>
-<script>
-	window.subData = {
-		title: '最近搞 iOS 版遇到的一些问题和技巧 (二)',
-		tools: true
-	}
-</script>
+    </div>
 
-      </div>
-      <aside class='l_side'>
+    
+      <div class="post-tags">
         
-  <section class='m_widget about'>
-
-<img class='avatar waves-image' src='/favicon/slogon.gif' />
-
-<div class='header'>justbilt</div>
-<div class='content'>
-<div class='desc'>"Only learning can make me happy"</div>
-</div>
-</section>
-
-  
-<div class="m_widget tagcloud">
-    <div class="header">Tags</div>
-    <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14.86px; color: #6e6e6e">Android</a> <a href="/tags/CCRenderTexture/" style="font-size: 14px; color: #808080">CCRenderTexture</a> <a href="/tags/CocosBuilder/" style="font-size: 14px; color: #808080">CocosBuilder</a> <a href="/tags/CocosCreaor/" style="font-size: 14.86px; color: #6e6e6e">CocosCreaor</a> <a href="/tags/EditBox/" style="font-size: 14px; color: #808080">EditBox</a> <a href="/tags/Electron/" style="font-size: 14.86px; color: #6e6e6e">Electron</a> <a href="/tags/FAlign/" style="font-size: 14px; color: #808080">FAlign</a> <a href="/tags/IAB/" style="font-size: 14px; color: #808080">IAB</a> <a href="/tags/IAP/" style="font-size: 14px; color: #808080">IAP</a> <a href="/tags/Lua/" style="font-size: 16.57px; color: #494949">Lua</a> <a href="/tags/MemoryLeak/" style="font-size: 14px; color: #808080">MemoryLeak</a> <a href="/tags/MyGUI/" style="font-size: 14.86px; color: #6e6e6e">MyGUI</a> <a href="/tags/PyQt/" style="font-size: 14.86px; color: #6e6e6e">PyQt</a> <a href="/tags/Python/" style="font-size: 14.86px; color: #6e6e6e">Python</a> <a href="/tags/Quick-Cocos2d-x/" style="font-size: 20px; color: #000">Quick-Cocos2d-x</a> <a href="/tags/QuickxDev/" style="font-size: 14.86px; color: #6e6e6e">QuickxDev</a> <a href="/tags/TableView/" style="font-size: 14px; color: #808080">TableView</a> <a href="/tags/TexturePacker/" style="font-size: 14px; color: #808080">TexturePacker</a> <a href="/tags/TiledMap/" style="font-size: 14px; color: #808080">TiledMap</a> <a href="/tags/Tool/" style="font-size: 18.29px; color: #252525">Tool</a> <a href="/tags/WebView/" style="font-size: 14px; color: #808080">WebView</a> <a href="/tags/blog/" style="font-size: 15.71px; color: #5b5b5b">blog</a> <a href="/tags/cocos2d-x/" style="font-size: 18.29px; color: #252525">cocos2d-x</a> <a href="/tags/code-style/" style="font-size: 14.86px; color: #6e6e6e">code-style</a> <a href="/tags/comment/" style="font-size: 14px; color: #808080">comment</a> <a href="/tags/convert2fnt/" style="font-size: 15.71px; color: #5b5b5b">convert2fnt</a> <a href="/tags/crash/" style="font-size: 14.86px; color: #6e6e6e">crash</a> <a href="/tags/duoshuo/" style="font-size: 14px; color: #808080">duoshuo</a> <a href="/tags/git/" style="font-size: 14px; color: #808080">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #808080">hexo</a> <a href="/tags/hotupdate/" style="font-size: 14.86px; color: #6e6e6e">hotupdate</a> <a href="/tags/i18n/" style="font-size: 14px; color: #808080">i18n</a> <a href="/tags/iOS/" style="font-size: 19.14px; color: #121212">iOS</a> <a href="/tags/iOS-Dev-Tips/" style="font-size: 17.43px; color: #373737">iOS-Dev-Tips</a> <a href="/tags/ldoc/" style="font-size: 14px; color: #808080">ldoc</a> <a href="/tags/neat-freak/" style="font-size: 15.71px; color: #5b5b5b">neat-freak</a> <a href="/tags/pyqtdeploy/" style="font-size: 14px; color: #808080">pyqtdeploy</a> <a href="/tags/python/" style="font-size: 14px; color: #808080">python</a> <a href="/tags/spine/" style="font-size: 14.86px; color: #6e6e6e">spine</a> <a href="/tags/untp/" style="font-size: 15.71px; color: #5b5b5b">untp</a> <a href="/tags/utf8/" style="font-size: 14px; color: #808080">utf8</a> <a href="/tags/videoplayer/" style="font-size: 14px; color: #808080">videoplayer</a> <a href="/tags/优化/" style="font-size: 14.86px; color: #6e6e6e">优化</a> <a href="/tags/年结/" style="font-size: 17.43px; color: #373737">年结</a> <a href="/tags/手机游戏攻防/" style="font-size: 15.71px; color: #5b5b5b">手机游戏攻防</a> <a href="/tags/批量打包/" style="font-size: 14px; color: #808080">批量打包</a> <a href="/tags/游戏心得/" style="font-size: 18.29px; color: #252525">游戏心得</a> <a href="/tags/生活/" style="font-size: 14.86px; color: #6e6e6e">生活</a> <a href="/tags/音效/" style="font-size: 14.86px; color: #6e6e6e">音效</a>
-    </div>
-</div>
-
-
-
-      </aside>
-      <script>setLoadingBarProgress(60);</script>
-    </div>
-  </div>
-  <footer id="footer" class="clearfix">
-
-	<div class="social-wrapper">
-  	
-      
-        <a href="https://github.com/justbilt" class="social github"
-          target="_blank" rel="external">
-          <span class="icon icon-github"></span>
-        </a>
-      
-        <a href="https://weibo.com/justbilt" class="social weibo"
-          target="_blank" rel="external">
-          <span class="icon icon-weibo"></span>
-        </a>
-      
-        <a href="/atom.xml" class="social rss"
-          target="_blank" rel="external">
-          <span class="icon icon-rss"></span>
-        </a>
-      
+          <a href="/tags/iOS/" class="tag"><i class="iconfont">&#xe69f;</i>iOS</a>
+        
+          <a href="/tags/iOS-Dev-Tips/" class="tag"><i class="iconfont">&#xe69f;</i>iOS-Dev-Tips</a>
+        
+      </div>
     
+
+  </article>
+
+  
+  <nav class="post-nav">
+    
+      <a href="/2016/06/26/terse-lua-code/" class="prev">
+        <i class="iconfont">&#xe619;</i>
+        <span class="prev-text nav-default">更简洁的 lua 逻辑代码</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a href="/2016/06/19/quickx-ipv6/" class="next">
+        <span class="next-text nav-default">Quick-cocos2d-x 适配 IPV6</span>
+        <span class="next-text nav-mobile">Next</span>
+        <i class="iconfont">&#xe60e;</i>
+      </a>
+    
+  </nav>
+
+
+
+      <div class="footer">
+  
+    <div class="footer-links">
+      
+        
+          
+            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
+          
+        
+      
+        
+          
+            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
+          
+        
+      
+    </div>
+  
+
+  <div class="footer-copy">
+    <p>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
+    </p>
+    <p>
+      
+      &copy;
+      
+        2013 -
+      
+      2018
+      <i class="iconfont">&#xe692;</i>
+      <span>justbilt</span>
+    </p>
   </div>
-  
-  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
-  
-</footer>
+</div> 
+    </div>
+  </div>
 
-
-  <script>setLoadingBarProgress(80);</script>
-  
-<script>
-  var disqus_shortname = 'justbilt';
-  
-  var disqus_url = 'http://blog.justbilt.com/2016/06/26/ios-dev-tips-2/';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
-
-<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
-<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
-<script src="/js/jquery.fitvids.js"></script>
-<script>
-	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
-	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
-	var ALGOLIA_API_KEY = "";
-	var ALGOLIA_APP_ID = "";
-	var ALGOLIA_INDEX_NAME = "";
-  var AZURE_SERVICE_NAME = "";
-  var AZURE_INDEX_NAME = "";
-  var AZURE_QUERY_KEY = "";
-  var BAIDU_API_ID = "";
-  var SEARCH_SERVICE = "hexo";
-  var ROOT = "/"||"/";
-  if(!ROOT.endsWith('/'))ROOT += '/';
-</script>
-<script src="/js/search.js"></script>
-<script src="/js/app.js"></script>
-
-
-  <script>setLoadingBarProgress(100);</script>
+  <script src="/js/untils.js"></script>
+<script src="/js/cold.js"></script>
+<script src="/js/boot.js"></script>
 </body>
 </html>
