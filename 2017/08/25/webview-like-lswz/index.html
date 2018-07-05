@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>手撸一个像《乱世王者》那样的 WebView - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x,WebView>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="手撸一个像《乱世王者》那样的 WebView">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 手撸一个像《乱世王者》那样的 WebView || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">手撸一个像《乱世王者》那样的 WebView</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        手撸一个像《乱世王者》那样的 WebView
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2017-08-25</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. </p>
+   <div class="post-meta">
+    <span class="post-time">2017-08-25</span>
+  </div>
+  <div class="post-content">
+    <p>天美新游戏《乱世王者》出了之后, 我玩了一阵子, 这个游戏的精美程度刷新了我对 slg 游戏的认识, 比它的模型产品《列王的纷争》给我带来的震撼还要大. 不仅仅是在美术方面, 更多的是在产品和对细节的处理上. </p>
 <p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fj3pcpg3k8j31kw0xw4qp.jpg" alt=""></p>
 <a id="more"></a>
 <p>在游戏中更多界面中有几个按钮, 点击后会跳转到 WebView, 如下图:</p>
@@ -203,82 +93,21 @@
 <p>经过与 PM 的一番交流后, 一致同意放弃这两个功能. 因为觉得目前的效果还可以, 加上不改动 c++ 就可以热更新上去.</p>
 <p>所以很可惜, 这次没有办法搞彻底了, 下次有机会我们接着搞.</p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-          <a href="/tags/WebView/" class="tag"><i class="iconfont">&#xe69f;</i>WebView</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2017/09/03/serialize-lua-in-pyhton/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">将 python 数据转化为 lua 格式</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2017/07/23/integrate-google-iab/" class="next">
-        <span class="next-text nav-default">聊聊 Google 支付的那些事</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/WebView/">WebView</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

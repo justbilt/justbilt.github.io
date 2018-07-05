@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>从保卫萝卜看cocos2d-x循环播放音效的问题 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=cocos2d-x,音效>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="从保卫萝卜看cocos2d-x循环播放音效的问题">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 从保卫萝卜看cocos2d-x循环播放音效的问题 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">从保卫萝卜看cocos2d-x循环播放音效的问题</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        从保卫萝卜看cocos2d-x循环播放音效的问题
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2013-11-28</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>##起因<br>保卫萝卜2前几天上ios平台了,立刻下了一个玩,卧槽,各种呆萌蠢贱啊,有一个塔挺有意思,<strong>魔法球</strong>:<br><a id="more"></a><br><img src="http://ww1.sinaimg.cn/large/7f870d23jw1eb0uj0md4qj20sh0ixn32.jpg" alt=""></p>
+   <div class="post-meta">
+    <span class="post-time">2013-11-28</span>
+  </div>
+  <div class="post-content">
+    <p>##起因<br>保卫萝卜2前几天上ios平台了,立刻下了一个玩,卧槽,各种呆萌蠢贱啊,有一个塔挺有意思,<strong>魔法球</strong>:<br><a id="more"></a><br><img src="http://ww1.sinaimg.cn/large/7f870d23jw1eb0uj0md4qj20sh0ixn32.jpg" alt=""></p>
 <p>这种塔的攻击力虽然低,但是攻击速度快啊,而且升级后还能攻击多个目标,用在对付血少速度快的怪物再适合不过了.玩了挺久发现这个塔的音效有些问题:</p>
 <ol>
 <li><p>屏幕中有多个魔法球塔时,卖掉其中一个可能会导<strong>致所有魔法球塔的音效停止.</strong></p>
@@ -191,82 +81,21 @@
 <p>##总结<br>综上所述,我们在编写游戏音效逻辑的代码时,要注意:<br>1.循环音效多次播放在windows上有问题,可以考虑在android或ios端调试.<br>2.音效一定要preloadEffect.</p>
 <p><strong>(全文完)</strong></p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>cocos2d-x</a>
-        
-          <a href="/tags/音效/" class="tag"><i class="iconfont">&#xe69f;</i>音效</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2013/11/29/cocos2dx_simpleaudio/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">修改SimpleAudioEngine在win32下的实现</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2013/11/03/elbow/" class="next">
-        <span class="next-text nav-default">弯管(拐角)对方向的改变</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/音效/">音效</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

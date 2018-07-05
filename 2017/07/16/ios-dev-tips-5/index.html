@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>最近搞 iOS 版遇到的一些问题和技巧 (五) - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=iOS,iOS-Dev-Tips>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="万一遇上了呢?">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 最近搞 iOS 版遇到的一些问题和技巧 (五) || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">最近搞 iOS 版遇到的一些问题和技巧 (五)</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        最近搞 iOS 版遇到的一些问题和技巧 (五)
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2017-07-16</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>这段时间又积攒下了不少的技巧和解决方案, 感觉 XCode 越来越牛逼了, 尤其是在应用的账号设置方面, 之前遇到的一些低级问题可能已经不复存在了.</p>
+   <div class="post-meta">
+    <span class="post-time">2017-07-16</span>
+  </div>
+  <div class="post-content">
+    <p>这段时间又积攒下了不少的技巧和解决方案, 感觉 XCode 越来越牛逼了, 尤其是在应用的账号设置方面, 之前遇到的一些低级问题可能已经不复存在了.</p>
 <a id="more"></a>
 <h1 id="此应用在未来的-iOS-版本下将无法使用"><a href="#此应用在未来的-iOS-版本下将无法使用" class="headerlink" title="此应用在未来的 iOS 版本下将无法使用"></a>此应用在未来的 iOS 版本下将无法使用</h1><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fhlkn3of4wj316y0p4aku.jpg" alt=""></p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h2><p>发生这个问题的原因就是应用没有支持 arm64 CPU 架构, 不同的CPU架构对应的设备如下:</p>
@@ -204,82 +94,21 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plutil -convert xml1 xxx/heepayImage.bundle/Info.plist</span><br></pre></td></tr></table></figure>
 <p>然后删除掉.</p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/iOS/" class="tag"><i class="iconfont">&#xe69f;</i>iOS</a>
-        
-          <a href="/tags/iOS-Dev-Tips/" class="tag"><i class="iconfont">&#xe69f;</i>iOS-Dev-Tips</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2017/07/23/integrate-google-iab/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">聊聊 Google 支付的那些事</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2017/07/09/convert2fnt-electron-rewrite/" class="next">
-        <span class="next-text nav-default">使用 Electron 重写 convert2fnt</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/iOS-Dev-Tips/">iOS-Dev-Tips</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

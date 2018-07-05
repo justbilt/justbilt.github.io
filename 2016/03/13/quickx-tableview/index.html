@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>在 Quick-cocos2d-x 中使用 TableView - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x,TableView>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="如何使用 TableView 这个效率提升利器? ">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 在 Quick-cocos2d-x 中使用 TableView || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">在 Quick-cocos2d-x 中使用 TableView</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        在 Quick-cocos2d-x 中使用 TableView
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2016-03-13</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>上篇文章说到使用 TableView 可以大幅提升界面的创建速度, 这篇文章我们来看看如何在 quick 中使用它.</p>
+   <div class="post-meta">
+    <span class="post-time">2016-03-13</span>
+  </div>
+  <div class="post-content">
+    <p>上篇文章说到使用 TableView 可以大幅提升界面的创建速度, 这篇文章我们来看看如何在 quick 中使用它.</p>
 <h1 id="一-基本用法"><a href="#一-基本用法" class="headerlink" title="一. 基本用法"></a>一. 基本用法</h1><h2 id="1-创建对象"><a href="#1-创建对象" class="headerlink" title="1. 创建对象"></a>1. 创建对象</h2><p>首先, 创建一个 TableView 对象:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> view = cc.TableView:<span class="built_in">create</span>(cc.size(<span class="number">480</span>,<span class="number">320</span>))</span><br></pre></td></tr></table></figure>
 <p>传入的那个 size 是 viewsize, 即可视区域的尺寸, 后期也可以通过 <code>setViewSize</code> 来调节.</p>
@@ -207,82 +97,21 @@
 <p>恩, 以上就是我在使用 TableView 时遇到的所有问题了, 虽然解决了这些问题, 但是在使用上还是十分的繁琐. 若是在一两个界面上使用可能还可以接受, 但若是想大规模推广就很有些困难了, 代码会变得十分冗长.</p>
 <p>在此基础上, 我们又对 TableView 进行了一次封装, 数据驱动, 使用时不用过分关注界面的逻辑, 中心更多的落在了数据的组织上, 真正的做到了 “开箱即用” , 等我们内部进行推广并稳定后可以再和大家分享下心得.</p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-          <a href="/tags/TableView/" class="tag"><i class="iconfont">&#xe69f;</i>TableView</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2016/03/19/quickx-memery-leak/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">记一次 Quick-cocos2d-x 内存泄露排查</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2016/03/06/game-optimize/" class="next">
-        <span class="next-text nav-default">游戏性能优化 - 界面篇</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/TableView/">TableView</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

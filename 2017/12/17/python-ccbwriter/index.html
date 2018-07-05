@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>用 python 撸一个 ccbwriter - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Python,CocosBuilder>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="用 python 撸一个 ccbwriter">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 用 python 撸一个 ccbwriter || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">用 python 撸一个 ccbwriter</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        用 python 撸一个 ccbwriter
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2017-12-17</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>之前可能和大家说过我们项目的 UI 编辑器是上古神器 <a href="https://github.com/cocos2d/CocosBuilder" target="_blank" rel="noopener">CocosBuilder</a>, 这个编辑器诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 是 cocos 发展史上一个重要转折点. 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线.</p>
+   <div class="post-meta">
+    <span class="post-time">2017-12-17</span>
+  </div>
+  <div class="post-content">
+    <p>之前可能和大家说过我们项目的 UI 编辑器是上古神器 <a href="https://github.com/cocos2d/CocosBuilder" target="_blank" rel="noopener">CocosBuilder</a>, 这个编辑器诞生在那个 cocos2d-x 还需手写 ui 代码的年代, 是 cocos 发展史上一个重要转折点. 它标志着触屏手机游戏行业 ui 不再像之前那样只是简单的串联的作用, 而是像端游那样重交互, 可视化编辑的路线.</p>
 <a id="more"></a>
 <p>尽管在今天, CocosBuilder 想比于已经死掉的 CocosStudio, 甚至于 Cocos 现在大力推广的 CocosCreator 都有一些难以替代的理由, 尤其是在开源和稳定性方面. 我们也不例外, 现在仍有多款项目在使用这个编辑器, 单个项目 CocosBuilder 的界面 ccb 文件数量最高在 500+, 这对于维护这些界面的美术同学是一个很大的挑战. 为了不让可爱的美术妹子疲于奔命, 我们程序组自然要贡献我们的一份力量, 写一些批处理的脚本, 解决那些无脑但是会大量重复的工作, 拯救妹子们与水火之中.</p>
 <p>在写脚本的过程中, 不免要和 ccb 文件打交道, 这种文件的典型格式是这样的:</p>
@@ -196,82 +86,21 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plist = readPlist(<span class="string">"/path/of/you/ccb"</span>)</span><br><span class="line"><span class="keyword">print</span> plist.guides[<span class="number">0</span>].position</span><br><span class="line"><span class="keyword">print</span> plist.guides[<span class="number">0</span>].position.float()</span><br><span class="line">plist.guides[<span class="number">0</span>].position = <span class="number">5.5</span></span><br><span class="line"><span class="keyword">print</span> plist.guides[<span class="number">0</span>].position</span><br><span class="line">writePlist(plist, ccb)</span><br></pre></td></tr></table></figure>
 <p>测试代码当然少不了啦, 感觉自己棒棒哒, 晚饭申请加个🍗. </p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Python/" class="tag"><i class="iconfont">&#xe69f;</i>Python</a>
-        
-          <a href="/tags/CocosBuilder/" class="tag"><i class="iconfont">&#xe69f;</i>CocosBuilder</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2017/12/24/serialize-typescript-in-pyhton/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">将 python 数据转化为 TypeScript 格式</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2017/12/10/creator-add-package/" class="next">
-        <span class="next-text nav-default">如何为 Creator 添加 js/ts 第三方库支持</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/CocosBuilder/">CocosBuilder</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

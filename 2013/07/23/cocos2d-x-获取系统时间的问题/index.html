@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>cocos2d-x 获取系统时间的问题 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=cocos2d-x>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="cocos2d-x 获取系统时间的问题">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> cocos2d-x 获取系统时间的问题 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">cocos2d-x 获取系统时间的问题</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        cocos2d-x 获取系统时间的问题
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2013-07-23</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <h3 id="一-预备知识"><a href="#一-预备知识" class="headerlink" title="一.预备知识"></a>一.预备知识</h3><p>在看这篇文章之前,大家先可以看下这篇文章:<a href="http://developer.51cto.com/art/201002/182941.htm" target="_blank" rel="noopener">http://developer.51cto.com/art/201002/182941.htm</a> (C++获得系统时间不同方案介绍)<br><a id="more"></a></p>
+   <div class="post-meta">
+    <span class="post-time">2013-07-23</span>
+  </div>
+  <div class="post-content">
+    <h3 id="一-预备知识"><a href="#一-预备知识" class="headerlink" title="一.预备知识"></a>一.预备知识</h3><p>在看这篇文章之前,大家先可以看下这篇文章:<a href="http://developer.51cto.com/art/201002/182941.htm" target="_blank" rel="noopener">http://developer.51cto.com/art/201002/182941.htm</a> (C++获得系统时间不同方案介绍)<br><a id="more"></a></p>
 <h3 id="二-如何获取系统时间"><a href="#二-如何获取系统时间" class="headerlink" title="二.如何获取系统时间."></a>二.如何获取系统时间.</h3><p><strong>1.获取日历时间:</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">time_t</span> tt;</span><br><span class="line"><span class="comment">//返回自从 Unix 新纪元（格林威治时间 1970 年 1 月 1 日 00:00:00）到当前时间的秒数。</span></span><br><span class="line">time(&amp;tt);</span><br></pre></td></tr></table></figure></p>
 <p><strong> 2.获取之后转化为年月日时间:</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tm</span> &#123;</span></span><br><span class="line">        <span class="keyword">int</span> tm_sec;     <span class="comment">/*秒数 seconds after the minute - [0,59] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_min;     <span class="comment">/*分钟数 minutes after the hour - [0,59] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_hour;    <span class="comment">/*小时 hours since midnight - [0,23] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_mday;    <span class="comment">/*月份中的第几日 day of the month - [1,31] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_mon;     <span class="comment">/*年份中的第几个月，从 0 开始表示一月 months since January - [0,11] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_year;    <span class="comment">/*年份，从 1900 开始 years since 1900 */</span></span><br><span class="line">        <span class="keyword">int</span> tm_wday;    <span class="comment">/*星期中的第几天 days since Sunday - [0,6] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_yday;    <span class="comment">/*一年中的第几天 days since January 1 - [0,365] */</span></span><br><span class="line">        <span class="keyword">int</span> tm_isdst;   <span class="comment">/*夏令时当前是否生效 daylight savings time flag */</span></span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure></p>
 <p><strong> 3.打印出当前是一年中的第几天:</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tm</span> *<span class="title">p</span>;</span></span><br><span class="line">p = localtime(&amp;tt);</span><br><span class="line">CCLog(<span class="string">"%d"</span>,p-&gt;tm_yday);</span><br></pre></td></tr></table></figure></p>
@@ -180,74 +70,21 @@
 <p>尼玛?坑爹的windows,这样time_t就是int64,占8个字节!</p>
 <p>我曾经用long记下time_t类型的数据写入到存档中,结果就悲剧了,内存越界,死的心都有了!</p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>cocos2d-x</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2013/09/11/cocos2d-x-ccshake/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">cocos2d-x 抖动效果 CCShake</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>Quick-cocos2d-x EditBox 几个小技巧 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x,EditBox>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="为了应付 PM, EditBox 你需要知道的几个小技巧">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> Quick-cocos2d-x EditBox 几个小技巧 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">Quick-cocos2d-x EditBox 几个小技巧</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        Quick-cocos2d-x EditBox 几个小技巧
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2016-05-01</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>我们项目中的输入框使用的都是 EditBox , 但是 EditBox 还存在一些问题, 这里给大家分享一下我们的解决方案.</p>
+   <div class="post-meta">
+    <span class="post-time">2016-05-01</span>
+  </div>
+  <div class="post-content">
+    <p>我们项目中的输入框使用的都是 EditBox , 但是 EditBox 还存在一些问题, 这里给大家分享一下我们的解决方案.</p>
 <h1 id="一-字体过大"><a href="#一-字体过大" class="headerlink" title="一. 字体过大"></a>一. 字体过大</h1><p>用过 EditBox 的同学都知道这样一个情况, EditBox 在创建时是无法传入字体大小的, 字体大小默认和 EditBox 的 size 一致. 如果要修改字体大小的话, 就必须有程序的参与, 十分讨厌.</p>
 <p>而我们聪明的设计师 @大勇同学 则想到了一个非常棒的办法, 使用一张透明的9图来创建 EditBox, 后面再放置一个真实效果的 Scale9Sprite , 这样就可以实现字体比边框小很多的输入框了.</p>
 <h1 id="二-多行输入"><a href="#二-多行输入" class="headerlink" title="二. 多行输入"></a>二. 多行输入</h1><p>多行输入是一个很有必要的事情, 我们在写邮件, 军团公告等界面都有类似的需求, 然而 EditBox 并不能很好的支持多行输入, 不同平台间也存在差异, 一直很头疼这件事情. </p>
@@ -202,82 +92,21 @@
 <hr>
 <p>关于 Emoji 的相关修改都已经推送到了 github 上, <a href="https://github.com/mafiagame/quick-cocos2d-x/commit/8a7c27aedb919e0ae5d178d688b704e620c2c1bb" target="_blank" rel="noopener">点击这里</a>查看.</p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-          <a href="/tags/EditBox/" class="tag"><i class="iconfont">&#xe69f;</i>EditBox</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2016/05/08/compress-res/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">cocos2d-x 优化游戏资源体积</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2016/04/10/quickx-crash-on-phone/" class="next">
-        <span class="next-text nav-default">最近遇到的几个 Quick-cocos2d-x  真机崩溃</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/EditBox/">EditBox</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

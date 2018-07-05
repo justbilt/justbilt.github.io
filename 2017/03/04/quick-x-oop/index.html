@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>Quick-Cocos2d-x 中的面向对象 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="没有对象? 自己 new 一个就好了嘛!">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> Quick-Cocos2d-x 中的面向对象 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">Quick-Cocos2d-x 中的面向对象</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        Quick-Cocos2d-x 中的面向对象
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2017-03-04</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>虽说现在一直提倡组合优于继承, 但是我们这帮深受 c++ 毒害的大好青年还是对继承有着深深的感情. Lua 这门语言本身并没有提供面向对象的机制, 不过我们可以很容易的通过 Lua 的 metatable 来实现一套面向对象的机制.</p>
+   <div class="post-meta">
+    <span class="post-time">2017-03-04</span>
+  </div>
+  <div class="post-content">
+    <p>虽说现在一直提倡组合优于继承, 但是我们这帮深受 c++ 毒害的大好青年还是对继承有着深深的感情. Lua 这门语言本身并没有提供面向对象的机制, 不过我们可以很容易的通过 Lua 的 metatable 来实现一套面向对象的机制.</p>
 <a id="more"></a>
 <h1 id="一-实现机制"><a href="#一-实现机制" class="headerlink" title="一. 实现机制"></a>一. 实现机制</h1><p>实现的原理很简单, 如果一个 Lua 的 table1 通过 <code>setmetatable</code> 函数设置了元表之后, 如果试图访问一个不存在的 <code>属性</code>, 就会触发这个 metatable 的 <code>__index</code> 元方法, 这个 __index 可以是另一个 table2 , 这样它就回去这个 table2 中去找那个属性了, 如果 table2 中还没有的话, 就会触发 table2 的元方法, 就这样一层一层的往上找. 我们可以用一个十分简单的栗子来测试下这个功能:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> a = &#123;aa = <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">local</span> b = &#123;bb = <span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">local</span> c = &#123;cc = <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setmetatable</span>(b, &#123;<span class="built_in">__index</span> = a&#125;)</span><br><span class="line"><span class="built_in">setmetatable</span>(c, &#123;<span class="built_in">__index</span> = b&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"aa:"</span>, c.aa, <span class="string">"bb:"</span>, c.bb, <span class="string">"cc"</span>, c.cc) <span class="comment">-- output: aa:  1   bb: 2   cc  3</span></span><br></pre></td></tr></table></figure>
@@ -209,80 +99,21 @@
 <p>其实在发现 peer 表之前, 我还做过另一个尝试, 对于 userdata 类型的实例, 不返回这个实例, 而是返回一个 table, 有一个属性 <code>_cobj</code> , 设置这个 table 的元表, 使得所有的属性都优先从 <code>_cobj</code> 中取, 取不到再去 super 中取, 后来因为改动太大, 就放弃了, 不过在这个改动的过程中意外的发现 peer 表的存在.</p>
 <p>多折腾, 总会有所收获的.</p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2017/03/12/ios-dev-tips-4/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">最近搞 iOS 版遇到的一些问题和技巧 (四)</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2017/02/24/some-change-for-blog/" class="next">
-        <span class="next-text nav-default">最近博客的一些变化</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>在 MacOS 上搭建 mafiagame 版的 Quick-cocos2d-x - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="在 MacOS 上搭建 mafiagame 版的 Quick-cocos2d-x">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 在 MacOS 上搭建 mafiagame 版的 Quick-cocos2d-x || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">在 MacOS 上搭建 mafiagame 版的 Quick-cocos2d-x</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        在 MacOS 上搭建 mafiagame 版的 Quick-cocos2d-x
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2014-01-26</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <h1 id="一-Why-mafiagame"><a href="#一-Why-mafiagame" class="headerlink" title="一.Why mafiagame?"></a>一.Why mafiagame?</h1><p>为什么要用mafiagame版的quick-cocos2d-x(以下简称quick)呢?我在使用quick时候遇到了很多坑,改了quick好多代码,主要还是cocosbuilder(以下简称ccb)方面的,为了方便其他同事,就在quick的基础上做了一个分支,提交我的这些修改,<strong>修改基于quick的最新2.2.1-rc</strong>,关于具体的坑会单独开一篇文章来写,这里就不做赘述了.<br><a id="more"></a></p>
+   <div class="post-meta">
+    <span class="post-time">2014-01-26</span>
+  </div>
+  <div class="post-content">
+    <h1 id="一-Why-mafiagame"><a href="#一-Why-mafiagame" class="headerlink" title="一.Why mafiagame?"></a>一.Why mafiagame?</h1><p>为什么要用mafiagame版的quick-cocos2d-x(以下简称quick)呢?我在使用quick时候遇到了很多坑,改了quick好多代码,主要还是cocosbuilder(以下简称ccb)方面的,为了方便其他同事,就在quick的基础上做了一个分支,提交我的这些修改,<strong>修改基于quick的最新2.2.1-rc</strong>,关于具体的坑会单独开一篇文章来写,这里就不做赘述了.<br><a id="more"></a></p>
 <h1 id="二-克隆仓库到本地"><a href="#二-克隆仓库到本地" class="headerlink" title="二.克隆仓库到本地"></a>二.克隆仓库到本地</h1><p>Ps:如果你比较熟悉git和github的话,这部分可以跳过了,没有什么技术含量.</p>
 <h3 id="1-工具选择"><a href="#1-工具选择" class="headerlink" title="1.工具选择"></a>1.工具选择</h3><ul>
 <li><p><strong>Github For Mac</strong>,好多git的新手会选择使用Github For Mac,我不太推荐这么做,因为Github的客户端隐藏了好多东西,非常容易误操作并且对git的使用一点帮助也没有,</p>
@@ -214,80 +104,21 @@
 </ol>
 <p>综上,我没有提交给quick仓库,但是如果quick有需要的话,我还是十分乐意合并过去的.</p>
 <h3 id="全文完"><a href="#全文完" class="headerlink" title="(全文完)"></a>(全文完)</h3>
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2014/02/01/images_to_bmfont/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">convert2fnt: 将一堆图片转化为BMFont工具</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2013/12/12/use_tp_on_command_line/" class="next">
-        <span class="next-text nav-default">在Command Line中使用TexturePacker</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

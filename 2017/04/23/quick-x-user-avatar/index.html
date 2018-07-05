@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>Quick-cocos2d-x 自定义头像 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="Quick-cocos2d-x 自定义头像">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> Quick-cocos2d-x 自定义头像 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">Quick-cocos2d-x 自定义头像</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        Quick-cocos2d-x 自定义头像
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2017-04-23</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <p>前段时间我们团队实现了游戏中自定义头像模块, 这是一个比较有意思的功能, 加上网上这方面的资料也不多, 所以给大家分享下我们的做法. </p>
+   <div class="post-meta">
+    <span class="post-time">2017-04-23</span>
+  </div>
+  <div class="post-content">
+    <p>前段时间我们团队实现了游戏中自定义头像模块, 这是一个比较有意思的功能, 加上网上这方面的资料也不多, 所以给大家分享下我们的做法. </p>
 <p>自定义头像这个功能牵扯到的内容还是比较多的, 一个人做的话需要技术储备比较大, 因此我们将这个任务做了如下的拆分:</p>
 <ol>
 <li>选择头像</li>
@@ -187,7 +77,7 @@
 <p>原来这种 http 请求我们是封装了一层的, 这个 <code>POST</code> 和 <code>GET</code> 是通过参数传入的, 外部传入的其实是一个枚举. 然而在我之前的重构中, 修改了这个枚举的名字, 导致传入的值是 nil, 这就导致没有调用 createHTTPRequest 时没有传入 methed 参数, 默认就是 GET 类型的, 因为平台的 http 实现不同, 导致有些平台正常, 有些平台会出错.</p>
 <p>上传头像的内容就是这些.</p>
 <h1 id="三-下载头像"><a href="#三-下载头像" class="headerlink" title="三. 下载头像"></a>三. 下载头像</h1><p>对于这个问题, 我们开始还打算在 c++ 端用 curl 实现, 然后到处到 Lua 这边使用, 直到发现了 HttpClient 的 <code>saveResponseData</code> 接口. 调用了这个接口可以直接把 Response 中的数据保存在本地, 这样下载单个文件就搞定了. 下载代码如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- http下载</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">	@param string _url _url地址</span></span><br><span class="line"><span class="comment">	@param string _savepath 指定的存储路径</span></span><br><span class="line"><span class="comment">	@param function _callfunc 下载完成回调方法</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> _download<span class="params">(_url, _savepath, _callfunc)</span></span></span><br><span class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</span><br><span class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></span><br><span class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">--判断是否下载成功</span></span><br><span class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</span><br><span class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></span><br><span class="line">                	success = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></span><br><span class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</span><br><span class="line">    req:setTimeout(<span class="number">60</span>)</span><br><span class="line">    req:start()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- http下载</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">	@param string _url _url地址</span></span><br><span class="line"><span class="comment">	@param string _savepath 指定的存储路径</span></span><br><span class="line"><span class="comment">	@param function _callfunc 下载完成回调方法</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">_download</span><span class="params">(_url, _savepath, _callfunc)</span></span></span><br><span class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</span><br><span class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></span><br><span class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">--判断是否下载成功</span></span><br><span class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</span><br><span class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></span><br><span class="line">                	success = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></span><br><span class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</span><br><span class="line">    req:setTimeout(<span class="number">60</span>)</span><br><span class="line">    req:start()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>但是整个下载功能呢并没有这么简单, 我们应该考虑到 <code>本地缓存</code>, <code>去重</code>, <code>队列限制</code>等情况, 这样我们可以实现一个通用的下载模块, 不仅仅是为自定义头像功能, 其他的模块也可以使用.</p>
 <h1 id="四-显示头像"><a href="#四-显示头像" class="headerlink" title="四. 显示头像"></a>四. 显示头像</h1><p>这个功能其实很简单了, 为了什么要单独拿出来说呢? 就是我们要实现的很优雅. 自定义头像这个功能可能不是一开始就提出的, 因为改了 Native 层的代码, 所以需要线上换包, 这就比较麻烦了, 所以我们这个模块要和之前的头像保持兼容. </p>
 <p>我们游戏中的显示头像的地方有很多, 我们不能把下载的调用写的到处都是, 比较优雅的做法是实现一个头像控件, 在这个控件内部处理普通头像和自定义头像的逻辑. 为了提高用户体验, 下载的过程中我们可以显示一张替代图或者之前的普通头像.</p>
@@ -195,80 +85,21 @@
 <p>下面上一张最终的效果图:</p>
 <p><img src="http://ww1.sinaimg.cn/large/7f870d23ly1ffd57bsbyij20f00qo0u0.jpg" alt=""></p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2017/06/03/quick-x-i18n/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">Quick-cocos2d-x 中的多语言</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2017/04/12/the-git-for-neat-freak/" class="next">
-        <span class="next-text nav-default">洁癖患者的 Git GUI 指南</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

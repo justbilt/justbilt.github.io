@@ -30,52 +30,28 @@
 <p>送别团队中的成员</p>
 </blockquote>
 <h1 id="二-技术"><a href="#二-技术" class="headerlink" title="二. 技术"></a>二. 技术</h1><p>这一年技术上的收获也算不少, 公司的项目中尝试了很多之前没有做过的事情, 业余练习的项目也收获颇丰.</p>
-<h2 id="1-工作"><a href="#1-工作" class="headerlink" title="1. 工作"></a>1. 工作</h2><ol>
-<li>Git Workflow</li>
-</ol>
-<p>今年 4 月份的时候写过一篇文章<a href="/2017/04/12/the-git-for-neat-freak/">洁癖患者的 Git GUI 指南
+<h2 id="1-工作"><a href="#1-工作" class="headerlink" title="1. 工作"></a>1. 工作</h2><h3 id="1-Git-Workflow"><a href="#1-Git-Workflow" class="headerlink" title="1. Git Workflow"></a>1. Git Workflow</h3><p>今年 4 月份的时候写过一篇文章<a href="/2017/04/12/the-git-for-neat-freak/">洁癖患者的 Git GUI 指南
 </a>, 这篇文章是我们经过一段时间实践后得出的一个比较符合我们团队的 Git 工作流程. 其中这张图更是甚得我心:</p>
 <p><img src="https://ww3.sinaimg.cn/large/006tKfTcly1feolo8so66j305k0m8gmk.jpg" alt=""></p>
 <p>经过这一年的实践, 也做了一些微小的调整, 使之更加符合项目的实际情况, 后面我会再写一篇关于 Git flow 的文章.</p>
-<ol>
-<li>硬件加速纹理</li>
-</ol>
-<p>在这之前对于 ‘硬件加速’ 一直都是只闻其名, 不见其实, 真实能带来多大提升也没有底. 在一位小伙伴的大力协助下搞完了这个, 结果喜人, 可以用一句百利而无一害来形容, 如果你们还没有搞的话, 那就赶快行动吧. </p>
-<ol>
-<li>Cocos Creator</li>
-</ol>
-<p>对于 Cocos 家族的这个新产品一直都没有勇气深入尝试, 直到今年有新的团队成员加入, 恰好他之前用过, 我们试水了一个小游戏后全面开始使用了, 所以便有了知乎的<a href="https://www.zhihu.com/question/66819338/answer/259901965" target="_blank" rel="noopener">这个回答</a>. 在这半年的深度使用后, 感受又略有不同, 不过总体感觉利大于弊吧, 期待 Creator 2.0 版.</p>
-<ol>
-<li>基于 Quick-x 的全新资源加载系统</li>
-</ol>
-<p>这个可以说是我今年的得意之作了, 我上一张图来说明下:</p>
+<h3 id="2-硬件加速纹理"><a href="#2-硬件加速纹理" class="headerlink" title="2. 硬件加速纹理"></a>2. 硬件加速纹理</h3><p>在这之前对于 ‘硬件加速’ 一直都是只闻其名, 不见其实, 真实能带来多大提升也没有底. 在一位小伙伴的大力协助下搞完了这个, 结果喜人, 可以用一句百利而无一害来形容, 如果你们还没有搞的话, 那就赶快行动吧. </p>
+<h3 id="3-Cocos-Creator"><a href="#3-Cocos-Creator" class="headerlink" title="3. Cocos Creator"></a>3. Cocos Creator</h3><p>对于 Cocos 家族的这个新产品一直都没有勇气深入尝试, 直到今年有新的团队成员加入, 恰好他之前用过, 我们试水了一个小游戏后全面开始使用了, 所以便有了知乎的<a href="https://www.zhihu.com/question/66819338/answer/259901965" target="_blank" rel="noopener">这个回答</a>. 在这半年的深度使用后, 感受又略有不同, 不过总体感觉利大于弊吧, 期待 Creator 2.0 版.</p>
+<h3 id="4-基于-Quick-x-的全新资源加载系统"><a href="#4-基于-Quick-x-的全新资源加载系统" class="headerlink" title="4. 基于 Quick-x 的全新资源加载系统"></a>4. 基于 Quick-x 的全新资源加载系统</h3><p>这个可以说是我今年的得意之作了, 我上一张图来说明下:</p>
 <p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-12-2017-pic.015.jpeg" alt=""></p>
 <p>这个系统非常牛逼, 基本上颠覆了 cocos2d-x 的资源加载方式, 变成了更加现代化的加载方式.</p>
-<ol>
-<li>全新的工具系统</li>
-</ol>
-<p>这是我这一年搞的另一个比较重要的事情. 我们之前项目有各种各样的脚本, 比如: 导表, 多语言转化, ui文件转化等等, 这些脚本基本上都是采用 <code>python + shell</code> 写的, 散落在一个 <code>proj.tools</code> 的文件夹中, 也没有文档, 几乎只有我在用.</p>
+<h3 id="5-全新的工具系统"><a href="#5-全新的工具系统" class="headerlink" title="5. 全新的工具系统"></a>5. 全新的工具系统</h3><p>这是我这一年搞的另一个比较重要的事情. 我们之前项目有各种各样的脚本, 比如: 导表, 多语言转化, ui文件转化等等, 这些脚本基本上都是采用 <code>python + shell</code> 写的, 散落在一个 <code>proj.tools</code> 的文件夹中, 也没有文档, 几乎只有我在用.</p>
 <p>重构完成后它变成了这样: </p>
 <p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-13-2017-pic.016.jpeg" alt=""></p>
 <p>是不是感觉略屌呢?</p>
 <hr>
 <p>上面的每一条都有必要单独开一篇文章来讲, 这里就不做展开了, 今年如果有时间的话, 我会一一详述的.</p>
 <h2 id="2-学习"><a href="#2-学习" class="headerlink" title="2. 学习"></a>2. 学习</h2><p>今年其实也开了一些新坑, 大多没有填上, 好惭愧. </p>
-<ol>
-<li>untp</li>
-</ol>
-<p>今年主要是继续维护, 修复大家提出的一些问题. 考虑到有美术同学在用, 添加了 GUI 和 windows 便携版.</p>
+<h3 id="1-untp"><a href="#1-untp" class="headerlink" title="1. untp"></a>1. untp</h3><p>今年主要是继续维护, 修复大家提出的一些问题. 考虑到有美术同学在用, 添加了 GUI 和 windows 便携版.</p>
 <p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-13-231520.png" alt=""></p>
 <p>直到写文章的今天, 它收获了 101 个 star. 虽说 github 的 star 已经越来越水了, 但在没有推广的情况下, 能有这个结果, 也算是很欣慰了, 应该帮到了一些人吧.</p>
-<ol>
-<li>convert2fnt</li>
-</ol>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fhkaqhm6dnj30n80ixq5f.jpg" alt=""></p>
+<h3 id="2-convert2fnt"><a href="#2-convert2fnt" class="headerlink" title="2. convert2fnt"></a>2. convert2fnt</h3><p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fhkaqhm6dnj30n80ixq5f.jpg" alt=""></p>
 <p>使用 Electron 重写了这工具, 大家感兴趣的可以看<a href="/2017/07/09/convert2fnt-electron-rewrite/">这篇文章</a>. 这个项目算是我的第一个 WEB 技术栈的应用了, 体验非常棒, 感觉 js 会统一全宇宙.</p>
-<ol>
-<li>一个很没有意思的消除小游戏</li>
-</ol>
-<p>在家学习 Creator 时搞的一个练手的小游戏, 基本上是用 TS 重写了很久之前我用 Lua 写的那版. 大家感兴趣的可以<a href="http://game.justbilt.com/" target="_blank" rel="noopener">点击这里</a>试玩.</p>
+<h3 id="3-一个很没有意思的消除小游戏"><a href="#3-一个很没有意思的消除小游戏" class="headerlink" title="3. 一个很没有意思的消除小游戏"></a>3. 一个很没有意思的消除小游戏</h3><p>在家学习 Creator 时搞的一个练手的小游戏, 基本上是用 TS 重写了很久之前我用 Lua 写的那版. 大家感兴趣的可以<a href="http://game.justbilt.com/" target="_blank" rel="noopener">点击这里</a>试玩.</p>
 <hr>
 <p>学习上基本就是这样, 本来也没有什么规划, 也就没有完成度什么的, 其实不算太好, 希望今年能有时间做个学习的规划, 或者专心完成一个有意思的游戏也好.</p>
 <h1 id="三-生活"><a href="#三-生活" class="headerlink" title="三. 生活"></a>三. 生活</h1><h2 id="1-篮球"><a href="#1-篮球" class="headerlink" title="1. 篮球"></a>1. 篮球</h2><p>这恐怕是贯穿我这一整年的事情, 每个周六, 约上三五个好友, 相聚于大学的篮球场, 干上一上午, 真是人生一大快事, 当为此浮一大白.</p>
@@ -87,26 +63,14 @@
 <p>公司的休息室有一些基础的健身设备, 哑铃, 杠铃, 杠铃架, 基本能够满足我的基础需求(手臂/胸/肩/背/腿), 所以没有去健身房.</p>
 <p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-%E6%9C%AA%E5%91%BD%E5%90%8D_meitu_1.jpg" alt=""></p>
 <p>三个月体重掉了到 67kg, 人看起来也没有那么肿了.</p>
-<h2 id="3-剁手"><a href="#3-剁手" class="headerlink" title="3. 剁手"></a>3. 剁手</h2><ol>
-<li>康工 Y-1 椅子</li>
-</ol>
-<p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-IMG_20170522_151848_HHT.jpg" alt=""></p>
+<h2 id="3-剁手"><a href="#3-剁手" class="headerlink" title="3. 剁手"></a>3. 剁手</h2><h3 id="1-康工-Y-1-椅子"><a href="#1-康工-Y-1-椅子" class="headerlink" title="1. 康工 Y-1 椅子"></a>1. 康工 Y-1 椅子</h3><p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-IMG_20170522_151848_HHT.jpg" alt=""></p>
 <p>长草了很久的人体工学椅, Herman Miller 太贵家里领导一直不给批, 因此特意去达宝利他们的实体店体验了一下, 最终选择了达宝利他们自己品牌 康工 Y-1, 主要原因还是便宜, 才 1.7k, 不到米勒的 1/5, 体验也不差多少, 还赠送了一个脚托.</p>
 <p>这大半年做下来只能用一个字形容, <code>爽</code>, 自从买了这个椅子后, 我的背和肩就很少疼了. 每天中午看到其他同事以七扭八歪的姿势睡午觉, 我手轻轻一拨, 在他人目瞪口呆的眼光中向后趟去, 深藏功与名.</p>
-<ol>
-<li>iPhone7</li>
-</ol>
-<p>老婆生日送我的礼物, 至此结束了我的 5 年 Android 生涯, 对比 Android, iOS 多了一些限制, 也多了一些安心.</p>
+<h3 id="2-iPhone7"><a href="#2-iPhone7" class="headerlink" title="2. iPhone7"></a>2. iPhone7</h3><p>老婆生日送我的礼物, 至此结束了我的 5 年 Android 生涯, 对比 Android, iOS 多了一些限制, 也多了一些安心.</p>
 <p>我对 iPhone 最满意的还是它的相机, 秒杀我之前用的 Mi Max, 这点最为重要, 生活中一些有意义的事情都可以随心的被记录下来.</p>
-<ol>
-<li>小米笔记本 Air</li>
-</ol>
-<p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-IMG_20170208_221411.jpg" alt=""></p>
+<h3 id="3-小米笔记本-Air"><a href="#3-小米笔记本-Air" class="headerlink" title="3. 小米笔记本 Air"></a>3. 小米笔记本 Air</h3><p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-IMG_20170208_221411.jpg" alt=""></p>
 <p>怎么说, 这恐怕是我对小米最失望的一款产品了, 尤其是触摸板, 嘎吱嘎吱的响.</p>
-<ol>
-<li>小米手环2</li>
-</ol>
-<p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-IMG_20170213_101722_HDR.jpg" alt=""></p>
+<h3 id="4-小米手环2"><a href="#4-小米手环2" class="headerlink" title="4. 小米手环2"></a>4. 小米手环2</h3><p><img src="http://7xnfpc.com1.z0.glb.clouddn.com/2018-03-17-IMG_20170213_101722_HDR.jpg" alt=""></p>
 <p>加了时间功能, 满电能挺一个月, 一如既往的满意.</p>
 <hr>
 <p>生活部分基本上就是这样, 还是平平淡淡, 也没有说走就走的旅行. 5月份的时候租车带着家人去了一个不知名的森林公园, 算是这一年去的最远的地方了, 这是我拿到驾照的第一次开着, 非常顺利, 希望今年能有更多时间陪陪家人.</p>
@@ -1313,7 +1277,7 @@
 <p>原来这种 http 请求我们是封装了一层的, 这个 <code>POST</code> 和 <code>GET</code> 是通过参数传入的, 外部传入的其实是一个枚举. 然而在我之前的重构中, 修改了这个枚举的名字, 导致传入的值是 nil, 这就导致没有调用 createHTTPRequest 时没有传入 methed 参数, 默认就是 GET 类型的, 因为平台的 http 实现不同, 导致有些平台正常, 有些平台会出错.</p>
 <p>上传头像的内容就是这些.</p>
 <h1 id="三-下载头像"><a href="#三-下载头像" class="headerlink" title="三. 下载头像"></a>三. 下载头像</h1><p>对于这个问题, 我们开始还打算在 c++ 端用 curl 实现, 然后到处到 Lua 这边使用, 直到发现了 HttpClient 的 <code>saveResponseData</code> 接口. 调用了这个接口可以直接把 Response 中的数据保存在本地, 这样下载单个文件就搞定了. 下载代码如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- http下载</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">	@param string _url _url地址</span></span><br><span class="line"><span class="comment">	@param string _savepath 指定的存储路径</span></span><br><span class="line"><span class="comment">	@param function _callfunc 下载完成回调方法</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> _download<span class="params">(_url, _savepath, _callfunc)</span></span></span><br><span class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</span><br><span class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></span><br><span class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">--判断是否下载成功</span></span><br><span class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</span><br><span class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></span><br><span class="line">                	success = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></span><br><span class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</span><br><span class="line">    req:setTimeout(<span class="number">60</span>)</span><br><span class="line">    req:start()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- http下载</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">	@param string _url _url地址</span></span><br><span class="line"><span class="comment">	@param string _savepath 指定的存储路径</span></span><br><span class="line"><span class="comment">	@param function _callfunc 下载完成回调方法</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">_download</span><span class="params">(_url, _savepath, _callfunc)</span></span></span><br><span class="line">	<span class="keyword">local</span> req = network.createHTTPRequest(</span><br><span class="line">		<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></span><br><span class="line">            <span class="keyword">if</span> event.name == <span class="string">"completed"</span> <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">--判断是否下载成功</span></span><br><span class="line">                <span class="keyword">local</span> success = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">local</span> code = event.request:getResponseStatusCode()</span><br><span class="line">                <span class="keyword">if</span> code == <span class="number">200</span> <span class="keyword">and</span> event.request:saveResponseData(_savepath) <span class="keyword">then</span></span><br><span class="line">                	success = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">if</span> _callfunc <span class="keyword">then</span></span><br><span class="line">                	_callfunc(success, &#123;url = _url, req = event.request, <span class="built_in">path</span> = _savepath&#125;)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span>, _url, <span class="string">"GET"</span>)</span><br><span class="line">    req:setTimeout(<span class="number">60</span>)</span><br><span class="line">    req:start()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>但是整个下载功能呢并没有这么简单, 我们应该考虑到 <code>本地缓存</code>, <code>去重</code>, <code>队列限制</code>等情况, 这样我们可以实现一个通用的下载模块, 不仅仅是为自定义头像功能, 其他的模块也可以使用.</p>
 <h1 id="四-显示头像"><a href="#四-显示头像" class="headerlink" title="四. 显示头像"></a>四. 显示头像</h1><p>这个功能其实很简单了, 为了什么要单独拿出来说呢? 就是我们要实现的很优雅. 自定义头像这个功能可能不是一开始就提出的, 因为改了 Native 层的代码, 所以需要线上换包, 这就比较麻烦了, 所以我们这个模块要和之前的头像保持兼容. </p>
 <p>我们游戏中的显示头像的地方有很多, 我们不能把下载的调用写的到处都是, 比较优雅的做法是实现一个头像控件, 在这个控件内部处理普通头像和自定义头像的逻辑. 为了提高用户体验, 下载的过程中我们可以显示一张替代图或者之前的普通头像.</p>
@@ -4877,6 +4841,13 @@
     
     <entry>
       <title></title>
+      <url>http://blog.justbilt.com/links/index.html</url>
+      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="noopener">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="noopener">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="noopener">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="noopener">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="noopener">http://qipa.world/</a><br>世玲兄: <a href="http://young40.com/" target="_blank" rel="noopener">http://young40.com/</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
       <url>http://blog.justbilt.com/assets/comment.css</url>
       <content type="html"><![CDATA[.gitment-container {
   font-family: sans-serif;
@@ -6035,13 +6006,6 @@ a.gitment-editor-footer-tip:hover {
 .gitment-markdown hr {
   border-bottom-color: #eee;
 }]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>http://blog.justbilt.com/links/index.html</url>
-      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="noopener">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="noopener">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="noopener">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="noopener">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="noopener">http://qipa.world/</a><br>世玲兄: <a href="http://young40.com/" target="_blank" rel="noopener">http://young40.com/</a></p>
-]]></content>
     </entry>
     
     <entry>

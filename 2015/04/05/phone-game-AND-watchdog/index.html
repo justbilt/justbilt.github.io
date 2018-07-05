@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>手机游戏攻防(二) 守护变量法 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=游戏心得,手机游戏攻防>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="手机游戏攻防(二) 守护变量法">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> 手机游戏攻防(二) 守护变量法 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">手机游戏攻防(二) 守护变量法</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        手机游戏攻防(二) 守护变量法
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2015-04-05</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <h2 id="一-思路"><a href="#一-思路" class="headerlink" title="一.思路"></a>一.思路</h2><p>我在13年8月的时候写过一篇游戏防八门神器修改的文章(<a href="/2015/04/04/phone-game-AND-encrypt-var/">见这里</a>), 当时介绍了一个守护策略就是<code>变量加密法</code>, 今天我们来介绍下另一种思路: <code>守护变量法</code>.</p>
+   <div class="post-meta">
+    <span class="post-time">2015-04-05</span>
+  </div>
+  <div class="post-content">
+    <h2 id="一-思路"><a href="#一-思路" class="headerlink" title="一.思路"></a>一.思路</h2><p>我在13年8月的时候写过一篇游戏防八门神器修改的文章(<a href="/2015/04/04/phone-game-AND-encrypt-var/">见这里</a>), 当时介绍了一个守护策略就是<code>变量加密法</code>, 今天我们来介绍下另一种思路: <code>守护变量法</code>.</p>
 <a id="more"></a>
 <p>这个最开始想法来自于我之前看到的一篇文章<a href="http://club.tgfcer.com/thread-6817371-1-1.html" target="_blank" rel="noopener">&lt;&lt;从外行的视角尝试讲解为什么这回丰田栽了&gt;&gt;</a>中的一小节: </p>
 <blockquote>
@@ -185,82 +75,21 @@
 <p>演示代码, 没有考虑太多. 对于 lua 来说有更简单的做法, 比如使用<code>metamethod</code>.</p>
 <h2 id="三-后记"><a href="#三-后记" class="headerlink" title="三.后记"></a>三.后记</h2><p>其实我是建议对修改数据的玩家进行温和处理的, 比如监测到玩家修改数据后, 弹出提示告诉玩家解锁成就, 比如<em>游戏大师</em>. 或者走煽情路线, 告诉玩家我们开发游戏的不易, 各种苦逼各种惨. 也可以做成一个彩蛋, 弹出开发者信息. 甚至可以给玩家一些小奖励. 核心就是: <strong>玩家不是我们的敌人, 让玩家感受到我们的诚意</strong>. </p>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/游戏心得/" class="tag"><i class="iconfont">&#xe69f;</i>游戏心得</a>
-        
-          <a href="/tags/手机游戏攻防/" class="tag"><i class="iconfont">&#xe69f;</i>手机游戏攻防</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2015/04/19/untp/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">一个命令行的 TexturePacker 拆解工具 (一)</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2015/04/04/phone-game-AND-encrypt-var/" class="next">
-        <span class="next-text nav-default">手机游戏攻防(一) 变量加密法</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/手机游戏攻防/">手机游戏攻防</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/游戏心得/">游戏心得</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>

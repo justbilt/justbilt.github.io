@@ -1,167 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>Quick-cocos2d-x utf8 支持 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=Quick-Cocos2d-x,utf8>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<meta name="apple-mobile-web-app-title" content="Justbilt">
-
-<meta name="format-detection" content="telephone=no,email=no,address=no">
-
-<meta name="screen-orientation" content="portrait">
-
-<meta name="full-screen" content="yes">
-
-<meta name="browsermode" content="application">
-
-<meta name="x5-orientation" content="portrait">
-
-<meta name="x5-fullscreen" content="true">
-
-<meta name="x5-page-mode" content="app">
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-<meta name="author" content="justbilt">
-
-
-  <meta name="keywords" content="">
-
-
-
-  <meta name="description" content="唉, 什么都得自己搞.">
-
-
-
-  <link rel="shortcut icon" href="/favicon.ico">
-
-<link rel="stylesheet" href="/css/style.css">
-
-  <title> Quick-cocos2d-x utf8 支持 || Justbilt </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <div class="mobile-navbar" id="mobileNavbar">
-  <div class="mobile-navbar-logo">
-    <a href="/." class="logo">Justbilt</a>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
   </div>
-  
-  <div class="mobile-navbar-menu" id="menuBar">
-    <span></span>
-    <span></span>
-    <span></span>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">Quick-cocos2d-x utf8 支持</h1>
   </div>
-</div>
-
-<div class="mobile-menu" id="mobileMenu">
-  <ul class="mobile-menu-list">
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/">
-        
-          Home
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/archives">
-        
-          Archive
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/tags">
-        
-          Tags
-        
-      </a>
-    </li>
-  
-    <li class="mobile-menu-item">
-      
-      <a href="/about">
-        
-          About
-        
-      </a>
-    </li>
-  
-  </ul>
-</div>
-
-  <div class="container" id="main">
-    <div class="layout">
-      <ul class="menu">
-  
-  
-    <li class="menu-item">
-      <a href="/" class="iconfont icon-home"></a>
-      
-      
-        <span>Home</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/archives" class="iconfont icon-archive"></a>
-      
-      
-        <span>Archive</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/tags" class="iconfont icon-tags"></a>
-      
-      
-        <span>Tags</span>
-      
-    </li>
-  
-    <li class="menu-item">
-      <a href="/about" class="iconfont icon-about"></a>
-      
-      
-        <span>About</span>
-      
-    </li>
-  
-</ul>
-
-      
-  
-  <article class="post">
-    <h1 class="post-title">
-      
-        Quick-cocos2d-x utf8 支持
-      
-    </h1>
-    <div class="post-pub">
-      <div class="post-date">
-        <i class="iconfont">&#xe64d;</i>
-        <span>2016-09-23</span>
-      </div>
-      <div class="post-cat">
-        
-      </div>
-    </div>
-
-    <div class="post-content">
-      
-
-      
-        <h1 id="一-需求"><a href="#一-需求" class="headerlink" title="一. 需求"></a>一. 需求</h1><h2 id="1-计算玩家名字字符数"><a href="#1-计算玩家名字字符数" class="headerlink" title="1. 计算玩家名字字符数"></a>1. 计算玩家名字字符数</h2><p>对于这个需求一般情况下 <code>string.len</code> 或 quick 自带的 <code>string.utf8len</code> 就能满足, 但是如果需求是:</p>
+   <div class="post-meta">
+    <span class="post-time">2016-09-23</span>
+  </div>
+  <div class="post-content">
+    <h1 id="一-需求"><a href="#一-需求" class="headerlink" title="一. 需求"></a>一. 需求</h1><h2 id="1-计算玩家名字字符数"><a href="#1-计算玩家名字字符数" class="headerlink" title="1. 计算玩家名字字符数"></a>1. 计算玩家名字字符数</h2><p>对于这个需求一般情况下 <code>string.len</code> 或 quick 自带的 <code>string.utf8len</code> 就能满足, 但是如果需求是:</p>
 <blockquote>
 <p>对于像 中文/日文/韩文 这样的方块字一个占 2 个长度, 其他字符占 1 个长度.</p>
 </blockquote>
@@ -239,82 +129,21 @@
 <h2 id="玩家姓名长度判断"><a href="#玩家姓名长度判断" class="headerlink" title="玩家姓名长度判断"></a>玩家姓名长度判断</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> length = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">utf8.<span class="built_in">foreach</span>(text, <span class="function"><span class="keyword">function</span><span class="params">(index, char, code, pos)</span></span></span><br><span class="line">    <span class="comment">-- 中日韩文字一个字符算两个长度</span></span><br><span class="line">    <span class="keyword">if</span> code &gt;= <span class="number">0x3040</span> <span class="keyword">and</span> code &lt;= <span class="number">0x9fff</span> <span class="keyword">then</span></span><br><span class="line">        length = length + <span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        length = length + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="emoji-表情判断"><a href="#emoji-表情判断" class="headerlink" title="emoji 表情判断"></a>emoji 表情判断</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">checkContainsEomji</span><span class="params">(text)</span></span></span><br><span class="line">    <span class="keyword">local</span> contain = <span class="literal">false</span></span><br><span class="line">    utf8.<span class="built_in">foreach</span>(text, <span class="function"><span class="keyword">function</span><span class="params">(index, char, code, pos)</span></span></span><br><span class="line">        <span class="comment">-- [^\u0000-\u25ff\u27c0-\uD7FF\uE000-\uFFFF]</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ((code &gt;= <span class="number">0x0000</span> <span class="keyword">and</span> code &lt;= <span class="number">0x25ff</span>) <span class="keyword">or</span> (code &gt;= <span class="number">0x27c0</span> <span class="keyword">and</span> code &lt;= <span class="number">0xD7FF</span>) <span class="keyword">or</span> (code &gt;= <span class="number">0xE000</span> <span class="keyword">and</span> code &lt;= <span class="number">0xFFFF</span>)) <span class="keyword">then</span></span><br><span class="line">            contain = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line">    <span class="keyword">return</span> contain</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-      <div class="post-tags">
-        
-          <a href="/tags/Quick-Cocos2d-x/" class="tag"><i class="iconfont">&#xe69f;</i>Quick-Cocos2d-x</a>
-        
-          <a href="/tags/utf8/" class="tag"><i class="iconfont">&#xe69f;</i>utf8</a>
-        
-      </div>
-    
-
-  </article>
-
-  
-  <nav class="post-nav">
-    
-      <a href="/2016/10/29/untp-2/" class="prev">
-        <i class="iconfont">&#xe619;</i>
-        <span class="prev-text nav-default">一个命令行的 TexturePacker 拆解工具  (二)</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a href="/2016/09/10/quickx-crash-on-phone-2/" class="next">
-        <span class="next-text nav-default">最近遇到的几个 Quick-cocos2d-x 真机崩溃(二)</span>
-        <span class="next-text nav-mobile">Next</span>
-        <i class="iconfont">&#xe60e;</i>
-      </a>
-    
-  </nav>
-
-
-
-      <div class="footer">
-  
-    <div class="footer-links">
-      
-        
-          
-            <a href="https://github.com/justbilt" class="iconfont icon-github" title="github" target="_blank"></a>
-          
-        
-      
-        
-          
-            <a href="/atom.xml" class="iconfont icon-rili" title="rili" target="_blank"></a>
-          
-        
-      
-    </div>
-  
-
-  <div class="footer-copy">
-    <p>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-      Theme - <a href="https://github.com/yudaren007007/hexo-theme-cold" target="_blank">Cold</a>
-    </p>
-    <p>
-      
-      &copy;
-      
-        2013 -
-      
-      2018
-      <i class="iconfont">&#xe692;</i>
-      <span>justbilt</span>
-    </p>
   </div>
-</div> 
-    </div>
-  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Quick-Cocos2d-x/">Quick-Cocos2d-x</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/utf8/">utf8</a></li></ul>
+    
 
-  <script src="/js/untils.js"></script>
-<script src="/js/cold.js"></script>
-<script src="/js/boot.js"></script>
-</body>
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
 </html>
