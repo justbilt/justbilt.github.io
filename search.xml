@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title><![CDATA[为 untp 添加解密受保护 PVR 功能]]></title>
+      <url>http://blog.justbilt.com/2018/07/07/protection-pvr-for-untp/</url>
+      <content type="html"><![CDATA[<p>前些日志, 有 G友 为 untp 添加了这么一条 <a href="https://github.com/justbilt/untp/issues/16" target="_blank" rel="noopener">issue</a>:</p>
+<p><img src="/img/2018-07-07-01.png" alt=""></p>
+<p>还是比较有意思的, 早就知道 TexturePacker 提供了加密资源的功能, 但还没有实际使用过, 何不借此机会研究一下 ?</p>
+<h1 id="一-初探-Content-protection"><a href="#一-初探-Content-protection" class="headerlink" title="一. 初探 Content protection"></a>一. 初探 Content protection</h1><p>我们很容易在 TexturePacker 中找到这个功能:</p>
+<p><img src="/img/2018-07-07-02.png" alt=""></p>
+<p>更详细的说明在<a href="https://www.codeandweb.com/texturepacker/contentprotection" target="_blank" rel="noopener">这里</a>, 里面提供了 Cocos2D 版本的解密文件 ZipUtils.m 和使用说明. 想比与这份 Objective-C 版, Cocos2d-x 的 <a href="https://github.com/cocos2d/cocos2d-x/blob/v3/cocos/base/ZipUtils.cpp#L58" target="_blank" rel="noopener">C++ 版本</a>才是我们今天的主角.</p>
+<p>通过阅读代码, 我们可以得知 <code>ZipUtils::decodeEncodedPvr</code> 内的逻辑大约分为两部分:</p>
+<ol>
+<li>通过原始密钥成成加密密钥</li>
+<li>解密图片的数据块</li>
+</ol>
+<p>这里面比较复杂的部分是生成密钥的部分. 将 4 个 uint 类型的原始密钥数组经过一个复杂的算法生成了 1024 个 unit 类型的数字.</p>
+<p>解密的逻辑就很简单了, 只是与密钥简单的异或而已. 为了提高加解密速度, 只有前 512 个单元 是逐个加密的, 后面的每 64 个单元加密一个单元.</p>
+<h1 id="二-解密-Content-protection"><a href="#二-解密-Content-protection" class="headerlink" title="二. 解密 Content protection"></a>二. 解密 Content protection</h1><p>知道了原理, 让我们来为 untp 实现一下解密的功能吧. 虽说有了 c++ 版的实现, 但翻译改为 Python 版时也遇到了不少问题, 所幸最后还是搞定了, 代码在<a href="https://github.com/justbilt/untp/blob/dbd025a47afa1db747bd854ff374d8eda65676f8/src/untp/pvr.py#L100" target="_blank" rel="noopener">这里</a>, 下面我们来说说过程中遇到的问题. </p>
+<h2 id="1"><a href="#1" class="headerlink" title="1. ++"></a>1. ++</h2><p>在解密的过程中加密密钥的索引 b 总是以 <code>b++</code> 的形式进行递增, 而 Python 是不支持 <code>++/--</code> 操作符的, 我们可简单的换为 <code>b += 1</code> 这样的语句替代, 但是要记住先取值再递增.</p>
+<p>另外一处是 for 循环的控制变量 <code>i</code> 也是以 <code>++i</code> 的形式进行递增的, 我们可以将将循环换成 range 函数替代:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, min(len(body), securelen)):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>但是 C++ 版本又对 i 进行了复用, 这会导致我们的 <code>i</code> 在循环结束后比 c++ 版本少 1, 需要再递增一次才能一致.</p>
+<h2 id="2-unsigned-int-溢出问题"><a href="#2-unsigned-int-溢出问题" class="headerlink" title="2. unsigned int 溢出问题"></a>2. unsigned int 溢出问题</h2><p>我们的每一个密钥和原始数据的每一块都被当做一个 <code>unsigned int</code> 进行处理, 这过程中会有相加的逻辑, 可能会导致结果大于 uint 的最大值 <code>2 ^ 32 - 1</code>. C++ 操作会对超出的部分自动丢弃, Python 却会对数据类型进行升级, 编程 long 类型, 这就导致了结果的不一致, 我们可以通过与最大值进行 <code>&amp;</code> 操作达到同样的目的:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">long_to_uint</span><span class="params">(value)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> value &gt; <span class="number">4294967295</span>:</span><br><span class="line">        <span class="keyword">return</span> (value &amp; (<span class="number">2</span> ** <span class="number">32</span> - <span class="number">1</span>))</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
+<h2 id="3-byte-和-number-的互相转换"><a href="#3-byte-和-number-的互相转换" class="headerlink" title="3. byte 和 number 的互相转换"></a>3. byte 和 number 的互相转换</h2><p>C++ 版本中只需要将 <code>unsinged char*</code> 变为 <code>unsinged int*</code> 就能实现每 4 字节变成一个 uint, Python 中则需要借助 <code>strcut</code> 库.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># byte to number</span><br><span class="line">struct.unpack(&quot;I&quot;, byte)[0]</span><br><span class="line"># number to byte</span><br><span class="line">struct.pack(&apos;I&apos;, num)</span><br></pre></td></tr></table></figure>
+<h2 id="4-ccz-文件头"><a href="#4-ccz-文件头" class="headerlink" title="4. ccz 文件头"></a>4. ccz 文件头</h2><p>PVR 格式本身不是压缩格式纹理, 如果不进行压缩的话会很大, TexturePacker 针对 PVR 可以输出两种压缩格式: ccz 和 gz, 但只有 ccz 支持加密. 按照 C++ 中的定义, ccz 文件头如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CCZHeader</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span>   sig[<span class="number">4</span>];             <span class="comment">// signature. Should be 'CCZ!' 4 bytes</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span>  compression_type;   <span class="comment">// should 0</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span>  version;            <span class="comment">// should be 2 (although version type==1 is also supported)</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span>    reserved;           <span class="comment">// Reserved for users.</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span>    len;                <span class="comment">// size of the uncompressed file</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里面比较有用的是 sig, 未加密的格式是 <code>CCZ!</code>, 加密的格式是 <code>CCZp</code>, 我们可以通过它的取值提前判断是否进行了加密. Python 读取 CCZHeader 可以用如下代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_pvr_head</span><span class="params">(_data)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">"sig"</span>: _data[:<span class="number">4</span>],</span><br><span class="line">        <span class="string">"compression_type"</span>: struct.unpack(<span class="string">"H"</span>, _data[<span class="number">4</span>:<span class="number">6</span>])[<span class="number">0</span>],</span><br><span class="line">        <span class="string">"version"</span>: struct.unpack(<span class="string">"H"</span>, _data[<span class="number">6</span>:<span class="number">8</span>])[<span class="number">0</span>],</span><br><span class="line">        <span class="string">"reserved"</span>: struct.unpack(<span class="string">"I"</span>, _data[<span class="number">8</span>:<span class="number">12</span>])[<span class="number">0</span>],</span><br><span class="line">        <span class="string">"len"</span>: struct.unpack(<span class="string">"I"</span>, _data[<span class="number">12</span>:<span class="number">16</span>])[<span class="number">0</span>],</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>值得注意的是, 最然 <code>len</code> 属于文件头, 但也被加密了.</p>
+<h1 id="三-小技巧"><a href="#三-小技巧" class="headerlink" title="三. 小技巧"></a>三. 小技巧</h1><p>其实这个功能从很早就开始做了, 只是一开始始终不得要领, 反复调试, 使用 XCode 跑起来 C++ 版实现对比内存, 直到我掌握了一些小技巧.</p>
+<h2 id="1-计算器观察二进制排布"><a href="#1-计算器观察二进制排布" class="headerlink" title="1. 计算器观察二进制排布"></a>1. 计算器观察二进制排布</h2><p>使用 Mac 自带的计算器开始程序员模式后可以很方便的观察一个数字的二进制排布情况, 点击每一位还可以进行修改, 特别方便:</p>
+<p><img src="/img/2018-07-07-04.png" alt=""></p>
+<h2 id="2-参照文件"><a href="#2-参照文件" class="headerlink" title="2. 参照文件"></a>2. 参照文件</h2><p>有一个问题, 如何得知我们解密的后文件是否正确, 差在哪里呢 ? 一开始我也是靠猜测, 后来去对比内存, 但是都很麻烦, 最终我想到了一个妙招:</p>
+<blockquote>
+<p>既然 C++ 版都已经解密成功了, 那我直接把这个数据保存下来, 不就知道了目标二进制数据了嘛 !</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FILE *fp = fopen((cocos2d::FileUtils::getInstance()-&gt;getWritablePath() + <span class="string">"temp.pvr.ccz"</span>).c_str(), <span class="string">"wb"</span>);</span><br><span class="line">header-&gt;sig[<span class="number">3</span>] = <span class="string">'!'</span>;</span><br><span class="line">fwrite(buffer, bufferLen, <span class="number">1</span>, fp);</span><br><span class="line">fclose(fp);</span><br></pre></td></tr></table></figure>
+<h2 id="3-对比二进制数据"><a href="#3-对比二进制数据" class="headerlink" title="3. 对比二进制数据"></a>3. 对比二进制数据</h2><p>我使用的是 Sublime Text, 切成了两个窗口:</p>
+<p><img src="/img/2018-07-07-05.png" alt=""></p>
+<p>左右扫一下便知道哪个数据不对, 我最后一步少了文件尾就是通过这个看出来的.</p>
+<h1 id="四-后记"><a href="#四-后记" class="headerlink" title="四. 后记"></a>四. 后记</h1><p>总的来说, 这次尝试收获颇丰, 后面自己打算做的一个小工具恰好能用上这次学习到的内容, 感觉自己棒棒哒. </p>
+<p>当然, untp 对于加密 PVR 的支持还可以做到更好, 现在只支持单密钥, 其实是可以做到多密钥多次尝试找到一个可用, 这次因为拖的比较久了想赶紧搞定就没有做, 下一版补上.</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> untp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[共同进步的 2017]]></title>
       <url>http://blog.justbilt.com/2018/03/04/my-2017/</url>
       <content type="html"><![CDATA[<p>以往的年结大家感兴趣的话可以看这里: <a href="/tags/年结/">我的年结</a>, 这篇是第五篇了. 今年的年结比去年晚了一些, 客观原因有很多, 但其实还是自己比较懒.</p>
@@ -6002,16 +6056,16 @@ a.gitment-editor-footer-tip:hover {
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://blog.justbilt.com/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title></title>
       <url>http://blog.justbilt.com/links/index.html</url>
       <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="noopener">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="noopener">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="noopener">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="noopener">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="noopener">http://qipa.world/</a><br>世玲兄: <a href="http://young40.com/" target="_blank" rel="noopener">http://young40.com/</a></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://blog.justbilt.com/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
