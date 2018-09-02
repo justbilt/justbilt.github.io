@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title><![CDATA[Creator 简易热更新]]></title>
+      <url>http://blog.justbilt.com/2018/09/02/creator-simple-hotupdate/</url>
+      <content type="html"><![CDATA[<h1 id="一-官方提供的-AssetsManager"><a href="#一-官方提供的-AssetsManager" class="headerlink" title="一. 官方提供的 AssetsManager"></a>一. 官方提供的 AssetsManager</h1><p>Cocos 官方提供了一套基于 AssetsManager 的热更新方案, 这套方案大致是这样的:</p>
+<ol>
+<li>每次构建时配合 <a href="https://github.com/cocos-creator/tutorial-hot-update/blob/master/version_generator.js" target="_blank" rel="noopener">version_generator.js</a> 生成清单文件: project.manifest 和 version.manifest</li>
+<li>将最新构建好的 <code>代码/资源/清单文件</code> 放到服务器上</li>
+<li>启动游戏时使用 AssetsManager 检查更新, 对比差异, 下载更新, 重启游戏</li>
+</ol>
+<p>这样做的优点有:</p>
+<ol>
+<li>服务器几乎不需要做任何事情, 只需要提供一个静态文件存储就行.</li>
+<li>无版本号概念, 可以从任何版本更新到最新版.</li>
+</ol>
+<p>缺点也不少:</p>
+<ol>
+<li>没法做灰度更新, 即不能一部分用户先测试更新, 没有问题后再全网开放.</li>
+<li>需要下载多个文件, 存在下载失败的可能, 需要特别小心.</li>
+<li>每次把最新的版本放到 oss 上是一件非常痛苦的事情, 因为 oss 不支持压缩, 文件多了后每次要耗费数十分钟之久.</li>
+</ol>
+<p>其中灰度更新是我们比较在意的, 在面试时我也问过这个问题, 好点的同学说他们是通过两个安装包来实现的, 一些同学干脆回答他们没有做灰度更新, 都无法令人满意. 而真正令我们下定决心实现一个新的方案的原因是很多用户反馈会卡在 100% 进度, 卸载重新安装包也无法解决.</p>
+<h1 id="二-新的方案"><a href="#二-新的方案" class="headerlink" title="二. 新的方案"></a>二. 新的方案</h1><h2 id="1-方案"><a href="#1-方案" class="headerlink" title="1. 方案"></a>1. 方案</h2><p>因此我们为此设计了一套更简易的热更新方案:</p>
+<ol>
+<li>每次构建后的内容, 使用 version_generator 生成清单, 保留所有内容到以 version 命名的文件夹</li>
+<li>遮掩有多个版本后, 我们使用一个脚本对比不同版本的 project.manifest 便能生成这两个版本的差异文件</li>
+<li>将这些差异文件传到服务器上, 使用当前版本去匹配一个最新版本的差异包下载下来解压就行.</li>
+</ol>
+<p>更新的流程如下图所示:</p>
+<p><img src="http://on-img.com/chart_image/5b836a6fe4b075b9fe289a89.png" alt=""></p>
+<p>我们如何解决 AssetsManager 的缺点的呢?</p>
+<h3 id="1-灰度更新"><a href="#1-灰度更新" class="headerlink" title="1). 灰度更新"></a>1). 灰度更新</h3><p>在向服务器请求最新版本时, 除了必须的本地版本外, 还可以带上一个设备 id, 在后台维护一个 测试设备id 列表, 这样就知道这次请求是不是测试设备发出的了, 这样我们就完成了第一步.</p>
+<p>每次在后台新增热更新时默认状态是 <code>测试</code>, 在服务器端获取最新热更新的逻辑中加入: <strong>只有测试设备才能更新状态为测试的热更新</strong> 限制, 测试完成后将热更新修改为上线状态.</p>
+<h3 id="2-文件数量"><a href="#2-文件数量" class="headerlink" title="2). 文件数量"></a>2). 文件数量</h3><p>使用这个方案上传到服务器的文件数量极少, 第 N 次更新只会增加 N 个文件, 如果觉得更新数量太多的话, 我们可以以接力更新 (A-&gt;B-&gt;C) 的方式减少生成的数量. 这样我们就避免了 AssetsManager 的第二个和第三个缺点.</p>
+<h2 id="2-方案细节"><a href="#2-方案细节" class="headerlink" title="2. 方案细节:"></a>2. 方案细节:</h2><h3 id="1-生成差异包"><a href="#1-生成差异包" class="headerlink" title="1). 生成差异包"></a>1). 生成差异包</h3><p>我们是以构建时 git HEAD 的 short hash 作为版本号的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">├── 44fd23968b</span><br><span class="line">│   ├── main.js</span><br><span class="line">│   ├── project.manifest</span><br><span class="line">│   ├── res</span><br><span class="line">│   ├── script</span><br><span class="line">│   ├── src</span><br><span class="line">│   └── version.manifest</span><br><span class="line">└── f144d9017a</span><br><span class="line">    ├── main.js</span><br><span class="line">    ├── project.manifest</span><br><span class="line">    ├── res</span><br><span class="line">    ├── script</span><br><span class="line">    ├── src</span><br><span class="line">    └── version.manifest</span><br></pre></td></tr></table></figure>
+<p>对比脚本也极其简单, 我们是用 python 实现的, 核心逻辑如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">diff</span><span class="params">(_version1, _version2, _output)</span>:</span></span><br><span class="line">    assets1 = shutils.read_json(os.path.join(_version1, <span class="string">"project.manifest"</span>)).get(<span class="string">"assets"</span>, &#123;&#125;)</span><br><span class="line">    assets2 = shutils.read_json(os.path.join(_version2, <span class="string">"project.manifest"</span>)).get(<span class="string">"assets"</span>, &#123;&#125;)</span><br><span class="line">    <span class="keyword">for</span> k,v <span class="keyword">in</span> assets2.iteritems():</span><br><span class="line">        v2 = assets1.get(k)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> v2 <span class="keyword">or</span> v.get(<span class="string">"md5"</span>) != v2.get(<span class="string">"md5"</span>):</span><br><span class="line">            shutil.copy(os.path.join(_version2, k), _output)</span><br></pre></td></tr></table></figure>
+<p>再把对比出差异的目录压缩成 zip: <code>44fd23968b-f144d9017a.zip</code> 并传到服务器上.</p>
+<h3 id="2-下载差异包"><a href="#2-下载差异包" class="headerlink" title="2). 下载差异包"></a>2). 下载差异包</h3><p>下载我们用的是 <code>jsb.Downloader</code> 模块, 下载代码如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> update() &#123;</span><br><span class="line">    <span class="keyword">this</span>.mDownloader = <span class="keyword">new</span> jsb.Downloader(&#123;</span><br><span class="line">        countOfMaxProcessingTasks: <span class="number">32</span>,</span><br><span class="line">        timeoutInSeconds: <span class="number">5</span>,</span><br><span class="line">        tempFileNameSuffix: <span class="string">".temp"</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    jsb.fileUtils.createDirectory(<span class="keyword">this</span>.getStoragePath());</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.setOnFileTaskSuccess(<span class="keyword">this</span>.onTaskSuccess.bind(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.setOnTaskError(<span class="keyword">this</span>.onTaskError.bind(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.setOnTaskProgress(<span class="keyword">this</span>.onTaskProgress.bind(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.createDownloadFileTask(<span class="keyword">this</span>.mUrl, storagePath, <span class="string">"hotupdate"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>值得一提的是 <code>countOfMaxProcessingTasks</code> 不能填 1, 不然会导致 Android 上无法开始下载.</p>
+<h3 id="3-解压"><a href="#3-解压" class="headerlink" title="3). 解压"></a>3). 解压</h3><p>解压我们没有单独写实现, 复用了 <code>jsb.AssetsManager</code> 的 <code>decompress</code> 函数, 这个函数之前是私有的, 需要修改下 c++ 代码改成 public 的然后 tojs 下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> decompress(zipPath: <span class="built_in">string</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span> jsb.AssetsManager(<span class="string">""</span>, <span class="keyword">this</span>.getStoragePath(), <span class="literal">null</span>).decompress(zipPath)) &#123;</span><br><span class="line">        cc.log(<span class="string">"SimpleHotUpdate =&gt; decompress:"</span>, <span class="string">"successed"</span>);</span><br><span class="line">        <span class="keyword">this</span>.saveSearchPath([<span class="keyword">this</span>.getStoragePath()]);</span><br><span class="line">        <span class="keyword">this</span>.onUpdateSuccess();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cc.log(<span class="string">"SimpleHotUpdate =&gt; decompress:"</span>, <span class="string">"解压失败"</span>);</span><br><span class="line">    <span class="keyword">this</span>.onUpdateFail(<span class="string">"解压失败"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>好久没写文章了, 最近换了新的电脑, 又有了一些写东西的欲望, 希望能多坚持一会吧.</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> CocosCreaor </tag>
+            
+            <tag> Hotupdate </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[为 untp 添加解密受保护 PVR 功能]]></title>
       <url>http://blog.justbilt.com/2018/07/07/protection-pvr-for-untp/</url>
       <content type="html"><![CDATA[<p>前些日志, 有 G友 为 untp 添加了这么一条 <a href="https://github.com/justbilt/untp/issues/16" target="_blank" rel="noopener">issue</a>:</p>
@@ -1147,7 +1205,7 @@
 <li>是否真的没有到账 ?</li>
 </ol>
 <p>可能是实际已经到账了, 只是玩家没有发现, 这个需要后端查询玩家的钻石变化后向玩家解释清楚.</p>
-<ol>
+<ol start="2">
 <li>是否真的充值成功 ?</li>
 </ol>
 <p>这个首先要玩家提供苹果充值收据邮件截图, 但是这个是可以伪造的, 但是可以阻挡一部分心怀不轨的玩家. 再根据我们前面收集的日志, 加上这个账号历史行为作出一个判断, 是否要给这个玩家补单.</p>
@@ -1495,7 +1553,7 @@
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>换了一个测试机就好了</p>
 <h2 id="二-xcodebuilder-exportArchive-dev-失败"><a href="#二-xcodebuilder-exportArchive-dev-失败" class="headerlink" title="二. xcodebuilder -exportArchive dev 失败"></a>二. xcodebuilder -exportArchive dev 失败</h2><p>这个问题发生在我们的 iOS 打包脚本中, 会报错:</p>
 <blockquote>
-<p>IDEDistribution: Step failed: <idedistributionthinningstep: 0x7fa72bbd50e0="">: Error Domain=IDEDistributionErrorDomain Code=14 “No applicable devices found.”</idedistributionthinningstep:></p>
+<p>IDEDistribution: Step failed: &lt;IDEDistributionThinningStep: 0x7fa72bbd50e0&gt;: Error Domain=IDEDistributionErrorDomain Code=14 “No applicable devices found.”</p>
 </blockquote>
 <h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p>一开始我使用了老的 ipa 导出方案 <code>xcrun -sdk iphoneos PackageApplication</code> , 这样虽然可以导出了, 但是经常无法安装到测试机, 还得用 XCode 打开归档文件手动导出 dev 版本. 就这样凑活了一段时间后, 我终于下定决心解决这个问题了. 原来每次 <code>exportArchive</code> 会有有一个日志文件, 查看 /var/folders/…/IDEDistribution.standard.log 得知是我的 ruby 环境有问题:</p>
 <figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[NOTE]</span><br><span class="line">You may have encountered a bug in the Ruby interpreter or extension libraries.</span><br><span class="line">Bug reports are welcome.</span><br><span class="line">Don't forget to include the above Crash Report log file.</span><br><span class="line">For details: http://www.ruby-lang.org/bugreport.html</span><br></pre></td></tr></table></figure>
@@ -2044,7 +2102,7 @@
 <p>虽然问题解决了, 但是我并不明白各种缘由. Google 了下, 大概明白了, 原来如此. 从错误中我们可以看到这句 <code>[AppController window]</code> , 从语法来看, 这是要调用 AppController 的 window 函数, 但是在我们之前的写法中没有实现这个函数, 便出错了. 而使用 <code>@property</code> 这个东西, 会自动帮你实现一个 <code>window/setWindow</code> 函数, 这样就不会找不到这个函数了.</p>
 <h1 id="三-游戏在低于-ios9-的系统启动崩溃"><a href="#三-游戏在低于-ios9-的系统启动崩溃" class="headerlink" title="三. 游戏在低于 ios9 的系统启动崩溃"></a>三. 游戏在低于 ios9 的系统启动崩溃</h1><p>这个也是在接入第三方 sdk 时遇到的问题, 游戏一启动就会崩溃, 收到错误如下:</p>
 <blockquote>
-<p>dyld: Symbol not found: _OBJC<em>CLASS</em>$_SFSafariViewController<br>  Referenced from: /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision<br>  Expected in: /System/Library/Frameworks/SafariServices.framework/SafariServices<br> in /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision</p>
+<p>dyld: Symbol not found: _OBJC_CLASS_$_SFSafariViewController<br>  Referenced from: /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision<br>  Expected in: /System/Library/Frameworks/SafariServices.framework/SafariServices<br> in /var/mobile/Applications/CF4146B4-3F79-4644-86CA-F19E52E64BAA/superarmoreddivision.app/superarmoreddivision</p>
 </blockquote>
 <p>Google 了一下, 没有任何人遇到过这样的问题, 这就十分棘手了, 完全不知从何入手. 经过一番探索, 找到了几个有用的线索:</p>
 <ol>
@@ -2457,7 +2515,7 @@
 <p><img src="http://ww1.sinaimg.cn/large/7f870d23gw1f2khakkr86j20ja0a0go3.jpg" alt=""></p>
 <h2 id="2-iPhone5-上获得的设备尺寸为-960x640"><a href="#2-iPhone5-上获得的设备尺寸为-960x640" class="headerlink" title="2. iPhone5 上获得的设备尺寸为 960x640"></a>2. iPhone5 上获得的设备尺寸为 960x640</h2><p>表现出来是竖屏游戏上线有黑边, 跟踪发现获得的设备尺寸为 960x640, 而非 1136x640.</p>
 <p>解决方案:</p>
-<p>添加一张尺寸为 <code>1136x640</code> 名为 <code>Default-568h@2x.png</code> 的启动图即可.</p>
+<p>添加一张尺寸为 <code>1136x640</code> 名为 <a href="mailto:`Default-568h@2x.png" target="_blank" rel="noopener">`Default-568h@2x.png</a>` 的启动图即可.</p>
 <p>参考资料:<br><a href="http://discuss.cocos2d-x.org/t/getframesize-get-wrong-screen-size/7657" target="_blank" rel="noopener">http://discuss.cocos2d-x.org/t/getframesize-get-wrong-screen-size/7657</a></p>
 <h2 id="3-XCode-issue-页面只显示错误-不显示警告"><a href="#3-XCode-issue-页面只显示错误-不显示警告" class="headerlink" title="3. XCode issue 页面只显示错误, 不显示警告"></a>3. XCode issue 页面只显示错误, 不显示警告</h2><p>cocos2d-x 在 XCode 中编译 warning 太多, 出错后 error 会被淹没在一大堆的警告中, 得拖动半天才能找得到.</p>
 <p>解决方案:</p>
@@ -2898,7 +2956,7 @@
 <li>ImportError: No module named xxx</li>
 </ol>
 <p>如果这个模块是你项目的一个本地依赖模块, 那么请检查你的 pdy 文件是否保存在代码入口文件的同一级目录.</p>
-<ol>
+<ol start="2">
 <li>error: use of undeclared identifier ‘_Py_BEGIN_SUPPRESS_IPH’</li>
 </ol>
 <p>是否使用了 python3.5 , 我切换为 python3.4 就 ok 了!</p>
@@ -3009,7 +3067,7 @@
 <p>再次点击 <code>Configure</code> 按钮, 无任何错误提示即为成功. 接下来点击 <code>Generate</code> 生成 Xcode 工程.</p>
 <h1 id="二-编译-MyGUI"><a href="#二-编译-MyGUI" class="headerlink" title="二. 编译 MyGUI"></a>二. 编译 MyGUI</h1><p>打开 <code>bin</code> 目录下的 <code>MYGUI.xcodeproj</code> 工程, 开始编译.  编译过程中会遇到如下编译错误:</p>
 <blockquote>
-<p>/Users/…/Data.cpp:136:11: No viable conversion from ‘std::__1::nullptr_t’ to ‘DataPtr’ (aka ‘shared_ptr<tools::data>‘)</tools::data></p>
+<p>/Users/…/Data.cpp:136:11: No viable conversion from ‘std::__1::nullptr_t’ to ‘DataPtr’ (aka ‘shared_ptr<a href="tools::Data" target="_blank" rel="noopener">tools::Data</a>‘)</p>
 </blockquote>
 <p>对于这个错误说明呢大家可以<a href="https://github.com/MyGUI/mygui/pull/82" target="_blank" rel="noopener">看这里</a>, 我的解决方案是把出错地方的 <code>nullptr</code> 都改为 <code>NULL</code>, 一共需要修改十几处吧.</p>
 <p><img src="http://static.zybuluo.com/justbilt/tfk0iznreipqw8m02ge20d3r/QQ20151101-2.png" alt="QQ20151101-2.png-82.3kB"></p>
@@ -3244,7 +3302,7 @@
 <a id="more"></a>
 <h1 id="1-“can-not-open-destination-file-xxx”"><a href="#1-“can-not-open-destination-file-xxx”" class="headerlink" title="1. “can not open destination file xxx”"></a>1. “can not open destination file xxx”</h1><p>AssetsManager 在解压时有一定概率会出现这个错误, 让我们先定位错误发生点:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FILE *out = fopen(fullPath.c_str(), <span class="string">"wb"</span>);</span><br><span class="line"><span class="keyword">if</span> (! out)</span><br><span class="line">&#123;</span><br><span class="line">    CCLOG(<span class="string">"can not open destination file %s"</span>, fullPath.c_str());</span><br><span class="line">    unzCloseCurrentFile(zipfile);</span><br><span class="line">    unzClose(zipfile);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>嗯, 其实就是打开一个文件去写的时候发生了错误, 这个 <code>fullPath</code> 就是解压的目标路径, 但是这个目标路径的文件夹是有可能不存在的, 比如 <code>download/res/ui/test.png</code>, 如果 <code>`download/res/ui</code> 目录不存在, 就会解压失败.</p>
+<p>嗯, 其实就是打开一个文件去写的时候发生了错误, 这个 <code>fullPath</code> 就是解压的目标路径, 但是这个目标路径的文件夹是有可能不存在的, 比如 <code>download/res/ui/test.png</code>, 如果 <code></code>download/res/ui` 目录不存在, 就会解压失败.</p>
 <p>这个问题也有别人遇到了, 还有具体的原因分析, 大家可以看这里: <a href="http://bbs.firedragonpzy.com.cn/forum.php?mod=viewthread&amp;tid=119" target="_blank" rel="noopener">AssetsManager在下载某些特定内容的zip文件后解压缩会失败</a>.</p>
 <p>解决方案也比较简单, 已经在 3.x 有实现了, 就是在解压文件前, <strong>遍历创建下每个层级的目录</strong> 就可以了, 代码如下:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//There are not directory entry in some case.</span></span><br><span class="line"><span class="comment">//So we need to test whether the file directory exists when uncompressing file entry</span></span><br><span class="line"><span class="comment">//, if does not exist then create directory</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">string</span> <span class="title">fileNameStr</span><span class="params">(fileName)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">size_t</span> startIndex=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">size_t</span> index=fileNameStr.find(<span class="string">"/"</span>,startIndex);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(index != <span class="built_in">std</span>::<span class="built_in">string</span>::npos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">string</span> dir=_storagePath+fileNameStr.substr(<span class="number">0</span>,index);</span><br><span class="line">    FILE *out = fopen(dir.c_str(), <span class="string">"r"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!out)&#123;</span><br><span class="line">        <span class="keyword">if</span> (!createDirectory(dir.c_str()))&#123;</span><br><span class="line">            CCLOG(<span class="string">"can not create directory %s"</span>, dir.c_str());</span><br><span class="line">            unzClose(zipfile);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            CCLOG(<span class="string">"create directory %s"</span>,dir.c_str());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        fclose(out);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    startIndex=index+<span class="number">1</span>;</span><br><span class="line">    index=fileNameStr.find(<span class="string">"/"</span>,startIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3855,7 +3913,7 @@
 </li>
 </ol>
 <p>删除掉.</p>
-<ol>
+<ol start="2">
 <li>第<code>61</code>行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script(src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -4281,8 +4339,8 @@
 <h1 id="三-搭建Sublime开发环境"><a href="#三-搭建Sublime开发环境" class="headerlink" title="三.搭建Sublime开发环境"></a>三.搭建Sublime开发环境</h1><p>关于Sublime的简介大家可以自行搜索,我们用它作为开发环境的主要原因是<a href="http://my.oschina.net/lonewolf/blog/176266" target="_blank" rel="noopener">lonewolf</a>小伙伴为Sublime做了非常实用的插件<strong>QuickXDev</strong>,非常屌,大家可以慢慢体会.</p>
 <h3 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1.下载安装"></a>1.下载安装</h3><p>大家在<a href="http://www.sublimetext.com/" target="_blank" rel="noopener">这里</a>可以很轻松的获取Sublime的最新版本,安装后打开,可以看到这个画面:<br><img src="http://ww2.sinaimg.cn/large/7f870d23jw1ecx7lzwmtxj20jg0gjdge.jpg" alt=""></p>
 <h3 id="2-安装package-control组件"><a href="#2-安装package-control组件" class="headerlink" title="2.安装package control组件"></a>2.安装package control组件</h3><ol>
-<li>按<code>Ctrl+` </code>调出console</li>
-<li>粘贴以下代码到底部命令行并回车：<br><strong><br>import urllib2,os;pf=’Package Control.sublime-package’;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a href="http://sublime.wbond.net/&#39;+pf.replace(" target="_blank" rel="noopener">http://sublime.wbond.net/&#39;+pf.replace(</a>‘ ‘,’%20’)).read())
+<li>按<code>Ctrl+`</code>调出console</li>
+<li>粘贴以下代码到底部命令行并回车：<br><strong><br>import urllib2,os;pf=’Package Control.sublime-package’;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a href="http://sublime.wbond.net/&#39;+pf.replace" target="_blank" rel="noopener">http://sublime.wbond.net/&#39;+pf.replace</a>(‘ ‘,’%20’)).read())
 </strong></li>
 <li>等待一段时间</li>
 <li>重启Sublime Text 2。</li>
@@ -4891,6 +4949,19 @@
       <content type="html"><![CDATA[<p>我是 bilt, 发音应该类似于 “biu油特” , 这个单词最开始是我自造的, 现在如果你词典去查的话, 会有一个 <strong>总胆红素</strong> 的意思. 因为这个单词比较短, 所以我一般会在前面加一个 just , 这样合起来就是 <code>justbilt</code> 了.</p>
 <p><img src="/favicon/logo.png" alt=""></p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>http://blog.justbilt.com/links/index.html</url>
+      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="noopener">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="noopener">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="noopener">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="noopener">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="noopener">http://qipa.world/</a><br>世玲兄: <a href="http://young40.com/" target="_blank" rel="noopener">http://young40.com/</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>http://blog.justbilt.com/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
     <entry>
@@ -6053,19 +6124,6 @@ a.gitment-editor-footer-tip:hover {
 .gitment-markdown hr {
   border-bottom-color: #eee;
 }]]></content>
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>http://blog.justbilt.com/links/index.html</url>
-      <content type="html"><![CDATA[<p>Imbahom: <a href="http://blog.imbahom.com/" target="_blank" rel="noopener">http://blog.imbahom.com/</a><br>松阳: <a href="http://www.songyang.net/" target="_blank" rel="noopener">http://www.songyang.net/</a><br>ChildhoodAndy: <a href="http://dabing1022.github.io/" target="_blank" rel="noopener">http://dabing1022.github.io/</a><br>子龙山人: <a href="http://zilongshanren.com/" target="_blank" rel="noopener">http://zilongshanren.com/</a><br>奇葩世界: <a href="http://qipa.world/" target="_blank" rel="noopener">http://qipa.world/</a><br>世玲兄: <a href="http://young40.com/" target="_blank" rel="noopener">http://young40.com/</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[tags]]></title>
-      <url>http://blog.justbilt.com/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
   

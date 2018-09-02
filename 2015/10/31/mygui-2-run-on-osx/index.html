@@ -80,7 +80,7 @@
 <p>再次点击 <code>Configure</code> 按钮, 无任何错误提示即为成功. 接下来点击 <code>Generate</code> 生成 Xcode 工程.</p>
 <h1 id="二-编译-MyGUI"><a href="#二-编译-MyGUI" class="headerlink" title="二. 编译 MyGUI"></a>二. 编译 MyGUI</h1><p>打开 <code>bin</code> 目录下的 <code>MYGUI.xcodeproj</code> 工程, 开始编译.  编译过程中会遇到如下编译错误:</p>
 <blockquote>
-<p>/Users/…/Data.cpp:136:11: No viable conversion from ‘std::__1::nullptr_t’ to ‘DataPtr’ (aka ‘shared_ptr<tools::data>‘)</tools::data></p>
+<p>/Users/…/Data.cpp:136:11: No viable conversion from ‘std::__1::nullptr_t’ to ‘DataPtr’ (aka ‘shared_ptr<a href="tools::Data" target="_blank" rel="noopener">tools::Data</a>‘)</p>
 </blockquote>
 <p>对于这个错误说明呢大家可以<a href="https://github.com/MyGUI/mygui/pull/82" target="_blank" rel="noopener">看这里</a>, 我的解决方案是把出错地方的 <code>nullptr</code> 都改为 <code>NULL</code>, 一共需要修改十几处吧.</p>
 <p><img src="http://static.zybuluo.com/justbilt/tfk0iznreipqw8m02ge20d3r/QQ20151101-2.png" alt="QQ20151101-2.png-82.3kB"></p>

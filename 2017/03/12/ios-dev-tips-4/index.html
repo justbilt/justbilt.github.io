@@ -61,7 +61,7 @@
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>换了一个测试机就好了</p>
 <h2 id="二-xcodebuilder-exportArchive-dev-失败"><a href="#二-xcodebuilder-exportArchive-dev-失败" class="headerlink" title="二. xcodebuilder -exportArchive dev 失败"></a>二. xcodebuilder -exportArchive dev 失败</h2><p>这个问题发生在我们的 iOS 打包脚本中, 会报错:</p>
 <blockquote>
-<p>IDEDistribution: Step failed: <idedistributionthinningstep: 0x7fa72bbd50e0="">: Error Domain=IDEDistributionErrorDomain Code=14 “No applicable devices found.”</idedistributionthinningstep:></p>
+<p>IDEDistribution: Step failed: &lt;IDEDistributionThinningStep: 0x7fa72bbd50e0&gt;: Error Domain=IDEDistributionErrorDomain Code=14 “No applicable devices found.”</p>
 </blockquote>
 <h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p>一开始我使用了老的 ipa 导出方案 <code>xcrun -sdk iphoneos PackageApplication</code> , 这样虽然可以导出了, 但是经常无法安装到测试机, 还得用 XCode 打开归档文件手动导出 dev 版本. 就这样凑活了一段时间后, 我终于下定决心解决这个问题了. 原来每次 <code>exportArchive</code> 会有有一个日志文件, 查看 /var/folders/…/IDEDistribution.standard.log 得知是我的 ruby 环境有问题:</p>
 <figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[NOTE]</span><br><span class="line">You may have encountered a bug in the Ruby interpreter or extension libraries.</span><br><span class="line">Bug reports are welcome.</span><br><span class="line">Don't forget to include the above Crash Report log file.</span><br><span class="line">For details: http://www.ruby-lang.org/bugreport.html</span><br></pre></td></tr></table></figure>

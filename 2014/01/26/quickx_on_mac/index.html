@@ -80,8 +80,8 @@
 <h1 id="三-搭建Sublime开发环境"><a href="#三-搭建Sublime开发环境" class="headerlink" title="三.搭建Sublime开发环境"></a>三.搭建Sublime开发环境</h1><p>关于Sublime的简介大家可以自行搜索,我们用它作为开发环境的主要原因是<a href="http://my.oschina.net/lonewolf/blog/176266" target="_blank" rel="noopener">lonewolf</a>小伙伴为Sublime做了非常实用的插件<strong>QuickXDev</strong>,非常屌,大家可以慢慢体会.</p>
 <h3 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1.下载安装"></a>1.下载安装</h3><p>大家在<a href="http://www.sublimetext.com/" target="_blank" rel="noopener">这里</a>可以很轻松的获取Sublime的最新版本,安装后打开,可以看到这个画面:<br><img src="http://ww2.sinaimg.cn/large/7f870d23jw1ecx7lzwmtxj20jg0gjdge.jpg" alt=""></p>
 <h3 id="2-安装package-control组件"><a href="#2-安装package-control组件" class="headerlink" title="2.安装package control组件"></a>2.安装package control组件</h3><ol>
-<li>按<code>Ctrl+` </code>调出console</li>
-<li>粘贴以下代码到底部命令行并回车：<br><strong><br>import urllib2,os;pf=’Package Control.sublime-package’;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a href="http://sublime.wbond.net/&#39;+pf.replace(" target="_blank" rel="noopener">http://sublime.wbond.net/&#39;+pf.replace(</a>‘ ‘,’%20’)).read())
+<li>按<code>Ctrl+`</code>调出console</li>
+<li>粘贴以下代码到底部命令行并回车：<br><strong><br>import urllib2,os;pf=’Package Control.sublime-package’;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a href="http://sublime.wbond.net/&#39;+pf.replace" target="_blank" rel="noopener">http://sublime.wbond.net/&#39;+pf.replace</a>(‘ ‘,’%20’)).read())
 </strong></li>
 <li>等待一段时间</li>
 <li>重启Sublime Text 2。</li>

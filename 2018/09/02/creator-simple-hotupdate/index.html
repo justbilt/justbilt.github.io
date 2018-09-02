@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>Creator 简易热更新 - Justbilt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=CocosCreaor,Hotupdate>
+  
+    <meta name="description" content="A game developer">
+  
+  
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Justbilt</a>
+    <div class="subtitle">A game developer</div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/archives" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/atom.xml" class="menu-item-link">RSS</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">Creator 简易热更新</h1>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2018-09-02</span>
+  </div>
+  <div class="post-content">
+    <h1 id="一-官方提供的-AssetsManager"><a href="#一-官方提供的-AssetsManager" class="headerlink" title="一. 官方提供的 AssetsManager"></a>一. 官方提供的 AssetsManager</h1><p>Cocos 官方提供了一套基于 AssetsManager 的热更新方案, 这套方案大致是这样的:</p>
+<ol>
+<li>每次构建时配合 <a href="https://github.com/cocos-creator/tutorial-hot-update/blob/master/version_generator.js" target="_blank" rel="noopener">version_generator.js</a> 生成清单文件: project.manifest 和 version.manifest</li>
+<li>将最新构建好的 <code>代码/资源/清单文件</code> 放到服务器上</li>
+<li>启动游戏时使用 AssetsManager 检查更新, 对比差异, 下载更新, 重启游戏</li>
+</ol>
+<p>这样做的优点有:</p>
+<ol>
+<li>服务器几乎不需要做任何事情, 只需要提供一个静态文件存储就行.</li>
+<li>无版本号概念, 可以从任何版本更新到最新版.</li>
+</ol>
+<p>缺点也不少:</p>
+<ol>
+<li>没法做灰度更新, 即不能一部分用户先测试更新, 没有问题后再全网开放.</li>
+<li>需要下载多个文件, 存在下载失败的可能, 需要特别小心.</li>
+<li>每次把最新的版本放到 oss 上是一件非常痛苦的事情, 因为 oss 不支持压缩, 文件多了后每次要耗费数十分钟之久.</li>
+</ol>
+<p>其中灰度更新是我们比较在意的, 在面试时我也问过这个问题, 好点的同学说他们是通过两个安装包来实现的, 一些同学干脆回答他们没有做灰度更新, 都无法令人满意. 而真正令我们下定决心实现一个新的方案的原因是很多用户反馈会卡在 100% 进度, 卸载重新安装包也无法解决.</p>
+<h1 id="二-新的方案"><a href="#二-新的方案" class="headerlink" title="二. 新的方案"></a>二. 新的方案</h1><h2 id="1-方案"><a href="#1-方案" class="headerlink" title="1. 方案"></a>1. 方案</h2><p>因此我们为此设计了一套更简易的热更新方案:</p>
+<ol>
+<li>每次构建后的内容, 使用 version_generator 生成清单, 保留所有内容到以 version 命名的文件夹</li>
+<li>遮掩有多个版本后, 我们使用一个脚本对比不同版本的 project.manifest 便能生成这两个版本的差异文件</li>
+<li>将这些差异文件传到服务器上, 使用当前版本去匹配一个最新版本的差异包下载下来解压就行.</li>
+</ol>
+<p>更新的流程如下图所示:</p>
+<p><img src="http://on-img.com/chart_image/5b836a6fe4b075b9fe289a89.png" alt=""></p>
+<p>我们如何解决 AssetsManager 的缺点的呢?</p>
+<h3 id="1-灰度更新"><a href="#1-灰度更新" class="headerlink" title="1). 灰度更新"></a>1). 灰度更新</h3><p>在向服务器请求最新版本时, 除了必须的本地版本外, 还可以带上一个设备 id, 在后台维护一个 测试设备id 列表, 这样就知道这次请求是不是测试设备发出的了, 这样我们就完成了第一步.</p>
+<p>每次在后台新增热更新时默认状态是 <code>测试</code>, 在服务器端获取最新热更新的逻辑中加入: <strong>只有测试设备才能更新状态为测试的热更新</strong> 限制, 测试完成后将热更新修改为上线状态.</p>
+<h3 id="2-文件数量"><a href="#2-文件数量" class="headerlink" title="2). 文件数量"></a>2). 文件数量</h3><p>使用这个方案上传到服务器的文件数量极少, 第 N 次更新只会增加 N 个文件, 如果觉得更新数量太多的话, 我们可以以接力更新 (A-&gt;B-&gt;C) 的方式减少生成的数量. 这样我们就避免了 AssetsManager 的第二个和第三个缺点.</p>
+<h2 id="2-方案细节"><a href="#2-方案细节" class="headerlink" title="2. 方案细节:"></a>2. 方案细节:</h2><h3 id="1-生成差异包"><a href="#1-生成差异包" class="headerlink" title="1). 生成差异包"></a>1). 生成差异包</h3><p>我们是以构建时 git HEAD 的 short hash 作为版本号的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">├── 44fd23968b</span><br><span class="line">│   ├── main.js</span><br><span class="line">│   ├── project.manifest</span><br><span class="line">│   ├── res</span><br><span class="line">│   ├── script</span><br><span class="line">│   ├── src</span><br><span class="line">│   └── version.manifest</span><br><span class="line">└── f144d9017a</span><br><span class="line">    ├── main.js</span><br><span class="line">    ├── project.manifest</span><br><span class="line">    ├── res</span><br><span class="line">    ├── script</span><br><span class="line">    ├── src</span><br><span class="line">    └── version.manifest</span><br></pre></td></tr></table></figure>
+<p>对比脚本也极其简单, 我们是用 python 实现的, 核心逻辑如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">diff</span><span class="params">(_version1, _version2, _output)</span>:</span></span><br><span class="line">    assets1 = shutils.read_json(os.path.join(_version1, <span class="string">"project.manifest"</span>)).get(<span class="string">"assets"</span>, &#123;&#125;)</span><br><span class="line">    assets2 = shutils.read_json(os.path.join(_version2, <span class="string">"project.manifest"</span>)).get(<span class="string">"assets"</span>, &#123;&#125;)</span><br><span class="line">    <span class="keyword">for</span> k,v <span class="keyword">in</span> assets2.iteritems():</span><br><span class="line">        v2 = assets1.get(k)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> v2 <span class="keyword">or</span> v.get(<span class="string">"md5"</span>) != v2.get(<span class="string">"md5"</span>):</span><br><span class="line">            shutil.copy(os.path.join(_version2, k), _output)</span><br></pre></td></tr></table></figure>
+<p>再把对比出差异的目录压缩成 zip: <code>44fd23968b-f144d9017a.zip</code> 并传到服务器上.</p>
+<h3 id="2-下载差异包"><a href="#2-下载差异包" class="headerlink" title="2). 下载差异包"></a>2). 下载差异包</h3><p>下载我们用的是 <code>jsb.Downloader</code> 模块, 下载代码如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> update() &#123;</span><br><span class="line">    <span class="keyword">this</span>.mDownloader = <span class="keyword">new</span> jsb.Downloader(&#123;</span><br><span class="line">        countOfMaxProcessingTasks: <span class="number">32</span>,</span><br><span class="line">        timeoutInSeconds: <span class="number">5</span>,</span><br><span class="line">        tempFileNameSuffix: <span class="string">".temp"</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    jsb.fileUtils.createDirectory(<span class="keyword">this</span>.getStoragePath());</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.setOnFileTaskSuccess(<span class="keyword">this</span>.onTaskSuccess.bind(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.setOnTaskError(<span class="keyword">this</span>.onTaskError.bind(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.setOnTaskProgress(<span class="keyword">this</span>.onTaskProgress.bind(<span class="keyword">this</span>));</span><br><span class="line">    <span class="keyword">this</span>.mDownloader.createDownloadFileTask(<span class="keyword">this</span>.mUrl, storagePath, <span class="string">"hotupdate"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>值得一提的是 <code>countOfMaxProcessingTasks</code> 不能填 1, 不然会导致 Android 上无法开始下载.</p>
+<h3 id="3-解压"><a href="#3-解压" class="headerlink" title="3). 解压"></a>3). 解压</h3><p>解压我们没有单独写实现, 复用了 <code>jsb.AssetsManager</code> 的 <code>decompress</code> 函数, 这个函数之前是私有的, 需要修改下 c++ 代码改成 public 的然后 tojs 下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> decompress(zipPath: <span class="built_in">string</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span> jsb.AssetsManager(<span class="string">""</span>, <span class="keyword">this</span>.getStoragePath(), <span class="literal">null</span>).decompress(zipPath)) &#123;</span><br><span class="line">        cc.log(<span class="string">"SimpleHotUpdate =&gt; decompress:"</span>, <span class="string">"successed"</span>);</span><br><span class="line">        <span class="keyword">this</span>.saveSearchPath([<span class="keyword">this</span>.getStoragePath()]);</span><br><span class="line">        <span class="keyword">this</span>.onUpdateSuccess();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cc.log(<span class="string">"SimpleHotUpdate =&gt; decompress:"</span>, <span class="string">"解压失败"</span>);</span><br><span class="line">    <span class="keyword">this</span>.onUpdateFail(<span class="string">"解压失败"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>好久没写文章了, 最近换了新的电脑, 又有了一些写东西的欲望, 希望能多坚持一会吧.</p>
+
+  </div>
+  <div class="post-footer">
+    
+      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/CocosCreaor/">CocosCreaor</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Hotupdate/">Hotupdate</a></li></ul>
+    
+
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+<footer>
+  &copy; 2018
+  <span class="author">
+    justbilt
+  </span>
+</footer>
+    </div>
+  </body>
+</html>
