@@ -1,61 +1,389 @@
 <!DOCTYPE html>
-<html>
-  <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  
-  <title>手机游戏攻防(一) 变量加密法 - Justbilt</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  
-  <meta name="keywords" content=游戏心得,手机游戏攻防>
-  
-    <meta name="description" content="A game developer">
-  
-  
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
-  
-  
-    <link rel="alternate" href="/atom.xml " title="Justbilt" type="application/atom+xml">
+
+
+
+
+
+
+
+
+
+
+
+
   
 
-  <link rel="stylesheet" href="/css/style.css">
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同! 游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta name="keywords" content="游戏心得,手机游戏攻防">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手机游戏攻防(一) 变量加密法">
+<meta property="og:url" content="http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/index.html">
+<meta property="og:site_name" content="Justbilt">
+<meta property="og:description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同! 游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://blog.justbilt.com/img/31036b15a219185ac6a0c54157ebf36937540518.jpg">
+<meta property="og:updated_time" content="2017-03-12T01:22:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手机游戏攻防(一) 变量加密法">
+<meta name="twitter:description" content="这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同! 游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!">
+<meta name="twitter:image" content="http://blog.justbilt.com/img/31036b15a219185ac6a0c54157ebf36937540518.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Justbilt" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>手机游戏攻防(一) 变量加密法 | Justbilt</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
 </head>
-  <body>
-    <div class="container">
-      <header class="header">
-  <div class="blog-title">
-    <a href="/" class="logo">Justbilt</a>
-    <div class="subtitle">A game developer</div>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Justbilt</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">A game developer</p>
+      
+    
   </div>
-  <nav class="navbar">
-    <ul class="menu">
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
       
-        <li class="menu-item">
-          <a href="/archives" class="menu-item-link">主页</a>
-        </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
       
-        <li class="menu-item">
-          <a href="/about" class="menu-item-link">关于</a>
-        </li>
-      
-        <li class="menu-item">
-          <a href="/atom.xml" class="menu-item-link">RSS</a>
-        </li>
       
     </ul>
-  </nav>
-</header>
-<article class="post">
-  <div class="post-title">
-    <h1 class="article-title">手机游戏攻防(一) 变量加密法</h1>
-  </div>
-   <div class="post-meta">
-    <span class="post-time">2015-04-04</span>
-  </div>
-  <div class="post-content">
-    <p>这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!</p>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.justbilt.com/2015/04/04/phone-game-AND-encrypt-var/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="justbilt">
+      <meta itemprop="description" content="A game developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Justbilt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">手机游戏攻防(一) 变量加密法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-04-04 00:26:44" itemprop="dateCreated datePublished" datetime="2015-04-04T00:26:44+08:00">2015-04-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-03-12 09:22:38" itemprop="dateModified" datetime="2017-03-12T09:22:38+08:00">2017-03-12</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章的前提是单机游戏,网络游戏有自己的加密方法,与单机游戏不尽相同!</p>
 <p>游戏辛辛苦苦的做完了,但是使用八门神器可以轻松的修改你的重要数据(金币,道具数量),哈哈哈,那么恭喜您,您挣不到一分钱!说的有点危言耸听了,毕竟知道八门神器这个工具的不是非常多,而且使用条件比较苛刻,但是我们不能掉以轻心,他完全可以修改完成了,将存档放在网上,这样我们就十分被动了!</p>
 <a id="more"></a>
 <h3 id="一-什么是八门神器"><a href="#一-什么是八门神器" class="headerlink" title="一.什么是八门神器"></a>一.什么是八门神器</h3><p>不明白八门神器为何物的请自行Google!这里我引用百度百科(点击这里:<a href="http://baike.baidu.com/view/3258873.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/3258873.htm</a>)中的一段话:</p>
@@ -88,21 +416,477 @@
 <p>写在后面的话:</p>
 <p>有些人可能会骂八门神器的作者无耻之类,我非常不认同,大家都是靠手艺吃饭的,么有什么无耻不无耻的,如果你的游戏被破解了,只能说明你比较傻!还有对使用八门神器破解游戏的玩家表示同情,因为你一旦破解了,整个游戏就没有意义了!</p>
 
-  </div>
-  <div class="post-footer">
-    
-      <ul class="post-tag-list"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/手机游戏攻防/">手机游戏攻防</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/游戏心得/">游戏心得</a></li></ul>
+      
+    </div>
+
     
 
-    <a href="#top" class="top">返回顶部</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/游戏心得/" rel="tag"># 游戏心得</a>
+          
+            <a href="/tags/手机游戏攻防/" rel="tag"># 手机游戏攻防</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/16/quickxdev-2/" rel="next" title="QuickxDev插件(二) debug.log文件的处理">
+                <i class="fa fa-chevron-left"></i> QuickxDev插件(二) debug.log文件的处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/05/phone-game-AND-watchdog/" rel="prev" title="手机游戏攻防(二) 守护变量法">
+                手机游戏攻防(二) 守护变量法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
-</article>
-<footer>
-  &copy; 2018
-  <span class="author">
-    justbilt
-  </span>
-</footer>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-  </body>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">justbilt</p>
+              <p class="site-description motion-element" itemprop="description">A game developer</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-什么是八门神器"><span class="nav-number">1.</span> <span class="nav-text">一.什么是八门神器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-原理"><span class="nav-number">2.</span> <span class="nav-text">二.原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-应对方案"><span class="nav-number">3.</span> <span class="nav-text">三.应对方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">justbilt</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>
